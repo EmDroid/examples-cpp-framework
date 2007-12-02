@@ -212,6 +212,11 @@ namespace std
     (sizeof((array)) / sizeof(*(array)))
 
 
+#ifdef __cplusplus
+
+// C++ only declarations.
+
+
 /**
     Use variable or function
     (to be always instantiated or prevent unused warning).
@@ -219,11 +224,6 @@ namespace std
 template< class Type >
 void mxUse(Type)
 {}
-
-
-#ifdef __cplusplus
-
-// C++ only declarations.
 
 
 /**

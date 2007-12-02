@@ -29,10 +29,6 @@
 #define MXCPP_TYPES_H_INCLUDE_GUARD
 
 
-namespace mx
-{
-
-
 /**
     Standard size type.
 
@@ -44,10 +40,30 @@ namespace mx
     (Size)(-1) for maximal size can be used). This can faster and simplify
     some algorithms (avoid some checks).
 */
-typedef size_t Size;
+typedef size_t mxSize;
+
+
+#ifdef __cplusplus
+
+// C++ only declarations.
+
+
+namespace mx
+{
+
+
+/**
+    Synonym for mxSize type for the C++ language.
+
+    It is encouraged to use this type under C++ instead of mxSize.
+*/
+typedef mxSize Size;
 
 
 } // namespace mx
+
+
+#endif /* __cplusplus */
 
 
 #endif /* MXCPP_TYPES_H_INCLUDE_GUARD */

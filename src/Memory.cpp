@@ -61,20 +61,30 @@
 
 
 /* static */ void * mx::Memory::Allocate(
-        const char * const sFileName,
-        const Size iFileLine,
         const Size iSizeRequested,
-        Size * const iSizeAllocated)
+        const char * const sFileName,
+        const Size iFileLine)
 {
     if (0 == iSizeRequested)
     {
         return NULL;
     }
     void * const block = malloc(iSizeRequested);
-    if (iSizeAllocated)
+    if (!block)
     {
-        *iSizeAllocated = block ? iSizeRequested : 0;
+        mxThrow(OutOfMemory(iSizeRequested, sFileName, iFileLine));
     }
+    return block;
+}
+
+
+/* static */ void * mx::Memory::Reallocate(
+        void * const pMemoryBlock,
+        const Size iSizeRequested,
+        const char * const sFileName,
+        const Size iFileLine)
+{
+    void * const block = realloc(pMemoryBlock, iSizeRequested);
     if (!block)
     {
         mxThrow(OutOfMemory(iSizeRequested, sFileName, iFileLine));
@@ -87,26 +97,6 @@
         void * const pMemoryBlock)
 {
     free(pMemoryBlock);
-}
-
-
-/* static */ void * mx::Memory::Reallocate(
-        const char * const sFileName,
-        const Size iFileLine,
-        void * const pMemoryBlock,
-        const Size iSizeRequested,
-        Size * const iSizeAllocated)
-{
-    void * const block = realloc(pMemoryBlock, iSizeRequested);
-    if (iSizeAllocated)
-    {
-        *iSizeAllocated = block ? iSizeRequested : 0;
-    }
-    if (!block)
-    {
-        mxThrow(OutOfMemory(iSizeRequested, sFileName, iFileLine));
-    }
-    return block;
 }
 
 

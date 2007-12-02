@@ -19,39 +19,42 @@
 /**
     @file
 
-    @brief Demo C++ Framework.
+    Pure ANSI C tests.
 
-    @author Emil Maskovsky
 */
 
 
-#ifndef MXCPP_H_INCLUDE_GUARD
-#define MXCPP_H_INCLUDE_GUARD
+/* System library. */
+#include "mx.h"
 
 
-/* C and C++ headers. */
-
-#include "mx/sysdefs.h"
-#include "mx/types.h"
-
-#include "mx/malloc.h"
+/* Framework library. */
 
 
-#ifdef __cplusplus
-// C++ only headers.
-
-// Core library headers.
-#include "mx/Except.hpp"
-#include "mx/new.hpp"
-#include "mx/Memory.hpp"
-
-// System library headers.
-#include "mx/System/Error.hpp"
+/* Application specific. */
 
 
-#endif /* __cplusplus */
+int main(void)
+{
+#define TestType  int
+
+    TestType * pIntegers;
+
+    printf("\n\nRunning pure ANSI C tests ...\n\n");
+    fflush(stdout);
 
 
-#endif /* MXCPP_H_INCLUDE_GUARD*/
+    /* Testing standard memory allocations. */
+    pIntegers = (TestType *)malloc(sizeof(TestType));
+    *pIntegers = 10;
+    pIntegers = (TestType *)realloc(pIntegers, sizeof(TestType) * 10);
+//    assert(*pIntegers == 10);
+    free(pIntegers);
+
+    printf("\n\n... tests successfully done.\n");
+
+    return EXIT_SUCCESS;
+}
+
 
 /* EOF */

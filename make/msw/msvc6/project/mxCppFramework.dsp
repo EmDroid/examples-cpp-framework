@@ -432,6 +432,10 @@ SOURCE=..\..\..\..\src\Except.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\src\malloc.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\src\Memory.cpp
 # End Source File
 # Begin Source File
@@ -533,6 +537,10 @@ SOURCE=..\..\..\..\inc\mx\Except.hpp
 # Begin Source File
 
 SOURCE=..\..\..\..\inc\mx\Except.inl
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\inc\mx\malloc.h
 # End Source File
 # Begin Source File
 

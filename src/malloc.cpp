@@ -19,7 +19,7 @@
 /**
     @file
 
-    Global new and delete operators (implementation).
+    Memory handling for pure ANSI C (implementation).
 
     @author Emil Maskovsky
 */
@@ -30,33 +30,42 @@
 
 
 /* Application specific. */
-#include "mx/new.hpp"
+#include "mx/malloc.h"
+#include "mx/Memory.hpp"
 
 
-#include "mx/defs/newundef.hpp"
+extern "C" {
 
 
-MXCPP_DLL_EXPORT void * mx::OperatorNewImplementation(
-        const Size iMemoryBlockSize,
+MXCPP_DLL_EXPORT void * mxAllocateMemory(
+        const mxSize iSizeRequested,
         const char * const sFileName,
-        const Size iFileLine,
-        const bool MX_UNUSED(bVectorAlloc))
+        const mxSize iFileLine)
 {
-    return Memory::Allocate(iMemoryBlockSize, sFileName, iFileLine);
+    return mx::Memory::Allocate(
+            iSizeRequested, sFileName, iFileLine);
 }
 
 
-MXCPP_DLL_EXPORT void mx::OperatorDeleteImplementation(
+MXCPP_DLL_EXPORT void * mxReallocateMemory(
         void * const pMemoryBlock,
-        const bool MX_UNUSED(bVectorFree))
+        const mxSize iSizeRequested,
+        const char * const sFileName,
+        const mxSize iFileLine)
 {
-    Memory::Free(pMemoryBlock);
+    return mx::Memory::Reallocate(
+            pMemoryBlock, iSizeRequested, sFileName, iFileLine);
 }
 
 
-// Define inline methods here if inlining is disabled.
-#ifndef MX_INLINE_ENABLED
-#include "mx/new.inl"
-#endif
+MXCPP_DLL_EXPORT void mxFreeMemory(
+        void * const pMemoryBlock)
+{
+    mx::Memory::Free(pMemoryBlock);
+}
+
+
+} // extern "C"
+
 
 /* EOF */

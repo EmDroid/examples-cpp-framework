@@ -49,20 +49,18 @@ class MXCPP_DLL_EXPORT Memory
 public:
 
     static void * Allocate(
-            const char * const sFileName,
-            const Size iFileLine,
             const Size iSizeRequested,
-            Size * const iSizeAllocated = NULL);
+            const char * const sFileName,
+            const Size iFileLine);
+
+    static void * Reallocate(
+            void * const pMemoryBlock,
+            const Size iSizeRequested,
+            const char * const sFileName,
+            const Size iFileLine);
 
     static void Free(
             void * const pMemoryBlock);
-
-    static void * Reallocate(
-            const char * const sFileName,
-            const Size iFileLine,
-            void * const pMemoryBlock,
-            const Size iSizeRequested,
-            Size * const iSizeAllocated = NULL);
 
 
 }; // class Memory
@@ -76,15 +74,7 @@ public:
 #endif
 
 #define Alloc(size) \
-    Allocate(__FILE__, __LINE__, size)
-
-
-#ifdef AllocRet
-#undef AllocRet
-#endif
-
-#define AllocRet(size, allocated) \
-    Allocate(__FILE__, __LINE__, size, allocated)
+    Allocate(size, __FILE__, __LINE__)
 
 
 #ifdef Realloc
@@ -92,41 +82,12 @@ public:
 #endif
 
 #define Realloc(block, size) \
-    Reallocate(__FILE__, __LINE__, block, size)
-
-
-#ifdef ReallocRet
-#undef ReallocRet
-#endif
-
-#define ReallocRet(block, size, allocated) \
-    Reallocate(__FILE__, __LINE__, block, size, allocated)
+    Reallocate(block, size, __FILE__, __LINE__)
 
 
 #ifdef Free
 #undef Free
 #endif
-
-
-#ifdef malloc
-#undef malloc
-#endif
-
-#define malloc(size)  mx::Memory::Alloc(size)
-
-
-#ifdef realloc
-#undef realloc
-#endif
-
-#define realloc(block, size)  mx::Memory::Realloc(block, size)
-
-
-#ifdef free
-#undef free
-#endif
-
-#define free(block)  mx::Memory::Free(size)
 
 
 // Define inline methods here if inlining is enabled.
