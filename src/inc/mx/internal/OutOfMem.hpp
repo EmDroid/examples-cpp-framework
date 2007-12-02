@@ -53,24 +53,15 @@ class MXCPP_DLL_EXPORT OutOfMemory
 
 public:
 
-    OutOfMemory(
-            const Size iSizeRequested,
-            const char * const sFileName,
-            const Size iFileLine);
+    OutOfMemory(const Size iSizeRequested);
 
 
 // Class instance attributes.
 
 private:
 
-    /// Size of memory that was requested and cannot be allocated.
+    /// Size of memory that was requested and failed to be allocated.
     Size m_iSizeRequested;
-
-    /// Name of the file, where the failed allocation was requested.
-    const char * m_sAllocFileName;
-
-    /// Line number in the file, where the failed allocation was requested.
-    const Size m_iAllocFileLine;
 
 
 }; // class OutOfMemory

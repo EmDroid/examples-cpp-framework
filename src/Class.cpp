@@ -38,7 +38,7 @@
 /* virtual */ mx::Class::~Class()
 {}
 
-const char * mx::Class::GetName() const
+const char * mx::Class::getName() const
 {
     // Instead of implementing virtual GetName() method in all derived
     // classes, we have decided to use the name() provided by the run-time

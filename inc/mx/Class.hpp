@@ -55,7 +55,7 @@ public:
 
 public:
 
-    const char * GetName() const;
+    const char * getName() const;
 
 
 }; // class Class

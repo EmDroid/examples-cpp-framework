@@ -49,7 +49,7 @@ int main(void)
     pIntegers = (TestType *)malloc(sizeof(TestType));
     *pIntegers = 10;
     pIntegers = (TestType *)realloc(pIntegers, sizeof(TestType) * 10);
-//    assert(*pIntegers == 10);
+    mxTest(*pIntegers == 10);
     free(pIntegers);
 
     printf("\n\n... tests successfully done.\n");

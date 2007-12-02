@@ -43,13 +43,9 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::OutOfMemory);
     Constructor.
 */
 mx::OutOfMemory::OutOfMemory(
-        const Size iSizeRequested,
-        const char * const sFileName,
-        const Size iFileLine)
+        const Size iSizeRequested)
     : Super("Out of memory")
     , m_iSizeRequested(iSizeRequested)
-    , m_sAllocFileName(sFileName)
-    , m_iAllocFileLine(iFileLine)
 {}
 
 

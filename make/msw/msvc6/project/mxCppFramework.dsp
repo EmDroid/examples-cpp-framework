@@ -406,10 +406,6 @@ LINK32=link.exe
 SOURCE=..\..\..\..\src\System\Error.cpp
 # End Source File
 # End Group
-# Begin Group "Internal Header Files"
-
-# PROP Default_Filter "h;hpp;hxx;hm;inl"
-# End Group
 # Begin Group "internal"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"

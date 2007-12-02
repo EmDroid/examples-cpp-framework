@@ -31,9 +31,7 @@
 
 #ifndef __cplusplus
 
-#ifndef const
-/* #define const */
-#endif
+#define const
 
 #endif /* __cplusplus */
 

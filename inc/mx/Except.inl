@@ -49,10 +49,29 @@ mx::Exception::getLastRaisedException()
 */
 MX_INLINE mx::Exception::Exception(
         const char * const sMessage)
-    : Super(sMessage)
+    : m_sMessage(sMessage)
     , m_sFileName(NULL)
     , m_iFileLine(0)
 {}
+
+
+/**
+    Get the exception message, if some set.
+
+    @return
+    The message associated with the exception.
+
+    @warning
+    The returned value is @c NULL, if none message was set.
+    If you want to get memory-safe message (which will never be @c NULL), use
+    the what() method.
+
+    @see what()
+*/
+MX_INLINE const char * mx::Exception::message() const
+{
+    return m_sMessage;
+}
 
 
 /**
@@ -107,11 +126,6 @@ MX_INLINE mx::MemoryException::MemoryException(
 MX_INLINE mx::StreamException::StreamException(
         const char * const sMessage)
     : Super(sMessage)
-{}
-
-
-MX_INLINE mx::EndOfFile::EndOfFile()
-    : Super("End of file")
 {}
 
 

@@ -148,6 +148,20 @@ mx::Exception::sm_pLastRaisedException = NULL;
 {}
 
 
+/* MX_OVERRIDDEN */ const char * mx::Exception::what() const
+{
+    const char * const sMessage = message();
+    if (sMessage)
+    {
+        // Use the associated message, if any set.
+        return sMessage;
+    }
+
+    // Otherwise, show the name of the exception.
+    return getName();
+}
+
+
 int mx::Exception::WriteMessage(FILE * const stream) const
 {
     int iBytesWritten = doWriteMessage(stream);
@@ -170,7 +184,18 @@ MX_NORETURN mx::Exception::Fail() const
 
 /* virtual */ int mx::Exception::doWriteMessage(FILE * const stream) const
 {
-    return std::fprintf(stream, "Exception %s caught", GetName());
+    int iBytesWritten
+        = std::fprintf(stream, "Exception [%s] caught", getName());
+
+    // Append the message, if some set.
+    const char * const sMessage = message();
+    if (sMessage)
+    {
+        iBytesWritten
+            += std::fprintf(stream, " with message: '%s'", sMessage);
+    }
+
+    return iBytesWritten;
 }
 
 

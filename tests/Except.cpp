@@ -60,24 +60,25 @@ public:
 MX_IMPLEMENT_EXCEPTION_CLASS(TestException);
 
 
-int RunTest()
+template< class ExceptionType >
+int SingleExceptionTest(const ExceptionType & theException)
 {
-    /* Testing some standard exception. */
-
     // Test framework recommended way of throwing exceptions.
     try
     {
-        mxThrow(EndOfFile());
+        const ExceptionType e = theException;
+        mxThrow(e);
         return EXIT_FAILURE;
     }
-    catch (const EndOfFile & e)
+    catch (const ExceptionType & e)
     {
         e.WriteMessage(stdout);
     }
     // Check catching as arbitrary exception.
     try
     {
-        mxThrow(EndOfFile());
+        const ExceptionType e = theException;
+        mxThrow(e);
         return EXIT_FAILURE;
     }
     catch (const Exception & e)
@@ -94,17 +95,19 @@ int RunTest()
     // Test throwing exceptions by value, catching by reference.
     try
     {
-        throw EndOfFile();
+        const ExceptionType e = theException;
+        throw e;
         return EXIT_FAILURE;
     }
-    catch (const EndOfFile & e)
+    catch (const ExceptionType & e)
     {
         e.WriteMessage(stdout);
     }
     // Check catching as arbitrary exception.
     try
     {
-        throw EndOfFile();
+        const ExceptionType e = theException;
+        throw e;
         return EXIT_FAILURE;
     }
     catch (const Exception & e)
@@ -115,68 +118,35 @@ int RunTest()
     {
         fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
                 __FILE__, __LINE__);
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+}
+
+
+int RunTest()
+{
+    /* Testing some standard exception. */
+
+    if (EXIT_SUCCESS != SingleExceptionTest(EndOfFile()))
+    {
         return EXIT_FAILURE;
     }
 
 
     /* Testing some non-standard exception. */
 
-    // Test framework recommended way of throwing exceptions.
-    try
+    if (EXIT_SUCCESS != SingleExceptionTest(
+                OutOfMemory((Size) - 1)))
     {
-        mxThrow(OutOfMemory((Size) - 1, __FILE__, __LINE__));
-        return EXIT_FAILURE;
-    }
-    catch (const OutOfMemory & e)
-    {
-        e.WriteMessage(stdout);
-    }
-    // Check catching as arbitrary exception.
-    try
-    {
-        mxThrow(OutOfMemory((Size) - 1, __FILE__, __LINE__));
-        return EXIT_FAILURE;
-    }
-    catch (const Exception & e)
-    {
-        e.WriteMessage(stdout);
-    }
-    catch (...)
-    {
-        fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
-                __FILE__, __LINE__);
-        return EXIT_FAILURE;
-    }
-
-    // Test throwing exceptions by value, catching by reference.
-    try
-    {
-        throw OutOfMemory((Size) - 1, __FILE__, __LINE__);
-        return EXIT_FAILURE;
-    }
-    catch (const OutOfMemory & e)
-    {
-        e.WriteMessage(stdout);
-    }
-    // Check catching as arbitrary exception.
-    try
-    {
-        throw OutOfMemory((Size) - 1, __FILE__, __LINE__);
-        return EXIT_FAILURE;
-    }
-    catch (const Exception & e)
-    {
-        e.WriteMessage(stdout);
-    }
-    catch (...)
-    {
-        fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
-                __FILE__, __LINE__);
         return EXIT_FAILURE;
     }
 
 
     /* Check exception re-throwing. */
+
+    // Test framework recommended way of throwing exceptions.
     try
     {
         try
@@ -206,22 +176,24 @@ int RunTest()
         return EXIT_FAILURE;
     }
 
-
-    /* Check application-defined exception. */
+    // Test throwing exceptions by value, catching by reference.
     try
     {
-        mxThrow(TestException("Message 1"));
-        return EXIT_FAILURE;
-    }
-    catch (const TestException & e)
-    {
-        e.WriteMessage(stdout);
-    }
-    // Check catching as arbitrary exception.
-    try
-    {
-        mxThrow(TestException("Message 2"));
-        return EXIT_FAILURE;
+        try
+        {
+            throw EndOfFile();
+            return EXIT_FAILURE;
+        }
+        catch (const Exception &)
+        {
+            throw;
+        }
+        catch (...)
+        {
+            fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
+                    __FILE__, __LINE__);
+            return EXIT_FAILURE;
+        }
     }
     catch (const Exception & e)
     {
@@ -231,6 +203,15 @@ int RunTest()
     {
         fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
                 __FILE__, __LINE__);
+        return EXIT_FAILURE;
+    }
+
+
+    /* Check application-defined exception. */
+
+    if (EXIT_SUCCESS != SingleExceptionTest(
+                TestException("Test message")))
+    {
         return EXIT_FAILURE;
     }
 

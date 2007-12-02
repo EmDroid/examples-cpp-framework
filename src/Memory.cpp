@@ -72,7 +72,7 @@
     void * const block = malloc(iSizeRequested);
     if (!block)
     {
-        mxThrow(OutOfMemory(iSizeRequested, sFileName, iFileLine));
+        ThrowException(OutOfMemory(iSizeRequested), sFileName, iFileLine);
     }
     return block;
 }
@@ -87,7 +87,7 @@
     void * const block = realloc(pMemoryBlock, iSizeRequested);
     if (!block)
     {
-        mxThrow(OutOfMemory(iSizeRequested, sFileName, iFileLine));
+        ThrowException(OutOfMemory(iSizeRequested), sFileName, iFileLine);
     }
     return block;
 }

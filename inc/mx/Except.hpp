@@ -127,14 +127,25 @@ private:                                       \
     "framework exception constructs" to throw and catch Exception based
     exceptions. See mxThrow() for further details.
 
+    @note
+    Exception classes should normally be based on the std::exception class, but
+    because of different implementation under various compilers (and e.g. no
+    presence under some compilers at all), we decided to not use std::exception
+    based exception system.
+    There is even the problem, that some compilers copy the message sent to
+    std::exception constructor locally, which is unacceptable for some of our
+    exception classes, e.g. when reporting memory related problems with heap (in
+    that case it is essential, to make none additional allocation at least inside
+    the exception core during the exception lifetime, this means even in the
+    constructor).
+
     @see @ref exceptions_implementation
 */
 class MXCPP_DLL_EXPORT Exception
     : public Class
-    , public std::exception
 {
 
-    MX_DECLARE_EXCEPTION_CLASS(Exception, std::exception);
+    MX_DECLARE_EXCEPTION_CLASS(Exception, Class);
 
 
 // Class methods (static).
@@ -162,7 +173,7 @@ private:
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE Exception(const char * sMessage);
+    MX_INLINE Exception(const char * sMessage = NULL);
 
     // Automatic copy and assignment constructor is ok for us
     // (shallow copy of file name and line information).
@@ -175,11 +186,16 @@ public:
 
 public:
 
+    // Overridden std::exception::what() method.
+    virtual const char * what() const;
+
     int WriteMessage(FILE * const stream) const;
 
     MX_NORETURN Fail() const;
 
 protected:
+
+    MX_INLINE const char * message() const;
 
     virtual int doWriteMessage(FILE * const stream) const;
 
@@ -187,6 +203,9 @@ protected:
 // Class instance attributes.
 
 private:
+
+    /// The message associated with the exception.
+    const char * const m_sMessage;
 
     /// Name of the source file, where the exception was raised.
     mutable const char * m_sFileName;
@@ -291,7 +310,7 @@ class MXCPP_DLL_EXPORT ApplicationException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE ApplicationException(const char * sMessage);
+    MX_INLINE ApplicationException(const char * sMessage = NULL);
 
 
 }; // class ApplicationException
@@ -322,7 +341,7 @@ class MXCPP_DLL_EXPORT SystemException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE SystemException(const char * sMessage);
+    MX_INLINE SystemException(const char * sMessage = NULL);
 
 
 }; // class SystemException
@@ -352,7 +371,7 @@ class MXCPP_DLL_EXPORT KernelException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE KernelException(const char * sMessage);
+    MX_INLINE KernelException(const char * sMessage = NULL);
 
 
 }; // class KernelException
@@ -381,7 +400,7 @@ class MXCPP_DLL_EXPORT MemoryException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE MemoryException(const char * sMessage);
+    MX_INLINE MemoryException(const char * sMessage = NULL);
 
 
 }; // class MemoryException
@@ -398,7 +417,7 @@ class MXCPP_DLL_EXPORT StreamException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE StreamException(const char * sMessage);
+    MX_INLINE StreamException(const char * sMessage = NULL);
 
 
 }; // class StreamException
@@ -409,13 +428,6 @@ class MXCPP_DLL_EXPORT EndOfFile
 {
 
     MX_DECLARE_EXCEPTION_CLASS(EndOfFile, StreamException);
-
-// Construction, destruction.
-
-public:
-
-    MX_INLINE EndOfFile();
-
 
 }; // class EndOfFile
 
