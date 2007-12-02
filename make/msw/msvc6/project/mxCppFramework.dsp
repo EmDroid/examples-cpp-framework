@@ -574,6 +574,14 @@ SOURCE=..\..\..\..\inc\mx\types.h
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=..\..\..\..\src\res\mxCppFramework.rc
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\src\inc\mx\internal\version.h
+# End Source File
 # End Group
 # End Target
 # End Project

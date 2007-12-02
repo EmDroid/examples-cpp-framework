@@ -21,6 +21,7 @@
 
     Pure ANSI C tests.
 
+    @author Emil Maskovsky
 */
 
 

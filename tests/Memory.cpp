@@ -21,6 +21,7 @@
 
     Memory sybsystem tests.
 
+    @author Emil Maskovsky
 */
 
 
