@@ -39,7 +39,7 @@
 #pragma warning(disable : 4290)
 
 /* Disable warning: copy constructor could not be generated */
-#pragma warning(disable : 4511)
+/* #pragma warning(disable : 4511) */
 
 
 #endif /* MXCPP_SYSDEF_MSVC6_H_INCLUDE_GUARD */

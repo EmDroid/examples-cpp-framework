@@ -25,24 +25,93 @@
 */
 
 
-/**
-    Get the pointer to the last exception raised, if any.
-*/
-/* static */ MX_INLINE mx::Exception * mx::Exception::GetLastRaisedException()
+/* static */ MX_INLINE void mx::Exception::setLastRaisedException(
+        const Exception & theException)
 {
-    return sm_xLastRaisedException;
+    sm_pLastRaisedException = &theException;
 }
 
 
-/*
-MX_INLINE mx::Exception::Exception(const Exception & other)
-    : m_sFileName(other.m_sFileName)
-    , m_iFileLine(other.m_iFileLine)
-{}
+/**
+    Get the pointer to the last exception raised, if any.
 */
+/* static */ MX_INLINE const mx::Exception *
+mx::Exception::getLastRaisedException()
+{
+    return sm_pLastRaisedException;
+}
+
+
+/**
+    Constructor.
+
+    @param [in] sMessage The exception message.
+*/
+MX_INLINE mx::Exception::Exception(
+        const char * const sMessage)
+    : Super(sMessage)
+    , m_sFileName(NULL)
+    , m_iFileLine(0)
+{}
+
+
+/**
+    Constructor.
+
+    @param [in] sMessage The exception message.
+*/
+MX_INLINE mx::ApplicationException::ApplicationException(
+        const char * const sMessage)
+    : Super(sMessage)
+{}
+
+
+/**
+    Constructor.
+
+    @param [in] sMessage The exception message.
+*/
+MX_INLINE mx::SystemException::SystemException(
+        const char * const sMessage)
+    : Super(sMessage)
+{}
+
+
+/**
+    Constructor.
+
+    @param [in] sMessage The exception message.
+*/
+MX_INLINE mx::KernelException::KernelException(
+        const char * const sMessage)
+    : Super(sMessage)
+{}
+
+
+/**
+    Constructor.
+
+    @param [in] sMessage The exception message.
+*/
+MX_INLINE mx::MemoryException::MemoryException(
+        const char * const sMessage)
+    : Super(sMessage)
+{}
+
+
+/**
+    Constructor.
+
+    @param [in] sMessage The exception message.
+*/
+MX_INLINE mx::StreamException::StreamException(
+        const char * const sMessage)
+    : Super(sMessage)
+{}
 
 
 MX_INLINE mx::EndOfFile::EndOfFile()
+    : Super("End of file")
 {}
 
 

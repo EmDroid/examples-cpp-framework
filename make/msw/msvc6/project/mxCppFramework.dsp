@@ -52,14 +52,14 @@ CFG=mxCppFramework - Win32 Release
 MTL=midl.exe
 CPP=cl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /FD /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /c
+# SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo /out:"../mxcpp.lib"
 # ADD LIB32 /nologo /out:"../mxcpp.lib"
@@ -86,7 +86,7 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo /out:"../mxcppd.lib"
 # ADD LIB32 /nologo /out:"../mxcppd.lib"
@@ -106,14 +106,14 @@ LIB32=link.exe -lib
 MTL=midl.exe
 CPP=cl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /FD /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /c
+# SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo /out:"../mxcppu.lib"
 # ADD LIB32 /nologo /out:"../mxcppu.lib"
@@ -133,14 +133,14 @@ LIB32=link.exe -lib
 MTL=midl.exe
 CPP=cl.exe
 # ADD BASE CPP /nologo /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /FD /GZ /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /GZ /c
+# SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "_DEBUG" /d "UNICODE"
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo /out:"../mxcppud.lib"
 # ADD LIB32 /nologo /out:"../mxcppud.lib"
@@ -160,14 +160,14 @@ LIB32=link.exe -lib
 MTL=midl.exe
 CPP=cl.exe
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj_mt/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /FD /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /MT /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /c
+# SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo /out:"../mxcppmt.lib"
 # ADD LIB32 /nologo /out:"../mxcppmt.lib"
@@ -187,14 +187,14 @@ LIB32=link.exe -lib
 MTL=midl.exe
 CPP=cl.exe
 # ADD BASE CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd_mt/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /FD /GZ /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /GZ /c
+# SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo /out:"../mxcppmtd.lib"
 # ADD LIB32 /nologo /out:"../mxcppmtd.lib"
@@ -214,14 +214,14 @@ LIB32=link.exe -lib
 MTL=midl.exe
 CPP=cl.exe
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju_mt/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /FD /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /MT /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /c
+# SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo /out:"../mxcppmtu.lib"
 # ADD LIB32 /nologo /out:"../mxcppmtu.lib"
@@ -241,14 +241,14 @@ LIB32=link.exe -lib
 MTL=midl.exe
 CPP=cl.exe
 # ADD BASE CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud_mt/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /FD /GZ /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /GZ /c
+# SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "_DEBUG" /d "UNICODE"
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo /out:"../mxcppmtud.lib"
 # ADD LIB32 /nologo /out:"../mxcppmtud.lib"
@@ -268,8 +268,8 @@ LIB32=link.exe -lib
 # PROP Target_Dir ""
 CPP=cl.exe
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj_dll/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /FD /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /c
+# SUBTRACT CPP /YX
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
@@ -278,7 +278,7 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /dll /machine:I386 /out:"../mxcpp01.dll"
 # ADD LINK32 /nologo /dll /machine:I386 /out:"../mxcpp01.dll"
@@ -298,8 +298,8 @@ LINK32=link.exe
 # PROP Target_Dir ""
 CPP=cl.exe
 # ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd_dll/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /FD /GZ /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /GZ /c
+# SUBTRACT CPP /YX
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
@@ -308,7 +308,7 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /dll /debug /machine:I386 /out:"../mxcpp01d.dll" /pdbtype:sept
 # ADD LINK32 /nologo /dll /debug /machine:I386 /out:"../mxcpp01d.dll" /pdbtype:sept
@@ -329,8 +329,8 @@ LINK32=link.exe
 # PROP Target_Dir ""
 CPP=cl.exe
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju_dll/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /FD /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /c
+# SUBTRACT CPP /YX
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "NDEBUG" /D "UNICODE" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /D "UNICODE" /mktyplib203 /win32
@@ -339,7 +339,7 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /dll /machine:I386 /out:"../mxcpp01u.dll"
 # ADD LINK32 /nologo /dll /machine:I386 /out:"../mxcpp01u.dll"
@@ -360,8 +360,8 @@ LINK32=link.exe
 # PROP Target_Dir ""
 CPP=cl.exe
 # ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud_dll/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /FD /GZ /c
-# SUBTRACT CPP /Fr /YX
+# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /GZ /c
+# SUBTRACT CPP /YX
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "_DEBUG" /D "UNICODE" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /D "UNICODE" /mktyplib203 /win32
@@ -370,7 +370,7 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
-# ADD BSC32 /nologo
+# ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /dll /debug /machine:I386 /out:"../mxcpp01ud.dll" /pdbtype:sept
 # ADD LINK32 /nologo /dll /debug /machine:I386 /out:"../mxcpp01ud.dll" /pdbtype:sept

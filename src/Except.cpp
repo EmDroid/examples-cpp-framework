@@ -137,22 +137,8 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::Exception);
     to find the last raised exception when either terminate() or unexpected()
     functions are triggered.
 */
-/* static */ mx::Exception * mx::Exception::sm_xLastRaisedException = NULL;
-
-
-/**
-    Constructor.
-
-
-    @param [in] pWrappedException Exception to be wrapped inside
-                                  this exception.
-*/
-mx::Exception::Exception()
-    : m_sFileName(NULL)
-    , m_iFileLine(0)
-{
-    sm_xLastRaisedException = this;
-}
+/* static */ const mx::Exception *
+mx::Exception::sm_pLastRaisedException = NULL;
 
 
 /**
@@ -321,8 +307,8 @@ MX_NORETURN mx::UncaughtExceptionHandler::HandleUnexpected()
 {
     // See if we know what the last thrown exception was. If not, fail with
     // generic error message.
-    Exception * const pException
-        = Exception::GetLastRaisedException();
+    const Exception * const pException
+        = Exception::getLastRaisedException();
 
     if (!pException)
     {

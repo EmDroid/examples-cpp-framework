@@ -46,7 +46,8 @@ mx::OutOfMemory::OutOfMemory(
         const Size iSizeRequested,
         const char * const sFileName,
         const Size iFileLine)
-    : m_iSizeRequested(iSizeRequested)
+    : Super("Out of memory")
+    , m_iSizeRequested(iSizeRequested)
     , m_sAllocFileName(sFileName)
     , m_iAllocFileLine(iFileLine)
 {}

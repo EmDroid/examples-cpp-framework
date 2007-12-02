@@ -41,10 +41,7 @@ namespace mx
 
 
 #define mxThrow(exception) \
-    mx::Exception::ThrowException(exception, __FILE__, __LINE__)
-
-
-// Core of the exception system.
+    mx::ThrowException(exception, __FILE__, __LINE__)
 
 
 /**
@@ -112,6 +109,9 @@ private:                                       \
 #define MX_IMPLEMENT_EXCEPTION_CLASS(name)
 
 
+// Core of the exception system.
+
+
 /**
     Base class for all our exception.
 
@@ -139,48 +139,12 @@ class MXCPP_DLL_EXPORT Exception
 
 // Class methods (static).
 
-public:
-
-    /**
-        Setup and raise the exception.
-
-        Sets up the exception @p pException and throws it.
-
-        @tparam ExceptionType The type of exception being raised.
-
-        The template is required to throw proper exception type.
-
-        @param [in] pException The exception being raised.
-        @param [in] sFileName  Name of the source file to be remembered.
-                               Should last until the exception is destroyed,
-                               therefore it is best if it is a C string literal
-                               (like @c __FILE__).
-        @param [in] iFileLine  Line number within source file @a sFileName.
-
-        @return
-        This function never returns, always throwing the supplied exception.
-    */
-    template< typename ExceptionType >
-    static MX_NORETURN ThrowException(
-            const ExceptionType & pException,
-            const char * const sFileName = NULL,
-            const Size iFileLine = 0)
-    {
-        // Setup the exception using Exception typed reference, to allow setting
-        // of its private members.
-        // (In the case of catching by reference, the cast-to-pointer operator
-        // is used.)
-        const Exception * const pExceptionBase = &pException;
-        pExceptionBase->m_sFileName = sFileName;
-        pExceptionBase->m_iFileLine = iFileLine;
-
-        // Throw the exception now.
-        throw pException;
-    }
-
 private:
 
-    static MX_INLINE Exception * GetLastRaisedException();
+    static MX_INLINE void setLastRaisedException(
+            const Exception & theException);
+
+    static MX_INLINE const Exception * getLastRaisedException();
 
     /// Only our exception handler is supposed to use the last raised exception.
     friend class UncaughtExceptionHandler;
@@ -190,7 +154,7 @@ private:
 
 private:
 
-    static Exception * sm_xLastRaisedException;
+    static const Exception * sm_pLastRaisedException;
 
 
 // Construction, destruction.
@@ -198,9 +162,9 @@ private:
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    Exception();
+    MX_INLINE Exception(const char * sMessage);
 
-    // Automatic copy constructor is ok for us
+    // Automatic copy and assignment constructor is ok for us
     // (shallow copy of file name and line information).
 
 public:
@@ -224,22 +188,37 @@ protected:
 
 private:
 
-    /// Name of the source code file from where the exception was raised.
+    /// Name of the source file, where the exception was raised.
     mutable const char * m_sFileName;
 
-    /// Line number in the source code file from where the exception was raised.
+    /// Line number in the source file, where the exception was raised.
     mutable Size m_iFileLine;
 
-    /*
-
+    // Only our thrower is supposed to setup the exception.
     template< typename ExceptionType >
     friend MX_NORETURN ThrowException(const ExceptionType &,
             const char * const, const Size);
-       */
 
 
 }; // class Exception
 
+
+// Next is the thrower of exceptions based on mx::Exception class.
+//
+// The thrower has to be generic template function, because otherwise we will
+// not be able to throw correct exception type.
+// The alternative approach is to have virtual or static throwing function in
+// each exception class, which would work too, but there are several
+// disadvantages of such virtual throwing functions:
+//     - it must be overriden in each exception class (this is additional
+//       overhead when implementing derived exceptions, and potential cause of
+//       bugs - if the developer forgets to override it, the throwing will still
+//       work, but will throw an exception of type other than desired)
+//
+// The thrower should be implemented inside the mx::Exception class normally,
+// but there is problem when using as dynamic-linked library (DLL), while the
+// method is generic (template) and is therefore reported as unresolved external
+// for user-defined exceptions.
 
 /**
     Setup and raise the exception.
@@ -252,10 +231,17 @@ private:
 
     @param [in] pException The exception being raised.
     @param [in] sFileName  Name of the source file to be remembered.
-                           Should last until the exception is destroyed,
-                           therefore it is best if it is a C string literal
-                           (like @c __FILE__).
-    @param [in] iFileLine  Line number within source file @a sFileName.
+    @param [in] iFileLine  Line number within the source file.
+
+    This thrower is not supposed to be called directly, you may want to use the
+    mxThrow() macro to throw exceptions based on mx::Exception.
+
+    @warning
+    The parameter @p sFileName is expected to last until the exception is
+    destroyed, because the information is not copied to avoid problems in low
+    memory conditions (the case of OutOfMemory exception).
+    Therefore it is the best if it is a C string literal (like @c __FILE__, which
+    is supposed to be used here).
 
     @return
     This function never returns, always throwing the supplied exception.
@@ -273,6 +259,8 @@ MX_NORETURN ThrowException(
     const Exception * const pExceptionBase = &pException;
     pExceptionBase->m_sFileName = sFileName;
     pExceptionBase->m_iFileLine = iFileLine;
+
+    Exception::setLastRaisedException(pException);
 
     // Throw the exception now.
     throw pException;
@@ -298,6 +286,13 @@ class MXCPP_DLL_EXPORT ApplicationException
 
     MX_DECLARE_EXCEPTION_CLASS(ApplicationException, Exception);
 
+// Construction, destruction.
+
+protected:
+
+    // Protected constructor to prevent direct throwing of the exception.
+    MX_INLINE ApplicationException(const char * sMessage);
+
 
 }; // class ApplicationException
 
@@ -322,6 +317,13 @@ class MXCPP_DLL_EXPORT SystemException
 
     MX_DECLARE_EXCEPTION_CLASS(SystemException, Exception);
 
+// Construction, destruction.
+
+protected:
+
+    // Protected constructor to prevent direct throwing of the exception.
+    MX_INLINE SystemException(const char * sMessage);
+
 
 }; // class SystemException
 
@@ -345,6 +347,13 @@ class MXCPP_DLL_EXPORT KernelException
 
     MX_DECLARE_EXCEPTION_CLASS(KernelException, SystemException);
 
+// Construction, destruction.
+
+protected:
+
+    // Protected constructor to prevent direct throwing of the exception.
+    MX_INLINE KernelException(const char * sMessage);
+
 
 }; // class KernelException
 
@@ -367,6 +376,13 @@ class MXCPP_DLL_EXPORT MemoryException
 
     MX_DECLARE_EXCEPTION_CLASS(MemoryException, KernelException);
 
+// Construction, destruction.
+
+protected:
+
+    // Protected constructor to prevent direct throwing of the exception.
+    MX_INLINE MemoryException(const char * sMessage);
+
 
 }; // class MemoryException
 
@@ -376,6 +392,13 @@ class MXCPP_DLL_EXPORT StreamException
 {
 
     MX_DECLARE_EXCEPTION_CLASS(StreamException, KernelException);
+
+// Construction, destruction.
+
+protected:
+
+    // Protected constructor to prevent direct throwing of the exception.
+    MX_INLINE StreamException(const char * sMessage);
 
 
 }; // class StreamException

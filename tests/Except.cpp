@@ -50,7 +50,8 @@ class TestException
 
 public:
 
-    MX_INLINE TestException()
+    MX_INLINE TestException(const char * const sMessage)
+        : Super(sMessage)
     {}
 
 };
@@ -204,6 +205,35 @@ int RunTest()
                 __FILE__, __LINE__);
         return EXIT_FAILURE;
     }
+
+
+    /* Check application-defined exception. */
+    try
+    {
+        mxThrow(TestException("Message 1"));
+        return EXIT_FAILURE;
+    }
+    catch (const TestException & e)
+    {
+        e.WriteMessage(stdout);
+    }
+    // Check catching as arbitrary exception.
+    try
+    {
+        mxThrow(TestException("Message 2"));
+        return EXIT_FAILURE;
+    }
+    catch (const Exception & e)
+    {
+        e.WriteMessage(stdout);
+    }
+    catch (...)
+    {
+        fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
+                __FILE__, __LINE__);
+        return EXIT_FAILURE;
+    }
+
 
     /* Uncomment following line to check uncaught exception handler. */
 //    mxThrow(EndOfFile());
