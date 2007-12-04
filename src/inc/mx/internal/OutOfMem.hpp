@@ -29,7 +29,11 @@
 #define MXCPP_OUT_OF_MEMORY_EXCEPTION_HPP_INCLUDE_GUARD
 
 
-#include "mx/defs/newundef.hpp"
+#include "mx/sysdefs.h"
+
+#include "mx/types.h"
+
+#include "mx/Memory.hpp"
 
 
 namespace mx
@@ -74,9 +78,6 @@ private:
 #ifdef MX_INLINE_ENABLED
 #include "mx/internal/OutOfMem.inl"
 #endif
-
-
-#include "mx/defs/newdef.hpp"
 
 
 #endif // MXCPP_OUT_OF_MEMORY_EXCEPTION_HPP_INCLUDE_GUARD

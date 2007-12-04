@@ -25,24 +25,19 @@
 */
 
 
-/* System library. */
-#include "mx.h"
-
-
 /* Framework library. */
+#include "mx/tests/TestApp.hpp"
 
 
 /* Application specific. */
+#include "mx/Memory.hpp"
 
 
 namespace mx
 {
 
-namespace test
-{
 
-
-int RunTest()
+mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 {
     typedef int TestType;
     TestType * pIntegers;
@@ -52,7 +47,7 @@ int RunTest()
     pIntegers = (TestType *)malloc(sizeof(TestType));
     *pIntegers = 10;
     pIntegers = (TestType *)realloc(pIntegers, sizeof(TestType) * 10);
-//    assert(*pIntegers == 10);
+    mxTest(*pIntegers == 10);
     free(pIntegers);
 
 
@@ -67,19 +62,14 @@ int RunTest()
     pIntegers[5] = 15;
     delete[] pIntegers;
 
-    return EXIT_SUCCESS;
+    return RC_SUCCESS;
 }
 
-
-} // namespace mx::test
 
 } // namespace mx
 
 
-int main(void)
-{
-    return mx::test::RunTest();
-}
+MX_IMPLEMENT_APP(mx::TestApp)
 
 
 /* EOF */

@@ -418,13 +418,33 @@ SOURCE=..\..\..\..\src\inc\mx\internal\OutOfMem.hpp
 SOURCE=..\..\..\..\src\inc\mx\internal\OutOfMem.inl
 # End Source File
 # End Group
+# Begin Group "Application Sources"
+
+# PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Source File
+
+SOURCE=..\..\..\..\src\App\App.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\src\App\TestApp.cpp
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=..\..\..\..\src\Class.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\src\debug.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\src\Except.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\src\log.cpp
 # End Source File
 # Begin Source File
 
@@ -518,6 +538,26 @@ SOURCE=..\..\..\..\inc\mx\System\Error.hpp
 SOURCE=..\..\..\..\inc\mx\System\Error.inl
 # End Source File
 # End Group
+# Begin Group "Application"
+
+# PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\..\..\inc\mx\App\App.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\inc\mx\App\App.inl
+# End Source File
+# End Group
+# Begin Group "tests"
+
+# PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\..\..\inc\mx\tests\TestApp.hpp
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=..\..\..\..\inc\mx\Class.hpp
@@ -528,11 +568,27 @@ SOURCE=..\..\..\..\inc\mx\Class.inl
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\inc\mx\debug.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\inc\mx\debug.inl
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\inc\mx\Except.hpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\inc\mx\Except.inl
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\inc\mx\log.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\inc\mx\log.inl
 # End Source File
 # Begin Source File
 

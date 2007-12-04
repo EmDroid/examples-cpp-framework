@@ -26,7 +26,6 @@
 
 
 /* Framework libraries. */
-#include "mx.h"
 
 
 /* Application specific. */

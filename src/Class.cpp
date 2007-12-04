@@ -25,14 +25,15 @@
 */
 
 
+/* System libraries. */
+#include <typeinfo>
+
+
 /* Framework libraries. */
-#include "mx.h"
 
 
 /* Application specific. */
 #include "mx/Class.hpp"
-
-#include <typeinfo>
 
 
 /* virtual */ mx::Class::~Class()

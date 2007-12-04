@@ -26,7 +26,6 @@
 
 
 /* Framework libraries. */
-#include "mx.h"
 
 
 /* Application specific. */
@@ -58,6 +57,10 @@
 #ifdef free
 #undef free
 #endif
+
+
+// Start the exception implementation.
+MX_IMPLEMENT_EXCEPTION_CLASS(mx::MemoryException);
 
 
 /* static */ void * mx::Memory::Allocate(

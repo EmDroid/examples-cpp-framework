@@ -53,8 +53,6 @@
 
 // C++ only stadard headers.
 
-#include <exception>
-
 
 #if (!defined(MXCPP_FIX_USE_OLD_C_HEADERS) \
     && defined(MXCPP_FIX_HAS_NOT_STD_NAMESPACE))
@@ -77,6 +75,13 @@ namespace std
 #ifndef MXCPP_DLL_EXPORT
 #define MXCPP_DLL_EXPORT
 #endif
+
+
+#define mxT(string)  string
+
+#define _(string)  mxT(string)
+
+#define _T(string)  mxT(string)
 
 
 /**

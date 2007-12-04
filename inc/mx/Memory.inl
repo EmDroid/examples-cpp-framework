@@ -25,4 +25,15 @@
 */
 
 
+/**
+    Constructor.
+
+    @param [in] sMessage The exception message.
+*/
+MX_INLINE mx::MemoryException::MemoryException(
+        const char * const sMessage)
+    : Super(sMessage)
+{}
+
+
 /* EOF */

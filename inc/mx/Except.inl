@@ -79,17 +79,6 @@ MX_INLINE const char * mx::Exception::message() const
 
     @param [in] sMessage The exception message.
 */
-MX_INLINE mx::ApplicationException::ApplicationException(
-        const char * const sMessage)
-    : Super(sMessage)
-{}
-
-
-/**
-    Constructor.
-
-    @param [in] sMessage The exception message.
-*/
 MX_INLINE mx::SystemException::SystemException(
         const char * const sMessage)
     : Super(sMessage)
@@ -102,17 +91,6 @@ MX_INLINE mx::SystemException::SystemException(
     @param [in] sMessage The exception message.
 */
 MX_INLINE mx::KernelException::KernelException(
-        const char * const sMessage)
-    : Super(sMessage)
-{}
-
-
-/**
-    Constructor.
-
-    @param [in] sMessage The exception message.
-*/
-MX_INLINE mx::MemoryException::MemoryException(
         const char * const sMessage)
     : Super(sMessage)
 {}

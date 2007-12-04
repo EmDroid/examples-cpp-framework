@@ -24,21 +24,16 @@
 */
 
 
-/* System library. */
-#include "mx.h"
-
-
 /* Framework library. */
-#include "mx/internal/OutOfMem.hpp"
+#include "mx/tests/TestApp.hpp"
 
 
 /* Application specific. */
+#include "mx/Except.hpp"
+#include "mx/internal/OutOfMem.hpp"
 
 
 namespace mx
-{
-
-namespace test
 {
 
 
@@ -125,13 +120,13 @@ int SingleExceptionTest(const ExceptionType & theException)
 }
 
 
-int RunTest()
+mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 {
     /* Testing some standard exception. */
 
     if (EXIT_SUCCESS != SingleExceptionTest(EndOfFile()))
     {
-        return EXIT_FAILURE;
+        return RC_FAILURE;
     }
 
 
@@ -140,7 +135,7 @@ int RunTest()
     if (EXIT_SUCCESS != SingleExceptionTest(
                 OutOfMemory((Size) - 1)))
     {
-        return EXIT_FAILURE;
+        return RC_FAILURE;
     }
 
 
@@ -152,7 +147,7 @@ int RunTest()
         try
         {
             mxThrow(EndOfFile());
-            return EXIT_FAILURE;
+            return RC_FAILURE;
         }
         catch (const Exception &)
         {
@@ -162,7 +157,7 @@ int RunTest()
         {
             fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
                     __FILE__, __LINE__);
-            return EXIT_FAILURE;
+            return RC_FAILURE;
         }
     }
     catch (const Exception & e)
@@ -173,7 +168,7 @@ int RunTest()
     {
         fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
                 __FILE__, __LINE__);
-        return EXIT_FAILURE;
+        return RC_FAILURE;
     }
 
     // Test throwing exceptions by value, catching by reference.
@@ -182,7 +177,7 @@ int RunTest()
         try
         {
             throw EndOfFile();
-            return EXIT_FAILURE;
+            return RC_FAILURE;
         }
         catch (const Exception &)
         {
@@ -192,7 +187,7 @@ int RunTest()
         {
             fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
                     __FILE__, __LINE__);
-            return EXIT_FAILURE;
+            return RC_FAILURE;
         }
     }
     catch (const Exception & e)
@@ -203,7 +198,7 @@ int RunTest()
     {
         fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
                 __FILE__, __LINE__);
-        return EXIT_FAILURE;
+        return RC_FAILURE;
     }
 
 
@@ -212,26 +207,21 @@ int RunTest()
     if (EXIT_SUCCESS != SingleExceptionTest(
                 TestException("Test message")))
     {
-        return EXIT_FAILURE;
+        return RC_FAILURE;
     }
 
 
     /* Uncomment following line to check uncaught exception handler. */
 //    mxThrow(EndOfFile());
 
-    return EXIT_SUCCESS;
+    return RC_SUCCESS;
 }
 
-
-} // namespace mx::test
 
 } // namespace mx
 
 
-int main(void)
-{
-    return mx::test::RunTest();
-}
+MX_IMPLEMENT_APP(mx::TestApp)
 
 
 /* EOF */

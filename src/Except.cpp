@@ -25,8 +25,13 @@
 */
 
 
+/* System libraries. */
+#include <exception>
+
+
 /* Framework libraries. */
-#include "mx.h"
+#include "mx/log.h"
+#include "mx/App/App.hpp"
 
 
 /* Application specific. */
@@ -141,6 +146,25 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::Exception);
 mx::Exception::sm_pLastRaisedException = NULL;
 
 
+/* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
+        const Exception * const pException)
+{
+    if (!pException)
+    {
+        mxLogFatalError(_("Weird exception caught!"));
+    }
+
+    // Otherwise provide the user with the most detailed information about
+    // the exception we can get.
+    pException->Fail(_("Unhandled exception caught!"));
+
+    // Always abort, if not aborted by the exception handler.
+    abort();
+    // On some platforms abort() can return.
+    exit(mx::Application::RC_INTERNAL_ERROR);
+}
+
+
 /**
     Destructor.
 */
@@ -175,7 +199,7 @@ int mx::Exception::WriteMessage(FILE * const stream) const
 }
 
 
-MX_NORETURN mx::Exception::Fail() const
+MX_NORETURN mx::Exception::Fail(const char * const sMessage) const
 {
     WriteMessage(stderr);
     exit(1);
@@ -209,10 +233,6 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::SystemException);
 
 // Start the exception implementation.
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::KernelException);
-
-
-// Start the exception implementation.
-MX_IMPLEMENT_EXCEPTION_CLASS(mx::MemoryException);
 
 
 // Start the exception implementation.
@@ -319,7 +339,7 @@ mx::UncaughtExceptionHandler::UncaughtExceptionHandler()
 /**
     Our handler for uncaught exceptions.
 */
-MX_NORETURN mx::UncaughtExceptionHandler::HandleTerminate()
+/* static */ MX_NORETURN mx::UncaughtExceptionHandler::HandleTerminate()
 {
     HandleUnexpected();
 }
@@ -328,27 +348,9 @@ MX_NORETURN mx::UncaughtExceptionHandler::HandleTerminate()
 /**
     Our handler for unexpected exceptions.
 */
-MX_NORETURN mx::UncaughtExceptionHandler::HandleUnexpected()
+/* static */ MX_NORETURN mx::UncaughtExceptionHandler::HandleUnexpected()
 {
-    // See if we know what the last thrown exception was. If not, fail with
-    // generic error message.
-    const Exception * const pException
-        = Exception::getLastRaisedException();
-
-    if (!pException)
-    {
-        fprintf(stderr, "Weird exception caught!");
-    }
-
-    // Otherwise provide the user with the most detailed information about
-    // the exception we can get.
-    fprintf(stderr, "\nUnhandled exception caught!\n");
-    pException->WriteMessage(stderr);
-
-    // Always abort, if not aborted by exception handler.
-    abort();
-    // On some platforms abort() can return.
-    exit(-1);
+    Exception::HandleUncaughtException(Exception::getLastRaisedException());
 }
 
 

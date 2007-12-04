@@ -19,40 +19,10 @@
 /**
     @file
 
-    @brief Demo C++ Framework.
+    Debugging functions (inline methods).
 
     @author Emil Maskovsky
 */
 
-
-#ifndef MXCPP_H_INCLUDE_GUARD
-#define MXCPP_H_INCLUDE_GUARD
-
-
-/* C and C++ headers. */
-
-#include "mx/sysdefs.h"
-#include "mx/types.h"
-
-#include "mx/debug.h"
-#include "mx/malloc.h"
-
-
-#ifdef __cplusplus
-// C++ only headers.
-
-// Core library headers.
-#include "mx/Except.hpp"
-#include "mx/new.hpp"
-#include "mx/Memory.hpp"
-
-// System library headers.
-#include "mx/System/Error.hpp"
-
-
-#endif /* __cplusplus */
-
-
-#endif /* MXCPP_H_INCLUDE_GUARD*/
 
 /* EOF */

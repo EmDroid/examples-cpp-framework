@@ -26,12 +26,11 @@
 
 
 /* Framework libraries. */
-#include "mx.h"
+#include "mx/Memory.hpp"
 
 
 /* Application specific. */
 #include "mx/malloc.h"
-#include "mx/Memory.hpp"
 
 
 extern "C" {

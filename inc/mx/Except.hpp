@@ -150,6 +150,11 @@ class MXCPP_DLL_EXPORT Exception
 
 // Class methods (static).
 
+public:
+
+    static MX_NORETURN HandleUncaughtException(
+            const Exception * const pException = NULL);
+
 private:
 
     static MX_INLINE void setLastRaisedException(
@@ -191,7 +196,7 @@ public:
 
     int WriteMessage(FILE * const stream) const;
 
-    MX_NORETURN Fail() const;
+    MX_NORETURN Fail(const char * const sMessage = NULL) const;
 
 protected:
 
@@ -289,34 +294,6 @@ MX_NORETURN ThrowException(
 // Derived exceptions.
 
 /**
-    Application related exception.
-
-    This class serves as a base class for any application exceptions. The
-    application is expected to use this and no other class as the base class
-    for it's own exceptions.
-
-    @note
-    Exception of this type itself should never be thrown. Always throw
-    one of the more specific types.
-*/
-class MXCPP_DLL_EXPORT ApplicationException
-    : public Exception
-{
-
-    MX_DECLARE_EXCEPTION_CLASS(ApplicationException, Exception);
-
-// Construction, destruction.
-
-protected:
-
-    // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE ApplicationException(const char * sMessage = NULL);
-
-
-}; // class ApplicationException
-
-
-/**
     System related exception.
 
     This class serves as a base class for any system related exceptions.
@@ -375,35 +352,6 @@ protected:
 
 
 }; // class KernelException
-
-
-/**
-    Memory related exception.
-
-    This class serves as a base class for any memory related exceptions.
-    This class is supposed to be used in declaration of function which throw
-    either of these more specific exceptions. It can also be used in catch
-    blocks for catching either of these more specific exceptions.
-
-    @note
-    Exception of this type itself should never be thrown. Always throw
-    one of the more specific types.
-*/
-class MXCPP_DLL_EXPORT MemoryException
-    : public KernelException
-{
-
-    MX_DECLARE_EXCEPTION_CLASS(MemoryException, KernelException);
-
-// Construction, destruction.
-
-protected:
-
-    // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE MemoryException(const char * sMessage = NULL);
-
-
-}; // class MemoryException
 
 
 class MXCPP_DLL_EXPORT StreamException

@@ -19,40 +19,31 @@
 /**
     @file
 
-    @brief Demo C++ Framework.
+    Application base classes (inline methods).
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MXCPP_H_INCLUDE_GUARD
-#define MXCPP_H_INCLUDE_GUARD
+/**
+    Constructor.
+
+    @param [in] sMessage The exception message.
+*/
+MX_INLINE mx::ApplicationException::ApplicationException(
+        const char * const sMessage)
+    : Super(sMessage)
+{}
 
 
-/* C and C++ headers. */
+/**
+    Returns the application instance.
+*/
+/* static */ MX_INLINE mx::Application * mx::Application::getApp()
+{
+    mxAssert(pApplicationInstance != NULL);
+    return pApplicationInstance;
+}
 
-#include "mx/sysdefs.h"
-#include "mx/types.h"
-
-#include "mx/debug.h"
-#include "mx/malloc.h"
-
-
-#ifdef __cplusplus
-// C++ only headers.
-
-// Core library headers.
-#include "mx/Except.hpp"
-#include "mx/new.hpp"
-#include "mx/Memory.hpp"
-
-// System library headers.
-#include "mx/System/Error.hpp"
-
-
-#endif /* __cplusplus */
-
-
-#endif /* MXCPP_H_INCLUDE_GUARD*/
 
 /* EOF */

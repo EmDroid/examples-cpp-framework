@@ -33,6 +33,8 @@
 
 #include "mx/types.h"
 
+#include "mx/Memory.hpp"
+
 
 namespace mx
 {

@@ -19,7 +19,7 @@
 /**
     @file
 
-    Global new and delete operators (implementation).
+    Test application class (implementation).
 
     @author Emil Maskovsky
 */
@@ -29,33 +29,7 @@
 
 
 /* Application specific. */
-#include "mx/new.hpp"
+#include "mx/tests/TestApp.hpp"
 
-
-#include "mx/defs/newundef.hpp"
-
-
-MXCPP_DLL_EXPORT void * mx::OperatorNewImplementation(
-        const Size iMemoryBlockSize,
-        const char * const sFileName,
-        const Size iFileLine,
-        const bool MX_UNUSED(bVectorAlloc))
-{
-    return Memory::Allocate(iMemoryBlockSize, sFileName, iFileLine);
-}
-
-
-MXCPP_DLL_EXPORT void mx::OperatorDeleteImplementation(
-        void * const pMemoryBlock,
-        const bool MX_UNUSED(bVectorFree))
-{
-    Memory::Free(pMemoryBlock);
-}
-
-
-// Define inline methods here if inlining is disabled.
-#ifndef MX_INLINE_ENABLED
-#include "mx/new.inl"
-#endif
 
 /* EOF */

@@ -26,7 +26,6 @@
 
 
 /* Framework libraries. */
-#include "mx.h"
 
 
 /* Application specific. */
@@ -44,8 +43,7 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::OutOfMemory);
 */
 mx::OutOfMemory::OutOfMemory(
         const Size iSizeRequested)
-    : Super("Out of memory")
-    , m_iSizeRequested(iSizeRequested)
+    : m_iSizeRequested(iSizeRequested)
 {}
 
 
