@@ -59,13 +59,14 @@
     Must be present out of all namespaces, otherwise it might be compiled
     as C++ extern on some compilers (actualy known BCC32 issue).
 */
+// Only console applications supported by this demo.
 // Command line parameters not supported in this demo.
 #define MX_IMPLEMENT_APP(ApplicationMainClass)                             \
                                                                            \
     extern "C"                                                             \
     int main(const int /* argc */, const char ** /* argv */)               \
     {                                                                      \
-        mx::TestApp theApplication/*(argc, argv)*/;                        \
+        ApplicationMainClass theApplication/*(argc, argv)*/;               \
         /* Make sure, that we run mx::Application::Run() and not the Run() \
            potentialy overridden by some inherited application class.      \
         */                                                                 \
