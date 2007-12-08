@@ -51,12 +51,12 @@ CFG=mxCppFramework - Win32 Release
 # PROP Target_Dir ""
 MTL=midl.exe
 CPP=cl.exe
-# ADD BASE CPP /nologo /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /W3 /GX /O2 /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj/link/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /W3 /GR /GX /O2 /I "../../../../../inc" /I "../../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -78,12 +78,12 @@ LIB32=link.exe -lib
 # PROP Target_Dir ""
 MTL=midl.exe
 CPP=cl.exe
-# ADD BASE CPP /nologo /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /FR /Fp"../objd/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /FR /FD /GZ /c
+# ADD BASE CPP /nologo /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /FR /Fp"../objd/link/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /I "../../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -105,12 +105,12 @@ LIB32=link.exe -lib
 # PROP Target_Dir ""
 MTL=midl.exe
 CPP=cl.exe
-# ADD BASE CPP /nologo /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /W3 /GX /O2 /D "NDEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju/link/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /W3 /GR /GX /O2 /I "../../../../../inc" /I "../../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG" /d "UNICODE"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "NDEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -132,12 +132,12 @@ LIB32=link.exe -lib
 # PROP Target_Dir ""
 MTL=midl.exe
 CPP=cl.exe
-# ADD BASE CPP /nologo /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud/link/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /I "../../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "_DEBUG" /d "UNICODE"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG" /d "UNICODE"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "_DEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -159,12 +159,12 @@ LIB32=link.exe -lib
 # PROP Target_Dir ""
 MTL=midl.exe
 CPP=cl.exe
-# ADD BASE CPP /nologo /MT /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj_mt/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj_mt/link/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GR /GX /O2 /I "../../../../../inc" /I "../../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -186,12 +186,12 @@ LIB32=link.exe -lib
 # PROP Target_Dir ""
 MTL=midl.exe
 CPP=cl.exe
-# ADD BASE CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd_mt/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd_mt/link/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /I "../../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -213,12 +213,12 @@ LIB32=link.exe -lib
 # PROP Target_Dir ""
 MTL=midl.exe
 CPP=cl.exe
-# ADD BASE CPP /nologo /MT /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju_mt/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "NDEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju_mt/link/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GR /GX /O2 /I "../../../../../inc" /I "../../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG" /d "UNICODE"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "NDEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -240,12 +240,12 @@ LIB32=link.exe -lib
 # PROP Target_Dir ""
 MTL=midl.exe
 CPP=cl.exe
-# ADD BASE CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud_mt/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud_mt/link/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /I "../../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "_DEBUG" /d "UNICODE"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG" /d "UNICODE"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "_DEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -267,15 +267,15 @@ LIB32=link.exe -lib
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 CPP=cl.exe
-# ADD BASE CPP /nologo /MD /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj_dll/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj_dll/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../../../../../inc" /I "../../../../../src/inc" /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -297,15 +297,15 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 CPP=cl.exe
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd_dll/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd_dll/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /I "../../../../../src/inc" /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -328,15 +328,15 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 CPP=cl.exe
-# ADD BASE CPP /nologo /MD /W3 /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju_dll/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../../../../inc" /I "../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju_dll/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../../../../../inc" /I "../../../../../src/inc" /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "NDEBUG" /D "UNICODE" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /D "UNICODE" /mktyplib203 /win32
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "NDEBUG" /d "UNICODE"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "NDEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -359,15 +359,15 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 CPP=cl.exe
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud_dll/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /ZI /Od /I "../../../../inc" /I "../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud_dll/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /I "../../../../../src/inc" /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_MAKEDLL" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "_DEBUG" /D "UNICODE" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /D "UNICODE" /mktyplib203 /win32
 RSC=rc.exe
 # ADD BASE RSC /l 0x409 /d "_DEBUG" /d "UNICODE"
-# ADD RSC /l 0x409 /i "../../../../src/inc" /d "_DEBUG" /d "UNICODE"
+# ADD RSC /l 0x409 /i "../../../../../src/inc" /d "_DEBUG" /d "UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
@@ -403,7 +403,7 @@ LINK32=link.exe
 # End Group
 # Begin Source File
 
-SOURCE=..\..\..\..\src\System\Error.cpp
+SOURCE=..\..\..\..\..\src\System\Error.cpp
 # End Source File
 # End Group
 # Begin Group "internal"
@@ -411,11 +411,11 @@ SOURCE=..\..\..\..\src\System\Error.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\..\src\inc\mx\internal\OutOfMem.hpp
+SOURCE=..\..\..\..\..\src\inc\mx\internal\OutOfMem.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\src\inc\mx\internal\OutOfMem.inl
+SOURCE=..\..\..\..\..\src\inc\mx\internal\OutOfMem.inl
 # End Source File
 # End Group
 # Begin Group "Application Sources"
@@ -423,44 +423,44 @@ SOURCE=..\..\..\..\src\inc\mx\internal\OutOfMem.inl
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\..\..\src\App\App.cpp
+SOURCE=..\..\..\..\..\src\App\App.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\src\App\TestApp.cpp
+SOURCE=..\..\..\..\..\src\App\TestApp.cpp
 # End Source File
 # End Group
 # Begin Source File
 
-SOURCE=..\..\..\..\src\Class.cpp
+SOURCE=..\..\..\..\..\src\Class.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\src\debug.cpp
+SOURCE=..\..\..\..\..\src\debug.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\src\Except.cpp
+SOURCE=..\..\..\..\..\src\Except.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\src\log.cpp
+SOURCE=..\..\..\..\..\src\log.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\src\malloc.cpp
+SOURCE=..\..\..\..\..\src\malloc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\src\Memory.cpp
+SOURCE=..\..\..\..\..\src\Memory.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\src\new.cpp
+SOURCE=..\..\..\..\..\src\new.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\src\OutOfMem.cpp
+SOURCE=..\..\..\..\..\src\OutOfMem.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -471,55 +471,55 @@ SOURCE=..\..\..\..\src\OutOfMem.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\dmc.h
+SOURCE=..\..\..\..\..\inc\mx\defs\dmc.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\gcc.h
+SOURCE=..\..\..\..\..\inc\mx\defs\gcc.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\gcc2.h
+SOURCE=..\..\..\..\..\inc\mx\defs\gcc2.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\gcc3.h
+SOURCE=..\..\..\..\..\inc\mx\defs\gcc3.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\helpers.h
+SOURCE=..\..\..\..\..\inc\mx\defs\helpers.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\msvc.h
+SOURCE=..\..\..\..\..\inc\mx\defs\msvc.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\msvc6.h
+SOURCE=..\..\..\..\..\inc\mx\defs\msvc6.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\msvc7.h
+SOURCE=..\..\..\..\..\inc\mx\defs\msvc7.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\msvc8.h
+SOURCE=..\..\..\..\..\inc\mx\defs\msvc8.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\newdef.hpp
+SOURCE=..\..\..\..\..\inc\mx\defs\newdef.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\newundef.hpp
+SOURCE=..\..\..\..\..\inc\mx\defs\newundef.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\unix.h
+SOURCE=..\..\..\..\..\inc\mx\defs\unix.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\defs\win32.h
+SOURCE=..\..\..\..\..\inc\mx\defs\win32.h
 # End Source File
 # End Group
 # Begin Group "System"
@@ -531,11 +531,11 @@ SOURCE=..\..\..\..\inc\mx\defs\win32.h
 # End Group
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\System\Error.hpp
+SOURCE=..\..\..\..\..\inc\mx\System\Error.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\System\Error.inl
+SOURCE=..\..\..\..\..\inc\mx\System\Error.inl
 # End Source File
 # End Group
 # Begin Group "Application"
@@ -543,11 +543,11 @@ SOURCE=..\..\..\..\inc\mx\System\Error.inl
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\App\App.hpp
+SOURCE=..\..\..\..\..\inc\mx\App\App.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\App\App.inl
+SOURCE=..\..\..\..\..\inc\mx\App\App.inl
 # End Source File
 # End Group
 # Begin Group "tests"
@@ -555,72 +555,72 @@ SOURCE=..\..\..\..\inc\mx\App\App.inl
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\tests\TestApp.hpp
+SOURCE=..\..\..\..\..\inc\mx\tests\TestApp.hpp
 # End Source File
 # End Group
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\Class.hpp
+SOURCE=..\..\..\..\..\inc\mx\Class.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\Class.inl
+SOURCE=..\..\..\..\..\inc\mx\Class.inl
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\debug.h
+SOURCE=..\..\..\..\..\inc\mx\debug.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\debug.inl
+SOURCE=..\..\..\..\..\inc\mx\debug.inl
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\Except.hpp
+SOURCE=..\..\..\..\..\inc\mx\Except.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\Except.inl
+SOURCE=..\..\..\..\..\inc\mx\Except.inl
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\log.h
+SOURCE=..\..\..\..\..\inc\mx\log.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\log.inl
+SOURCE=..\..\..\..\..\inc\mx\log.inl
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\malloc.h
+SOURCE=..\..\..\..\..\inc\mx\malloc.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\Memory.hpp
+SOURCE=..\..\..\..\..\inc\mx\Memory.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\Memory.inl
+SOURCE=..\..\..\..\..\inc\mx\Memory.inl
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\new.hpp
+SOURCE=..\..\..\..\..\inc\mx\new.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\new.inl
+SOURCE=..\..\..\..\..\inc\mx\new.inl
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx.h
+SOURCE=..\..\..\..\..\inc\mx.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\sysdefs.h
+SOURCE=..\..\..\..\..\inc\mx\sysdefs.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\inc\mx\types.h
+SOURCE=..\..\..\..\..\inc\mx\types.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
@@ -628,11 +628,11 @@ SOURCE=..\..\..\..\inc\mx\types.h
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # Begin Source File
 
-SOURCE=..\..\..\..\src\res\mxCppFramework.rc
+SOURCE=..\..\..\..\..\src\res\mxCppFramework.rc
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\src\inc\mx\internal\version.h
+SOURCE=..\..\..\..\..\src\inc\mx\internal\version.h
 # End Source File
 # End Group
 # End Target
