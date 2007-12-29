@@ -6,7 +6,7 @@ $(warning |                 !!! ERROR !!!                    |)
 $(warning |--------------------------------------------------|)
 $(warning |     !!! Incompatible MAKE tool detected !!!      |)
 $(warning |  This build system requires "GNU make" tool, at  |)
-$(warning |  least the version 3.80 (try 'make --version')   |)
+$(warning |  least the version 3.81 (try 'make --version')   |)
 $(warning \==================================================/)
 
 endef
