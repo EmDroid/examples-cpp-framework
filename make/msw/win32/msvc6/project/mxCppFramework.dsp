@@ -628,7 +628,7 @@ SOURCE=..\..\..\..\..\inc\mx\types.h
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # Begin Source File
 
-SOURCE=..\..\..\..\..\src\res\mxCppFramework.rc
+SOURCE=..\..\..\..\..\src\res\mxCppFw.rc
 # End Source File
 # Begin Source File
 
