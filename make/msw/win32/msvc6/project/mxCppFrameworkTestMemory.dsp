@@ -51,8 +51,8 @@ RSC=rc.exe
 # PROP Intermediate_Dir "../obj/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W3 /GX /O2 /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /W3 /GR /GX /O2 /I "../../../../../inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /W3 /GX /GF /O2 /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj/link/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /W3 /GR /GX /GF /O2 /I "../../../../../inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -81,8 +81,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../objd/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /W4 /Gm /GX /GF /ZI /Od /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd/link/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /W4 /Gm /GR /GX /GF /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
@@ -111,8 +111,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../obju/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W3 /GX /O2 /D "NDEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /W3 /GR /GX /O2 /I "../../../../../inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /W3 /GX /GF /O2 /D "NDEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju/link/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /W3 /GR /GX /GF /O2 /I "../../../../../inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
 # ADD RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
@@ -141,8 +141,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../objud/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /W4 /Gm /GX /GF /ZI /Od /D "_DEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud/link/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /W4 /Gm /GR /GX /GF /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG" /d "UNICODE"
 # ADD RSC /l 0x409 /d "_DEBUG" /d "UNICODE"
@@ -171,8 +171,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../obj_mt/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj_mt/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GR /GX /O2 /I "../../../../../inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /MT /W3 /GX /GF /O2 /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj_mt/link/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GR /GX /GF /O2 /I "../../../../../inc" /D "NDEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -201,8 +201,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../objd_mt/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd_mt/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /MTd /W4 /Gm /GX /GF /ZI /Od /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd_mt/link/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /GF /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "_MBCS" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
@@ -231,8 +231,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../obju_mt/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "NDEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju_mt/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GR /GX /O2 /I "../../../../../inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /MT /W3 /GX /GF /O2 /D "NDEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju_mt/link/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GR /GX /GF /O2 /I "../../../../../inc" /D "NDEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
 # ADD RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
@@ -261,8 +261,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../objud_mt/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud_mt/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /MTd /W4 /Gm /GX /GF /ZI /Od /D "_DEBUG" /D "UNICODE" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud_mt/link/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W4 /Gm /GR /GX /GF /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "UNICODE" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG" /d "UNICODE"
 # ADD RSC /l 0x409 /d "_DEBUG" /d "UNICODE"
@@ -291,8 +291,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../obj_dll/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj_dll/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../../../../../inc" /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /MD /W3 /GX /GF /O2 /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../obj_dll/link/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /GF /O2 /I "../../../../../inc" /D "NDEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -321,8 +321,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../objd_dll/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd_dll/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /GF /ZI /Od /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../objd_dll/link/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /GF /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "_MBCS" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
@@ -351,8 +351,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../obju_dll/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju_dll/link/mxprec.pch" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../../../../../inc" /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /Fr /FD /c
+# ADD BASE CPP /nologo /MD /W3 /GX /GF /O2 /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../obju_dll/link/mxprec.pch" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /GF /O2 /I "../../../../../inc" /D "NDEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
 # ADD RSC /l 0x409 /d "NDEBUG" /d "UNICODE"
@@ -381,8 +381,8 @@ PostBuild_Cmds=cd ..	$(TargetPath)
 # PROP Intermediate_Dir "../objud_dll/test"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud_dll/link/mxprec.pch" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /Fr /FD /GZ /c
+# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /GF /ZI /Od /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /D "MXCPP_PCH" /Fp"../objud_dll/link/mxprec.pch" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W4 /Gm /GR /GX /GF /ZI /Od /I "../../../../../inc" /D "_DEBUG" /D "UNICODE" /D "_WINDOWS" /D "MXCPP_USEDLL" /D "WIN32" /Fr /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG" /d "UNICODE"
 # ADD RSC /l 0x409 /d "_DEBUG" /d "UNICODE"

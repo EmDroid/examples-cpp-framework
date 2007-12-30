@@ -1,3 +1,11 @@
+##
+# @file
+#
+# Makefile for the Demo C++ Framework project
+#     - Microsoft systems platform dependent options.
+#
+# @author Emil Maskovsky
+#
 
 
 # Append sub-platform configuration flags.

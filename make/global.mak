@@ -1,3 +1,56 @@
+##
+# @file
+#
+# Makefile for the Demo C++ Framework project - Global makefile.
+#
+# @author Emil Maskovsky
+#
+# @warning
+# Do not call this make directly, call 'make' in the (platform)/(compiler)
+# base directory.
+#
+# Possible make targets:
+# @li @b all - Build all targets (for all configurations).
+# @li @c test - Build targets, tests and run the tests.
+# @li @c clean - Clean the build, except main targets.
+# @li @c cleanall - Clean the build, including main targets.
+#
+# Library configurations:
+# @li @b lib - Build static libraries (single-threaded).
+# @li @b libmt - Build static libraries (multi-threaded).
+# @li @b dll - Build dynamic libraries (DLLs - always multi-threaded).
+#
+# Character type configurations:
+# @li @b ansi - Build ANSI targets (1-byte characters).
+# @li @b unicode - Build UNICODE targets (2-byte characters).
+#
+# Debug information configurations:
+# @li @b debug - Build debug targets (non-optimized, containing debugging
+#        information).
+# @li @b release - Build release targets (optimized, without debugging
+#        information).
+#
+# The different configurations can be combined together using following scheme:
+# [library_type]_[character_type]_[debuginfo_type]
+# For example:
+# @c make @c dll_release - will build all release DLLs (ANSI+UNICODE)
+# @c make @c unicode_debug - will build all targets (lib, libmt, dll) with
+#            UNICODE character type, containing debugging information
+# @c make @c lib_ansi - will build all libraries with ANSI character type
+#            (DEBUG+RELEASE)
+# @c make @c release - will build all release targets
+#            (LIB+LIBMT+DLL, ANSI+UNICODE)
+# (any configuration type can be used alone to build all targets of that
+# configuration)
+#
+# The basic targets other than @c all can also be combined with required
+# configuration scheme, for example:
+# @c make @c test_dll_release - will build and test all release DLLs
+#            (ANSI+UNICODE)
+# @c make @c clean_debug - will clean all debug targets
+# @c make @c cleanall_lib_unicode - will clean UNICODE libraries (DEBUG+RELEASE)
+# etc.
+#
 
 
 # The default target.
@@ -117,13 +170,18 @@ endef	# MXCPP_BUILD_RULES_GROUP
 # logging of commands.
 #
 # @param $(1) The build command, which would be processed.
+# @param $(2) [optional] The command error ignore modifier.
+# @param $(3) [optional] Command output redirection (e.g. '>NUL').
 #
 define MXCPP_RUN_COMMAND
 ifneq ($(strip $(MXCPP_COMMANDS_LOG)),)
 	-@$(ECHO) $(1) >>$(MXCPP_COMMANDS_LOG)
 endif
 	$(2)@$(1) $(3)
+
 endef	# MXCPP_RUN_COMMAND
+# Warning: Do not remove the empty line at before the endef directive, otherwise
+#          the if-endif block will not work inside $(foreach ...) loops!
 
 
 # Construct build rules for building objects from source files.
@@ -221,13 +279,30 @@ $(call MXCPP_BUILD_RULES_SINGLE_RULE,cleanall_$(MXCPP_BUILD_RULES_SRC),_start_cl
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,_make_clean_$(MXCPP_BUILD_RULES_SRC),,X)
 $(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR)$(PATH_SEP)*.$(OBJ_SFX),-,$(NOERROUT))
+$(foreach libtype,0 $(1),\
+$(foreach config,0 $(2),\
+$(foreach cleanitem,\
+	$(call MXCPP_CLEAN_MASK$(if $(strip $(filter-out 0,$(libtype))),_$(libtype))$(if $(strip $(filter-out 0,$(config))),_$(config)),\
+		$(MXCPP_OBJECT_DIR)$(PATH_SEP),$(MXCPP_TARGET_LIBRARY)),\
+	$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),-,$(NOERROUT)))))
 $(call MXCPP_RUN_COMMAND,$(RMDIR) $(MXCPP_OBJECT_DIR),-,$(NOERROUT))
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,_make_cleanall_$(MXCPP_BUILD_RULES_SRC),_make_clean_$(MXCPP_BUILD_RULES_SRC),X)
 $(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_TARGET_LIBRARY),-,$(NOERROUT))
+$(foreach libtype,0 $(1),\
+$(foreach config,0 $(2),\
+$(foreach cleanitem,\
+	$(call MXCPP_CLEANALL_MASK$(if $(strip $(filter-out 0,$(libtype))),_$(libtype))$(if $(strip $(filter-out 0,$(config))),_$(config)),\
+		$(MXCPP_OBJECT_DIR)$(PATH_SEP),$(MXCPP_TARGET_LIBRARY)),\
+	$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),-,$(NOERROUT)))))
 
 endef	# MXCPP_BUILD_RULES_FINAL
 
+#	$(foreach cleanitem,$(MXCPP_BUILD_RULES_CLEANMASK),$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),-,$(NOERROUT)))
+#	$(foreach cleanitem,$(MXCPP_BUILD_RULES_CLEANMASK),$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),-,$(NOERROUT)))
+
+#	$(call MXCPP_RUN_COMMAND,$(RM) $(call MXCPP_CLEAN_MASK,$(MXCPP_OBJECT_DIR)$(PATH_SEP)) fakefile,-,$(NOERROUT))
+#	$(call MXCPP_RUN_COMMAND,$(RM) $(call MXCPP_CLEANALL_MASK,$(MXCPP_TARGET_LIBRARY)) fakefile,-,$(NOERROUT))
 
 define MXCPP_BUILD_RULES_SHARE_CHARTYPE_DBGINFO
 

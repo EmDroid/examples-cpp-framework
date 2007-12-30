@@ -1,3 +1,12 @@
+##
+# @file
+#
+# Makefile for the Demo C++ Framework project
+#     - Microsoft Visual C++ 7.0 Compiler.
+#
+# @author Emil Maskovsky
+#
+
 
 define MXCPP_GMAKE_OLD
 
@@ -11,7 +20,7 @@ $(warning \==================================================/)
 
 endef
 
-# Check the $(MAKE) compatibility.
+# Check the $(MAKE) version compatibility.
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
