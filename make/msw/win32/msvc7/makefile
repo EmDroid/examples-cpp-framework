@@ -28,6 +28,6 @@ $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 include makefile.ini
 
 # Start parent make.
-include ../platform.mak
+include ../system.mak
 
 # EOF #

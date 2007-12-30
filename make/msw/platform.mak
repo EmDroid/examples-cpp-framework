@@ -10,8 +10,8 @@
 
 # Append sub-platform configuration flags.
 $(foreach compiler,$(MXCPP_COMPILERS_LIST),\
-	$(if $(strip $(MXCPP_$(compiler)FLAGS_SUBPLATFORM)),\
-		$(eval MXCPP_$(compiler)FLAGS_PLATFORM += $(MXCPP_$(compiler)FLAGS_SUBPLATFORM))))
+	$(if $(strip $(MXCPP_$(compiler)FLAGS_SYSTEM)),\
+		$(eval MXCPP_$(compiler)FLAGS_PLATFORM += $(MXCPP_$(compiler)FLAGS_SYSTEM))))
 
 
 # Start global make.
