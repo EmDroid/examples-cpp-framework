@@ -87,6 +87,8 @@ int mx::Application::Run(void)
     {
         Exception::HandleUncaughtException();
     }
+    // Cannot be reached, but might produce warning.
+    return 0;
 }
 
 

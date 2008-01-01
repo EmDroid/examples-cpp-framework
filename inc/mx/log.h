@@ -42,7 +42,7 @@ typedef enum
 } mxLogType;
 
 
-#define mxLogWarning(message) \
+#define mxLogWarning(message, param) \
     mxLogMessage(__FILE__, __LINE__, MX_LOG_WARNING, message)
 
 #define mxLogError(message) \

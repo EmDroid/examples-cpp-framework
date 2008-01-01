@@ -26,7 +26,18 @@
 
 
 /* System libraries. */
+#ifdef MXCPP_FIX_USE_OLD_C_HEADERS
+
+#include <eh.h>
+
+#else
+
 #include <exception>
+#ifndef MXCPP_FIX_HAS_NOT_STD_NAMESPACE
+using namespace std;
+#endif
+
+#endif
 
 
 /* Framework libraries. */

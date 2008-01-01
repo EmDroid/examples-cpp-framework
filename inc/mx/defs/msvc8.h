@@ -29,6 +29,10 @@
 #define MXCPP_SYSDEF_MSVC8_H_INCLUDE_GUARD
 
 
+/* Disable warning: C++ Exception Specification ignored */
+#pragma warning(disable : 4290)
+
+
 #endif /* MXCPP_SYSDEF_MSVC8_H_INCLUDE_GUARD */
 
 /* EOF */

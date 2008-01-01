@@ -51,7 +51,7 @@
 
 #ifdef __cplusplus
 
-// C++ only stadard headers.
+// C++ only standard headers.
 
 
 #if (!defined(MXCPP_FIX_USE_OLD_C_HEADERS) \

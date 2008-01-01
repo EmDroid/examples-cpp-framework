@@ -13,3 +13,4 @@ Thumbs.db
 *.sbr
 [Oo]bj*/
 *.idb
+*.a

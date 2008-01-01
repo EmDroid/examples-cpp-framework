@@ -245,7 +245,7 @@ $(call MXCPP_BUILD_RULES_OBJECT,$(MXCPP_TEST_ROOT),$(1),OBJ,$(2),$(3),$(5)$(MXCP
 
 $(eval MXCPP_BUILD_RULE := $$(call MXCPP_BUILD_EXE,$(MXCPP_OBJECT),,$(MXCPP_LIBS),$(6)))
 
-$(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_TEST_EXE),$(MXCPP_OBJECT),C)
+$(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_TEST_EXE),$(MXCPP_TARGET_LIBRARY) $(MXCPP_OBJECT),C)
 	@$$(ECHO) == linking ($$@) ...
 $(call MXCPP_RUN_COMMAND,$(MXCPP_BUILD_RULE))
 
@@ -278,9 +278,10 @@ $(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning MXCPP_BUILD_OBJ_LIST: $(MXCPP_BUILD_
 
 $(eval MXCPP_BUILD_RES_LIST :=)
 $(if $(strip $(MXCPP_DLLCONFIG_$(1))),\
-	$(foreach resfile,$(MXCPP_RSRC_LIST),$(call MXCPP_BUILD_RULES_OBJECT,$(MXCPP_RES_ROOT),$(resfile),RES,$(MXCPP_OBJECT_DIR),,$(MXCPP_BUILD_RULES_CONFIGURATION_COMMA))))
+$(if $(strip $(RC)),\
+	$(foreach resfile,$(MXCPP_RES_LIST),$(call MXCPP_BUILD_RULES_OBJECT,$(MXCPP_RES_ROOT),$(resfile),RES,$(MXCPP_OBJECT_DIR),,$(MXCPP_BUILD_RULES_CONFIGURATION_COMMA)))))
 
-$(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning MXCPP_BUILD_OBJ_LIST: $(MXCPP_BUILD_OBJ_LIST)))
+$(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning MXCPP_BUILD_RES_LIST: $(MXCPP_BUILD_RES_LIST)))
 
 
 $(eval MXCPP_TARGET_SUBTYPE_MOD :=)
@@ -347,7 +348,14 @@ $(foreach cleanitem,\
 	$(call MXCPP_CLEAN_MASK$(if $(strip $(filter-out 0,$(libtype))),_$(libtype))$(if $(strip $(filter-out 0,$(config))),_$(config)),\
 		$(MXCPP_OBJECT_DIR)$(PATH_SEP),$(MXCPP_TARGET_LIBRARY)),\
 	$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),-,$(NOERROUT)))))
-$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR_TEST)$(PATH_SEP)*.*,-,$(NOERROUT))
+$(foreach libtype,0 $(1),\
+$(foreach config,0 $(2),\
+$(foreach cleanitem,\
+	$(call MXCPP_CLEAN_MASK_TEST$(if $(strip $(filter-out 0,$(libtype))),_$(libtype))$(if $(strip $(filter-out 0,$(config))),_$(config)),\
+		$(MXCPP_OBJECT_DIR_TEST)$(PATH_SEP)),\
+	$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),-,$(NOERROUT)))))
+$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR_TEST)$(PATH_SEP)*.$(OBJ_SFX),-,$(NOERROUT))
+$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR_TEST)$(PATH_SEP)*$(EXE_SFX),-,$(NOERROUT))
 $(call MXCPP_RUN_COMMAND,$(RMDIR) $(MXCPP_OBJECT_DIR_TEST),-,$(NOERROUT))
 $(call MXCPP_RUN_COMMAND,$(RMDIR) $(MXCPP_OBJECT_DIR),-,$(NOERROUT))
 
