@@ -55,13 +55,14 @@ MXCPP_DLL_EXPORT void OperatorDeleteImplementation(
 
 
 MX_INLINE void * operator new (
-        const mx::Size iMemoryBlockSize,
+        // const doesn't work under some compilers (DMC).
+        /* const */ mx::Size iMemoryBlockSize,
         const char * const sFileName,
         const mx::Size iFileLine);
 
 
 MX_INLINE void * operator new[] (
-        const mx::Size iMemoryBlockSize,
+        /* const */ mx::Size iMemoryBlockSize,
         const char * const sFileName,
         const mx::Size iFileLine);
 

@@ -26,7 +26,7 @@
 
 
 MX_INLINE void * operator new (
-        const mx::Size iMemoryBlockSize,
+        /* const */ mx::Size iMemoryBlockSize,
         const char * const sFileName,
         const mx::Size iFileLine)
 {
@@ -36,7 +36,7 @@ MX_INLINE void * operator new (
 
 
 MX_INLINE void * operator new[] (
-        const mx::Size iMemoryBlockSize,
+        /* const */ mx::Size iMemoryBlockSize,
         const char * const sFileName,
         const mx::Size iFileLine)
 {

@@ -99,6 +99,10 @@
 #define MX_NORETURN_TYPE(Type)  __declspec(noreturn) Type
 
 
+/* Disable warning: C++ Exception Specification ignored */
+#pragma warning(disable : 4290)
+
+
 #endif /* MXCPP_SYSDEF_MSVC_H_INCLUDE_GUARD */
 
 /* EOF */

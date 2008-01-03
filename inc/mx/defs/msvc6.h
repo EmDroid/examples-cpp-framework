@@ -35,9 +35,6 @@
 /* Disable warning: typedef-name used as synonym for class-name */
 #pragma warning(disable : 4097)
 
-/* Disable warning: C++ Exception Specification ignored */
-#pragma warning(disable : 4290)
-
 /* Disable warning: copy constructor could not be generated */
 /* #pragma warning(disable : 4511) */
 
