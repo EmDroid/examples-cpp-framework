@@ -26,6 +26,18 @@
 
 
 /* System libraries. */
+
+
+/* Framework libraries. */
+#include "mx/StdStrm.hpp"
+#include "mx/log.h"
+#include "mx/App/App.hpp"
+
+
+/* Application specific. */
+#include "mx/Except.hpp"
+
+
 #ifdef MXCPP_FIX_USE_OLD_C_HEADERS
 
 #include <eh.h>
@@ -38,16 +50,6 @@ using namespace std;
 #endif
 
 #endif
-
-
-/* Framework libraries. */
-#include "mx/StdStrm.hpp"
-#include "mx/log.h"
-#include "mx/App/App.hpp"
-
-
-/* Application specific. */
-#include "mx/Except.hpp"
 
 
 /**
@@ -161,7 +163,7 @@ mx::Exception::sm_pLastRaisedException = NULL;
 /* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
         const Exception * const pException)
 {
-    fprintf(stderr, "\nUnexpected termination handler entered!\n");
+    StandardError.Printf("\nUnexpected termination handler entered!\n");
     if (!pException)
     {
         mxLogFatalError(_("Weird exception caught!"));

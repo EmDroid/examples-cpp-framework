@@ -60,24 +60,6 @@ MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Stream::Printf(
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::StreamException);
 
 
-// Start the exception implementation.
-MX_IMPLEMENT_EXCEPTION_CLASS(mx::EndOfFile);
-
-void EndOfFileImp()
-{
-    mxThrow(mx::EndOfFile());
-}
-
-
-// Start the exception implementation.
-MX_IMPLEMENT_EXCEPTION_CLASS(mx::GenericIOException);
-
-void GenericIOExceptionImp()
-{
-    mxThrow(mx::GenericIOException());
-}
-
-
 // Define inline methods here if inlining is disabled.
 #ifndef MX_INLINE_ENABLED
 #include "mx/Stream.inl"

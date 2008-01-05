@@ -84,44 +84,10 @@ class MXCPP_DLL_EXPORT StreamException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE StreamException(const char * sMessage = NULL);
+    MX_INLINE StreamException(const char * const sMessage = NULL);
 
 
 }; // class StreamException
-
-
-class MXCPP_DLL_EXPORT EndOfFile
-    : public StreamException
-{
-
-    MX_DECLARE_EXCEPTION_CLASS(EndOfFile, StreamException);
-
-}; // class EndOfFile
-
-
-class MXCPP_DLL_EXPORT GenericIOException
-    : public StreamException
-{
-
-    MX_DECLARE_EXCEPTION_CLASS(GenericIOException, StreamException);
-
-
-// Construction, destruction.
-
-public:
-
-    // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE GenericIOException(const int iErrno = 0);
-
-
-// Class instance attributes.
-
-private:
-
-    const int m_iErrno;
-
-
-}; // class GenericIOException
 
 
 } // namespace mx

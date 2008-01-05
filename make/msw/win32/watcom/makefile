@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Microsoft Visual C++ 6.0 compiler.
+#     - Open Watcom C++ compiler.
 #
 # @author Emil Maskovsky
 #

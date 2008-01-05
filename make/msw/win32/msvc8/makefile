@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Microsoft Visual C++ 8.0 Compiler.
+#     - Microsoft Visual C++ 8.0 compiler.
 #
 # @author Emil Maskovsky
 #

@@ -35,6 +35,14 @@
 // #include <errno.h>  // errno variable
 
 
+// Start the exception implementation.
+MX_IMPLEMENT_EXCEPTION_CLASS(mx::EndOfFile);
+
+
+// Start the exception implementation.
+MX_IMPLEMENT_EXCEPTION_CLASS(mx::GenericIOException);
+
+
 /* static */ const mx::FileStream::FileDescriptor
 mx::FileStream::INVALID_DESCRIPTOR = NULL;
 

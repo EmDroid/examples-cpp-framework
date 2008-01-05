@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - GNU Compiler (GCC) Compiler.
+#     - GNU C++ (GCC) compiler.
 #
 # @author Emil Maskovsky
 #

@@ -40,8 +40,10 @@ namespace mx
 {
 
 
-#define mxThrow(exception) \
-    mx::ThrowException(exception, __FILE__, __LINE__)
+#define mxThrow(exception)            \
+    mx::ThrowException(exception,     \
+        (const char * const)__FILE__, \
+        (const Size)__LINE__)
 
 
 // Forward declaration.
@@ -115,7 +117,6 @@ private:                                       \
 
 // Core of the exception system.
 
-
 /**
     Base class for all our exception.
 
@@ -159,10 +160,12 @@ public:
     static MX_NORETURN HandleUncaughtException(
             const Exception * const pException = NULL);
 
-private:
+public:
 
     static MX_INLINE void setLastRaisedException(
             const Exception & theException);
+
+private:
 
     static MX_INLINE const Exception * getLastRaisedException();
 
@@ -182,7 +185,7 @@ private:
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE Exception(const char * sMessage = NULL);
+    MX_INLINE Exception(const char * const sMessage = NULL);
 
     // Automatic copy and assignment constructor is ok for us
     // (shallow copy of file name and line information).
@@ -211,7 +214,7 @@ protected:
 
 // Class instance attributes.
 
-private:
+public:
 
     /// The message associated with the exception.
     const char * const m_sMessage;
@@ -221,11 +224,6 @@ private:
 
     /// Line number in the source file, where the exception was raised.
     mutable Size m_iFileLine;
-
-    // Only our thrower is supposed to setup the exception.
-    template< typename ExceptionType >
-    friend MX_NORETURN ThrowException(const ExceptionType &,
-            const char * const, const Size);
 
 
 }; // class Exception
@@ -274,11 +272,11 @@ private:
     @return
     This function never returns, always throwing the supplied exception.
 */
-template< typename ExceptionType >
-MX_NORETURN ThrowException(
+template< class ExceptionType >
+static MX_NORETURN ThrowException(
         const ExceptionType & pException,
-        const char * const sFileName = NULL,
-        const Size iFileLine = 0)
+        const char * const sFileName,
+        const Size iFileLine)
 {
     // Setup the exception using Exception typed reference, to allow setting
     // of its private members.
@@ -322,7 +320,7 @@ class MXCPP_DLL_EXPORT SystemException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE SystemException(const char * sMessage = NULL);
+    MX_INLINE SystemException(const char * const sMessage = NULL);
 
 
 }; // class SystemException
@@ -352,7 +350,7 @@ class MXCPP_DLL_EXPORT KernelException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE KernelException(const char * sMessage = NULL);
+    MX_INLINE KernelException(const char * const sMessage = NULL);
 
 
 }; // class KernelException

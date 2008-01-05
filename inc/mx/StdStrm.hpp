@@ -42,25 +42,9 @@ namespace mx
 
 // Set of standard FileStreams.
 
-/// Standard input FileStream.
-MXCPP_DLL_EXPORT FileStream & StandardInput();
-
-/// Standard output FileStream.
-MXCPP_DLL_EXPORT FileStream & StandardOutput();
-
-/// Standard error FileStream.
-MXCPP_DLL_EXPORT FileStream & StandardError();
-
-
-#define StandardInput   StandardInput()
-#define StandardOutput  StandardOutput()
-#define StandardError   StandardError()
-
-/*
-MXCPP_DLL_EXPORT FileStream & StandardInput;
-MXCPP_DLL_EXPORT FileStream & StandardOutput;
-MXCPP_DLL_EXPORT FileStream & StandardError;
-*/
+extern MXCPP_DLL_EXPORT FileStream & StandardInput;
+extern MXCPP_DLL_EXPORT FileStream & StandardOutput;
+extern MXCPP_DLL_EXPORT FileStream & StandardError;
 
 
 } // namespace mx

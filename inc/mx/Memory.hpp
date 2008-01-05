@@ -63,7 +63,7 @@ class MXCPP_DLL_EXPORT MemoryException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE MemoryException(const char * sMessage = NULL);
+    MX_INLINE MemoryException(const char * const sMessage = NULL);
 
 
 }; // class MemoryException

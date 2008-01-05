@@ -19,40 +19,46 @@
 /**
     @file
 
-    Digital Mars compiler specific definitions.
+    Watcom C++ compiler specific definitions.
 
     @author Emil Maskovsky
 */
 
 
-#pragma once
+#ifndef MXCPP_SYSDEF_WATCOM_H_INCLUDE_GUARD
+#define MXCPP_SYSDEF_WATCOM_H_INCLUDE_GUARD
 
 
-#ifndef MXCPP_SYSDEF_DMC_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_DMC_H_INCLUDE_GUARD
-
-
-#ifndef MX_PLATFORM_COMPILER_DMC
-#define MX_PLATFORM_COMPILER_DMC
+#ifndef MX_PLATFORM_COMPILER_WATCOM
+#define MX_PLATFORM_COMPILER_WATCOM
 #endif
 
-/* Digital Mars Compiler specific settings.
-        __DMC__     Digital Mars Compiler version.
+
+/* Watcom C++ Compiler specific settings.
+        __WATCOM_CPLUSPLUS__    Watcom C++ Compiler version.
 */
-#if (__DMC__ < 0x700)
-#error This project requires at least Digital Mars Compiler 7.00 to compile.
-#else /* __DMC__ < 0x700 */
-#endif /* __DMC__ < 0x700 */
+#if !defined(__WATCOM_CPLUSPLUS__) || (__WATCOM_CPLUSPLUS__ < 1100)
+#error This project requires at least Watcom C++ 11.00 to compile.
+#endif /* __WATCOM_CPLUSPLUS__ < 1100 */
 
 
 /* Uses standard __declspec(dllexport/dllimport) DLL exports. */
 #include "mx/defs/stddllexp.h"
 
+/*
+#ifdef MX_INLINE_ENABLED
+#undef MX_INLINE_ENABLED
+#endif
+*/
 
-/** The compiler does not know namespace "std::". */
-// #define MXCPP_FIX_HAS_NOT_STD_NAMESPACE
+
+#define MXCPP_FIX_STATIC_CANT_ACCESS_PRIVATE_CONSTRUCTOR
+
+#define MXCPP_FIX_USE_OLD_C_HEADERS
+
+#define MXCPP_FIX_TEMPLATE_METHODS_NOT_SUPPORTED
 
 
-#endif /* MXCPP_SYSDEF_DMC_H_INCLUDE_GUARD */
+#endif /* MXCPP_SYSDEF_WATCOM_H_INCLUDE_GUARD */
 
 /* EOF */

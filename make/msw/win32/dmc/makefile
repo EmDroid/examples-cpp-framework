@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Digital Mars Compiler (DMC) Compiler.
+#     - Digital Mars (DMC) compiler.
 #
 # @author Emil Maskovsky
 #

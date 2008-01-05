@@ -111,6 +111,47 @@ protected:
 }; // class FileStream
 
 
+class MXCPP_DLL_EXPORT EndOfFile
+    : public StreamException
+{
+
+    MX_DECLARE_EXCEPTION_CLASS(EndOfFile, StreamException);
+
+
+// Construction, destruction.
+
+public:
+
+    MX_INLINE EndOfFile();
+
+
+}; // class EndOfFile
+
+
+class MXCPP_DLL_EXPORT GenericIOException
+    : public StreamException
+{
+
+    MX_DECLARE_EXCEPTION_CLASS(GenericIOException, StreamException);
+
+
+// Construction, destruction.
+
+public:
+
+    MX_INLINE GenericIOException(const int iErrno = 0);
+
+
+// Class instance attributes.
+
+private:
+
+    const int m_iErrno;
+
+
+}; // class GenericIOException
+
+
 } // namespace mx
 
 

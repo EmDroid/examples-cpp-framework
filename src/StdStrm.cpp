@@ -32,7 +32,11 @@
 #include "mx/StdStrm.hpp"
 
 
-// Undefine
+namespace mx
+{
+
+
+// Undefine possibly overridden names.
 
 #ifdef StandardInput
 #undef StandardInput
@@ -75,7 +79,7 @@
 
     This means, the stream can be used during program init and exit stages.
 */
-MXCPP_DLL_EXPORT mx::FileStream & mx::StandardInput()
+static FileStream & _StandardInput()
 {
     static FileStream * const stdStream = new FileStream(stdin);
     return *stdStream;
@@ -91,7 +95,7 @@ MXCPP_DLL_EXPORT mx::FileStream & mx::StandardInput()
 
     This means, the stream can be used during program init and exit stages.
 */
-MXCPP_DLL_EXPORT mx::FileStream & mx::StandardOutput()
+static FileStream & _StandardOutput()
 {
     static FileStream * const stdStream = new FileStream(stdout);
     return *stdStream;
@@ -113,11 +117,22 @@ MXCPP_DLL_EXPORT mx::FileStream & mx::StandardOutput()
 
     This means, the stream can be used during program init and exit stages.
 */
-MXCPP_DLL_EXPORT mx::FileStream & mx::StandardError()
+static FileStream & _StandardError()
 {
     static FileStream * const stdStream = new FileStream(stderr);
     return *stdStream;
 }
+
+
+} // namespace mx
+
+
+MXCPP_DLL_EXPORT mx::FileStream & mx::StandardInput
+    = mx::_StandardInput();
+MXCPP_DLL_EXPORT mx::FileStream & mx::StandardOutput
+    = mx::_StandardOutput();
+MXCPP_DLL_EXPORT mx::FileStream & mx::StandardError
+    = mx::_StandardError();
 
 
 /* EOF */

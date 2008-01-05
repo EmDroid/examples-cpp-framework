@@ -16,7 +16,7 @@ MXCPP_MAIN_TARGETS := all test clean cleanall
 
 
 # The list of compilers, which will be checked for current system.
-MXCPP_LIST_COMPILERS := gcc bcc dmc msvc6 msvc7 msvc8
+MXCPP_LIST_COMPILERS := gcc bcc dmc msvc6 msvc7 msvc8 watcom
 
 MXCPP_BATCH_msvc6_SETUP := setmsvc6
 MXCPP_BATCH_msvc7_SETUP := setmsvc7

@@ -547,6 +547,10 @@ SOURCE=..\..\..\..\..\inc\mx\defs\unix.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\inc\mx\defs\watcom.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\inc\mx\defs\win32.h
 # End Source File
 # End Group

@@ -36,14 +36,4 @@ MX_INLINE mx::StreamException::StreamException(
 {}
 
 
-/**
-    Constructor.
-
-    @param iErrno [in] Error value as obtained from system @c errno variable.
-*/
-MX_INLINE mx::GenericIOException::GenericIOException(const int iErrno)
-    : m_iErrno((iErrno) ? iErrno : errno)
-{}
-
-
 /* EOF */
