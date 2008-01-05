@@ -31,7 +31,8 @@
 
 #ifndef __cplusplus
 
-#define const
+/* does not work in borlandc
+ #define const */
 
 #endif /* __cplusplus */
 
@@ -55,13 +56,16 @@
 
 
 #if (!defined(MXCPP_FIX_USE_OLD_C_HEADERS) \
-    && defined(MXCPP_FIX_HAS_NOT_STD_NAMESPACE))
+    && !defined(MXCPP_FIX_HAS_NOT_STD_NAMESPACE))
 
+using namespace std;
+
+/*
 namespace std
 {
     extern "C" int fprintf(FILE *, const char *, ...);
-
 }
+*/
 
 #endif // MXCPP_FIX_HAS_NOT_STD_NAMESPACE
 

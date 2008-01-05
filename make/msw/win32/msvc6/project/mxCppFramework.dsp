@@ -471,6 +471,10 @@ SOURCE=..\..\..\..\..\src\OutOfMem.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\..\..\..\inc\mx\defs\bcc.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\inc\mx\defs\dmc.h
 # End Source File
 # Begin Source File
@@ -484,6 +488,10 @@ SOURCE=..\..\..\..\..\inc\mx\defs\gcc2.h
 # Begin Source File
 
 SOURCE=..\..\..\..\..\inc\mx\defs\gcc3.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\defs\gcc4.h
 # End Source File
 # Begin Source File
 
@@ -512,6 +520,10 @@ SOURCE=..\..\..\..\..\inc\mx\defs\newdef.hpp
 # Begin Source File
 
 SOURCE=..\..\..\..\..\inc\mx\defs\newundef.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\defs\stddllexp.h
 # End Source File
 # Begin Source File
 

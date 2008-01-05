@@ -202,10 +202,10 @@ int mx::Exception::WriteMessage(FILE * const stream) const
     int iBytesWritten = doWriteMessage(stream);
     if (m_sFileName)
     {
-        iBytesWritten += std::fprintf(stream, ", thrown in '%s(%lu)'",
+        iBytesWritten += fprintf(stream, ", thrown in '%s(%lu)'",
                 m_sFileName, m_iFileLine);
     }
-    iBytesWritten += std::fprintf(stream, ".\n");
+    iBytesWritten += fprintf(stream, ".\n");
     return iBytesWritten;
 }
 
@@ -220,14 +220,14 @@ MX_NORETURN mx::Exception::Fail(const char * const sMessage) const
 /* virtual */ int mx::Exception::doWriteMessage(FILE * const stream) const
 {
     int iBytesWritten
-        = std::fprintf(stream, "Exception [%s] caught", getName());
+        = fprintf(stream, "Exception [%s] caught", getName());
 
     // Append the message, if some set.
     const char * const sMessage = message();
     if (sMessage)
     {
         iBytesWritten
-            += std::fprintf(stream, " with message: '%s'", sMessage);
+            += fprintf(stream, " with message: '%s'", sMessage);
     }
 
     return iBytesWritten;

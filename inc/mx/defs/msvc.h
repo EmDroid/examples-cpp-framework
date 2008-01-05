@@ -67,26 +67,8 @@
 #endif /* MSVC < 6.0 */
 
 
-#ifdef MX_MAKEDLL
-    #define MX_DLL_EXPORT  __declspec(dllexport)
-#else
-#ifdef MX_USEDLL
-    #define MX_DLL_EXPORT  __declspec(dllimport)
-#else
-    #define MX_DLL_EXPORT
-#endif
-#endif
-
-
-#ifdef MXCPP_MAKEDLL
-    #define MXCPP_DLL_EXPORT  __declspec(dllexport)
-#else
-#ifdef MXCPP_USEDLL
-    #define MXCPP_DLL_EXPORT  __declspec(dllimport)
-#else
-    #define MXCPP_DLL_EXPORT
-#endif
-#endif
+/* Uses standard __declspec(dllexport/dllimport) DLL exports. */
+#include "mx/defs/stddllexp.h"
 
 
 /**
