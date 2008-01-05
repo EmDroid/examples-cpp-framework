@@ -41,6 +41,7 @@ using namespace std;
 
 
 /* Framework libraries. */
+#include "mx/StdStrm.hpp"
 #include "mx/log.h"
 #include "mx/App/App.hpp"
 
@@ -160,6 +161,7 @@ mx::Exception::sm_pLastRaisedException = NULL;
 /* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
         const Exception * const pException)
 {
+    fprintf(stderr, "\nUnexpected termination handler entered!\n");
     if (!pException)
     {
         mxLogFatalError(_("Weird exception caught!"));
@@ -197,37 +199,37 @@ mx::Exception::sm_pLastRaisedException = NULL;
 }
 
 
-int mx::Exception::WriteMessage(FILE * const stream) const
+int mx::Exception::WriteMessage(Stream & stream) const
 {
     int iBytesWritten = doWriteMessage(stream);
     if (m_sFileName)
     {
-        iBytesWritten += fprintf(stream, ", thrown in '%s(%lu)'",
+        iBytesWritten += stream.Printf(", thrown in '%s(%u)'",
                 m_sFileName, m_iFileLine);
     }
-    iBytesWritten += fprintf(stream, ".\n");
+    iBytesWritten += stream.Printf(".\n");
     return iBytesWritten;
 }
 
 
 MX_NORETURN mx::Exception::Fail(const char * const sMessage) const
 {
-    WriteMessage(stderr);
+    WriteMessage(StandardError);
     exit(1);
 }
 
 
-/* virtual */ int mx::Exception::doWriteMessage(FILE * const stream) const
+/* virtual */ int mx::Exception::doWriteMessage(Stream & stream) const
 {
     int iBytesWritten
-        = fprintf(stream, "Exception [%s] caught", getName());
+        = stream.Printf("Exception [%s] caught", getName());
 
     // Append the message, if some set.
     const char * const sMessage = message();
     if (sMessage)
     {
         iBytesWritten
-            += fprintf(stream, " with message: '%s'", sMessage);
+            += stream.Printf(" with message: '%s'", sMessage);
     }
 
     return iBytesWritten;
@@ -244,19 +246,6 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::SystemException);
 
 // Start the exception implementation.
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::KernelException);
-
-
-// Start the exception implementation.
-MX_IMPLEMENT_EXCEPTION_CLASS(mx::StreamException);
-
-
-// Start the exception implementation.
-MX_IMPLEMENT_EXCEPTION_CLASS(mx::EndOfFile);
-
-void EndOfFileImp()
-{
-    mxThrow(mx::EndOfFile());
-}
 
 
 namespace mx

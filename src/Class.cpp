@@ -67,7 +67,7 @@ const char * mx::Class::getName() const
     // In case the string ended with a digit, the heuristics above did not
     // work. In such case, return the whole string instead of the useless
     // empty string.
-    const bool bNameIsEmpty = (*sClassName == '\0');
+    const bool bNameIsEmpty = ('\0' == *sClassName);
     if (bNameIsEmpty)
     {
         sClassName = sTypeidName;

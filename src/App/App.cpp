@@ -69,6 +69,7 @@ mx::Application::Application()
 */
 int mx::Application::Run(void)
 {
+    int iReturnCode = 0;
     try
     {
         if (!Initialize())
@@ -77,7 +78,7 @@ int mx::Application::Run(void)
             mxLogError(_("Application initialization failed."));
             return RC_INTERNAL_ERROR;
         }
-        return OnRun();
+        iReturnCode = OnRun();
     }
     catch (const Exception & e)
     {
@@ -87,8 +88,7 @@ int mx::Application::Run(void)
     {
         Exception::HandleUncaughtException();
     }
-    // Cannot be reached, but might produce warning.
-    return 0;
+    return iReturnCode;
 }
 
 

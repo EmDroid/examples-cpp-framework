@@ -60,6 +60,19 @@
 #include "mx/defs/stddllexp.h"
 
 
+/* Define how to declare functions/methods with printf(3) like semantics. */
+#define MX_PRINTFLIKE(format_index, arguments_index) \
+    __attribute__((format(printf, (format_index), (arguments_index))))
+#define MX_PRINTFLIKE_METHOD(format_index, arguments_index) \
+    MX_PRINTFLIKE((format_index) + 1, (arguments_index) + 1)
+
+/* Define how to declare functions/methods with scanf(3) like semantics. */
+#define MX_SCANFLIKE(format_index, arguments_index) \
+    __attribute__((format(scanf, (format_index), (arguments_index))))
+#define MX_SCANFLIKE_METHOD(format_index, arguments_index) \
+    MX_SCANFLIKE((format_index) + 1, (arguments_index) + 1)
+
+
 #endif /* MXCPP_SYSDEF_GCC_H_INCLUDE_GUARD */
 
 /* EOF */

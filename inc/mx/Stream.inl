@@ -19,43 +19,31 @@
 /**
     @file
 
-    Pure ANSI C tests.
+    Input/Output streams generic base (inline methods).
 
     @author Emil Maskovsky
 */
 
 
-/* System library. */
-#include "mx.h"
+/**
+    Constructor.
+
+    @param [in] sMessage The exception message.
+*/
+MX_INLINE mx::StreamException::StreamException(
+        const char * const sMessage)
+    : Super(sMessage)
+{}
 
 
-/* Framework library. */
+/**
+    Constructor.
 
-
-/* Application specific. */
-
-
-int main(void)
-{
-#define TestType  int
-
-    TestType * pIntegers;
-
-    printf("--- Running the [Pure ANSI C] tests ... ---\n");
-    fflush(stdout);
-
-
-    /* Testing standard memory allocations. */
-    pIntegers = (TestType *)malloc(sizeof(TestType));
-    *pIntegers = 10;
-    pIntegers = (TestType *)realloc(pIntegers, sizeof(TestType) * 10);
-    mxTest(*pIntegers == 10);
-    free(pIntegers);
-
-    printf("--- ... the [Pure ANSI C] tests passed successfully. ---\n");
-
-    return EXIT_SUCCESS;
-}
+    @param iErrno [in] Error value as obtained from system @c errno variable.
+*/
+MX_INLINE mx::GenericIOException::GenericIOException(const int iErrno)
+    : m_iErrno((iErrno) ? iErrno : errno)
+{}
 
 
 /* EOF */

@@ -281,7 +281,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /dll /machine:I386 /out:"../mxcpp01.dll"
-# ADD LINK32 /nologo /dll /machine:I386 /out:"../mxcpp01.dll"
+# ADD LINK32 user32.lib kernel32.lib /nologo /dll /machine:I386 /out:"../mxcpp01.dll"
 
 !ELSEIF  "$(CFG)" == "mxCppFramework - Win32 DLL Debug"
 
@@ -311,7 +311,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /dll /debug /machine:I386 /out:"../mxcpp01d.dll" /pdbtype:sept
-# ADD LINK32 /nologo /dll /debug /machine:I386 /out:"../mxcpp01d.dll" /pdbtype:sept
+# ADD LINK32 user32.lib kernel32.lib /nologo /dll /debug /machine:I386 /out:"../mxcpp01d.dll" /pdbtype:sept
 
 !ELSEIF  "$(CFG)" == "mxCppFramework - Win32 DLL Unicode Release"
 
@@ -342,7 +342,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /dll /machine:I386 /out:"../mxcpp01u.dll"
-# ADD LINK32 /nologo /dll /machine:I386 /out:"../mxcpp01u.dll"
+# ADD LINK32 user32.lib kernel32.lib /nologo /dll /machine:I386 /out:"../mxcpp01u.dll"
 
 !ELSEIF  "$(CFG)" == "mxCppFramework - Win32 DLL Unicode Debug"
 
@@ -373,7 +373,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo /o"mxCppFramework.bsc"
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /dll /debug /machine:I386 /out:"../mxcpp01ud.dll" /pdbtype:sept
-# ADD LINK32 /nologo /dll /debug /machine:I386 /out:"../mxcpp01ud.dll" /pdbtype:sept
+# ADD LINK32 user32.lib kernel32.lib /nologo /dll /debug /machine:I386 /out:"../mxcpp01ud.dll" /pdbtype:sept
 
 !ENDIF 
 
@@ -440,7 +440,15 @@ SOURCE=..\..\..\..\..\src\debug.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\src\dllmain.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\src\Except.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\src\FileStrm.cpp
 # End Source File
 # Begin Source File
 
@@ -461,6 +469,14 @@ SOURCE=..\..\..\..\..\src\new.cpp
 # Begin Source File
 
 SOURCE=..\..\..\..\..\src\OutOfMem.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\src\StdStrm.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\src\Stream.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -596,6 +612,14 @@ SOURCE=..\..\..\..\..\inc\mx\Except.inl
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\inc\mx\FileStrm.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\FileStrm.inl
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\inc\mx\log.h
 # End Source File
 # Begin Source File
@@ -621,6 +645,18 @@ SOURCE=..\..\..\..\..\inc\mx\new.hpp
 # Begin Source File
 
 SOURCE=..\..\..\..\..\inc\mx\new.inl
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\StdStrm.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\Stream.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\Stream.inl
 # End Source File
 # Begin Source File
 

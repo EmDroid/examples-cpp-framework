@@ -52,9 +52,6 @@ public:
 };
 
 
-MX_IMPLEMENT_EXCEPTION_CLASS(TestException);
-
-
 template< class ExceptionType >
 int SingleExceptionTest(const ExceptionType & theException)
 {
@@ -67,7 +64,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (const ExceptionType & e)
     {
-        e.WriteMessage(stdout);
+        e.WriteMessage(StandardOutput);
     }
     // Check catching as arbitrary exception.
     try
@@ -78,11 +75,11 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (const Exception & e)
     {
-        e.WriteMessage(stdout);
+        e.WriteMessage(StandardOutput);
     }
     catch (...)
     {
-        fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
+        StandardError.Printf("Weird exception caught in '%s(%u)'\n",
                 __FILE__, __LINE__);
         return EXIT_FAILURE;
     }
@@ -96,7 +93,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (const ExceptionType & e)
     {
-        e.WriteMessage(stdout);
+        e.WriteMessage(StandardOutput);
     }
     // Check catching as arbitrary exception.
     try
@@ -107,11 +104,11 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (const Exception & e)
     {
-        e.WriteMessage(stdout);
+        e.WriteMessage(StandardOutput);
     }
     catch (...)
     {
-        fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
+        StandardError.Printf("Weird exception caught in '%s(%u)'\n",
                 __FILE__, __LINE__);
         return EXIT_FAILURE;
     }
@@ -120,8 +117,21 @@ int SingleExceptionTest(const ExceptionType & theException)
 }
 
 
+} // namespace mx
+
+
+MX_IMPLEMENT_EXCEPTION_CLASS(mx::TestException);
+
+
+MX_INLINE const char * mx::TestApp::SetTestName()
+{
+    return "Exception";
+}
+
+
 mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 {
+
     /* Testing some standard exception. */
 
     if (EXIT_SUCCESS != SingleExceptionTest(EndOfFile()))
@@ -155,18 +165,18 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
         }
         catch (...)
         {
-            fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
+            StandardError.Printf("Weird exception caught in '%s(%u)'\n",
                     __FILE__, __LINE__);
             return RC_FAILURE;
         }
     }
     catch (const Exception & e)
     {
-        e.WriteMessage(stdout);
+        e.WriteMessage(StandardOutput);
     }
     catch (...)
     {
-        fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
+        StandardError.Printf("Weird exception caught in '%s(%u)'\n",
                 __FILE__, __LINE__);
         return RC_FAILURE;
     }
@@ -185,18 +195,18 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
         }
         catch (...)
         {
-            fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
+            StandardError.Printf("Weird exception caught in '%s(%u)'\n",
                     __FILE__, __LINE__);
             return RC_FAILURE;
         }
     }
     catch (const Exception & e)
     {
-        e.WriteMessage(stdout);
+        e.WriteMessage(StandardOutput);
     }
     catch (...)
     {
-        fprintf(stderr, "Weird exception caught in '%s(%lu)'\n",
+        StandardError.Printf("Weird exception caught in '%s(%u)'\n",
                 __FILE__, __LINE__);
         return RC_FAILURE;
     }
@@ -216,9 +226,6 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 
     return RC_SUCCESS;
 }
-
-
-} // namespace mx
 
 
 MX_IMPLEMENT_APP(mx::TestApp)

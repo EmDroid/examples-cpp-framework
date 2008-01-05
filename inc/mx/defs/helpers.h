@@ -81,9 +81,13 @@ namespace std
 #endif
 
 
+#ifndef MXCPP_UNICODE
 #define mxT(string)  string
+#else
+#define mxT(string)  L ## string
+#endif
 
-#define _(string)  mxT(string)
+#define _(string)  string
 
 #define _T(string)  mxT(string)
 
@@ -219,6 +223,61 @@ namespace std
     (sizeof((array)) / sizeof(*(array)))
 
 
+/**
+    @def MX_PRINTFLIKE
+
+    Declaration of @c printf(3) like functions.
+
+    @param format_index    Index of formatting string parameter.
+    @param arguments_index Index of the @c ... parameter.
+
+    This macro is used in declarations of functions which accept arguments
+    formatted the same way as the @c printf(3) functions.
+
+    If the compilator supports it, this macro will make sure that the
+    arguments are checked and warning is generated if they don't match the
+    provided formatting string.
+
+    For example,
+    @code
+    MX_PRINTFLIKE(1,2) void custom_printf(const char * sFormat, ...);
+    @endcode
+
+    @see MX_PRINTFLIKE_METHOD() for usage within class methods.
+*/
+
+#ifndef MX_PRINTFLIKE
+#define MX_PRINTFLIKE(format_index, arguments_index)
+#endif
+
+/**
+    @def MX_SCANFLIKE
+
+    Declaration of @c scanf(3) like functions.
+
+    @param format_index    Index of formatting string parameter.
+    @param arguments_index Index of the @c ... parameter.
+
+    This macro is used in declarations of functions which accept arguments
+    formatted the same way as the @c scanf(3) functions.
+
+    If the compilator supports it, this macro will make sure that the
+    arguments are checked and warning is generated if they don't match the
+    provided formatting string.
+
+    For example,
+    @code
+    int MX_SCANFLIKE(1,2) custom_scanf(const char * sFormat, ...);
+    @endcode
+
+    @see MX_SCANFLIKE_METHOD() for usage within class methods.
+*/
+
+#ifndef MX_SCANFLIKE
+#define MX_SCANFLIKE(format_index, arguments_index)
+#endif
+
+
 #ifdef __cplusplus
 
 // C++ only declarations.
@@ -231,6 +290,36 @@ namespace std
 template< class Type >
 void mxUse(Type)
 {}
+
+
+/**
+    @def MX_PRINTFLIKE_METHOD
+
+    Declaration of @c printf(3) like methods.
+
+    Like MX_PRINTFLIKE(), but for use in declarations of methods in classes.
+
+    @see MX_PRINTFLIKE() for more info.
+*/
+
+#ifndef MX_PRINTFLIKE_METHOD
+#define MX_PRINTFLIKE_METHOD(format_index, arguments_index)
+#endif
+
+
+/**
+    @def MX_SCANFLIKE_METHOD
+
+    Declaration of @c scanf(3) like methods.
+
+    Like MX_SCANFLIKE(), but for use in declarations of methods in classes.
+
+    @see MX_SCANFLIKE() for more info.
+*/
+
+#ifndef MX_SCANFLIKE_METHOD
+#define MX_SCANFLIKE_METHOD(format_index, arguments_index)
+#endif
 
 
 /**

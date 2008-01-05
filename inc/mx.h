@@ -45,6 +45,9 @@
 #include "mx/Except.hpp"
 #include "mx/new.hpp"
 #include "mx/Memory.hpp"
+#include "mx/Stream.hpp"
+#include "mx/FileStrm.hpp"
+#include "mx/StdStrm.hpp"
 
 // System library headers.
 #include "mx/System/Error.hpp"

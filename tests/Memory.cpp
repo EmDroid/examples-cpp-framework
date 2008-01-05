@@ -33,8 +33,10 @@
 #include "mx/Memory.hpp"
 
 
-namespace mx
+MX_INLINE const char * mx::TestApp::SetTestName()
 {
+    return "Memory";
+}
 
 
 mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
@@ -64,9 +66,6 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 
     return RC_SUCCESS;
 }
-
-
-} // namespace mx
 
 
 MX_IMPLEMENT_APP(mx::TestApp)

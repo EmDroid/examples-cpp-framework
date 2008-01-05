@@ -19,43 +19,10 @@
 /**
     @file
 
-    Pure ANSI C tests.
+    File streams (inline methods).
 
     @author Emil Maskovsky
 */
-
-
-/* System library. */
-#include "mx.h"
-
-
-/* Framework library. */
-
-
-/* Application specific. */
-
-
-int main(void)
-{
-#define TestType  int
-
-    TestType * pIntegers;
-
-    printf("--- Running the [Pure ANSI C] tests ... ---\n");
-    fflush(stdout);
-
-
-    /* Testing standard memory allocations. */
-    pIntegers = (TestType *)malloc(sizeof(TestType));
-    *pIntegers = 10;
-    pIntegers = (TestType *)realloc(pIntegers, sizeof(TestType) * 10);
-    mxTest(*pIntegers == 10);
-    free(pIntegers);
-
-    printf("--- ... the [Pure ANSI C] tests passed successfully. ---\n");
-
-    return EXIT_SUCCESS;
-}
 
 
 /* EOF */

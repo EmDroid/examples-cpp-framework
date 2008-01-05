@@ -35,6 +35,8 @@
 
 #include "mx/App/App.hpp"
 
+#include "mx/StdStrm.hpp"
+
 
 namespace mx
 {
@@ -71,9 +73,26 @@ public:
 
 private:
 
-    MX_OVERRIDDEN MX_INLINE ReturnCode OnRun()
+    MX_INLINE const char * SetTestName();
+
+    MX_INLINE const char * GetTestName()
     {
-        return OnRunTests();
+        static const char * const sTestName = SetTestName();
+        mxAssert(sTestName != NULL);
+        return sTestName;
+    }
+
+    MX_OVERRIDDEN ReturnCode OnRun()
+    {
+        StandardOutput.Printf(
+                "--- Running the [%s] tests ... ---\n",
+                GetTestName());
+        StandardOutput.Flush();
+        const ReturnCode iRetCode = OnRunTests();
+        StandardOutput.Printf(
+                "--- ... the [%s] tests passed successfully. ---\n",
+                GetTestName());
+        return iRetCode;
     }
 
 protected:

@@ -44,6 +44,10 @@ namespace mx
     mx::ThrowException(exception, __FILE__, __LINE__)
 
 
+// Forward declaration.
+class Stream;
+
+
 /**
     Exception class declaration.
 
@@ -194,7 +198,7 @@ public:
     // Overridden std::exception::what() method.
     virtual const char * what() const;
 
-    int WriteMessage(FILE * const stream) const;
+    int WriteMessage(Stream & stream) const;
 
     MX_NORETURN Fail(const char * const sMessage = NULL) const;
 
@@ -202,7 +206,7 @@ protected:
 
     MX_INLINE const char * message() const;
 
-    virtual int doWriteMessage(FILE * const stream) const;
+    virtual int doWriteMessage(Stream & stream) const;
 
 
 // Class instance attributes.
@@ -352,32 +356,6 @@ protected:
 
 
 }; // class KernelException
-
-
-class MXCPP_DLL_EXPORT StreamException
-    : public KernelException
-{
-
-    MX_DECLARE_EXCEPTION_CLASS(StreamException, KernelException);
-
-// Construction, destruction.
-
-protected:
-
-    // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE StreamException(const char * sMessage = NULL);
-
-
-}; // class StreamException
-
-
-class MXCPP_DLL_EXPORT EndOfFile
-    : public StreamException
-{
-
-    MX_DECLARE_EXCEPTION_CLASS(EndOfFile, StreamException);
-
-}; // class EndOfFile
 
 
 } // namespace mx
