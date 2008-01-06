@@ -35,9 +35,6 @@
 /* Disable warning: typedef-name used as synonym for class-name */
 #pragma warning(disable : 4097)
 
-/* Disable warning: copy constructor could not be generated */
-/* #pragma warning(disable : 4511) */
-
 
 #endif /* MXCPP_SYSDEF_MSVC6_H_INCLUDE_GUARD */
 

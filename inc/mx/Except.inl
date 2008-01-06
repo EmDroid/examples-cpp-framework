@@ -55,6 +55,15 @@ MX_INLINE mx::Exception::Exception(
 {}
 
 
+MX_INLINE void mx::Exception::SetDebugInfo(
+        const char * const sFileName,
+        const Size iFileLine) const
+{
+    m_sFileName = sFileName;
+    m_iFileLine = iFileLine;
+}
+
+
 /**
     Get the exception message, if some set.
 

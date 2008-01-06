@@ -71,9 +71,7 @@
 #include "mx/defs/stddllexp.h"
 
 
-/**
-    Operator @c delete has the same parameters as the operator @c new.
-*/
+/** Operator @c delete has the same parameters as the operator @c new. */
 #define MXCPP_FIX_DELETE_PARAMS_LIKE_NEW
 
 

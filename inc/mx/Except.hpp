@@ -205,6 +205,10 @@ public:
 
     MX_NORETURN Fail(const char * const sMessage = NULL) const;
 
+    MX_INLINE void SetDebugInfo(
+            const char * const sFileName,
+            const Size iFileLine) const;
+
 protected:
 
     MX_INLINE const char * message() const;
@@ -214,7 +218,7 @@ protected:
 
 // Class instance attributes.
 
-public:
+private:
 
     /// The message associated with the exception.
     const char * const m_sMessage;
@@ -283,8 +287,7 @@ static MX_NORETURN ThrowException(
     // (In the case of catching by reference, the cast-to-pointer operator is
     // used.)
     const Exception * const pExceptionBase = &pException;
-    pExceptionBase->m_sFileName = sFileName;
-    pExceptionBase->m_iFileLine = iFileLine;
+    pExceptionBase->SetDebugInfo(sFileName, iFileLine);
 
     Exception::setLastRaisedException(pException);
 

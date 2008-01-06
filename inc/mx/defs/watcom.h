@@ -45,19 +45,6 @@
 /* Uses standard __declspec(dllexport/dllimport) DLL exports. */
 #include "mx/defs/stddllexp.h"
 
-/*
-#ifdef MX_INLINE_ENABLED
-#undef MX_INLINE_ENABLED
-#endif
-*/
-
-
-#define MXCPP_FIX_STATIC_CANT_ACCESS_PRIVATE_CONSTRUCTOR
-
-#define MXCPP_FIX_USE_OLD_C_HEADERS
-
-#define MXCPP_FIX_TEMPLATE_METHODS_NOT_SUPPORTED
-
 
 #endif /* MXCPP_SYSDEF_WATCOM_H_INCLUDE_GUARD */
 
