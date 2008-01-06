@@ -288,21 +288,8 @@ private:
 
 
 // Construction, destruction.
-#ifndef MXCPP_FIX_STATIC_CANT_ACCESS_PRIVATE_CONSTRUCTOR
-
-protected:
-
-    /**
-        Suppress warning about private-only member functions by declaring a fake
-        friend.
-    */
-    friend class NonExistingFakeClass;
-
-#else // MXCPP_FIX_STATIC_CANT_ACCESS_PRIVATE_CONSTRUCTOR
 
 public:
-
-#endif // MXCPP_FIX_STATIC_CANT_ACCESS_PRIVATE_CONSTRUCTOR
 
     UncaughtExceptionHandler();
 

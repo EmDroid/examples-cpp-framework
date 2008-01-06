@@ -42,8 +42,7 @@ int main(void)
     TestType * pIntegers;
 
     printf("--- Running the [Pure ANSI C] tests ... ---\n");
-    fflush(stdout);
-
+    fflush(stdout);  /* make sure the message is displayed */
 
     /* Testing standard memory allocations. */
     pIntegers = (TestType *)malloc(sizeof(TestType));

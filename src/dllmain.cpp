@@ -60,8 +60,10 @@ extern "C" MXCPP_DLL_EXPORT BOOL WINAPI DllMain(
     {
         // Initialize once for each new process.
         // Return FALSE to fail DLL load.
+        /*
         MessageBox(NULL, _T("Initialization of the DLL."),
                 _T("Demo C++ Framework"), MB_OK);
+        */
         break;
     }
 
@@ -80,8 +82,10 @@ extern "C" MXCPP_DLL_EXPORT BOOL WINAPI DllMain(
     case DLL_PROCESS_DETACH:
     {
         // Perform any necessary cleanup.
+        /*
         MessageBox(NULL, _T("De-initialization of the DLL."),
                 _T("Demo C++ Framework"), MB_OK);
+        */
         break;
     }
     }
