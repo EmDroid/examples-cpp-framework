@@ -26,7 +26,6 @@
 
 
 /* System libraries. */
-#include <typeinfo>
 
 
 /* Framework libraries. */
@@ -34,6 +33,17 @@
 
 /* Application specific. */
 #include "mx/Class.hpp"
+
+
+#ifndef MXCPP_FIX_USE_OLD_C_HEADERS
+
+#include <typeinfo>
+
+#else /* MXCPP_FIX_USE_OLD_C_HEADERS */
+
+#include <typeinfo.h>
+
+#endif /* MXCPP_FIX_USE_OLD_C_HEADERS */
 
 
 /* virtual */ mx::Class::~Class()

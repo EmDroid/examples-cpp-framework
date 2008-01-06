@@ -45,12 +45,17 @@
 #endif /* __DMC__ < 0x700 */
 
 
+#ifdef MX_PLATFORM_OS_WIN32
+
 /* Uses standard __declspec(dllexport/dllimport) DLL exports. */
 #include "mx/defs/stddllexp.h"
 
+#else /* PLATFORM_OS_WIN32 */
 
-/** The compiler does not know namespace "std::". */
-// #define MXCPP_FIX_HAS_NOT_STD_NAMESPACE
+/* C++-style DMC headers are incompatible with outside WIN32. */
+#define MXCPP_FIX_USE_OLD_C_HEADERS
+
+#endif /* PLATFORM_OS_WIN32 */
 
 
 #endif /* MXCPP_SYSDEF_DMC_H_INCLUDE_GUARD */

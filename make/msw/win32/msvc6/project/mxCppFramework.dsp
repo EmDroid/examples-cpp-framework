@@ -495,6 +495,10 @@ SOURCE=..\..\..\..\..\inc\mx\defs\dmc.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\inc\mx\defs\dos.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\inc\mx\defs\gcc.h
 # End Source File
 # Begin Source File

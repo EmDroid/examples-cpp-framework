@@ -35,9 +35,17 @@
 #endif
 
 
-/* Check the MS-DOS system flags. */
-#if (defined(_MSDOS) && !defined(MSDOS))
-#define MSDOS  _MSDOS
+/* Check the DOS system flags. */
+#if (defined(_MSDOS) && !defined(_DOS))
+#define _DOS  _MSDOS
+#endif
+
+#if (defined(MSDOS) && !defined(DOS))
+#define DOS  MSDOS
+#endif
+
+#if (defined(_DOS) && !defined(DOS))
+#define DOS  _DOS
 #endif
 
 
@@ -85,14 +93,10 @@
 
 #else /* WIN32 */
 
-#ifdef MSDOS
+#ifdef DOS
 
-#ifndef MX_PLATFORM_OS_MSDOS
-#define MX_PLATFORM_OS_MSDOS
-#endif
-
-/* MS-DOS system definitions. */
-#include "mx/defs/msdos.h"
+/* DOS system definitions. */
+#include "mx/defs/dos.h"
 
 #else /* MSDOS */
 
