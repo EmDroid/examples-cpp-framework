@@ -42,12 +42,14 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cstdarg>
+#include <cerrno>
 
 #else /* MXCPP_FIX_USE_OLD_C_HEADERS */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <errno.h>
 
 #endif /* MXCPP_FIX_USE_OLD_C_HEADERS */
 
