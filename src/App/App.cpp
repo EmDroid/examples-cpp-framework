@@ -26,8 +26,6 @@
 
 
 /* System libraries. */
-// signal(), SIGABRT
-#include <signal.h>
 
 
 /* Framework libraries. */

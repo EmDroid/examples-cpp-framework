@@ -201,9 +201,9 @@ public:
     // Overridden std::exception::what() method.
     virtual const char * what() const;
 
-    int WriteMessage(Stream & stream) const;
+    Size WriteMessage(Stream & stream) const;
 
-    MX_NORETURN Fail(const char * const sMessage = NULL) const;
+    MX_NORETURN Fail() const;
 
     MX_INLINE void SetDebugInfo(
             const char * const sFileName,
@@ -213,7 +213,7 @@ protected:
 
     MX_INLINE const char * message() const;
 
-    virtual int doWriteMessage(Stream & stream) const;
+    virtual Size doWriteMessage(Stream & stream) const;
 
 
 // Class instance attributes.

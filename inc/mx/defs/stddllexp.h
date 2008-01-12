@@ -57,7 +57,7 @@
 #endif
 
 
-#endif /* MX_PLATFORM_OS_WIN32 */
+#else /* MX_PLATFORM_OS_WIN32 */
 
 
 #ifdef MX_PLATFORM_OS_WIN16
@@ -86,6 +86,9 @@
 
 
 #endif /* MX_PLATFORM_OS_WIN16 */
+
+
+#endif /* MX_PLATFORM_OS_WIN32 */
 
 
 #endif /* MXCPP_SYSDEF_STANDARD_DLL_EXPORTS_H_INCLUDE_GUARD */

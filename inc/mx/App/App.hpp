@@ -130,10 +130,10 @@ public:
         RC_INTERNAL_ERROR = -1,
 
         /// Application exit withour errors.
-        RC_SUCCESS = 0,
+        RC_SUCCESS = EXIT_SUCCESS,
 
         /// Application exit with general error.
-        RC_FAILURE = 1,
+        RC_FAILURE = EXIT_FAILURE,
 
     } ReturnCode;
 

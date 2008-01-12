@@ -555,11 +555,7 @@ SOURCE=..\..\..\..\..\inc\mx\defs\watcom.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\win16.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\..\inc\mx\defs\win32.h
+SOURCE=..\..\..\..\..\inc\mx\defs\win.h
 # End Source File
 # End Group
 # Begin Group "System"

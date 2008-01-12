@@ -29,108 +29,147 @@
 #define MXCPP_SYSDEFS_H_INCLUDE_GUARD
 
 
+/* Check the Windows-64 system flags. */
+#if (!defined(WIN64) && defined(_WIN64))
+#define WIN64
+#endif
+
+
+#ifdef WIN64
+
+#define MX_PLATFORM_OS_WIN64
+
+#ifndef MX_PLATFORM_OS_WINDOWS
+#define MX_PLATFORM_OS_WINDOWS
+#endif
+
+#endif
+
+
 /* Check the Windows-32 system flags. */
-#if (defined(_WIN32) && !defined(WIN32))
-#define WIN32  _WIN32
+#if (!defined(WIN32) && defined(_WIN32))
+#define WIN32
+#endif
+
+
+#ifdef WIN32
+
+#define MX_PLATFORM_OS_WIN32
+
+#ifndef MX_PLATFORM_OS_WINDOWS
+#define MX_PLATFORM_OS_WINDOWS
+#endif
+
 #endif
 
 
 /* Check the Windows-16 system flags. */
-#if (defined(_WIN16) && !defined(WIN16))
-#define WIN16  _WIN16
+#if (!defined(WIN16) && (defined(_WINDOWS) /*|| defined(__WINDOWS)*/))
+#define WIN16
+#endif
+
+
+#ifdef WIN16
+
+#define MX_PLATFORM_OS_WIN16
+
+#ifndef MX_PLATFORM_OS_WINDOWS
+#define MX_PLATFORM_OS_WINDOWS
+#endif
+
 #endif
 
 
 /* Check the DOS system flags. */
-#if (defined(_MSDOS) && !defined(_DOS))
-#define _DOS  _MSDOS
+#if (!defined(DOS) && (defined(_DOS) || defined(MSDOS) || defined(_MSDOS)))
+#define DOS
 #endif
 
-#if (defined(MSDOS) && !defined(DOS))
-#define DOS  MSDOS
-#endif
 
-#if (defined(_DOS) && !defined(DOS))
-#define DOS  _DOS
+#ifdef DOS
+
+#define MX_PLATFORM_OS_DOS
+
 #endif
 
 
 /* Check the DEBUG flags. */
-#if (defined(_DEBUG) && !defined(DEBUG))
-#define DEBUG  _DEBUG
-#endif
-#if (defined(_DEBUG_) && !defined(DEBUG))
-#define DEBUG  _DEBUG_
-#endif
-#if (defined(__DEBUG) && !defined(DEBUG))
-#define DEBUG  __DEBUG
-#endif
-#if (defined(__DEBUG__) && !defined(DEBUG))
-#define DEBUG  __DEBUG__
+
+/* Make sure both DEBUG and _DEBUG flags defined consistently.
+    (both of them are often checked)
+*/
+    #if (!defined(DEBUG) && defined(_DEBUG))
+    #define DEBUG  _DEBUG
+    #endif
+    #if (!defined(_DEBUG) && defined(DEBUG))
+    #define _DEBUG  DEBUG
+    #endif
+
+#ifdef DEBUG
+#define MXCPP_DEBUG
 #endif
 
-#ifndef DEBUG
-/* Debugging is disabled. */
-#define MXCPP_DEBUG_DISABLED
-#else /* DEBUG */
-#if (defined(_NDEBUG) || defined(NDEBUG))
-#error Debug definition mismatch - both DEBUG and NDEBUG defined.
+#ifdef MXCPP_DEBUG
+#define MXCPP_DEBUG_ENABLED
 #endif
-#endif /* DEBUG */
 
 
 /* Check the UNICODE flags. */
-#if (defined(_UNICODE) || defined(UNICODE))
+
+/* Make sure both UNICODE and _UNICODE flags defined consistently.
+    (both of them are checked inside Windows header files)
+*/
+    #if (defined(_UNICODE) && !defined(UNICODE))
+    #define UNICODE
+    #endif
+    #if (defined(UNICODE) && !defined(_UNICODE))
+    #define _UNICODE
+    #endif
+
+#ifdef UNICODE
 #define MXCPP_UNICODE
 #endif
 
 
 /* Check the MULTITHREAD flags. */
-#ifdef _MT
-/* We run multi-threaded. */
+#if (!defined(MT) && defined(_MT))
+#define MT
+#endif
+
+#ifdef MT
+/** We run in multi-threaded mode. */
 #define MXCPP_MULTITHREAD
 #endif /* _MT */
 
 
-#ifdef WIN32
+#ifdef MX_PLATFORM_OS_WINDOWS
 
 /* Windows-32 system definitions. */
-#include "mx/defs/win32.h"
+#include "mx/defs/win.h"
 
-#else /* WIN32 */
+#else /* MX_PLATFORM_OS_WINDOWS */
 
-#ifdef WIN16
-
-/* Windows-32 system definitions. */
-#include "mx/defs/win16.h"
-
-#else /* WIN16 */
-
-#ifdef DOS
+#ifdef MX_PLATFORM_OS_DOS
 
 /* DOS system definitions. */
 #include "mx/defs/dos.h"
 
-#else /* MSDOS */
+#else /* MX_PLATFORM_OS_DOS */
 
-#if (defined(UNIX) || defined(LINUX))
+#ifdef MX_PLATFORM_OS_UNIX
 
 /* Unix/Linux system definitions. */
 #include "mx/defs/unix.h"
 
-#else /* UNIX || LINUX */
+#else /* MX_PLATFORM_OS_UNIX */
 
 /* IBM mainframe (OS/390 etc.) */
-#ifdef __MVS__
-
-#ifndef MX_PLATFORM_OS_MVS
-#define MX_PLATFORM_OS_MVS
-#endif
+#ifdef MX_PLATFORM_OS_MVS
 
 /* Unix/Linux system definitions. */
 #include "mx/defs/mvs.h"
 
-#else /* __MVS__ */
+#else /* MX_PLATFORM_OS_MVS */
 
 #ifdef MXCPP_GEN_DEPEND
 
@@ -140,15 +179,13 @@
 
 #endif /* MXCPP_GEN_DEPEND */
 
-#endif /* __MVS__ */
+#endif /* MX_PLATFORM_OS_MVS */
 
-#endif /* UNIX || LINUX */
+#endif /* MX_PLATFORM_OS_UNIX */
 
-#endif /* MSDOS */
+#endif /* MX_PLATFORM_OS_DOS */
 
-#endif /* WIN32 */
-
-#endif /* WIN16 */
+#endif /* MX_PLATFORM_OS_WINDOWS */
 
 
 /* System helper macros. */

@@ -171,12 +171,8 @@ mx::Exception::sm_pLastRaisedException = NULL;
 
     // Otherwise provide the user with the most detailed information about
     // the exception we can get.
-    pException->Fail(_("Unhandled exception caught!"));
-
-    // Always abort, if not aborted by the exception handler.
-    abort();
-    // On some platforms abort() can return.
-    exit(mx::Application::RC_INTERNAL_ERROR);
+    mxLogError(_("Unhandled exception caught!"));
+    pException->Fail();
 }
 
 
@@ -206,9 +202,9 @@ mx::Exception::sm_pLastRaisedException = NULL;
 }
 
 
-int mx::Exception::WriteMessage(Stream & stream) const
+mx::Size mx::Exception::WriteMessage(Stream & stream) const
 {
-    int iBytesWritten = doWriteMessage(stream);
+    Size iBytesWritten = doWriteMessage(stream);
     if (m_sFileName)
     {
         iBytesWritten += stream.Printf(", thrown in '%s(%u)'",
@@ -219,14 +215,14 @@ int mx::Exception::WriteMessage(Stream & stream) const
 }
 
 
-MX_NORETURN mx::Exception::Fail(const char * const sMessage) const
+MX_NORETURN mx::Exception::Fail() const
 {
     WriteMessage(StandardError);
-    exit(1);
+    exit(mx::Application::RC_FAILURE);
 }
 
 
-/* virtual */ int mx::Exception::doWriteMessage(Stream & stream) const
+/* virtual */ mx::Size mx::Exception::doWriteMessage(Stream & stream) const
 {
     int iBytesWritten
         = stream.Printf("Exception [%s] caught", getName());
