@@ -35,7 +35,7 @@
 #include "mx/defs/newundef.hpp"
 
 
-MXCPP_DLL_EXPORT void * mx::OperatorNewImplementation(
+void * mx::OperatorNewImplementation(
         const Size iMemoryBlockSize,
         const char * const sFileName,
         const Size iFileLine,
@@ -45,7 +45,7 @@ MXCPP_DLL_EXPORT void * mx::OperatorNewImplementation(
 }
 
 
-MXCPP_DLL_EXPORT void mx::OperatorDeleteImplementation(
+void mx::OperatorDeleteImplementation(
         void * const pMemoryBlock,
         const bool MX_UNUSED(bVectorFree))
 {

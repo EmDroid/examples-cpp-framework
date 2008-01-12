@@ -84,6 +84,10 @@ namespace std
 #define MXCPP_DLL_EXPORT
 #endif
 
+#ifndef MXCPP_DLL_EXPORT_DATA
+#define MXCPP_DLL_EXPORT_DATA(type)  type
+#endif
+
 
 #ifndef MXCPP_UNICODE
 #define mxT(string)  string

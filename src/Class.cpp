@@ -29,6 +29,7 @@
 
 
 /* Framework libraries. */
+#include "mx/debug.h"
 
 
 /* Application specific. */
@@ -49,6 +50,7 @@
 /* virtual */ mx::Class::~Class()
 {}
 
+
 const char * mx::Class::getName() const
 {
     // Instead of implementing virtual GetName() method in all derived
@@ -58,8 +60,15 @@ const char * mx::Class::getName() const
     // name at all, just something unique). However, the heuristics used
     // below seems to work reasonably well for now.
     const char * const sTypeidName = typeid(*this).name();
+    mxAssert(sTypeidName != NULL);
+    /**
+        @todo
+        typeid() fails to work under some compilers (Watcom Win16 for now), maybe
+        we can implement some our own RTTI?
+    */
 
-    const char * sClassName = sTypeidName;
+    static const char * const sUnknown = "Unknown";
+    const char * sClassName = (sTypeidName ? sTypeidName : sUnknown);
 
     // Strip the prefix up to the last digit. The rest should be the name of
     // the class itself.

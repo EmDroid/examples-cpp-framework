@@ -29,9 +29,15 @@
 #define MXCPP_SYSDEFS_H_INCLUDE_GUARD
 
 
-/* Check the Windows32 system flags. */
+/* Check the Windows-32 system flags. */
 #if (defined(_WIN32) && !defined(WIN32))
 #define WIN32  _WIN32
+#endif
+
+
+/* Check the Windows-16 system flags. */
+#if (defined(_WIN16) && !defined(WIN16))
+#define WIN16  _WIN16
 #endif
 
 
@@ -93,6 +99,13 @@
 
 #else /* WIN32 */
 
+#ifdef WIN16
+
+/* Windows-32 system definitions. */
+#include "mx/defs/win16.h"
+
+#else /* WIN16 */
+
 #ifdef DOS
 
 /* DOS system definitions. */
@@ -134,6 +147,8 @@
 #endif /* MSDOS */
 
 #endif /* WIN32 */
+
+#endif /* WIN16 */
 
 
 /* System helper macros. */

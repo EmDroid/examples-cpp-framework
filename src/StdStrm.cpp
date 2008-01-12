@@ -127,11 +127,11 @@ static FileStream & _StandardError()
 } // namespace mx
 
 
-MXCPP_DLL_EXPORT mx::FileStream & mx::StandardInput
+MXCPP_DLL_EXPORT_DATA(mx::FileStream &) mx::StandardInput
     = mx::_StandardInput();
-MXCPP_DLL_EXPORT mx::FileStream & mx::StandardOutput
+MXCPP_DLL_EXPORT_DATA(mx::FileStream &) mx::StandardOutput
     = mx::_StandardOutput();
-MXCPP_DLL_EXPORT mx::FileStream & mx::StandardError
+MXCPP_DLL_EXPORT_DATA(mx::FileStream &) mx::StandardError
     = mx::_StandardError();
 
 

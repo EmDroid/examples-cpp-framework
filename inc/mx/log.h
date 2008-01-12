@@ -52,11 +52,20 @@ typedef enum
     mxLogMessage(__FILE__, __LINE__, MX_LOG_FATAL_ERROR, message)
 
 
-void MXCPP_DLL_EXPORT mxLogMessage(
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+MXCPP_DLL_EXPORT void mxLogMessage(
         const char * const sFileName,
         const mxSize iFileLine,
         const mxLogType iType,
         const char * const sMessage);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 
 // Define inline methods here if inlining is enabled.

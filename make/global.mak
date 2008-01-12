@@ -172,11 +172,7 @@ endef	# MXCPP_BUILD_RULES_GROUP
 
 
 
-MXCPP_GLOBALMAKE_DIR := $(filter ..,$(subst /, ,$(dir $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST)))))
-MXCPP_MAKE_DIR := $(subst /, ,$(CURDIR))
-MXCPP_MAKE_DIR_COUNT_LIST := $(MXCPP_MAKE_DIR)
-$(foreach part,$(MXCPP_GLOBALMAKE_DIR),$(eval MXCPP_MAKE_DIR_COUNT_LIST := $(wordlist 2,$(words $(MXCPP_MAKE_DIR_COUNT_LIST)),$(MXCPP_MAKE_DIR_COUNT_LIST))))
-MXCPP_MAKE_DIR := ../$(subst $(MXCPP_EMPTY_SPACE),/,$(wordlist $(words $(MXCPP_MAKE_DIR_COUNT_LIST)),$(words $(MXCPP_MAKE_DIR)),$(MXCPP_MAKE_DIR)))
+MXCPP_MAKE_DIR := $(CURDIR)
 
 
 # Run single build command.

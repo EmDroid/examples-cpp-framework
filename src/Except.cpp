@@ -184,7 +184,12 @@ mx::Exception::sm_pLastRaisedException = NULL;
     Destructor.
 */
 /* virtual */ mx::Exception::~Exception()
-{}
+{
+    if (this == sm_pLastRaisedException)
+    {
+        sm_pLastRaisedException = NULL;
+    }
+}
 
 
 /* MX_OVERRIDDEN */ const char * mx::Exception::what() const
@@ -339,7 +344,9 @@ mx::UncaughtExceptionHandler::UncaughtExceptionHandler()
 */
 /* static */ MX_NORETURN mx::UncaughtExceptionHandler::HandleUnexpected()
 {
-    Exception::HandleUncaughtException(Exception::getLastRaisedException());
+    Exception::HandleUncaughtException( /*Exception::getLastRaisedException()*/);
+    // Disabled to detect last raised exception for now - can have problems
+    // if RTTI does not work.
 }
 
 

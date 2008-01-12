@@ -137,7 +137,6 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
         return RC_FAILURE;
     }
 
-
     /* Testing some non-standard exception. */
 
     if (EXIT_SUCCESS != SingleExceptionTest(

@@ -32,12 +32,18 @@
 #include "mx/log.h"
 
 
-void MXCPP_DLL_EXPORT mxLogMessage(
+extern "C" {
+
+
+MXCPP_DLL_EXPORT void mxLogMessage(
         const char * const sFileName,
         const mxSize iFileLine,
         const mxLogType iType,
         const char * const sMessage)
 {}
+
+
+} // extern "C"
 
 
 // Define inline methods here if inlining is disabled.

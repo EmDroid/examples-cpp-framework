@@ -40,13 +40,13 @@ namespace mx
 {
 
 
-MXCPP_DLL_EXPORT void * OperatorNewImplementation(
+void * OperatorNewImplementation(
         const Size iMemoryBlockSize,
         const char * const sFileName,
         const Size iFileLine,
         const bool bVectorAlloc = false);
 
-MXCPP_DLL_EXPORT void OperatorDeleteImplementation(
+void OperatorDeleteImplementation(
         void * const pMemoryBlock,
         const bool bVectorFree = false);
 

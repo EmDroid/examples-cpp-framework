@@ -37,6 +37,11 @@
 #ifdef MXCPP_MAKEDLL
 
 
+#ifdef MX_PLATFORM_OS_WIN32
+
+// Create Windows-32 DLL library.
+
+
 /**
     The DLL entry point for the Demo C++ Framework library.
 
@@ -92,6 +97,41 @@ extern "C" MXCPP_DLL_EXPORT BOOL WINAPI DllMain(
     // Successful DLL_PROCESS_ATTACH.
     return TRUE;
 }
+
+
+#else // MX_PLATFORM_OS_WIN32
+
+#ifdef MX_PLATFORM_OS_WIN16
+
+// Create Windows-16 DLL library.
+
+
+/**
+    The DLL entry point for the Demo C++ Framework library.
+
+    @param [in] hInstance Handle to DLL module.
+
+    @retval TRUE  The initialization was done successfully.
+    @retval FALSE The initialization has failed.
+*/
+extern "C" BOOL WINAPI LibMain(
+        HANDLE MX_UNUSED(hInstance),
+        WORD MX_UNUSED(wDataSegment),
+        WORD MX_UNUSED(wHeapSize),
+        LPSTR MX_UNUSED(lpszCmdLine))
+{
+    return TRUE;
+}
+
+
+#else // MX_PLATFORM_OS_WIN16
+
+#error DLL entry point for current platform not defined!
+
+#endif // MX_PLATFORM_OS_WIN16
+
+
+#endif // MX_PLATFORM_OS_WIN32
 
 
 #endif // MXCPP_MAKEDLL
