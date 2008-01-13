@@ -25,13 +25,9 @@
 */
 
 
-#ifndef MXCPP_SYSDEF_WATCOM_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_WATCOM_H_INCLUDE_GUARD
-
-
 #ifndef MX_PLATFORM_COMPILER_WATCOM
+
 #define MX_PLATFORM_COMPILER_WATCOM
-#endif
 
 
 /* Watcom C++ Compiler specific settings.
@@ -46,6 +42,6 @@
 #include "mx/defs/stddllexp.h"
 
 
-#endif /* MXCPP_SYSDEF_WATCOM_H_INCLUDE_GUARD */
+#endif /* MX_PLATFORM_COMPILER_WATCOM */
 
 /* EOF */

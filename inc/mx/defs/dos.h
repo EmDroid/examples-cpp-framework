@@ -29,11 +29,6 @@
 #define MXCPP_SYSDEF_DOS_H_INCLUDE_GUARD
 
 
-#ifndef MX_PLATFORM_OS_DOS
-#define MX_PLATFORM_OS_DOS
-#endif
-
-
 /* Enable inlining for the DOS platform by default. */
 #define MX_INLINE_ENABLED
 

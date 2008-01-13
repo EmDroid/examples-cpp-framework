@@ -4,7 +4,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Windows 64 system dependent options.
+#     - Windows (64-bit) system dependent options.
 #
 # @author Emil Maskovsky
 #

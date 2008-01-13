@@ -25,13 +25,9 @@
 */
 
 
-#ifndef MXCPP_SYSDEF_BCC_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_BCC_H_INCLUDE_GUARD
-
-
 #ifndef MX_PLATFORM_COMPILER_BORLANDC
+
 #define MX_PLATFORM_COMPILER_BORLANDC
-#endif
 
 
 /* Borland C++ Compiler specific settings.
@@ -51,6 +47,6 @@
 #define MX_NORETURN_TYPE(Type)  __declspec(noreturn) Type
 
 
-#endif /* MXCPP_SYSDEF_BCC_H_INCLUDE_GUARD */
+#endif /* MX_PLATFORM_COMPILER_BORLANDC */
 
 /* EOF */

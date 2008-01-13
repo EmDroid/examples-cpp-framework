@@ -73,14 +73,6 @@
 release:
 
 
-# Uncomment following line, if you wisch to debug the build make system.
-# The MXCPP_MAKE_DEBUG can also be set on the make command line.
-# MXCPP_MAKE_DEBUG := 1
-
-# Allow the value '0' for disabling the debug.
-# 'override' directive for working even for make command line.
-override MXCPP_MAKE_DEBUG := $(filter-out 0,$(MXCPP_MAKE_DEBUG))
-
 # Logging of targets (for debug purposes).
 # May also be set on the make command line.
 # MXCPP_TARGETS_LOG := targets.log
@@ -338,6 +330,11 @@ $(eval MXCPP_TARGET_SUBTYPE_MOD := $(subst $(MXCPP_EMPTY_SPACE),,$(MXCPP_TARGET_
 $(eval MXCPP_TARGET_LIBRARY := $(call MXCPP_$(1)_CONSTRUCT_FULLNAME,$(MXCPP_TARGET_SUBTYPE_MOD)))
 $(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning MXCPP_TARGET_LIBRARY: "$(MXCPP_TARGET_LIBRARY)"))
 
+$(if $(strip $(MXCPP_DLLCONFIG_$(1))),\
+$(if $(strip $(LN)),$(eval MXCPP_TARGET_LIBRARY_SIMPLE_NAME :=)\
+	$(eval MXCPP_TARGET_LIBRARY_SIMPLE_NAME := $(call MXCPP_$(1)_CONSTRUCT_FULLNAME_SIMPLE,$(MXCPP_TARGET_SUBTYPE_MOD)))))
+
+
 $(eval MXCPP_BUILD_LIBS := $(LNKC_LIB_PFX)$(call MXCPP_$(1)_CONSTRUCT_NAME,$(MXCPP_TARGET_SUBTYPE_MOD))$(LNKC_LIB_SFX))
 
 $(if $(strip $(MXCPP_DLLCONFIG_$(1))),\
@@ -352,10 +349,12 @@ $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_BUILD_RULES_SRC),_start_$(MXCPP_BUI
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_TARGET_LIBRARY),$(MXCPP_OBJECT_DIR) $(MXCPP_BUILD_OBJ_LIST) $(MXCPP_BUILD_RES_LIST),A)
 	@$$(ECHO) == linking ($$@) ...
-$(call MXCPP_RUN_COMMAND,$(RM) $$@,,-,$(NOERROUT))
+$(call MXCPP_RUN_COMMAND,$(RM) $$@ $(MXCPP_TARGET_LIBRARY_SIMPLE_NAME),,-,$(NOERROUT))
 $(call MXCPP_RUN_COMMAND,$(MXCPP_BUILD_RULE))
 $(if $(strip $(MXCPP_DLLCONFIG_$(1))),$(if $(strip $(DLLC_IMPLIB)),\
 	$(call MXCPP_RUN_COMMAND,$(DLLC_IMPLIB) $(DLLC_IMPLIB_FLAGS) $(DLLC_IMPLIB_OUT)$$(@:.dll=.lib) $$@)))
+$(if $(strip $(MXCPP_TARGET_LIBRARY_SIMPLE_NAME)),\
+	$(call MXCPP_RUN_COMMAND,$(call LN,$$@,$(MXCPP_TARGET_LIBRARY_SIMPLE_NAME))))
 
 $(eval MXCPP_OBJECT_DIR_TEST := $(MXCPP_OBJECT_DIR)$(PATH_SEP)test)
 
@@ -409,7 +408,7 @@ $(call MXCPP_RUN_COMMAND,$(RMDIR) $(MXCPP_OBJECT_DIR_TEST),,-,$(NOERROUT))
 $(call MXCPP_RUN_COMMAND,$(RMDIR) $(MXCPP_OBJECT_DIR),,-,$(NOERROUT))
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,_make_cleanall_$(MXCPP_BUILD_RULES_SRC),_make_clean_$(MXCPP_BUILD_RULES_SRC),X)
-$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_TARGET_LIBRARY),,-,$(NOERROUT))
+$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_TARGET_LIBRARY) $(MXCPP_TARGET_LIBRARY_SIMPLE_NAME),,-,$(NOERROUT))
 $(foreach libtype,0 $(1),\
 $(foreach config,0 $(2),\
 $(foreach cleanitem,\

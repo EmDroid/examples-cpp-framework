@@ -25,13 +25,9 @@
 */
 
 
-#ifndef MXCPP_SYSDEF_GCC_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_GCC_H_INCLUDE_GUARD
-
-
 #ifndef MX_PLATFORM_COMPILER_GCC
+
 #define MX_PLATFORM_COMPILER_GCC
-#endif
 
 
 /* GNU C++ Compiler specific settings.
@@ -73,6 +69,6 @@
     MX_SCANFLIKE((format_index) + 1, (arguments_index) + 1)
 
 
-#endif /* MXCPP_SYSDEF_GCC_H_INCLUDE_GUARD */
+#endif /* MX_PLATFORM_COMPILER_GCC */
 
 /* EOF */

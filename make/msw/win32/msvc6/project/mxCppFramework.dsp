@@ -557,6 +557,10 @@ SOURCE=..\..\..\..\..\inc\mx\defs\watcom.h
 
 SOURCE=..\..\..\..\..\inc\mx\defs\win.h
 # End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\defs\xlc.h
+# End Source File
 # End Group
 # Begin Group "System"
 

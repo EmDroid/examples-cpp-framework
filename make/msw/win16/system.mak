@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Windows 16 system dependent options.
+#     - Windows (16-bit) system dependent options.
 #
 # @author Emil Maskovsky
 #

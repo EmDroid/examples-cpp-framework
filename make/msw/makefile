@@ -4,7 +4,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Microsoft platforms batch processing.
+#     - batch processing makefile for Microsoft platform.
 #
 # This makefile is mainly serving for testing purposes - building targets with
 # all supported available systems under current platform.

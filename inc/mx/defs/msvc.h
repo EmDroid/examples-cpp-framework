@@ -25,13 +25,9 @@
 */
 
 
-#ifndef MXCPP_SYSDEF_MSVC_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_MSVC_H_INCLUDE_GUARD
-
-
 #ifndef MX_PLATFORM_COMPILER_MSVC
+
 #define MX_PLATFORM_COMPILER_MSVC
-#endif
 
 
 /* Microsoft Visual C++ specific settings.
@@ -83,6 +79,6 @@
 #pragma warning(disable : 4290)
 
 
-#endif /* MXCPP_SYSDEF_MSVC_H_INCLUDE_GUARD */
+#endif /* MX_PLATFORM_COMPILER_MSVC */
 
 /* EOF */

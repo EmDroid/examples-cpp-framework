@@ -4,7 +4,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Windows 64 global makefile.
+#     - batch processing makefile for Windows 64-bit.
 #
 # This makefile is mainly serving for testing purposes - building targets with
 # all supported available compilers under current system.

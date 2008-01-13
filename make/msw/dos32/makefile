@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - DOS (32-bit) global makefile.
+#     - batch processing makefile for DOS 32-bit.
 #
 # This makefile is mainly serving for testing purposes - building targets with
 # all supported available compilers under current system.

@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Windows 16 global makefile.
+#     - batch processing makefile for Windows 16-bit.
 #
 # This makefile is mainly serving for testing purposes - building targets with
 # all supported available compilers under current system.

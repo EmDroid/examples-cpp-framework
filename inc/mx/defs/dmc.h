@@ -28,13 +28,10 @@
 #pragma once
 
 
-#ifndef MXCPP_SYSDEF_DMC_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_DMC_H_INCLUDE_GUARD
-
-
 #ifndef MX_PLATFORM_COMPILER_DMC
+
 #define MX_PLATFORM_COMPILER_DMC
-#endif
+
 
 /* Digital Mars Compiler specific settings.
         __DMC__     Digital Mars Compiler version.
@@ -58,6 +55,6 @@
 #endif /* PLATFORM_OS_WIN32 */
 
 
-#endif /* MXCPP_SYSDEF_DMC_H_INCLUDE_GUARD */
+#endif /* MX_PLATFORM_COMPILER_DMC */
 
 /* EOF */

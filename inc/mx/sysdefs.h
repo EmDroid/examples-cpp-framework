@@ -211,6 +211,123 @@
 #endif /* LINUX */
 
 
+/* Check the Sparc system flags. */
+#if (!defined(SPARC) && (defined(_SPARC) || defined(_SPARC_)))
+#define SPARC
+#define MXCPP_SPARC_UNDEF
+#endif
+
+
+#ifdef SPARC
+
+#ifndef MX_PLATFORM_OS_UNIX
+
+/* Check mismatch with another platforms. */
+#if (defined(MX_PLATFORM_OS_DOS) \
+    || defined(MX_PLATFORM_OS_WINDOWS))
+#error System definition mismatch!
+#endif
+
+#define MX_PLATFORM_OS_UNIX
+#define MX_PLATFORM_OS_SPARC
+
+#else /* MX_PLATFORM_OS_UNIX */
+/* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
+    of other system was already found.
+*/
+#error System definition mismatch!
+
+#ifdef MXCPP_SPARC_UNDEF
+#undef SPARC
+#endif
+
+#endif /* MX_PLATFORM_OS_UNIX */
+
+#ifdef MXCPP_SPARC_UNDEF
+#undef MXCPP_SPARC_UNDEF
+#endif
+
+#endif /* SPARC */
+
+
+/* Check the HP-Unix system flags. */
+#if (!defined(HPUX) && (defined(_HPUX) || defined(_HPUX_)))
+#define HPUX
+#define MXCPP_HPUX_UNDEF
+#endif
+
+
+#ifdef HPUX
+
+#ifndef MX_PLATFORM_OS_UNIX
+
+/* Check mismatch with another platforms. */
+#if (defined(MX_PLATFORM_OS_DOS) \
+    || defined(MX_PLATFORM_OS_WINDOWS))
+#error System definition mismatch!
+#endif
+
+#define MX_PLATFORM_OS_UNIX
+#define MX_PLATFORM_OS_HPUX
+
+#else /* MX_PLATFORM_OS_UNIX */
+/* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
+    of other system was already found.
+*/
+#error System definition mismatch!
+
+#ifdef MXCPP_HPUX_UNDEF
+#undef HPUX
+#endif
+
+#endif /* MX_PLATFORM_OS_UNIX */
+
+#ifdef MXCPP_HPUX_UNDEF
+#undef MXCPP_HPUX_UNDEF
+#endif
+
+#endif /* HPUX */
+
+
+/* Check the AIX system flags. */
+#if (!defined(AIX) && (defined(_AIX) || defined(_AIX_)))
+#define AIX
+#define MXCPP_AIX_UNDEF
+#endif
+
+
+#ifdef AIX
+
+#ifndef MX_PLATFORM_OS_UNIX
+
+/* Check mismatch with another platforms. */
+#if (defined(MX_PLATFORM_OS_DOS) \
+    || defined(MX_PLATFORM_OS_WINDOWS))
+#error System definition mismatch!
+#endif
+
+#define MX_PLATFORM_OS_UNIX
+#define MX_PLATFORM_OS_AIX
+
+#else /* MX_PLATFORM_OS_UNIX */
+/* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
+    of other system was already found.
+*/
+#error System definition mismatch!
+
+#ifdef MXCPP_AIX_UNDEF
+#undef AIX
+#endif
+
+#endif /* MX_PLATFORM_OS_UNIX */
+
+#ifdef MXCPP_AIX_UNDEF
+#undef MXCPP_AIX_UNDEF
+#endif
+
+#endif /* AIX */
+
+
 /* Check the MVS/ZOS system flags. */
 #if (!defined(MVS) && (defined(_MVS) || defined(_MVS_)))
 #define MVS
