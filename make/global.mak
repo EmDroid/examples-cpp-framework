@@ -9,6 +9,22 @@
 # Do not call this make directly, call 'make' in the (platform)/(compiler)
 # base directory.
 #
+# @note
+# Processing of dependencies is not supported in this demo library.
+#
+# @note
+# Precompiled headers support is not available in this demo library.
+#
+# @note
+# Smart build of dependent projects is not supported in this demo library.
+# Dependent projects are projects, which use this library. Smart build is the
+# build of these dependent projects inside this makefile system, so it is not
+# needed to provide another makefile set for the dependent project, but only
+# simple makefile instead, which sets some variables (EXE or DLL name, source
+# files list etc.) and calls the library makefile, which then provides all
+# necessary rules to build the final application (including dependency
+# processing, precompiled headers etc.).
+#
 # Possible make targets:
 # @li @b all - Build all targets (for all configurations).
 # @li @c test - Build targets, tests and run the tests.
@@ -217,7 +233,9 @@ $(if $(strip $(findstring $(MXCPP_SOURCE_SUFFIX),.rc)),$(eval MXCPP_COMPILER_TYP
 $(error ERROR: Unsupported source file type 'MXCPP_SOURCE_SUFFIX' (source file: $(2)))\
 )))
 
-$(eval MXCPP_OBJECT := $(subst /,$(PATH_SEP),$(4)$(PATH_SEP)$(basename $(notdir $(2)))).$($(3)_SFX))
+$(eval MXCPP_SOURCE_NAME := $(basename $(notdir $(2))))
+$(eval MXCPP_OBJECT := $(subst /,$(PATH_SEP),$(4)$(PATH_SEP)$(MXCPP_SOURCE_NAME)).$($(3)_SFX))
+$(eval MXCPP_DEPEND := $(MXCPP_OBJECT:.$($(3)_SFX)=.$(MXCPP_DEP_SFX)))
 
 $(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning SOURCE: $(1)$(2)))
 $(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning OBJECT: $(MXCPP_OBJECT)))

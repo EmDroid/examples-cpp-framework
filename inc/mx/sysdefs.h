@@ -29,55 +29,130 @@
 #define MXCPP_SYSDEFS_H_INCLUDE_GUARD
 
 
+#define MX_MAKESTRING(value)   #value
+#define MX_MAKE_STRING(value)  MX_MAKESTRING(value)
+
+
+/* Make sure we have not defined the system flag. */
+#ifdef MX_PLATFORM_OS_WINDOWS
+#pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): WARNING: " \
+    "The flag MX_PLATFORM_OS_WINDOWS already defined! (will be discarded)")
+#undef MX_PLATFORM_OS_WINDOWS
+#endif
+
+#ifdef MX_PLATFORM_OS_DOS
+#pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): WARNING: " \
+    "The flag MX_PLATFORM_OS_DOS already defined! (will be discarded)")
+#undef MX_PLATFORM_OS_DOS
+#endif
+
+#ifdef MX_PLATFORM_OS_UNIX
+#pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): WARNING: " \
+    "The flag MX_PLATFORM_OS_UNIX already defined! (will be discarded)")
+#undef MX_PLATFORM_OS_UNIX
+#endif
+
+#ifdef MX_PLATFORM_OS_MVS
+#pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): WARNING: " \
+    "The flag MX_PLATFORM_OS_MVS already defined! (will be discarded)")
+#undef MX_PLATFORM_OS_MVS
+#endif
+
+
 /* Check the Windows-64 system flags. */
 #if (!defined(WIN64) && defined(_WIN64))
 #define WIN64
+#define MXCPP_WIN64_UNDEF
 #endif
 
 
 #ifdef WIN64
 
+#ifndef MX_PLATFORM_OS_WINDOWS
+
+#define MX_PLATFORM_OS_WINDOWS
 #define MX_PLATFORM_OS_WIN64
 
-#ifndef MX_PLATFORM_OS_WINDOWS
-#define MX_PLATFORM_OS_WINDOWS
+#else /* MX_PLATFORM_OS_WINDOWS */
+/* We have MX_PLATFORM_OS_WINDOWS already defined - this means that flag
+    of newer system was already found.
+*/
+
+#ifdef MXCPP_WIN64_UNDEF
+#undef WIN64
 #endif
 
+#endif /* MX_PLATFORM_OS_WINDOWS */
+
+#ifdef MXCPP_WIN64_UNDEF
+#undef MXCPP_WIN64_UNDEF
 #endif
+
+#endif /* WIN64 */
 
 
 /* Check the Windows-32 system flags. */
 #if (!defined(WIN32) && defined(_WIN32))
 #define WIN32
+#define MXCPP_WIN32_UNDEF
 #endif
 
 
 #ifdef WIN32
 
+#ifndef MX_PLATFORM_OS_WINDOWS
+
+#define MX_PLATFORM_OS_WINDOWS
 #define MX_PLATFORM_OS_WIN32
 
-#ifndef MX_PLATFORM_OS_WINDOWS
-#define MX_PLATFORM_OS_WINDOWS
+#else /* MX_PLATFORM_OS_WINDOWS */
+/* We have MX_PLATFORM_OS_WINDOWS already defined - this means that flag
+    of newer system was already found.
+*/
+
+#ifdef MXCPP_WIN32_UNDEF
+#undef WIN32
 #endif
 
+#endif /* MX_PLATFORM_OS_WINDOWS */
+
+#ifdef MXCPP_WIN32_UNDEF
+#undef MXCPP_WIN32_UNDEF
 #endif
+
+#endif /* WIN32 */
 
 
 /* Check the Windows-16 system flags. */
-#if (!defined(WIN16) && (defined(_WINDOWS) /*|| defined(__WINDOWS)*/))
+#if (!defined(WIN16) && (defined(_WINDOWS) || defined(__WINDOWS__)))
 #define WIN16
+#define MXCPP_WIN16_UNDEF
 #endif
 
 
 #ifdef WIN16
 
+#ifndef MX_PLATFORM_OS_WINDOWS
+
+#define MX_PLATFORM_OS_WINDOWS
 #define MX_PLATFORM_OS_WIN16
 
-#ifndef MX_PLATFORM_OS_WINDOWS
-#define MX_PLATFORM_OS_WINDOWS
+#else /* MX_PLATFORM_OS_WINDOWS */
+/* We have MX_PLATFORM_OS_WINDOWS already defined - this means that flag
+    of newer system was already found.
+*/
+
+#ifdef MXCPP_WIN16_UNDEF
+#undef WIN16
 #endif
 
+#endif /* MX_PLATFORM_OS_WINDOWS */
+
+#ifdef MXCPP_WIN16_UNDEF
+#undef MXCPP_WIN16_UNDEF
 #endif
+
+#endif /* WIN16 */
 
 
 /* Check the DOS system flags. */
@@ -88,9 +163,72 @@
 
 #ifdef DOS
 
+#ifdef MX_PLATFORM_OS_WINDOWS
+#error System definition mismatch!
+#endif
+
 #define MX_PLATFORM_OS_DOS
 
+#endif /* DOS */
+
+
+/* Check the Linux system flags. */
+#if (!defined(LINUX) && (defined(_LINUX) || defined(_LINUX_)))
+#define LINUX
+#define MXCPP_LINUX_UNDEF
 #endif
+
+
+#ifdef LINUX
+
+#ifndef MX_PLATFORM_OS_UNIX
+
+/* Check mismatch with another platforms. */
+#if (defined(MX_PLATFORM_OS_DOS) \
+    || defined(MX_PLATFORM_OS_WINDOWS))
+#error System definition mismatch!
+#endif
+
+#define MX_PLATFORM_OS_UNIX
+#define MX_PLATFORM_OS_LINUX
+
+#else /* MX_PLATFORM_OS_UNIX */
+/* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
+    of other system was already found.
+*/
+#error System definition mismatch!
+
+#ifdef MXCPP_LINUX_UNDEF
+#undef LINUX
+#endif
+
+#endif /* MX_PLATFORM_OS_UNIX */
+
+#ifdef MXCPP_LINUX_UNDEF
+#undef MXCPP_LINUX_UNDEF
+#endif
+
+#endif /* LINUX */
+
+
+/* Check the MVS/ZOS system flags. */
+#if (!defined(MVS) && (defined(_MVS) || defined(_MVS_)))
+#define MVS
+#endif
+
+
+#ifdef MVS
+
+/* Check mismatch with another platforms. */
+#if (defined(MX_PLATFORM_OS_DOS)       \
+    || defined(MX_PLATFORM_OS_WINDOWS) \
+    || defined(MX_PLATFORM_OS_UNIX))
+#error System definition mismatch!
+#endif
+
+#define MX_PLATFORM_OS_MVS
+
+#endif /* MVS */
 
 
 /* Check the DEBUG flags. */
@@ -175,7 +313,7 @@
 
 #else /* MXCPP_GEN_DEPEND */
 
-#error Unsupported platform. See sysdefs.h for a list of supported platforms.
+#error Unsupported platform - see sysdefs.h for a list of supported platforms.
 
 #endif /* MXCPP_GEN_DEPEND */
 

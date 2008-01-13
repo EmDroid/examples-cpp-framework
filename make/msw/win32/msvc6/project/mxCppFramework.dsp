@@ -440,15 +440,15 @@ SOURCE=..\..\..\..\..\src\debug.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\src\dllmain.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\..\src\Except.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\..\src\FileStrm.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\src\libmain.cpp
 # End Source File
 # Begin Source File
 
