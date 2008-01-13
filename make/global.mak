@@ -233,9 +233,7 @@ $(if $(strip $(findstring $(MXCPP_SOURCE_SUFFIX),.rc)),$(eval MXCPP_COMPILER_TYP
 $(error ERROR: Unsupported source file type 'MXCPP_SOURCE_SUFFIX' (source file: $(2)))\
 )))
 
-$(eval MXCPP_SOURCE_NAME := $(basename $(notdir $(2))))
-$(eval MXCPP_OBJECT := $(subst /,$(PATH_SEP),$(4)$(PATH_SEP)$(MXCPP_SOURCE_NAME)).$($(3)_SFX))
-$(eval MXCPP_DEPEND := $(MXCPP_OBJECT:.$($(3)_SFX)=.$(MXCPP_DEP_SFX)))
+$(eval MXCPP_OBJECT := $(subst /,$(PATH_SEP),$(4)$(PATH_SEP)$(basename $(notdir $(2)))).$($(3)_SFX))
 
 $(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning SOURCE: $(1)$(2)))
 $(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning OBJECT: $(MXCPP_OBJECT)))
