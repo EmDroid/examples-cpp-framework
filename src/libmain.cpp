@@ -99,7 +99,8 @@ extern "C" MXCPP_DLL_EXPORT BOOL WINAPI DllMain(
 }
 
 
-#else // MX_PLATFORM_OS_WIN32
+#endif // MX_PLATFORM_OS_WIN32
+
 
 #ifdef MX_PLATFORM_OS_WIN16
 
@@ -124,14 +125,7 @@ extern "C" BOOL WINAPI LibMain(
 }
 
 
-#else // MX_PLATFORM_OS_WIN16
-
-#error DLL entry point for current platform not defined!
-
 #endif // MX_PLATFORM_OS_WIN16
-
-
-#endif // MX_PLATFORM_OS_WIN32
 
 
 #endif // MXCPP_MAKEDLL
