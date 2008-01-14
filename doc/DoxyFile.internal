@@ -1,0 +1,64 @@
+# Doxyfile 1.5.2
+
+##
+# @file
+#
+# The main documantation file (to build the developer internal documentation).
+#
+# @author Emil Maskovsky
+#
+
+
+# Include global settings.
+@INCLUDE = DoxyFile
+
+
+#---------------------------------------------------------------------------
+# Project related configuration options
+#---------------------------------------------------------------------------
+
+OUTPUT_DIRECTORY       = internal
+
+#---------------------------------------------------------------------------
+# Build related configuration options
+#---------------------------------------------------------------------------
+
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+EXTRACT_LOCAL_METHODS  = YES
+INTERNAL_DOCS          = YES
+# ENABLED_SECTIONS       = 
+MAX_INITIALIZER_LINES  = 30
+SHOW_USED_FILES        = YES
+SHOW_DIRECTORIES       = YES
+
+#---------------------------------------------------------------------------
+# configuration options related to warning and progress messages
+#---------------------------------------------------------------------------
+
+WARN_LOGFILE           = warnings.internal.log
+
+#---------------------------------------------------------------------------
+# configuration options related to the input files
+#---------------------------------------------------------------------------
+
+EXCLUDE                = 
+
+#---------------------------------------------------------------------------
+# configuration options related to source browsing
+#---------------------------------------------------------------------------
+
+SOURCE_BROWSER         = YES
+# INLINE_SOURCES         = NO
+STRIP_CODE_COMMENTS    = YES
+
+#---------------------------------------------------------------------------
+# Configuration options related to the dot tool   
+#---------------------------------------------------------------------------
+
+HIDE_UNDOC_RELATIONS   = NO
+TEMPLATE_RELATIONS     = YES
+
+
+# EOF #
