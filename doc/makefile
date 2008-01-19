@@ -28,13 +28,13 @@ all:	public internal
 # Build the public documentation.
 public $(MXCPP_CHM_NAME):
 	-@echo Creating the [public] documentation ...
-	@$(DC) $(DCFLAGS) DoxyFile
+	@$(DC) $(DCFLAGS) Doxyfile
 	-@echo ... the [public] documentation is done.
 
 # Build the internal documentation.
 internal internal/$(MXCPP_CHM_NAME):
 	-@echo Creating the [internal] documentation ...
-	@$(DC) $(DCFLAGS) DoxyFile.internal
+	@$(DC) $(DCFLAGS) Doxyfile.internal
 	-@echo ... the [internal] documentation is done.
 
 # Start the main documentation.
@@ -59,7 +59,7 @@ clean_public:
 	-@cd html && $(RM) *.gif
 	-@cd html && $(RM) *.png
 	-@cd html && $(RM) index.*
-	-@$(RD) html
+	-@rmdir html
 	-@$(RM) $(MXCPP_CHM_NAME)
 	-@$(RM) warnings.log
 	-@echo ... the cleaning of the [public] documentation is done.
@@ -75,7 +75,7 @@ clean_internal:
 	-@cd internal && $(RD) html
 	-@cd internal && $(RM) $(MXCPP_CHM_NAME)
 	-@$(RM) warnings.internal.log
-	-@$(RD) internal
+	-@rmdir internal
 	-@echo ... the cleaning of the [internal] documentation is done.
 
 

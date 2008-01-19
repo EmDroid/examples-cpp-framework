@@ -12,6 +12,5 @@ goto End
 
 :SetVars
 set RM=del
-set RD=rd
 
 :End

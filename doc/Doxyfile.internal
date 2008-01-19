@@ -10,7 +10,7 @@
 
 
 # Include global settings.
-@INCLUDE = DoxyFile
+@INCLUDE = Doxyfile
 
 
 #---------------------------------------------------------------------------
