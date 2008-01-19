@@ -55,53 +55,40 @@ using namespace std;
 /**
     @page exceptions_implementation Exceptions
 
-    All framework exceptions are based on Exception base class.
+    All framework exceptions are based on mx::Exception class.
     This base class extends the standard std::exception class (for compilers,
     which support it), to allow usage of abstract catch clause to catch all
     possible exceptions.
 
-    @section exceptions_constructs Exception constructs
+    @section exceptions_throwing Throwing exceptions
 
-    The preferred framework way for throwing and catching exceptions is to use
-    following exception support constructs:
-    @li mxThrow() - exception throw construct
+    If you want to use the @ref exceptions_handling "extended exception hadling"
+    provided by the framework, you should use the construct mxRaise() to throw
+    an exception.
 
-    as follows:
-    @include ExceptionExample.cpp
-
-    @subsection exceptions_throwing Throwing exceptions
-
-    You can, however, use any way of throwing exceptions, which is possible in
+    You can however use any way of throwing exceptions, which is possible in
     C++ (see http://www.parashift.com/c++-faq-lite/exceptions.html#faq-17.6 for
     further details), and even mix them (but this is very strongly discouraged).
-    But if you want to use the @ref exceptions_handling
-    "extended exception hadling" provided by the framework, you should use the
-    @ref exceptions_constructs "provided constructs".
 
-    Next example shows how to throw/catch any Exception based exception by
+    Next example shows how to throw/catch any mx::Exception based exception by
     pointer or reference:
     @include ExceptionPointerOrReference.cpp
-
-    @note
-    You can safely delete all Exception based exceptions thrown by pointer.
-    Even in the case of some special exception classes, like OutOfMemory,
-    while they should have overriden new and delete operators, if they use some
-    non-standard allocation.
 
     @section exceptions_handling Framework extended exception handling
 
     The framework provides some special exception handling techniques, which are
-    implemented by @ref exceptions_constructs "special exception constructs".
+    implemented by @ref exceptions_throwing "special exception constructs".
     The key benefits of usage of these constructs are following:
     @li @b File-Line @b tracking: You will be able to gain the filename and
         line, where the exception was originated (thrown).
 
-    @section exceptions_user Declare user own exceptions
+    @section exceptions_user Declare user exceptions
 
     The framework user can declare its own exception classes based on
-    Exception. Application exception should extend the ApplicationException
-    class, only in special cases you might want to extend SystemException.
-    All exceptions derived from Exception should be declared using
+    mx::Exception. Application exception should extend the
+    mx::ApplicationException class, only in special cases you might want to
+    extend mx::SystemException.
+    All exceptions derived from mx::Exception should be declared using
     MX_DECLARE_EXCEPTION_CLASS() and MX_IMPLEMENT_EXCEPTION_CLASS() macros,
     otherwise some extensions used in exception handling (e.g. @ref RTTI) will
     not work correctly.
@@ -114,31 +101,31 @@ using namespace std;
 ///@{
 
 /**
-    @def mxThrow
+    @def mxRaise
 
-    Exception throw @ref exceptions_constructs "construct".
+    Exception throw @ref exceptions_throwing "construct".
 
     @param [in] exception The exception to be thrown.
 
     This construct is to be used to throw exceptions derived from the
-    Exception class.
-    For example, to throw and catch EndOfFile exception, use:
+    mx::Exception class.
+    For example, to throw and catch mx::EndOfFile exception, use:
     @code
     try {
-        mxThrow(EndOfFile());
-    } catch (const EndOfFile & e) {
-        // Procss the exception.
+        mxRaise(mx::EndOfFile() );
+    } catch (mx::EndOfFile & e) {
+        // Process the exception.
         ...
         throw;  // Possibly re-throw the exception.
     }
     @endcode
 
-    You can, however, throw any Exception using standard @c throw statement, as
-    follows:
+    You can, however, throw any mx::Exception using standard @c throw statement,
+    as follows:
     @include ExceptionPointerOrReference.cpp
 
-    But using of mxThrow(exception) is the CppFramework recommended way of
-    throwing exceptions based on Exception, and only then you can gain from
+    But using of mxRaise(exception) is the framework recommended way of
+    throwing exceptions based on mx::Exception, and only then you can gain from
     framework @ref exceptions_handling "extended exception processing".
 */
 

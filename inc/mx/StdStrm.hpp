@@ -29,6 +29,11 @@
 #define MXCPP_STANDARD_STREAM_HPP_INCLUDE_GUARD
 
 
+#ifndef __cplusplus
+#error This header file requires C++ to compile!
+#endif
+
+
 #include "mx/sysdefs.h"
 
 #include "mx/types.h"

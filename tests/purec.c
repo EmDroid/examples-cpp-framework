@@ -44,6 +44,9 @@ int main(void)
     printf("--- Running the [Pure ANSI C] tests ... ---\n");
     fflush(stdout);  /* make sure the message is displayed */
 
+    /* Write out size of pointer. */
+    printf("Size of pointer:\t%u\n", sizeof(void *));
+
     /* Testing standard memory allocations. */
     pIntegers = (TestType *)malloc(sizeof(TestType));
     *pIntegers = 10;

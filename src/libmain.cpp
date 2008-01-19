@@ -128,7 +128,17 @@ extern "C" MXCPP_DLL_EXPORT BOOL WINAPI DllMain(
 #else // MX_PLATFORM_OS_WINDOWS
 
 
+#ifdef MX_PLATFORM_OS_UNIX
+
+// No DLL entry point under Unix/Linux.
+
+#else // MX_PLATFORM_OS_UNIX
+
+
 #error The DLL entry point is not defined for current platform!
+
+
+#endif // MX_PLATFORM_OS_UNIX
 
 
 #endif // MX_PLATFORM_OS_WINDOWS

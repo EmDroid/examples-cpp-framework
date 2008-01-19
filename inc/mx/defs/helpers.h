@@ -208,7 +208,7 @@ namespace std
     }
     @endcode
 */
-#ifdef DOXYGEN
+#ifdef __DOXYGEN__
 #define MX_UNUSED(parameter)  parameter
 #else
 #define MX_UNUSED(parameter)
