@@ -33,7 +33,7 @@
 #include "mx/Memory.hpp"
 
 
-MX_INLINE const char * mx::TestApp::SetTestName()
+const char * mx::TestApp::SetTestName()
 {
     return "Memory";
 }

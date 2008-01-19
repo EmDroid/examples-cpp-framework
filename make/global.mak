@@ -93,18 +93,16 @@ $(if $(strip $(MXCPP_COMMANDS_LOG)),$(shell $(RM) $(MXCPP_COMMANDS_LOG) $(NOOUT)
 
 # ANSI-C includes.
 MXCPP_C_INCLUDE := \
-$(CC_INCLUDE)../$(MXCPP_INCLUDE_ROOT)) \
-$(CXX_INCLUDE)$(MXCPP_INCLUDE_ROOT)
+$(CC_INCLUDE)$(subst /,$$(PATH_SEP),$(MXCPP_INCLUDE_ROOT))
 
 # C++ includes.
 MXCPP_CXX_INCLUDE := \
-$(CXX_INCLUDE)../$(MXCPP_INCLUDE_ROOT) \
 $(CXX_INCLUDE)$(MXCPP_INCLUDE_ROOT) \
-$(CXX_INCLUDE)src/$(MXCPP_INCLUDE_ROOT)
+$(CXX_INCLUDE)$(MXCPP_SRC_ROOT)inc
 
 # Resource includes.
 MXCPP_RC_INCLUDE := \
-$(RC_INCLUDE)../$(MXCPP_INCLUDE_ROOT)
+$(RC_INCLUDE)$(MXCPP_SRC_ROOT)inc
 
 
 # Append platform includes.
@@ -197,9 +195,9 @@ MXCPP_MAKE_DIR := $(CURDIR)
 #
 define MXCPP_RUN_COMMAND
 ifneq ($(strip $(MXCPP_COMMANDS_LOG)),)
-	-@$(ECHO) $(if $(strip $(2)),[$(2)]	)$(1) >>$(MXCPP_COMMANDS_LOG)
+	-@$(ECHO) $(1) >>$(MXCPP_COMMANDS_LOG)
 endif
-	$(3)@$(if $(strip $(2)),$(CHDIR) $(2) &&)$(1) $(4)
+	$(3)@$(1) $(4)
 
 endef	# MXCPP_RUN_COMMAND
 # Warning: Do not remove the empty line at before the endef directive, otherwise
@@ -235,11 +233,13 @@ $(if $(findstring $(MXCPP_OBJECT),$(MXCPP_BUILD_$(3)_LIST)),$(error ERROR: Objec
 
 $(eval MXCPP_BUILD_$(3)_LIST += $(MXCPP_OBJECT))
 
-$(eval MXCPP_COMPILE_RULE := $$(call MXCPP_COMPILE_$(MXCPP_COMPILER_TYPE),$(2),$(5),$(6)))
+$(eval MXCPP_COMPILE_RULE := $$(call MXCPP_COMPILE_$(MXCPP_COMPILER_TYPE),$(1)$(2),$(5),$(6)))
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_OBJECT),$$(MXCPP_MAKEFILE_DEPS) $(1)$(2),B)
 	@$(ECHO) == $2 ...
-$(call MXCPP_RUN_COMMAND,$(MXCPP_COMPILE_RULE),$(1))
+	$(if $(strip $($(MXCPP_COMPILER_TYPE)_USE_RESPONSE_FILE)),@$(ECHO) $(MXCPP_COMPILE_RULE) >$(MXCPP_RESPONSE_FILE))
+$(call MXCPP_RUN_COMMAND,$($(MXCPP_COMPILER_TYPE)) $(if $(strip $($(MXCPP_COMPILER_TYPE)_USE_RESPONSE_FILE)),@$(MXCPP_RESPONSE_FILE),$(MXCPP_COMPILE_RULE)))
+	$(if $(strip $($(MXCPP_COMPILER_TYPE)_USE_RESPONSE_FILE)),@$(RM) $(MXCPP_RESPONSE_FILE))
 
 endef	# MXCPP_BUILD_RULES_OBJECT
 
@@ -268,13 +268,15 @@ $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_TEST),$(MXCPP_TEST_EXE),C)
 	@$(ECHO) +++ Running $1 test ...
 $(call MXCPP_RUN_COMMAND,$(MXCPP_TEST_EXE))
 
-$(call MXCPP_BUILD_RULES_OBJECT,$(MXCPP_PROJECT_ROOT),$(MXCPP_TEST_ROOT)$(1),OBJ,$(2),$(3),$(5)$(MXCPP_COMMA)$(6))
+$(call MXCPP_BUILD_RULES_OBJECT,$(MXCPP_TEST_ROOT),$(1),OBJ,$(2),$(3),$(5)$(MXCPP_COMMA)$(6))
 
 $(eval MXCPP_BUILD_RULE := $$(call MXCPP_BUILD_EXE,$(LNKC_OBJ)$(MXCPP_OBJECT),,$(MXCPP_LIBS) $(MXCPP_BUILD_LIBS),$(6)))
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_TEST_EXE),$(MXCPP_TARGET_LIBRARY) $(MXCPP_OBJECT),C)
 	@$$(ECHO) == linking [$$@] ...
-$(call MXCPP_RUN_COMMAND,$(MXCPP_BUILD_RULE))
+	$(if $(strip $(LNKC_USE_RESPONSE_FILE)),@$(ECHO) $(MXCPP_BUILD_RULE) >$(MXCPP_RESPONSE_FILE))
+$(call MXCPP_RUN_COMMAND,$(LNKC) $(if $(strip $(LNKC_USE_RESPONSE_FILE)),@$(MXCPP_RESPONSE_FILE),$(MXCPP_BUILD_RULE)))
+	$(if $(strip $(LNKC_USE_RESPONSE_FILE)),@$(RM) $(MXCPP_RESPONSE_FILE))
 
 endef	# MXCPP_BUILD_RULES_TEST
 
@@ -307,11 +309,12 @@ $(foreach srcfile,$(MXCPP_SRC_LIST),$(call MXCPP_BUILD_RULES_OBJECT,$(MXCPP_SRC_
 
 $(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning MXCPP_BUILD_OBJ_LIST: $(MXCPP_BUILD_OBJ_LIST)))
 
-$(eval MXCPP_BUILD_OBJ_LIST_LINKER :=)
 $(if $(strip $(MXCPP_DLLCONFIG_$(1))),\
-$(foreach object,$(MXCPP_BUILD_OBJ_LIST),$(eval MXCPP_BUILD_OBJ_LIST_LINKER += $(DLLC_OBJ)$(object))),\
-$(foreach object,$(MXCPP_BUILD_OBJ_LIST),$(eval MXCPP_BUILD_OBJ_LIST_LINKER += $(LIBC_OBJ)$(object))))
+$(eval MXCPP_LINKER_TYPE := DLLC),\
+$(eval MXCPP_LINKER_TYPE := LIBC))
 
+$(eval MXCPP_BUILD_OBJ_LIST_LINKER :=)
+$(foreach object,$(MXCPP_BUILD_OBJ_LIST),$(eval MXCPP_BUILD_OBJ_LIST_LINKER += $($(MXCPP_LINKER_TYPE)_OBJ)$(object)))
 
 $(eval MXCPP_BUILD_RES_LIST :=)
 $(if $(strip $(MXCPP_DLLCONFIG_$(1))),\
@@ -350,8 +353,10 @@ $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_BUILD_RULES_SRC),_start_$(MXCPP_BUI
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_TARGET_LIBRARY),$(MXCPP_OBJECT_DIR) $(MXCPP_BUILD_OBJ_LIST) $(MXCPP_BUILD_RES_LIST),A)
 	@$$(ECHO) == linking [$$@] ...
-$(call MXCPP_RUN_COMMAND,$(RM) $$@ $(MXCPP_TARGET_LIBRARY_SIMPLE_NAME),,-,$(NOERROUT))
-$(call MXCPP_RUN_COMMAND,$(MXCPP_BUILD_RULE))
+$(call MXCPP_RUN_COMMAND,$(RM) $$@ $(MXCPP_TARGET_LIBRARY_SIMPLE_NAME),-,$(NOERROUT))
+	$(if $(strip $($(MXCPP_LINKER_TYPE)_USE_RESPONSE_FILE)),@$(ECHO) $(MXCPP_BUILD_RULE) >$(MXCPP_RESPONSE_FILE))
+$(call MXCPP_RUN_COMMAND,$($(MXCPP_LINKER_TYPE)) $(if $(strip $($(MXCPP_LINKER_TYPE)_USE_RESPONSE_FILE)),@$(MXCPP_RESPONSE_FILE),$(MXCPP_BUILD_RULE)))
+	$(if $(strip $($(MXCPP_LINKER_TYPE)_USE_RESPONSE_FILE)),@$(RM) $(MXCPP_RESPONSE_FILE))
 $(if $(strip $(MXCPP_DLLCONFIG_$(1))),$(if $(strip $(DLLC_IMPLIB)),\
 	$(call MXCPP_RUN_COMMAND,$(DLLC_IMPLIB) $(DLLC_IMPLIB_FLAGS) $(DLLC_IMPLIB_OUT)$$(@:.dll=.lib) $$@)))
 $(if $(strip $(MXCPP_TARGET_LIBRARY_SIMPLE_NAME)),\
@@ -388,34 +393,35 @@ $(call MXCPP_BUILD_RULES_SINGLE_RULE,cleanall_$(MXCPP_BUILD_RULES_SRC),_start_cl
 	@$$(ECHO) ... cleaning all $(MXCPP_BUILD_RULES_LIBRARY)[$(MXCPP_BUILD_RULES_CONFIGURATION)] done.
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,_make_clean_$(MXCPP_BUILD_RULES_SRC),,X)
-$(if $(strip $(OBJ_SFX)),$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR)$(PATH_SEP)*.$(OBJ_SFX),,-,$(NOERROUT)))
+$(if $(strip $(MXCPP_RESPONSE_FILE)),$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_RESPONSE_FILE),-,$(NOERROUT)))
+$(if $(strip $(OBJ_SFX)),$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR)$(PATH_SEP)*.$(OBJ_SFX),-,$(NOERROUT)))
 $(if $(strip $(MXCPP_DLLCONFIG_$(1))),$(if $(strip $(RES_SFX)),\
-	$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR)$(PATH_SEP)*.$(RES_SFX),,-,$(NOERROUT))))
+	$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR)$(PATH_SEP)*.$(RES_SFX),-,$(NOERROUT))))
 $(foreach libtype,0 $(1),\
 $(foreach config,0 $(2),\
 $(foreach cleanitem,\
 	$(call MXCPP_CLEAN_MASK$(if $(strip $(filter-out 0,$(libtype))),_$(libtype))$(if $(strip $(filter-out 0,$(config))),_$(config)),\
 		$(MXCPP_OBJECT_DIR)$(PATH_SEP),$(MXCPP_TARGET_LIBRARY)),\
-	$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),,-,$(NOERROUT)))))
+	$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),-,$(NOERROUT)))))
 $(foreach libtype,0 $(1),\
 $(foreach config,0 $(2),\
 $(foreach cleanitem,\
 	$(call MXCPP_CLEAN_MASK_TEST$(if $(strip $(filter-out 0,$(libtype))),_$(libtype))$(if $(strip $(filter-out 0,$(config))),_$(config)),\
 		$(MXCPP_OBJECT_DIR_TEST)$(PATH_SEP)),\
-	$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),,-,$(NOERROUT)))))
-$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR_TEST)$(PATH_SEP)*.$(OBJ_SFX),,-,$(NOERROUT))
-$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR_TEST)$(PATH_SEP)*$(EXE_SFX),,-,$(NOERROUT))
-$(call MXCPP_RUN_COMMAND,$(RMDIR) $(MXCPP_OBJECT_DIR_TEST),,-,$(NOERROUT))
-$(call MXCPP_RUN_COMMAND,$(RMDIR) $(MXCPP_OBJECT_DIR),,-,$(NOERROUT))
+	$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),-,$(NOERROUT)))))
+$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR_TEST)$(PATH_SEP)*.$(OBJ_SFX),-,$(NOERROUT))
+$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR_TEST)$(PATH_SEP)*$(EXE_SFX),-,$(NOERROUT))
+$(call MXCPP_RUN_COMMAND,$(RMDIR) $(MXCPP_OBJECT_DIR_TEST),-,$(NOERROUT))
+$(call MXCPP_RUN_COMMAND,$(RMDIR) $(MXCPP_OBJECT_DIR),-,$(NOERROUT))
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,_make_cleanall_$(MXCPP_BUILD_RULES_SRC),_make_clean_$(MXCPP_BUILD_RULES_SRC),X)
-$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_TARGET_LIBRARY) $(MXCPP_TARGET_LIBRARY_SIMPLE_NAME),,-,$(NOERROUT))
+$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_TARGET_LIBRARY) $(MXCPP_TARGET_LIBRARY_SIMPLE_NAME),-,$(NOERROUT))
 $(foreach libtype,0 $(1),\
 $(foreach config,0 $(2),\
 $(foreach cleanitem,\
 	$(call MXCPP_CLEANALL_MASK$(if $(strip $(filter-out 0,$(libtype))),_$(libtype))$(if $(strip $(filter-out 0,$(config))),_$(config)),\
 		$(MXCPP_OBJECT_DIR)$(PATH_SEP),$(MXCPP_TARGET_LIBRARY)),\
-	$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),,-,$(NOERROUT)))))
+	$(call MXCPP_RUN_COMMAND,$(RM) $(cleanitem),-,$(NOERROUT)))))
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_OBJECT_DIR) $(MXCPP_OBJECT_DIR_TEST),,X)
 $(call MXCPP_RUN_COMMAND,$(MKDIR) $$@)

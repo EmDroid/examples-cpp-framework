@@ -121,7 +121,7 @@ int SingleExceptionTest(const ExceptionType & theException)
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::TestException);
 
 
-MX_INLINE const char * mx::TestApp::SetTestName()
+const char * mx::TestApp::SetTestName()
 {
     return "Exception";
 }
