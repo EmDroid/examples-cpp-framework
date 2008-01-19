@@ -16,3 +16,5 @@ Thumbs.db
 *.a
 *.tds
 doc/html/
+*.err
+*.out

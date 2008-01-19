@@ -88,6 +88,15 @@ $(if $(strip $(MXCPP_MAKE_DEBUG)),$(eval MXCPP_COMMANDS_LOG := build.log))
 $(if $(strip $(MXCPP_COMMANDS_LOG)),$(shell $(RM) $(MXCPP_COMMANDS_LOG) $(NOOUT) $(NOERROUT)))
 
 
+MXCPP_TEST_LOG := tests.log
+$(if $(strip $(MXCPP_TEST_LOG)),$(shell $(RM) $(MXCPP_TEST_LOG) $(NOOUT) $(NOERROUT)))
+MXCPP_TEST_LOG_FULL := $(if $(strip $(MXCPP_TEST_LOG)),>>$(MXCPP_TEST_LOG))
+
+MXCPP_COMPILE_LOG := compile
+$(if $(strip $(MXCPP_COMPILE_LOG)),$(shell $(RM) $(MXCPP_COMPILE_LOG).out $(NOOUT) $(NOERROUT)))
+$(if $(strip $(MXCPP_COMPILE_LOG)),$(shell $(RM) $(MXCPP_COMPILE_LOG).err $(NOOUT) $(NOERROUT)))
+
+
 # Following definitions are defined here, to allow using of variables defined in
 # global.ini inside platform.mak or platform.ini 
 
@@ -236,7 +245,8 @@ $(eval MXCPP_COMPILE_RULE := $$(call MXCPP_COMPILE_$(MXCPP_COMPILER_TYPE),$(1)$(
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_OBJECT),$$(MXCPP_MAKEFILE_DEPS) $(1)$(2),B)
 	@$(ECHO) == $2 ...
 	$(if $(strip $($(MXCPP_COMPILER_TYPE)_USE_RESPONSE_FILE)),@$(ECHO) $(MXCPP_COMPILE_RULE) >$(MXCPP_RESPONSE_FILE))
-$(call MXCPP_RUN_COMMAND,$($(MXCPP_COMPILER_TYPE)) $(if $(strip $($(MXCPP_COMPILER_TYPE)_USE_RESPONSE_FILE)),@$(MXCPP_RESPONSE_FILE),$(MXCPP_COMPILE_RULE)))
+$(call MXCPP_RUN_COMMAND,$($(MXCPP_COMPILER_TYPE)) $(if $(strip $($(MXCPP_COMPILER_TYPE)_USE_RESPONSE_FILE)),@$(MXCPP_RESPONSE_FILE),$(MXCPP_COMPILE_RULE)),,\
+		$(if $(strip $(MXCPP_COMPILE_LOG)),>>$(MXCPP_COMPILE_LOG).out 2>>$(MXCPP_COMPILE_LOG).err))
 	$(if $(strip $($(MXCPP_COMPILER_TYPE)_USE_RESPONSE_FILE)),@$(RM) $(MXCPP_RESPONSE_FILE))
 
 endef	# MXCPP_BUILD_RULES_OBJECT
@@ -264,7 +274,7 @@ $(eval MXCPP_BUILD_TEST_LIST += $(MXCPP_TEST))
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_TEST),$(MXCPP_TEST_EXE),C)
 	@$(ECHO) +++ Running $1 test ...
-$(call MXCPP_RUN_COMMAND,$(MXCPP_TEST_EXE))
+$(call MXCPP_RUN_COMMAND,$(MXCPP_TEST_EXE),,$(if $(strip $(MXCPP_TEST_LOG)),>>$(MXCPP_TEST_LOG)))
 
 $(call MXCPP_BUILD_RULES_OBJECT,$(MXCPP_TEST_ROOT),$(1),OBJ,$(2),$(3),$(5)$(MXCPP_COMMA)$(6))
 
@@ -391,6 +401,9 @@ $(call MXCPP_BUILD_RULES_SINGLE_RULE,cleanall_$(MXCPP_BUILD_RULES_SRC),_start_cl
 	@$$(ECHO) ... cleaning all $(MXCPP_BUILD_RULES_LIBRARY)[$(MXCPP_BUILD_RULES_CONFIGURATION)] done.
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,_make_clean_$(MXCPP_BUILD_RULES_SRC),,X)
+$(if $(strip $(MXCPP_COMPILE_LOG)),$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_COMPILE_LOG).out,-,$(NOERROUT)))
+$(if $(strip $(MXCPP_COMPILE_LOG)),$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_COMPILE_LOG).err,-,$(NOERROUT)))
+$(if $(strip $(MXCPP_TEST_LOG)),$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_TEST_LOG),-,$(NOERROUT)))
 $(if $(strip $(MXCPP_RESPONSE_FILE)),$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_RESPONSE_FILE),-,$(NOERROUT)))
 $(if $(strip $(OBJ_SFX)),$(call MXCPP_RUN_COMMAND,$(RM) $(MXCPP_OBJECT_DIR)$(PATH_SEP)*.$(OBJ_SFX),-,$(NOERROUT)))
 $(if $(strip $(MXCPP_DLLCONFIG_$(1))),$(if $(strip $(RES_SFX)),\
