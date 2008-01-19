@@ -41,7 +41,7 @@
              1400 ... MSVC 8.0 (.NET)
 */
 #if (_MSC_VER < 1200)
-#error This project requires at least MSVC version 6.0 to compile.
+    #error This project requires at least MSVC version 6.0 to compile.
 #else /* MSVC < 6.0 */
 #if (_MSC_VER < 1300)
 /* MSVC 6.0 */
@@ -76,7 +76,7 @@
 
 
 /* Disable warning: C++ Exception Specification ignored */
-#pragma warning(disable : 4290)
+    #pragma warning(disable : 4290)
 
 
 #endif /* MX_PLATFORM_COMPILER_MSVC */

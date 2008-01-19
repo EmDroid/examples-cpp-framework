@@ -47,7 +47,7 @@
 
 #else /* __XLC__ */
 
-#error Unsupported compiler for Unix platform. \
+    #error Unsupported compiler for Unix platform. \
     See mx/defs/unix.h for the list of supported compilers.
 
 #endif /* __XLC__ */

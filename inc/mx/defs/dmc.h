@@ -37,7 +37,7 @@
         __DMC__     Digital Mars Compiler version.
 */
 #if (__DMC__ < 0x700)
-#error This project requires at least Digital Mars Compiler 7.00 to compile.
+    #error This project requires at least Digital Mars Compiler 7.00 to compile.
 #else /* __DMC__ < 0x700 */
 #endif /* __DMC__ < 0x700 */
 

@@ -67,7 +67,7 @@
 
 #else /* __WATCOMC__ */
 
-#error Unsupported compiler for DOS platform. \
+    #error Unsupported compiler for DOS platform. \
     See mx/defs/dos.h for the list of supported compilers.
 
 #endif /* __WATCOMC__ */

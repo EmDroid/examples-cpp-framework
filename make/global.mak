@@ -93,12 +93,13 @@ $(if $(strip $(MXCPP_COMMANDS_LOG)),$(shell $(RM) $(MXCPP_COMMANDS_LOG) $(NOOUT)
 
 # ANSI-C includes.
 MXCPP_C_INCLUDE := \
-$(CC_INCLUDE)../$(MXCPP_INCLUDE_ROOT)
+$(CC_INCLUDE)../$(MXCPP_INCLUDE_ROOT)) \
+$(CXX_INCLUDE)$(MXCPP_INCLUDE_ROOT)
 
 # C++ includes.
 MXCPP_CXX_INCLUDE := \
 $(CXX_INCLUDE)../$(MXCPP_INCLUDE_ROOT) \
-$(CXX_INCLUDE)inc \
+$(CXX_INCLUDE)$(MXCPP_INCLUDE_ROOT) \
 $(CXX_INCLUDE)src/$(MXCPP_INCLUDE_ROOT)
 
 # Resource includes.
@@ -131,7 +132,7 @@ $(foreach compiler,$(MXCPP_COMPILERS_LIST),\
 #
 # Any change in the makefile initialization files *.ini, will cause full rebuild
 # of all objects.
-MXCPP_MAKEFILE_DEPS := $(filter %.ini,$(MAKEFILE_LIST))
+MXCPP_MAKEFILE_DEPS := makefile $(filter %.ini,$(MAKEFILE_LIST))
 $(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning MAKEFILE dependencies: $(MXCPP_MAKEFILE_DEPS)))
 
 
@@ -219,8 +220,8 @@ define MXCPP_BUILD_RULES_OBJECT
 
 $(eval MXCPP_SOURCE_SUFFIX := $(suffix $(2)))
 
-$(if $(strip $(findstring $(MXCPP_SOURCE_SUFFIX),.cpp .cxx .c++)),$(eval MXCPP_COMPILER_TYPE := CXX),\
 $(if $(strip $(findstring $(MXCPP_SOURCE_SUFFIX),.c)),$(eval MXCPP_COMPILER_TYPE := CC),\
+$(if $(strip $(findstring $(MXCPP_SOURCE_SUFFIX),.cpp .cxx .c++)),$(eval MXCPP_COMPILER_TYPE := CXX),\
 $(if $(strip $(findstring $(MXCPP_SOURCE_SUFFIX),.rc)),$(eval MXCPP_COMPILER_TYPE := RC),\
 $(error ERROR: Unsupported source file type 'MXCPP_SOURCE_SUFFIX' (source file: $(2)))\
 )))
@@ -264,7 +265,7 @@ $(if $(findstring $(MXCPP_TEST),$(MXCPP_BUILD_TEST_LIST)),$(error ERROR: Test am
 $(eval MXCPP_BUILD_TEST_LIST += $(MXCPP_TEST))
 
 $(call MXCPP_BUILD_RULES_SINGLE_RULE,$(MXCPP_TEST),$(MXCPP_TEST_EXE),C)
-	@$(ECHO) *** Running $1 test ...
+	@$(ECHO) +++ Running $1 test ...
 $(call MXCPP_RUN_COMMAND,$(MXCPP_TEST_EXE))
 
 $(call MXCPP_BUILD_RULES_OBJECT,$(MXCPP_PROJECT_ROOT),$(MXCPP_TEST_ROOT)$(1),OBJ,$(2),$(3),$(5)$(MXCPP_COMMA)$(6))

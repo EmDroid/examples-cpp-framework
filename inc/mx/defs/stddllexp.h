@@ -33,23 +33,23 @@
 
 
 #ifdef MX_MAKEDLL
-    #define MX_DLL_EXPORT             __declspec(dllexport)
-    #define MX_DLL_EXPORT_DATA(type)  __declspec(dllexport) type
+#   define MX_DLL_EXPORT             __declspec(dllexport)
+#   define MX_DLL_EXPORT_DATA(type)  __declspec(dllexport) type
 #else
 #ifdef MX_USEDLL
-    #define MX_DLL_EXPORT             __declspec(dllimport)
-    #define MX_DLL_EXPORT_DATA(type)  __declspec(dllimport) type
+#   define MX_DLL_EXPORT             __declspec(dllimport)
+#   define MX_DLL_EXPORT_DATA(type)  __declspec(dllimport) type
 #endif
 #endif
 
 
 #ifdef MXCPP_MAKEDLL
-    #define MXCPP_DLL_EXPORT             __declspec(dllexport)
-    #define MXCPP_DLL_EXPORT_DATA(type)  __declspec(dllexport) type
+#   define MXCPP_DLL_EXPORT             __declspec(dllexport)
+#   define MXCPP_DLL_EXPORT_DATA(type)  __declspec(dllexport) type
 #else
 #ifdef MXCPP_USEDLL
-    #define MXCPP_DLL_EXPORT             __declspec(dllimport)
-    #define MXCPP_DLL_EXPORT_DATA(type)  __declspec(dllimport) type
+#   define MXCPP_DLL_EXPORT             __declspec(dllimport)
+#   define MXCPP_DLL_EXPORT_DATA(type)  __declspec(dllimport) type
 #endif
 #endif
 
@@ -61,23 +61,23 @@
 
 
 #ifdef MX_MAKEDLL
-    #define MX_DLL_EXPORT             __declspec(dllexport) __declspec(__pascal)
-    #define MX_DLL_EXPORT_DATA(type)  __declspec(dllexport) type
+#   define MX_DLL_EXPORT             __declspec(dllexport) __declspec(__pascal)
+#   define MX_DLL_EXPORT_DATA(type)  __declspec(dllexport) type
 #else
 #ifdef MX_USEDLL
-    #define MX_DLL_EXPORT             __declspec(__pascal)
-    #define MX_DLL_EXPORT_DATA(type)  type
+#   define MX_DLL_EXPORT             __declspec(__pascal)
+#   define MX_DLL_EXPORT_DATA(type)  type
 #endif
 #endif
 
 
 #ifdef MXCPP_MAKEDLL
-    #define MXCPP_DLL_EXPORT             __declspec(dllexport) __declspec(__pascal)
-    #define MXCPP_DLL_EXPORT_DATA(type)  __declspec(dllexport) type
+#   define MXCPP_DLL_EXPORT             __declspec(dllexport) __declspec(__pascal)
+#   define MXCPP_DLL_EXPORT_DATA(type)  __declspec(dllexport) type
 #else
 #ifdef MXCPP_USEDLL
-    #define MXCPP_DLL_EXPORT             __declspec(__pascal)
-    #define MXCPP_DLL_EXPORT_DATA(type)  type
+#   define MXCPP_DLL_EXPORT             __declspec(__pascal)
+#   define MXCPP_DLL_EXPORT_DATA(type)  type
 #endif
 #endif
 

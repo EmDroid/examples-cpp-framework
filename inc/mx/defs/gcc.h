@@ -35,7 +35,7 @@
         __GNUC_MINOR__  Minor GNU C++ Compiler version.
 */
 #if (__GNUC__ < 2)
-#error This project requires at least GNU C++ Compiler 2.0 to compile.
+    #error This project requires at least GNU C++ Compiler 2.0 to compile.
 #else /* GNUC < 2.0 */
 #if (__GNUC__ < 3)
 /* GNUC 2.0 */
@@ -67,6 +67,10 @@
     __attribute__((format(scanf, (format_index), (arguments_index))))
 #define MX_SCANFLIKE_METHOD(format_index, arguments_index) \
     MX_SCANFLIKE((format_index) + 1, (arguments_index) + 1)
+
+
+/* Define how to declare functions/methods which never return. */
+#define MX_NORETURN_TYPE(Type)  Type __attribute__((__noreturn__))
 
 
 #endif /* MX_PLATFORM_COMPILER_GCC */

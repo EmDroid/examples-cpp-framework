@@ -78,7 +78,7 @@ public:
 
 private:
 
-    MX_INLINE const char * SetTestName();
+    const char * SetTestName();
 
     MX_INLINE const char * GetTestName()
     {

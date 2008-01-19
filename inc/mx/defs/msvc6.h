@@ -33,7 +33,7 @@
 #define MXCPP_FIX_HAS_NOT_STD_NAMESPACE
 
 /* Disable warning: typedef-name used as synonym for class-name */
-#pragma warning(disable : 4097)
+    #pragma warning(disable : 4097)
 
 
 #endif /* MXCPP_SYSDEF_MSVC6_H_INCLUDE_GUARD */

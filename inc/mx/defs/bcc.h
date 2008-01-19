@@ -34,7 +34,7 @@
         __BCPLUSPLUS__  Borland C++ Compiler version.
 */
 #if !defined(__BORLANDC__) || (__BORLANDC__ < 0x0551)
-#error This project requires at least Borland C++ 5.5 to compile.
+    #error This project requires at least Borland C++ 5.5 to compile.
 #else /* __BCPLUSPLUS__ < 0x0551 */
 #endif /* __BCPLUSPLUS__ < 0x0551 */
 

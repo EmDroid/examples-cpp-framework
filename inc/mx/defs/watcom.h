@@ -34,7 +34,7 @@
         __WATCOM_CPLUSPLUS__    Watcom C++ Compiler version.
 */
 #if !defined(__WATCOM_CPLUSPLUS__) || (__WATCOM_CPLUSPLUS__ < 1100)
-#error This project requires at least Watcom C++ 11.00 to compile.
+    #error This project requires at least Watcom C++ 11.00 to compile.
 #endif /* __WATCOM_CPLUSPLUS__ < 1100 */
 
 

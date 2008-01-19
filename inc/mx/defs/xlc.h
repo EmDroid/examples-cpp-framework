@@ -31,7 +31,7 @@
 
 
 #if (__XLC__ < 2)
-#error This project requires at least IBM AIX (xlC) C++ Compiler 2.0 to compile.
+    #error This project requires at least IBM AIX (xlC) C++ Compiler 2.0 to compile.
 #else /* XLC < 2.0 */
 #endif /* XLC < 2.0 */
 

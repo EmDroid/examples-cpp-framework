@@ -67,7 +67,7 @@
 
 #else /* __WATCOMC__ */
 
-#error Unsupported compiler for Windows platform. \
+    #error Unsupported compiler for Windows platform. \
     See mx/defs/win.h for the list of supported compilers.
 
 #endif /* __WATCOMC__ */

@@ -80,9 +80,11 @@ extern "C" BOOL WINAPI LibMain(
 */
 extern "C" MXCPP_DLL_EXPORT BOOL WINAPI DllMain(
         const HINSTANCE MX_UNUSED(hDllInstance),
-        const DWORD dwReason,
+        const DWORD MX_UNUSED(dwReason),
         const LPVOID MX_UNUSED(lpReserved))
 {
+#if 0   // Not used at the moment.
+
     // Perform actions based on the reason for calling.
     switch (dwReason)
     {
@@ -120,6 +122,8 @@ extern "C" MXCPP_DLL_EXPORT BOOL WINAPI DllMain(
         break;
     }
     }
+#endif // if 0
+
     // Successful DLL_PROCESS_ATTACH.
     return TRUE;
 }

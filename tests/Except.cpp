@@ -140,7 +140,7 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
     /* Testing some non-standard exception. */
 
     if (EXIT_SUCCESS != SingleExceptionTest(
-                OutOfMemory((Size) - 1)))
+                OutOfMemory(10)))
     {
         return RC_FAILURE;
     }

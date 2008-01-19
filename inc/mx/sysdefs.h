@@ -35,26 +35,30 @@
 
 /* Make sure we have not defined the system flag. */
 #ifdef MX_PLATFORM_OS_WINDOWS
-#pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): WARNING: " \
-    "The flag MX_PLATFORM_OS_WINDOWS already defined! (will be discarded)")
+    #pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): " \
+    "WARNING: The flag MX_PLATFORM_OS_WINDOWS already defined!" \
+    " (will be discarded)")
 #undef MX_PLATFORM_OS_WINDOWS
 #endif
 
 #ifdef MX_PLATFORM_OS_DOS
-#pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): WARNING: " \
-    "The flag MX_PLATFORM_OS_DOS already defined! (will be discarded)")
+    #pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): " \
+    "WARNING: The flag MX_PLATFORM_OS_DOS already defined!"     \
+    " (will be discarded)")
 #undef MX_PLATFORM_OS_DOS
 #endif
 
 #ifdef MX_PLATFORM_OS_UNIX
-#pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): WARNING: " \
-    "The flag MX_PLATFORM_OS_UNIX already defined! (will be discarded)")
+    #pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): " \
+    "WARNING: The flag MX_PLATFORM_OS_UNIX already defined!"    \
+    " (will be discarded)")
 #undef MX_PLATFORM_OS_UNIX
 #endif
 
 #ifdef MX_PLATFORM_OS_MVS
-#pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): WARNING: " \
-    "The flag MX_PLATFORM_OS_MVS already defined! (will be discarded)")
+    #pragma message(__FILE__ "(" MX_MAKE_STRING(__LINE__) "): " \
+    "WARNING: The flag MX_PLATFORM_OS_MVS already defined!"     \
+    " (will be discarded)")
 #undef MX_PLATFORM_OS_MVS
 #endif
 
@@ -164,7 +168,7 @@
 #ifdef DOS
 
 #ifdef MX_PLATFORM_OS_WINDOWS
-#error System definition mismatch!
+    #error System definition mismatch!
 #endif
 
 #define MX_PLATFORM_OS_DOS
@@ -186,7 +190,7 @@
 /* Check mismatch with another platforms. */
 #if (defined(MX_PLATFORM_OS_DOS) \
     || defined(MX_PLATFORM_OS_WINDOWS))
-#error System definition mismatch!
+    #error System definition mismatch!
 #endif
 
 #define MX_PLATFORM_OS_UNIX
@@ -196,7 +200,7 @@
 /* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
     of other system was already found.
 */
-#error System definition mismatch!
+    #error System definition mismatch!
 
 #ifdef MXCPP_LINUX_UNDEF
 #undef LINUX
@@ -225,7 +229,7 @@
 /* Check mismatch with another platforms. */
 #if (defined(MX_PLATFORM_OS_DOS) \
     || defined(MX_PLATFORM_OS_WINDOWS))
-#error System definition mismatch!
+    #error System definition mismatch!
 #endif
 
 #define MX_PLATFORM_OS_UNIX
@@ -235,7 +239,7 @@
 /* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
     of other system was already found.
 */
-#error System definition mismatch!
+    #error System definition mismatch!
 
 #ifdef MXCPP_SPARC_UNDEF
 #undef SPARC
@@ -264,7 +268,7 @@
 /* Check mismatch with another platforms. */
 #if (defined(MX_PLATFORM_OS_DOS) \
     || defined(MX_PLATFORM_OS_WINDOWS))
-#error System definition mismatch!
+    #error System definition mismatch!
 #endif
 
 #define MX_PLATFORM_OS_UNIX
@@ -274,7 +278,7 @@
 /* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
     of other system was already found.
 */
-#error System definition mismatch!
+    #error System definition mismatch!
 
 #ifdef MXCPP_HPUX_UNDEF
 #undef HPUX
@@ -303,7 +307,7 @@
 /* Check mismatch with another platforms. */
 #if (defined(MX_PLATFORM_OS_DOS) \
     || defined(MX_PLATFORM_OS_WINDOWS))
-#error System definition mismatch!
+    #error System definition mismatch!
 #endif
 
 #define MX_PLATFORM_OS_UNIX
@@ -313,7 +317,7 @@
 /* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
     of other system was already found.
 */
-#error System definition mismatch!
+    #error System definition mismatch!
 
 #ifdef MXCPP_AIX_UNDEF
 #undef AIX
@@ -340,7 +344,7 @@
 #if (defined(MX_PLATFORM_OS_DOS)       \
     || defined(MX_PLATFORM_OS_WINDOWS) \
     || defined(MX_PLATFORM_OS_UNIX))
-#error System definition mismatch!
+    #error System definition mismatch!
 #endif
 
 #define MX_PLATFORM_OS_MVS
@@ -353,12 +357,12 @@
 /* Make sure both DEBUG and _DEBUG flags defined consistently.
     (both of them are often checked)
 */
-    #if (!defined(DEBUG) && defined(_DEBUG))
-    #define DEBUG  _DEBUG
-    #endif
-    #if (!defined(_DEBUG) && defined(DEBUG))
-    #define _DEBUG  DEBUG
-    #endif
+#if (!defined(DEBUG) && defined(_DEBUG))
+#define DEBUG  _DEBUG
+#endif
+#if (!defined(_DEBUG) && defined(DEBUG))
+#define _DEBUG  DEBUG
+#endif
 
 #ifdef DEBUG
 #define MXCPP_DEBUG
@@ -374,12 +378,12 @@
 /* Make sure both UNICODE and _UNICODE flags defined consistently.
     (both of them are checked inside Windows header files)
 */
-    #if (defined(_UNICODE) && !defined(UNICODE))
-    #define UNICODE
-    #endif
-    #if (defined(UNICODE) && !defined(_UNICODE))
-    #define _UNICODE
-    #endif
+#if (defined(_UNICODE) && !defined(UNICODE))
+#define UNICODE
+#endif
+#if (defined(UNICODE) && !defined(_UNICODE))
+#define _UNICODE
+#endif
 
 #ifdef UNICODE
 #define MXCPP_UNICODE
@@ -430,7 +434,7 @@
 
 #else /* MXCPP_GEN_DEPEND */
 
-#error Unsupported platform - see sysdefs.h for a list of supported platforms.
+    #error Unsupported platform - see sysdefs.h for a list of supported platforms.
 
 #endif /* MXCPP_GEN_DEPEND */
 

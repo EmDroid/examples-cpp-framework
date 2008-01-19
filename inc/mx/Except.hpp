@@ -45,10 +45,8 @@ namespace mx
 {
 
 
-#define mxThrow(exception)            \
-    mx::ThrowException(exception,     \
-        (const char * const)__FILE__, \
-        (const Size)__LINE__)
+#define mxThrow(exception) \
+    mx::ThrowException(exception, __FILE__, static_cast< Size >(__LINE__))
 
 
 // Forward declaration.

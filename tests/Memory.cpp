@@ -46,9 +46,10 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 
 
     /* Testing standard memory allocations. */
-    pIntegers = (TestType *)malloc(sizeof(TestType));
+    pIntegers = static_cast< TestType * >(malloc(sizeof(TestType)));
     *pIntegers = 10;
-    pIntegers = (TestType *)realloc(pIntegers, sizeof(TestType) * 10);
+    pIntegers
+        = static_cast< TestType * >(realloc(pIntegers, sizeof(TestType) * 10));
     mxTest(*pIntegers == 10);
     free(pIntegers);
 

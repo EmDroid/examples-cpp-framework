@@ -425,10 +425,6 @@ SOURCE=..\..\..\..\..\src\inc\mx\internal\OutOfMem.inl
 
 SOURCE=..\..\..\..\..\src\App\App.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\..\src\App\TestApp.cpp
-# End Source File
 # End Group
 # Begin Source File
 
