@@ -188,16 +188,14 @@ MXCPP_MAKE_DIR := $(CURDIR)
 # logging of commands.
 #
 # @param $(1) The build command, which would be processed.
-# @param $(2) [optional] The startup directory (the directory will be changed
-#             before running the command).
-# @param $(3) [optional] The command error ignore modifier.
-# @param $(4) [optional] Command output redirection (e.g. '>NUL').
+# @param $(2) [optional] The command error ignore modifier.
+# @param $(3) [optional] Command output redirection (e.g. '>NUL').
 #
 define MXCPP_RUN_COMMAND
 ifneq ($(strip $(MXCPP_COMMANDS_LOG)),)
 	-@$(ECHO) $(1) >>$(MXCPP_COMMANDS_LOG)
 endif
-	$(3)@$(1) $(4)
+	$(2)@$(1) $(3)
 
 endef	# MXCPP_RUN_COMMAND
 # Warning: Do not remove the empty line at before the endef directive, otherwise
