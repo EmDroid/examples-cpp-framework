@@ -362,6 +362,35 @@ protected:
 }; // class KernelException
 
 
+/**
+    Memory related exception.
+
+    This class serves as a base class for any memory related exceptions.
+    This class is supposed to be used in declaration of function which throw
+    either of these more specific exceptions. It can also be used in catch
+    blocks for catching either of these more specific exceptions.
+
+    @note
+    Exception of this type itself should never be thrown. Always throw
+    one of the more specific types.
+*/
+class MXCPP_DLL_EXPORT MemoryException
+    : public KernelException
+{
+
+    MX_DECLARE_EXCEPTION_CLASS(MemoryException, KernelException);
+
+// Construction, destruction.
+
+protected:
+
+    // Protected constructor to prevent direct throwing of the exception.
+    MX_INLINE MemoryException(const char * const sMessage = NULL);
+
+
+}; // class MemoryException
+
+
 } // namespace mx
 
 

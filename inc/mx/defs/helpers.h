@@ -76,6 +76,33 @@ namespace std
 #endif /* __cplusplus */
 
 
+/**
+    @internal
+    Global inlining flag.
+
+    Values:
+    @li @c 0: inlining disabled
+    @li @c 1: inlinig enabled
+    @li any other: use inlining setup from system definitions
+*/
+#define MXCPP_INLINE_GLOBAL  0
+
+#ifndef MX_INLINE_ENABLED
+#if (MXCPP_INLINE_GLOBAL == 1)
+#define MX_INLINE_ENABLED
+#endif
+#endif
+
+
+#ifdef MX_INLINE_ENABLED
+#if (MXCPP_INLINE_GLOBAL == 0)
+#undef MX_INLINE_ENABLED
+#endif
+#endif
+
+#undef MXCPP_INLINE_GLOBAL
+
+
 #ifndef MX_DLL_EXPORT
 #define MX_DLL_EXPORT
 #endif
@@ -464,6 +491,20 @@ private:                       \
 private:                             \
     type & operator = (const type &)
 
+
+#endif /* __cplusplus */
+
+
+/* Headers that are always included - redefining some standard definitions etc. */
+
+/* C and C++ headers. */
+#include "mx/malloc.h"
+
+
+#ifdef __cplusplus
+// C++ only headers.
+
+#include "mx/new.hpp"
 
 #endif /* __cplusplus */
 

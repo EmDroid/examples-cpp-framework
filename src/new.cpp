@@ -26,16 +26,14 @@
 
 
 /* Framework libraries. */
+#include "mx/Memory.hpp"
 
 
 /* Application specific. */
 #include "mx/new.hpp"
 
 
-#include "mx/defs/newundef.hpp"
-
-
-void * mx::OperatorNewImplementation(
+MXCPP_DLL_EXPORT void * mx::OperatorNewImplementation(
         const Size iMemoryBlockSize,
         const char * const sFileName,
         const Size iFileLine,
@@ -45,17 +43,12 @@ void * mx::OperatorNewImplementation(
 }
 
 
-void mx::OperatorDeleteImplementation(
+MXCPP_DLL_EXPORT void mx::OperatorDeleteImplementation(
         void * const pMemoryBlock,
         const bool MX_UNUSED(bVectorFree))
 {
     Memory::Free(pMemoryBlock);
 }
 
-
-// Define inline methods here if inlining is disabled.
-#ifndef MX_INLINE_ENABLED
-#include "mx/new.inl"
-#endif
 
 /* EOF */

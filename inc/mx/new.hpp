@@ -38,20 +38,20 @@
 
 #include "mx/types.h"
 
-#include "mx/Memory.hpp"
+#include "mx/Except.hpp"
 
 
 namespace mx
 {
 
 
-void * OperatorNewImplementation(
+MXCPP_DLL_EXPORT void * OperatorNewImplementation(
         const Size iMemoryBlockSize,
         const char * const sFileName,
         const Size iFileLine,
         const bool bVectorAlloc = false);
 
-void OperatorDeleteImplementation(
+MXCPP_DLL_EXPORT void OperatorDeleteImplementation(
         void * const pMemoryBlock,
         const bool bVectorFree = false);
 
@@ -59,24 +59,44 @@ void OperatorDeleteImplementation(
 } // namespace mx
 
 
-MX_INLINE void * operator new (
+// The operators new and delete are always inlined, to allow usage even if the
+// framework used as dll. These operators cannot be defined using the DLL
+// linkage (under many compilers), so the indirect usage through
+// OperatorNewImplementation() and OperatorDeleteImplementation() is used.
+
+inline void * operator new (
         // const doesn't work under some compilers (DMC).
         /* const */ mx::Size iMemoryBlockSize,
         const char * const sFileName,
-        const mx::Size iFileLine);
+        const mx::Size iFileLine)
+{
+    return mx::OperatorNewImplementation(
+            iMemoryBlockSize, sFileName, iFileLine);
+}
 
 
-MX_INLINE void * operator new[] (
+inline void * operator new[] (
         /* const */ mx::Size iMemoryBlockSize,
         const char * const sFileName,
-        const mx::Size iFileLine);
+        const mx::Size iFileLine)
+{
+    return mx::OperatorNewImplementation(
+            iMemoryBlockSize, sFileName, iFileLine, true);
+}
 
 
-MX_INLINE void operator delete (
-        void * pMemoryBlock);
+inline void operator delete (
+        void * pMemoryBlock)
+{
+    mx::OperatorDeleteImplementation(pMemoryBlock);
+}
 
-MX_INLINE void operator delete[] (
-        void * pMemoryBlock);
+
+inline void operator delete[] (
+        void * pMemoryBlock)
+{
+    mx::OperatorDeleteImplementation(pMemoryBlock, true);
+}
 
 
 #ifdef MXCPP_FIX_DELETE_PARAMS_LIKE_NEW
@@ -84,25 +104,29 @@ MX_INLINE void operator delete[] (
 // We do not require this, bu some compilers (MSVC) must have defined
 // delete operator with same parameters like new.
 
-MX_INLINE void operator delete (
-        void * pMemoryBlock,
-        const char * const sFileName,
-        const mx::Size iFileLine);
 
-MX_INLINE void operator delete[] (
+inline void operator delete (
         void * pMemoryBlock,
-        const char * const sFileName,
-        const mx::Size iFileLine);
+        const char * const MX_UNUSED(sFileName),
+        const mx::Size MX_UNUSED(iFileLine))
+{
+    mx::OperatorDeleteImplementation(pMemoryBlock);
+}
+
+
+inline void operator delete[] (
+        void * pMemoryBlock,
+        const char * const MX_UNUSED(sFileName),
+        const mx::Size MX_UNUSED(iFileLine))
+{
+    mx::OperatorDeleteImplementation(pMemoryBlock, true);
+}
+
 
 #endif // MXCPP_FIX_DELETE_PARAMS_LIKE_NEW
 
 
-// Define inline methods here if inlining is enabled.
-#ifdef MX_INLINE_ENABLED
-#include "mx/new.inl"
-#endif
-
-
+// Redefine standard new and delete operators.
 #include "mx/defs/newdef.hpp"
 
 

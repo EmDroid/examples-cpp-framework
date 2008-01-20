@@ -59,10 +59,6 @@
 #endif
 
 
-// Start the exception implementation.
-MX_IMPLEMENT_EXCEPTION_CLASS(mx::MemoryException);
-
-
 /* static */ void * mx::Memory::Allocate(
         const Size iSizeRequested,
         const char * const sFileName,

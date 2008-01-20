@@ -35,7 +35,6 @@
 #include "mx/types.h"
 
 #include "mx/debug.h"
-#include "mx/malloc.h"
 
 
 #ifdef __cplusplus
@@ -43,7 +42,6 @@
 
 // Core library headers.
 #include "mx/Except.hpp"
-#include "mx/new.hpp"
 #include "mx/Memory.hpp"
 #include "mx/Stream.hpp"
 #include "mx/FileStrm.hpp"
