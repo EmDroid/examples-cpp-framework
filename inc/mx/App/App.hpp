@@ -69,7 +69,7 @@
 #define MX_IMPLEMENT_APP(ApplicationMainClass)                             \
                                                                            \
     extern "C"                                                             \
-    int main(const int /* argc */, const char ** /* argv */)               \
+    int main(int /* argc */, char ** /* argv */)                           \
     {                                                                      \
         ApplicationMainClass theApplication/*(argc, argv)*/;               \
         /* Make sure, that we run mx::Application::Run() and not the Run() \
@@ -175,7 +175,7 @@ public:
 private:
 
     // Only application main functions will be allowed to run the application.
-    friend int main(const int, const char **);
+//    friend int main(const int, const char **);
 
     // Initialize() function is private to prevent it's override.
     // You should not override it.

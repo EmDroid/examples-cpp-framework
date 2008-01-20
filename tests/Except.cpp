@@ -154,7 +154,6 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
         try
         {
             mxThrow(EndOfFile());
-            return RC_FAILURE;
         }
         catch (const Exception &)
         {

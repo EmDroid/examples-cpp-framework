@@ -29,14 +29,6 @@
 #define MXCPP_SYSDEF_HELPERS_H_INCLUDE_GUARD
 
 
-#ifndef __cplusplus
-
-/* does not work in borlandc
- #define const */
-
-#endif /* __cplusplus */
-
-
 #if (!defined(MXCPP_FIX_USE_OLD_C_HEADERS) && defined(__cplusplus))
 
 #include <cstdlib>
@@ -498,6 +490,7 @@ private:                             \
 /* Headers that are always included - redefining some standard definitions etc. */
 
 /* C and C++ headers. */
+#include "mx/entry.h"
 #include "mx/malloc.h"
 
 

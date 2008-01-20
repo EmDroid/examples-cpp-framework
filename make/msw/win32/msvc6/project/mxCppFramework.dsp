@@ -436,6 +436,10 @@ SOURCE=..\..\..\..\..\src\debug.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\src\entry.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\src\Except.cpp
 # End Source File
 # Begin Source File
@@ -609,6 +613,10 @@ SOURCE=..\..\..\..\..\inc\mx\debug.h
 # Begin Source File
 
 SOURCE=..\..\..\..\..\inc\mx\debug.inl
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\entry.h
 # End Source File
 # Begin Source File
 
