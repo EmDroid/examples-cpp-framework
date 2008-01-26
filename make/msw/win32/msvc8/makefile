@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Microsoft Visual C++ 8.0 compiler.
+#     - Microsoft Visual C++ 8.0 compiler (Windows 32-bit).
 #
 # @author Emil Maskovsky
 #
@@ -24,8 +24,33 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
-# Makefile definitions.
-include makefile.ini
+CFLAGS_DEBUG_EXTRA := -Zi -RTCsu
+
+# MT runtime always used.
+# (ML runtime deprecated)
+CFLAGS_LIB_RUNTIME := -MT
+CFLAGS_LIBMT_RUNTIME := -MT
+
+# MSVC database name.
+CFLAGS_VCDB_NAME := vc80
+
+# Linker target flags.
+LDFLAGS_TARGET := /machine:I386
+
+
+# Include default MSVC definitions.
+include ../../setup/msvc.ini
+
+
+# Addditional clean masks for 'clean...' targets.
+MXCPP_CLEAN_MASK_TEST += $(1)*.manifest
+
+# Addditional clean masks for 'cleanall...' targets.
+MXCPP_CLEANALL_MASK_DLL += $(2).manifest
+
+
+# Include parent definitions.
+include ../system.ini
 
 # Start parent make.
 include ../system.mak

@@ -24,8 +24,35 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
-# Makefile definitions.
-include makefile.ini
+# Include default GCC definitions.
+include ../../../setup/gcc.ini
+
+
+# The compiler executable.
+CC := gxx
+# For now, for the DJGPP is used the gxx even for ANSI-C compiling, to avoid
+# confusion between DJGPP and MinGW in batch processing mode for all MSW
+# platforms.
+
+# Using response file to avoid "line-too-long" problem.
+CC_USE_RESPONSE_FILE := 1
+
+# The compiler executable.
+CXX := $(CC)
+
+# Using response file to avoid "line-too-long" problem.
+CXX_USE_RESPONSE_FILE := $(CC_USE_RESPONSE_FILE)
+
+
+# The linker executable.
+LNKC := $(CXX)
+
+# Using response file to avoid "line-too-long" problem.
+LNKC_USE_RESPONSE_FILE := $(CXX_USE_RESPONSE_FILE)
+
+
+# Include parent definitions.
+include ../system.ini
 
 # Start parent make.
 include ../system.mak

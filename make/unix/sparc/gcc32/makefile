@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - GNU C++ (GCC) compiler.
+#     - GNU C++ (GCC) compiler (Solaris 32-bit).
 #
 # @author Emil Maskovsky
 #
@@ -24,8 +24,15 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
-# Makefile definitions.
-include makefile.ini
+# The target flags.
+CFLAGS_TARGET := -m32
+
+# Include default GCC definitions.
+include ../../../setup/gcc.ini
+
+
+# Include parent definitions.
+include ../system.ini
 
 # Start parent make.
 include ../system.mak

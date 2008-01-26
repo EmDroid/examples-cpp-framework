@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Microsoft Visual C++ 7.0 compiler.
+#     - Microsoft Visual C++ 7.0 compiler (Windows 32-bit).
 #
 # @author Emil Maskovsky
 #
@@ -24,8 +24,26 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
-# Makefile definitions.
-include makefile.ini
+CFLAGS_DEBUG_EXTRA := -ZI -RTCsu
+
+# MT runtime always used.
+# (ML runtime deprecated)
+CFLAGS_LIB_RUNTIME := -ML
+CFLAGS_LIBMT_RUNTIME := -MT
+
+# MSVC database name.
+CFLAGS_VCDB_NAME := vc70
+
+# Linker target flags.
+LDFLAGS_TARGET := /machine:I386
+
+
+# Include default MSVC definitions.
+include ../../setup/msvc.ini
+
+
+# Include parent definitions.
+include ../system.ini
 
 # Start parent make.
 include ../system.mak

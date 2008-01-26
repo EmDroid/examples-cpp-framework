@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Digital Mars (DMC) compiler.
+#     - Digital Mars (DMC) compiler (Windows 32-bit).
 #
 # @author Emil Maskovsky
 #
@@ -24,8 +24,22 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
-# Makefile definitions.
-include makefile.ini
+# The target flags.
+CFLAGS_TARGET := -mn
+
+# Flags for different build configurations.
+CFLAGS_LIB := -WA
+CFLAGS_LIBMT := -WA
+CFLAGS_DLL_DLL := -WD
+CFLAGS_DLL_EXE := -WA
+
+
+# Include default DMC definitions.
+include ../../setup/dmc.ini
+
+
+# Include parent definitions.
+include ../system.ini
 
 # Start parent make.
 include ../system.mak

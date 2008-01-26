@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - IBM AIX (xlC) compiler.
+#     - IBM AIX (xlC) compiler (AIX 32-bit).
 #
 # @author Emil Maskovsky
 #
@@ -24,8 +24,15 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
-# Makefile definitions.
-include makefile.ini
+# The target flags.
+CFLAGS_TARGET := -q32
+
+# Include default xlC definitions.
+include ../../setup/xlc.ini
+
+
+# Include parent definitions.
+include ../system.ini
 
 # Start parent make.
 include ../system.mak

@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - Open Watcom C++ compiler.
+#     - Open Watcom C++ compiler (Windows 32-bit).
 #
 # @author Emil Maskovsky
 #
@@ -24,8 +24,22 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
-# Makefile definitions.
-include makefile.ini
+# The target flags.
+CFLAGS_TARGET := -bt=nt
+CFLAGS_MT := -bm
+RCFLAGS_TARGET := -bt=nt
+
+# Include default WATCOM definitions.
+include ../../setup/watcom.ini
+
+
+# The linker global flags.
+LNKC_FLAGS += system nt
+DLLC_FLAGS += system nt_dll
+
+
+# Include parent definitions.
+include ../system.ini
 
 # Start parent make.
 include ../system.mak
