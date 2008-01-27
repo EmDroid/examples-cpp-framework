@@ -65,7 +65,7 @@ public:
     /**
         File descriptor.
 
-        @see #INVALID_FILE_DESCRIPTOR.
+        @see #INVALID_DESCRIPTOR.
     */
     typedef FILE * FileDescriptor;
 
@@ -86,7 +86,7 @@ public:
 public:
 
     explicit FileStream(
-            const FileDescriptor pFileDescriptor = INVALID_DESCRIPTOR);
+            const FileDescriptor hFileDescriptor = INVALID_DESCRIPTOR);
 
     virtual ~FileStream();
 
@@ -110,7 +110,7 @@ public:
 protected:
 
     /// Stream file descriptor (descriptor of open file).
-    FileDescriptor m_pFileDescriptor;
+    FileDescriptor m_hFileDescriptor;
 
 
 }; // class FileStream

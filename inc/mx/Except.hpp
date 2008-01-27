@@ -131,8 +131,8 @@ private:                                       \
     one of the derived types.
 
     @note
-    Application should use @ref exceptions_constructs
-    "framework exception constructs" to throw and catch Exception based
+    Application should use @ref exceptions_throwing
+    "framework exception constructs" to throw and catch mx::Exception based
     exceptions. See mxThrow() for further details.
 
     @note

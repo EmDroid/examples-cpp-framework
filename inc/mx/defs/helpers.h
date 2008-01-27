@@ -385,12 +385,12 @@ void mxUse(Type)
     @code
     class BaseClass {
     public:
-         virtual void fce(void);
+         virtual void operate(void);
     };
 
     class DerivedClass: public BaseClass {
     public:
-         MX_OVERRIDDEN void fce(void);
+         MX_OVERRIDDEN void operate(void);
     };
     @endcode
 

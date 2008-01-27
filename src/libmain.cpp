@@ -34,6 +34,151 @@
 /* Application specific. */
 
 
+/**
+    @mainpage Contents
+    @author Emil Maskovsky
+    @author &copy; Emil Maskovsky 2007
+    @version 0.1
+
+    <b>Demo C++ Framework</b> is a portable C/C++ framework.
+
+    @section contents Contents:
+    @li @subpage suppcpp
+    @li @subpage build
+*/
+
+/*
+    @page copyright Copyright notice
+
+    &copy; Emil Maskovsky 2007
+*/
+
+
+/**
+    @page suppcpp Supported and unsupported C++ features
+
+    @li @subpage exceptions
+    @li @subpage namespaces
+    @li @subpage typeinfo
+*/
+
+
+/**
+    @page namespaces Namespaces
+
+    We support using of namespaces.
+*/
+
+
+/**
+    @page build Building using makefiles
+
+    @section build_make The make build tool - GNU make
+
+    There have been considered multiple scenarios, how to provide makefile
+    processing (which is the most flexible way of building of any project),
+    including writing own portable makefile tool based on the framework itself
+    (which of course can then be used to do the same things as with any makefile
+    processing tool). The main aim is to have portable makefile tool, which can
+    then be used on near any platform, and which can provide some extended
+    processing tasks.
+
+    At last, there have been made choice to use the <b><i>GNU makefile processing
+    tool</i></b>, because of its portability (it is available for many platforms,
+    Windows and Unixes at least) and extreme flexibility (can e.g. dynamically
+    create makefile rules, supports sub-routines etc.).
+
+    The advantage is, that ve can provide only one makefile for each platform and
+    compiler and not bother with another makefile build tools (nmake, Borland
+    make, Digital Mars make etc.), but it can be used to build on near any
+    platform supported by framework.
+
+    The minimal version of GNU make required to build provided makefiles is 3.81
+    (use @code (g)make --version @endcode to see version of installed GNU makefile
+    tool).
+
+    @see http://make.gnu.org/
+
+    @section build_compilers Supported compilers
+
+    Currently following C++ compilers are supported:
+    @li @ref build_msvc - versions 6.0 and later
+    @li @ref build_gcc - Windows, Unix, DOS (DJGPP); versions 2.x and later
+    @li @ref build_dmc - 32-bit Windows, 16-bit DOS
+    @li @ref build_bcc - version 5.5 and later
+    @li @ref build_watcom - 32-bit Windows, 16-bit DOS
+    @li @ref build_ibmcpp - MVS/TSO (OS390)
+
+    @subsection build_msvc Microsoft Visual C++ (MSVC)
+    Building using MSVC:@n
+    Run @ref build_make "(g)make" from the @c 'make\\msw\\win32\\msvc(X)'
+    directory.
+
+    Environment variables to be set:
+    @li @c INCLUDE: MSVC include files
+                    (formatted as <code>"dir1;dir2"</code>).
+    @li @c LIB: MSVC library path
+                (formatted as <code>"dir1;dir2"</code>).
+
+    @subsection build_gcc GNU C++ compiler (G++)
+    (http://gcc.gnu.org/)
+
+    Building using G++:@n
+    Run @ref build_make "(g)make" from the @c
+    'make\\&lt;platform&gt;\\&lt;system&gt;\\gcc' directory.
+
+    Environment variables to be set:
+    @li @c C_INCLUDE_PATH: GCC include files (pure C)
+                           (formatted as <code>"dir1;dir2"</code>).
+    @li @c CPLUS_INCLUDE_PATH: G++ include files (C++)
+                               (formatted as <code>"dir1;dir2"</code>).
+    @li @c LIBRARY_PATH: GCC/G++ libraries
+                         (formatted as <code>"dir1;dir2"</code>).
+
+    @subsection build_dmc Digital Mars C++ compiler (DMC)
+    (http://www.digitalmars.com/)
+
+    Building using DMC:@n
+    Run @ref build_make "(g)make" from the @c 'make\\msw\\&lt;system&gt;\\dmc'
+    directory.
+
+    Include, library etc. paths must be set in the initialization file in the
+    compiler directory.
+
+    @subsection build_bcc Borland C++ Compiler (bcc32)
+    Building using bcc32:@n
+    Run @ref build_make "(g)make" from the @c 'make\\msw\\win32\\bcc' directory.
+
+    Include, library etc. paths must be set in the initialization file in the
+    compiler directory.
+
+    @subsection build_watcom Watcom C++ compiler
+    (http://www.openwatcom.org/)
+
+    Building using Watcom:@n
+    Run @ref build_make "(g)make" from the @c 'make\\msw\\&lt;system&gt;\\watcom'
+    directory.
+
+    Environment variables to be set:
+    @li @c WATCOM Watcom root directory.
+    @li @c INCLUDE Watcom include files
+                   (formatted as <code>"dir1;dir2"</code>).
+
+    @subsection build_ibmcpp IBM Mainframe C++ compiler
+    Building using IBM CPP:@n
+    Some scripts are prepared in the @c 'make\\zos\\os390' directory, you
+    might want to adapt it to your conditions.
+*/
+
+
+/**
+    @page terms Defined terms
+
+    @anchor RTTI @b RTTI: (R)un-(T)ime (T)ype (I)dentification
+                          (@ref typeinfo "info")
+*/
+
+
 #ifdef MXCPP_MAKEDLL
 
 

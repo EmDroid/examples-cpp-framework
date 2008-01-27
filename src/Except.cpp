@@ -53,6 +53,31 @@ using namespace std;
 
 
 /**
+    @page exceptions C++ Exception handling
+
+    We support C++ Exceptions handling, it seems that it is supported by
+    wide-range compilers, and C++ Exception usage is very convenient.
+
+    @note
+    We support even uncaught exception handler (exceptions that were not caught
+    in the application); nearly all compilers look as they support it (have
+    required functions defined), but it seems that only Digital Mars C++ compiler
+    supports this functionality correctly for now.
+
+    The default application catches all, even weird, exceptions (and derived
+    application @b should do it too, if reimplemented), so the uncaught exception
+    handler functionality is not critical. But, if you want to be absolutely
+    sure, you might want to use the compiler which suports it.
+
+    Additional information:
+    @li @subpage exceptions_implementation
+
+    @section exceptions_cpp Compilers that can support uncaught exception handlers
+    @li @ref build_dmc - 32-bit Windows, 16-bit DOS
+*/
+
+
+/**
     @page exceptions_implementation Exceptions
 
     All framework exceptions are based on mx::Exception class.
@@ -63,7 +88,7 @@ using namespace std;
     @section exceptions_throwing Throwing exceptions
 
     If you want to use the @ref exceptions_handling "extended exception hadling"
-    provided by the framework, you should use the construct mxRaise() to throw
+    provided by the framework, you should use the construct mxThrow() to throw
     an exception.
 
     You can however use any way of throwing exceptions, which is possible in
@@ -101,7 +126,7 @@ using namespace std;
 ///@{
 
 /**
-    @def mxRaise
+    @def mxThrow
 
     Exception throw @ref exceptions_throwing "construct".
 
@@ -112,7 +137,7 @@ using namespace std;
     For example, to throw and catch mx::EndOfFile exception, use:
     @code
     try {
-        mxRaise(mx::EndOfFile() );
+        mxThrow(mx::EndOfFile() );
     } catch (mx::EndOfFile & e) {
         // Process the exception.
         ...
@@ -124,7 +149,7 @@ using namespace std;
     as follows:
     @include ExceptionPointerOrReference.cpp
 
-    But using of mxRaise(exception) is the framework recommended way of
+    But using of mxThrow(exception) is the framework recommended way of
     throwing exceptions based on mx::Exception, and only then you can gain from
     framework @ref exceptions_handling "extended exception processing".
 */

@@ -33,17 +33,39 @@
 #include "mx/Stream.hpp"
 
 
+/**
+    Constructor.
+*/
 mx::Stream::Stream()
 {}
 
 
+/**
+    Destructor.
+*/
 /* virtual */ mx::Stream::~Stream()
 {}
 
 
+/**
+    Formatted printing into the stream.
+
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @p sFormat string.
+
+    @exception MemoryException
+    Memory allocation problem occured.
+
+    @exception IOException
+    Input/Output problem occured.
+
+    This function is just simple wrapper around Stream::PrintfV().
+    See there for more documentation.
+
+    @see PrintfV().
+*/
 MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Stream::Printf(
-        const char * const sFormat,
-        ...)
+        const char * const sFormat, ...)
 {
     mxAssert(sFormat);
 

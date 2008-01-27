@@ -506,6 +506,7 @@ RECURSIVE              = YES
 # subdirectory from a directory tree whose root is specified with the INPUT tag.
 
 EXCLUDE                = ../src/inc \
+                         ../src/OutOfMem.cpp \
                          ../tests
 
 # The EXCLUDE_SYMLINKS tag can be used select whether or not files or 
@@ -1052,7 +1053,10 @@ PREDEFINED             = __cplusplus __DOXYGEN__ MX_INLINE_ENABLED
 # The macro definition that is found in the sources will be used. 
 # Use the PREDEFINED tag if you want to use a different macro definition.
 
-EXPAND_AS_DEFINED      = MX_PURE MX_INLINE
+EXPAND_AS_DEFINED      = MX_PURE MX_INLINE MX_OVERRIDDEN MX_FINAL MX_THROW_ANY \
+                         MX_PRINTFLIKE MX_PRINTFLIKE_METHOD \
+                         MX_SCANFLIKE MX_SCANFLIKE_METHOD \
+                         MXCPP_DLL_EXPORT MXCPP_DLL_EXPORT_DATA
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES (the default) then 
 # doxygen's preprocessor will remove all function-like macros that are alone 

@@ -45,6 +45,9 @@ namespace mx
 {
 
 
+/**
+    Generic stream class.
+*/
 class MXCPP_DLL_EXPORT Stream
 {
 
@@ -64,15 +67,55 @@ public:
 
 public:
 
+    /**
+        Get the open status of the stream.
+
+        @return
+        Returns @c true if the stream is open (= ready for I/O operations),
+        or @c false if the file is not open.
+
+        @note
+        This method must be overridden by derived classes.
+    */
     virtual bool IsOpen() const MX_PURE;
 
+    /**
+        Flush the stream.
+
+        Flushes any unwritten data.
+
+        @note
+        This method must be overridden by derived classes.
+    */
     virtual void Flush() MX_PURE;
 
+    /**
+        Close the stream.
+
+        @note
+        This method must be overridden by derived classes.
+    */
     virtual void Close() MX_PURE;
 
     MX_PRINTFLIKE_METHOD(1, 2) Size Printf(const char * const sFormat, ...);
 
-    virtual Size PrintfV(const char * const sFormat, va_list pArgs) MX_PURE;
+    /**
+        Formatted printing into the stream (vararg version).
+
+        @param [in] sFormat    @c printf(3) like formatting string.
+        @param [in] pArguments Argument list matching the @a sFormat string.
+
+        @exception MemoryException
+        Memory allocation problem occured.
+
+        @exception IOException
+        Input/Output problem occured.
+
+        @note
+        This method must be overridden by derived classes.
+    */
+    virtual Size PrintfV(const char * const sFormat,
+            va_list pArguments) MX_PURE;
 
 
 }; // class Stream

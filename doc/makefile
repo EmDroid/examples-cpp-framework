@@ -59,7 +59,7 @@ clean_public:
 	-@cd html && $(RM) *.gif
 	-@cd html && $(RM) *.png
 	-@cd html && $(RM) index.*
-	-@rmdir html
+	-@rmdir $(MXCPP_HTMLDOC_ROOT)
 	-@$(RM) $(MXCPP_CHM_NAME)
 	-@$(RM) warnings.log
 	-@echo ... the cleaning of the [public] documentation is done.
@@ -72,7 +72,7 @@ clean_internal:
 	-@cd internal && cd html && $(RM) *.gif
 	-@cd internal && cd html && $(RM) *.png
 	-@cd internal && cd html && $(RM) index.*
-	-@cd internal && $(RD) html
+	-@cd internal && rmdir $(MXCPP_HTMLDOC_ROOT)
 	-@cd internal && $(RM) $(MXCPP_CHM_NAME)
 	-@$(RM) warnings.internal.log
 	-@rmdir internal

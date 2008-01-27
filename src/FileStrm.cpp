@@ -50,11 +50,11 @@ mx::FileStream::INVALID_DESCRIPTOR = NULL;
 /**
     Constructor taking file descriptor.
 
-    @param [in] hFileDescriptor Initializing file descriptor.
+    @param [in] hFileDescriptor @copydoc m_hFileDescriptor.
 */
 mx::FileStream::FileStream(
-        const FileDescriptor pFileDescriptor)
-    : m_pFileDescriptor(pFileDescriptor)
+        const FileDescriptor hFileDescriptor)
+    : m_hFileDescriptor(hFileDescriptor)
 {}
 
 
@@ -72,7 +72,7 @@ mx::FileStream::~FileStream()
 
 /* MX_OVERRIDDEN */ bool mx::FileStream::IsOpen(void) const
 {
-    return m_pFileDescriptor != INVALID_DESCRIPTOR;
+    return m_hFileDescriptor != INVALID_DESCRIPTOR;
 }
 
 
@@ -83,12 +83,12 @@ mx::FileStream::~FileStream()
 {
     mxAssert(IsOpen());
 
-    if (EOF == fflush(m_pFileDescriptor))
+    if (EOF == fflush(m_hFileDescriptor))
     {
         // We cannot reach eof during write (check it).
-        mxAssert(!feof(m_pFileDescriptor));
+        mxAssert(!feof(m_hFileDescriptor));
         // File I/O error other than EOF.
-        mxThrow(GenericIOException(ferror(m_pFileDescriptor)));
+        mxThrow(GenericIOException(ferror(m_hFileDescriptor)));
     }
 }
 
@@ -100,19 +100,19 @@ mx::FileStream::~FileStream()
 {
     mxAssert(IsOpen());
 
-    if (EOF == fclose(m_pFileDescriptor))
+    if (EOF == fclose(m_hFileDescriptor))
     {
         // We cannot reach eof during write (check it).
-        mxAssert(!feof(m_pFileDescriptor));
+        mxAssert(!feof(m_hFileDescriptor));
         // File I/O error other than EOF.
-        mxThrow(GenericIOException(ferror(m_pFileDescriptor)));
+        mxThrow(GenericIOException(ferror(m_hFileDescriptor)));
     }
-    m_pFileDescriptor = INVALID_DESCRIPTOR;
+    m_hFileDescriptor = INVALID_DESCRIPTOR;
 }
 
 
 /**
-    Formatted printing to the stream (vararg version).
+    Formatted printing into the file stream (vararg version).
 
     @param [in] sFormat    @c printf(3) like formatting string.
     @param [in] pArguments Argument list matching the @p sFormat string.
@@ -124,13 +124,13 @@ mx::FileStream::~FileStream()
     mxAssert(sFormat != NULL);
 
     int iCharsWritten;
-    if ((iCharsWritten = vfprintf(m_pFileDescriptor, sFormat, pArguments))
+    if ((iCharsWritten = vfprintf(m_hFileDescriptor, sFormat, pArguments))
         < 0)
     {
         // We cannot reach eof during write (check it).
         mxAssert(!feof(m_pFileDescriptor));
         // File I/O error other than EOF.
-        mxThrow(GenericIOException(ferror(m_pFileDescriptor)));
+        mxThrow(GenericIOException(ferror(m_hFileDescriptor)));
     }
 
     return iCharsWritten;

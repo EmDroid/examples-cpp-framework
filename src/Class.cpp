@@ -47,6 +47,14 @@
 #endif /* MXCPP_FIX_USE_OLD_C_HEADERS */
 
 
+/**
+    @page typeinfo Runtime type information (RTTI)
+
+    We support using of typeinfo. The application must be build with @ref RTTI
+    enabled.
+*/
+
+
 /* virtual */ mx::Class::~Class()
 {}
 

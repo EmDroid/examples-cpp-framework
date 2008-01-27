@@ -40,6 +40,8 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::OutOfMemory);
 
 /**
     Constructor.
+
+    @param [in] iSizeRequested @copydoc m_iSizeRequested
 */
 mx::OutOfMemory::OutOfMemory(
         const Size iSizeRequested)
