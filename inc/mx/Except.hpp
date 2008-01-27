@@ -391,6 +391,26 @@ protected:
 }; // class MemoryException
 
 
+/**
+    Input/Output exception.
+*/
+class MXCPP_DLL_EXPORT IOException
+    : public KernelException
+{
+
+    MX_DECLARE_EXCEPTION_CLASS(IOException, KernelException);
+
+// Construction, destruction.
+
+protected:
+
+    // Protected constructor to prevent direct throwing of the exception.
+    MX_INLINE IOException(const char * const sMessage = NULL);
+
+
+}; // class IOException
+
+
 } // namespace mx
 
 

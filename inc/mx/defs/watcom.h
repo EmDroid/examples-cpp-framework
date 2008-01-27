@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     Watcom C++ compiler specific definitions.

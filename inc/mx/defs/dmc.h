@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     Digital Mars compiler specific definitions.
@@ -50,6 +52,7 @@
 #else /* PLATFORM_OS_WIN32 */
 
 /* C++-style DMC headers are incompatible with outside WIN32. */
+/** The compiler does not support new C++ style headers. */
 #define MXCPP_FIX_USE_OLD_C_HEADERS
 
 #endif /* PLATFORM_OS_WIN32 */

@@ -19,7 +19,7 @@
 /**
     @file
 
-    @brief Demo C++ Framework.
+    @project.
 
     @author Emil Maskovsky
 */

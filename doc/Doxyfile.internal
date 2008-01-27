@@ -27,6 +27,8 @@ EXTRACT_PRIVATE        = YES
 EXTRACT_STATIC         = YES
 EXTRACT_LOCAL_CLASSES  = YES
 EXTRACT_LOCAL_METHODS  = YES
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
 INTERNAL_DOCS          = YES
 # ENABLED_SECTIONS       = 
 MAX_INITIALIZER_LINES  = 30
@@ -37,6 +39,7 @@ SHOW_DIRECTORIES       = YES
 # configuration options related to warning and progress messages
 #---------------------------------------------------------------------------
 
+WARN_IF_UNDOCUMENTED   = YES
 WARN_LOGFILE           = warnings.internal.log
 
 #---------------------------------------------------------------------------

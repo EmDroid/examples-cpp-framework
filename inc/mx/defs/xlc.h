@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     Common IBM AIX (xlC) C++ compiler specific definitions.
@@ -36,6 +38,8 @@
 #endif /* XLC < 2.0 */
 
 
+/** @cond disabled_helper_defs */
+
 /* Define how to declare functions/methods with printf(3) like semantics. */
 #define MX_PRINTFLIKE(format_index, arguments_index) \
     __attribute__((format(printf, (format_index), (arguments_index))))
@@ -47,6 +51,8 @@
     __attribute__((format(scanf, (format_index), (arguments_index))))
 #define MX_SCANFLIKE_METHOD(format_index, arguments_index) \
     MX_SCANFLIKE((format_index) + 1, (arguments_index) + 1)
+
+/** @endcond */
 
 
 #endif /* MX_PLATFORM_COMPILER_XLC */

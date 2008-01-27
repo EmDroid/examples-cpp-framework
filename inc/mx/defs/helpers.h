@@ -56,13 +56,6 @@
 
 using namespace std;
 
-/*
-namespace std
-{
-    extern "C" int fprintf(FILE *, const char *, ...);
-}
-*/
-
 #endif // MXCPP_FIX_HAS_NOT_STD_NAMESPACE
 
 #endif /* __cplusplus */
@@ -70,14 +63,23 @@ namespace std
 
 /**
     @internal
+
+    @def MXCPP_INLINE_GLOBAL
+
     Global inlining flag.
 
     Values:
-    @li @c 0: inlining disabled
-    @li @c 1: inlinig enabled
+    @li @c 0: inlining always disabled
+    @li @c 1: inlinig always enabled
     @li any other: use inlining setup from system definitions
 */
-#define MXCPP_INLINE_GLOBAL  0
+#define MXCPP_INLINE_GLOBAL  1
+
+/**
+    @def MX_INLINE_ENABLED
+
+    Defined if inlining is enabled.
+*/
 
 #ifndef MX_INLINE_ENABLED
 #if (MXCPP_INLINE_GLOBAL == 1)
@@ -95,9 +97,58 @@ namespace std
 #undef MXCPP_INLINE_GLOBAL
 
 
+/**
+    @def MX_DLL_EXPORT
+
+    Define how to export the functions or classes.
+
+    Can be used by the projects dependent on the library to conveniently export
+    from libraries.
+*/
+
+/**
+    @def MX_DLL_EXPORT_DATA
+
+    Define how to export the data.
+
+    @param [in] type The type of data to be exported.
+
+    Can be used by the projects dependent on the library to conveniently export
+    from libraries.
+*/
+
 #ifndef MX_DLL_EXPORT
 #define MX_DLL_EXPORT
 #endif
+
+#ifndef MX_DLL_EXPORT_DATA
+#define MX_DLL_EXPORT_DATA(type)  type
+#endif
+
+
+/**
+    @internal
+
+    @def MXCPP_DLL_EXPORT
+
+    Define how to export the functions or classes from the @project.
+
+    Should not be used outside the @project itself, you might want to use the
+    #MX_DLL_EXPORT convenience macro instead..
+*/
+
+/**
+    @internal
+
+    @def MXCPP_DLL_EXPORT_DATA
+
+    Define how to export the data from the @project.
+
+    @param [in] type The type of data to be exported.
+
+    Should not be used outside the @project itself, you might want to use the
+    #MX_DLL_EXPORT_DATA convenience macro instead..
+*/
 
 #ifndef MXCPP_DLL_EXPORT
 #define MXCPP_DLL_EXPORT
@@ -108,15 +159,68 @@ namespace std
 #endif
 
 
-#ifndef MXCPP_UNICODE
-#define mxT(string)  string
-#else
-#define mxT(string)  L ## string
+/**
+    @def _T
+
+    Synonym for mxT().
+*/
+
+#ifdef _T
+#undef _T
 #endif
 
-#define _(string)  string
+#ifndef MXCPP_UNICODE
+#define _T(string)  string
+#else
+#define _T(string)  L ## string
+#endif
 
-#define _T(string)  mxT(string)
+
+#ifdef _TEXT
+#undef _TEXT
+#endif
+
+/**
+    Synonym for mxT().
+*/
+#define _TEXT(string)  _T(string)
+
+
+/* Although global macros with such names are normally bad, we want to have
+    another name for _T() which should be used to avoid confusion between _T()
+    and _() in @project sources.
+*/
+
+/**
+    Generic text mapping macro.
+
+    Can be used with character and string literals (in other words, 'x' or "foo")
+    to automatically convert them to Unicode in Unicode build configuration.
+    Please see @ref unicode for more information.
+
+    This macro simply returns the value passed to it without changes in ASCII
+    build. In fact, its definition is:
+    @code
+    #ifdef UNICODE
+    #define mxT(x) L ## x
+    #else // !Unicode
+    #define mxT(x) x
+    #endif
+    @endcode
+
+    @warning
+    This macro cannot be used to convert strings or characters stored in
+    variables to unicode!
+
+    @see @ref unicode
+*/
+#define mxT(string)  _T(string)
+
+
+/**
+    Translate string.
+*/
+#define _(string)  string
 
 
 /**

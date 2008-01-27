@@ -45,6 +45,9 @@ namespace mx
 {
 
 
+/**
+    Class for basic memory manipulations.
+*/
 class MXCPP_DLL_EXPORT Memory
 {
 

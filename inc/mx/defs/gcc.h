@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     Common GNU C++ compiler specific definitions.
@@ -56,6 +58,8 @@
 #include "mx/defs/stddllexp.h"
 
 
+/** @cond disabled_helper_defs */
+
 /* Define how to declare functions/methods with printf(3) like semantics. */
 #define MX_PRINTFLIKE(format_index, arguments_index) \
     __attribute__((format(printf, (format_index), (arguments_index))))
@@ -71,6 +75,8 @@
 
 /* Define how to declare functions/methods which never return. */
 #define MX_NORETURN_TYPE(Type)  Type __attribute__((__noreturn__))
+
+/** @endcond */
 
 
 #endif /* MX_PLATFORM_COMPILER_GCC */

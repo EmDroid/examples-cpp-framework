@@ -36,9 +36,9 @@
 
 #define mxAssert(condition)
 
-#define mxTest  mxCheck
-
 #define mxCheck(condition)
+
+#define mxTest  mxCheck
 
 
 // Define inline methods here if inlining is enabled.

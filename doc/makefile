@@ -26,13 +26,13 @@ all:	public internal
 
 
 # Build the public documentation.
-public $(MXCPP_CHM_NAME):
+public $(MXCPP_CHM_NAME):	clean_public
 	-@echo Creating the [public] documentation ...
 	@$(DC) $(DCFLAGS) Doxyfile
 	-@echo ... the [public] documentation is done.
 
 # Build the internal documentation.
-internal internal/$(MXCPP_CHM_NAME):
+internal internal/$(MXCPP_CHM_NAME):	clean_internal
 	-@echo Creating the [internal] documentation ...
 	@$(DC) $(DCFLAGS) Doxyfile.internal
 	-@echo ... the [internal] documentation is done.

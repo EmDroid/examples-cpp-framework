@@ -267,6 +267,10 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::KernelException);
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::MemoryException);
 
 
+// Start the exception implementation.
+MX_IMPLEMENT_EXCEPTION_CLASS(mx::IOException);
+
+
 namespace mx
 {
 

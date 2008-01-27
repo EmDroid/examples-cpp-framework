@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     Borland C++ compiler specific definitions.
@@ -43,8 +45,12 @@
 #include "mx/defs/stddllexp.h"
 
 
+/** @cond disabled_helper_defs */
+
 /* Define how to declare functions/methods which never return. */
 #define MX_NORETURN_TYPE(Type)  __declspec(noreturn) Type
+
+/** @endcond */
 
 
 #endif /* MX_PLATFORM_COMPILER_BORLANDC */

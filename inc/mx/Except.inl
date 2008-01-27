@@ -116,4 +116,15 @@ MX_INLINE mx::MemoryException::MemoryException(
 {}
 
 
+/**
+    Constructor.
+
+    @param [in] sMessage The exception message.
+*/
+MX_INLINE mx::IOException::IOException(
+        const char * const sMessage)
+    : Super(sMessage)
+{}
+
+
 /* EOF */

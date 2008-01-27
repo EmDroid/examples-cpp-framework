@@ -121,23 +121,6 @@ public:
 }; // class Stream
 
 
-class MXCPP_DLL_EXPORT StreamException
-    : public KernelException
-{
-
-    MX_DECLARE_EXCEPTION_CLASS(StreamException, KernelException);
-
-// Construction, destruction.
-
-protected:
-
-    // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE StreamException(const char * const sMessage = NULL);
-
-
-}; // class StreamException
-
-
 } // namespace mx
 
 

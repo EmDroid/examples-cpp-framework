@@ -48,6 +48,11 @@ typedef size_t mxSize;
 // C++ only declarations.
 
 
+/**
+    Main namespace of @project.
+
+    Namespaces are used by @project to prevent confusion of names.
+*/
 namespace mx
 {
 

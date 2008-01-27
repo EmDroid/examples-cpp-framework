@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     GNU C++ 3.0 compiler specific definitions.

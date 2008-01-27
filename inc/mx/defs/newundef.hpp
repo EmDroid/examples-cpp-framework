@@ -19,13 +19,15 @@
 /**
     @file
 
-    New override definitions (undefine).
+    new/delete operator override definitions (undefine).
 
     @author Emil Maskovsky
 
     @see mx/defs/newdef.hpp
 */
 
+
+// Undefine new/delete overrides.
 
 #ifdef new
 #undef new

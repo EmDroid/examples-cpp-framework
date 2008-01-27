@@ -19,7 +19,7 @@
 /**
     @file
 
-    New override definitions (define).
+    new/delete operator override definitions (define).
 
     @author Emil Maskovsky
 
@@ -29,6 +29,20 @@
 
 #include "mx/defs/newundef.hpp"
 
+// We redefine the standard new operator to be able to get the information
+// where the out of memory exception occured.
+//
+// It is done in both debug and release modes,
+// in both modes we throw the exception.
+
+/**
+    @internal
+
+    The new operator.
+
+    The new operator overridden to be called along with the file name and line
+    information.
+*/
 #define new  new (__FILE__, __LINE__)
 
 

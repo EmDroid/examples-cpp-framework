@@ -116,11 +116,20 @@ protected:
 }; // class FileStream
 
 
+/**
+    End of file exception.
+
+    This specific IOException indicates that end of file have been reached.
+
+    This exception is reserved for methods which read from a file. It @b
+    must @b not be thrown by methods which write data to indicate that no
+    more data can be written.
+*/
 class MXCPP_DLL_EXPORT EndOfFile
-    : public StreamException
+    : public IOException
 {
 
-    MX_DECLARE_EXCEPTION_CLASS(EndOfFile, StreamException);
+    MX_DECLARE_EXCEPTION_CLASS(EndOfFile, IOException);
 
 
 // Construction, destruction.
@@ -133,11 +142,17 @@ public:
 }; // class EndOfFile
 
 
+/**
+    Generic I/O exception.
+
+    This generic IOException indicates that some I/O error occured. The
+    content of @c errno is stored in this exception.
+*/
 class MXCPP_DLL_EXPORT GenericIOException
-    : public StreamException
+    : public IOException
 {
 
-    MX_DECLARE_EXCEPTION_CLASS(GenericIOException, StreamException);
+    MX_DECLARE_EXCEPTION_CLASS(GenericIOException, IOException);
 
 
 // Construction, destruction.

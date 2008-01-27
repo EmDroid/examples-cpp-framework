@@ -25,15 +25,4 @@
 */
 
 
-/**
-    Constructor.
-
-    @param [in] sMessage The exception message.
-*/
-MX_INLINE mx::StreamException::StreamException(
-        const char * const sMessage)
-    : Super(sMessage)
-{}
-
-
 /* EOF */

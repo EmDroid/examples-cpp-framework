@@ -59,6 +59,18 @@
 #endif
 
 
+/**
+    Allocate memory.
+
+    @param [in] iSizeRequested Requested size.
+    @param [in] sFileName      Name of the source file, where the allocation was
+                               requested.
+    @param [in] iFileLine      Line in the source file, where the allocation was
+                               requested.
+
+    @return
+    The address of allocated memory block.
+*/
 /* static */ void * mx::Memory::Allocate(
         const Size iSizeRequested,
         const char * const sFileName,
@@ -77,6 +89,19 @@
 }
 
 
+/**
+    Reallocate memory.
+
+    @param [in] pMemoryBlock   The address of memory block to reallocate.
+    @param [in] iSizeRequested The new requested size.
+    @param [in] sFileName      Name of the source file, where the allocation was
+                               requested.
+    @param [in] iFileLine      Line in the source file, where the allocation was
+                               requested.
+
+    @return
+    The address of reallocated memory block.
+*/
 /* static */ void * mx::Memory::Reallocate(
         void * const pMemoryBlock,
         const Size iSizeRequested,
@@ -92,6 +117,11 @@
 }
 
 
+/**
+    Free memory.
+
+    @param [in] pMemoryBlock The address of memory block to be freed.
+*/
 /* static */ void mx::Memory::Free(
         void * const pMemoryBlock)
 {

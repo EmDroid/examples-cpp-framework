@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     Microsoft Visual C++ 7.0 compiler specific definitions.

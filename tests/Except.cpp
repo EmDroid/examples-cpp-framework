@@ -37,6 +37,11 @@ namespace mx
 {
 
 
+/**
+    Testing exception.
+
+    This exception is used to check if user-defined exceptions are working.
+*/
 class TestException
     : public ApplicationException
 {
