@@ -55,6 +55,9 @@
 /** The compiler does not support new C++ style headers. */
 #define MXCPP_FIX_USE_OLD_C_HEADERS
 
+/** The compiler does not have standard C++ exceptions defined. */
+#define MXCPP_FIX_NO_STD_EXCEPTION
+
 #endif /* PLATFORM_OS_WIN32 */
 
 

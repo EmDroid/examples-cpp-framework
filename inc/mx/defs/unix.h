@@ -40,17 +40,26 @@
 
 #else /* __GNUC__ */
 
-#ifdef __XLC__
+#ifdef __xlC__
 
-/* IBM AIX C++ Compiler definitions. */
+/* IBM VisualAge C++ Compiler definitions. */
 #include "mx/defs/xlc.h"
 
-#else /* __XLC__ */
+#else /* __xlC__ */
+
+#if (defined(__HP_aCC) || defined(__HP_cc))
+
+/* HP C++ Compiler (aCC) definitions. */
+#include "mx/defs/acc.h"
+
+#else /* __HP_aCC */
 
     #error Unsupported compiler for Unix platform. \
     See mx/defs/unix.h for the list of supported compilers.
 
-#endif /* __XLC__ */
+#endif /* __HP_aCC */
+
+#endif /* __xlC__ */
 
 #endif /* __GNUC__ */
 

@@ -487,6 +487,10 @@ SOURCE=..\..\..\..\..\src\Stream.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\..\..\..\inc\mx\defs\acc.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\inc\mx\defs\bcc.h
 # End Source File
 # Begin Source File

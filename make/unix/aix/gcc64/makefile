@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - IBM VisualAge C++ (xlC) compiler (AIX default).
+#     - GNU C++ (GCC) compiler (AIX 64-bit).
 #
 # @author Emil Maskovsky
 #
@@ -24,8 +24,15 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
-# Include default xlC definitions.
-include ../../setup/xlc.ini
+# The target flags.
+CFLAGS_TARGET := -maix64
+CFLAGS_TARGET_MT := -pthread
+
+# Include default GCC definitions.
+include ../../../setup/gcc.ini
+
+# Extra flags.
+LNKC_FLAGS_DLL += -Wl,-brtl
 
 
 # Include parent definitions.

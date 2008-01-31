@@ -54,6 +54,7 @@ namespace mx
 */
 class MXCPP_DLL_EXPORT OutOfMemory
     : public MemoryException
+    , public std::bad_alloc
 {
 
     MX_DECLARE_EXCEPTION_CLASS(OutOfMemory, MemoryException);

@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - IBM AIX (xlC) compiler (AIX 64-bit).
+#     - IBM VisualAge C++ (xlC) compiler (AIX 64-bit).
 #
 # @author Emil Maskovsky
 #

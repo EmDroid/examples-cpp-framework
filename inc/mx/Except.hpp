@@ -53,6 +53,30 @@ namespace mx
 class Stream;
 
 
+#ifdef MXCPP_FIX_NO_STD_EXCEPTION
+
+// For compilers which does not have std::exception classes declared.
+namespace std
+{
+
+class exception
+{
+    /*
+public:
+   */
+};
+
+
+class bad_alloc
+    : public exception
+{};
+
+
+}
+
+#endif // MXCPP_FIX_NO_STD_EXCEPTION
+
+
 /**
     Exception class declaration.
 

@@ -49,6 +49,7 @@
 #ifdef __cplusplus
 
 // C++ only standard headers.
+#include <new>
 
 
 #if (!defined(MXCPP_FIX_USE_OLD_C_HEADERS) \
@@ -57,6 +58,7 @@
 using namespace std;
 
 #endif // MXCPP_FIX_HAS_NOT_STD_NAMESPACE
+
 
 #endif /* __cplusplus */
 
@@ -246,11 +248,20 @@ using namespace std;
     @see template.cpp, template.h and template.inl for
     how the inline files are included.
 */
-#ifdef MX_INLINE_ENABLED
-#define MX_INLINE  inline
-#else
-#define MX_INLINE
+#ifndef MX_INLINE_ENABLED
+
+#ifdef MX_INLINE
+#undef MX_INLINE
 #endif
+#define MX_INLINE
+
+#else /* MX_INLINE_ENABLED */
+
+#ifndef MX_INLINE
+#define MX_INLINE  inline
+#endif
+
+#endif /* MX_INLINE_ENABLED */
 
 
 /**

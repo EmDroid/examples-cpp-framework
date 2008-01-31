@@ -21,22 +21,30 @@
 
     @file
 
-    Common IBM VisualAge C++ (xlC) compiler specific definitions.
+    Common HP C++ (aCC) compiler specific definitions.
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MX_PLATFORM_COMPILER_XLC
+#ifndef MX_PLATFORM_COMPILER_ACC
 
-#define MX_PLATFORM_COMPILER_XLC
-
-
-#if (__xlC__ < 0x0405)
-    #error This project requires at least IBM VisualAge C++ (xlC) Compiler 4.50 to compile.
-#endif /* xlC < 0x0405 */
+#define MX_PLATFORM_COMPILER_ACC
 
 
-#endif /* MX_PLATFORM_COMPILER_XLC */
+#ifdef __HP_aCC
+#define __HP_aCC_VERSION__  __HP_aCC
+#else
+#ifdef __HP_cc
+#define __HP_aCC_VERSION__  __HP_cc
+#endif
+#endif
+
+#if (__HP_aCC_VERSION__ < 012100)
+    #error This project requires at least HP C++ (aCC) Compiler A.01.21 to compile.
+#endif /* __HP_aCC_VERSION__ < 012100 */
+
+
+#endif /* MX_PLATFORM_COMPILER_ACC */
 
 /* EOF */
