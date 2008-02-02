@@ -24,12 +24,12 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
+# The target flags.
+CXXFLAGS_TARGET := -m32
+
 # Include default GCC definitions.
 include ../../../setup/gcc.ini
 
-
-# The target flags.
-CFLAGS_TARGET := -m32
 
 # Include parent definitions.
 include ../system.ini

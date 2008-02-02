@@ -17,26 +17,33 @@
 
 
 /**
-    @internal
-
     @file
 
-    Common IBM VisualAge C++ (xlC) compiler specific definitions.
+    @project.
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MX_PLATFORM_COMPILER_XLC
-
-#define MX_PLATFORM_COMPILER_XLC
-
-
-#if (__xlC__ < 0x0405)
-    #error This project requires at least IBM VisualAge C++ (xlC) Compiler 4.50 to compile.
-#endif /* xlC < 0x0405 */
+#ifndef MXCPP_HPP_INCLUDE_GUARD
+#define MXCPP_HPP_INCLUDE_GUARD
 
 
-#endif /* MX_PLATFORM_COMPILER_XLC */
+#include "mx/sysdefs.hpp"
+#include "mx/types.hpp"
+
+// Core library headers.
+#include "mx/Except.hpp"
+#include "mx/Debug.hpp"
+#include "mx/Memory.hpp"
+#include "mx/Stream.hpp"
+#include "mx/FileStrm.hpp"
+#include "mx/StdStrm.hpp"
+
+// System library headers.
+#include "mx/System/Error.hpp"
+
+
+#endif // MXCPP_HPP_INCLUDE_GUARD
 
 /* EOF */

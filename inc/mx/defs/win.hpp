@@ -19,68 +19,74 @@
 /**
     @file
 
-    DOS system specific definitions.
+    Windows system specific definitions.
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MXCPP_SYSDEF_DOS_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_DOS_H_INCLUDE_GUARD
+#ifndef MXCPP_SYSDEF_WINDOWS_HPP_INCLUDE_GUARD
+#define MXCPP_SYSDEF_WINDOWS_HPP_INCLUDE_GUARD
 
 
-/* Enable inlining for the DOS platform by default. */
+// Enable inlining for the Windows platform by default.
 #define MX_INLINE_ENABLED
 
 #ifdef _MSC_VER
 
 /* Microsoft Visual C++ Compiler definitions. */
-#include "mx/defs/msvc.h"
+#include "mx/defs/msvc.hpp"
 
-#else /* _MSC_VER */
+#else // _MSC_VER
 
 #ifdef __GNUC__
 
 /* GNU C++ Compiler definitions. */
-#include "mx/defs/gcc.h"
+#include "mx/defs/gcc.hpp"
 
-#else /* __GNUC__ */
+#else // __GNUC__
 
 #ifdef __DMC__
 
 /* Digital Mars Compiler definitions. */
-#include "mx/defs/dmc.h"
+#include "mx/defs/dmc.hpp"
 
-#else /* __DMC__ */
+#else // __DMC__
 
-#ifdef __BORLANDC__
+#ifdef __BCPLUSPLUS__
 
 /* Borland C++ Compiler definitions. */
-#include "mx/defs/bcc.h"
+#include "mx/defs/bcc.hpp"
 
-#else /* __BORLANDC__ */
+#else // __BCPLUSPLUS__
 
-#ifdef __WATCOMC__
+#ifdef __WATCOM_CPLUSPLUS__
 
 /* Watcom C++ Compiler definitions. */
-#include "mx/defs/watcom.h"
+#include "mx/defs/watcom.hpp"
 
-#else /* __WATCOMC__ */
+#else // __WATCOM_CPLUSPLUS__
 
-    #error Unsupported compiler for DOS platform. \
-    See mx/defs/dos.h for the list of supported compilers.
+    #error Unsupported compiler for Windows platform. \
+    See mx/defs/win.hpp for the list of supported compilers.
 
-#endif /* __WATCOMC__ */
+#endif // __WATCOM_CPLUSPLUS__
 
-#endif /* __BORLANDC__ */
+#endif // __BCPLUSPLUS__
 
-#endif /* __DMC__ */
+#endif // __DMC__
 
-#endif /* __GNUC__ */
+#endif // __GNUC__
 
-#endif /* _MSC_VER */
+#endif // _MSC_VER
 
 
-#endif /* MXCPP_SYSDEF_DOS_H_INCLUDE_GUARD */
+/* Use Windows libraries. */
+/// Exclude rarely-used stuff from Windows-32 headers.
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+
+#endif // MXCPP_SYSDEF_WINDOWS_HPP_INCLUDE_GUARD
 
 /* EOF */

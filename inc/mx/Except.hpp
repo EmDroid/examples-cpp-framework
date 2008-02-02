@@ -29,14 +29,9 @@
 #define MXCPP_EXCEPTION_HPP_INCLUDE_GUARD
 
 
-#ifndef __cplusplus
-#error This header file requires C++ to compile!
-#endif
+#include "mx/sysdefs.hpp"
 
-
-#include "mx/sysdefs.h"
-
-#include "mx/types.h"
+#include "mx/types.hpp"
 
 #include "mx/Class.hpp"
 
@@ -45,36 +40,12 @@ namespace mx
 {
 
 
-#define mxThrow(exception) \
-    mx::ThrowException(exception, __FILE__, static_cast< Size >(__LINE__))
+#define Throw(exception) \
+    ThrowException(exception, __FILE__, static_cast< FileLine >(__LINE__))
 
 
 // Forward declaration.
 class Stream;
-
-
-#ifdef MXCPP_FIX_NO_STD_EXCEPTION
-
-// For compilers which does not have std::exception classes declared.
-namespace std
-{
-
-class exception
-{
-    /*
-public:
-   */
-};
-
-
-class bad_alloc
-    : public exception
-{};
-
-
-}
-
-#endif // MXCPP_FIX_NO_STD_EXCEPTION
 
 
 /**
@@ -234,7 +205,7 @@ public:
 
     MX_INLINE void SetDebugInfo(
             const char * const sFileName,
-            const Size iFileLine) const;
+            const FileLine iFileLine) const;
 
 protected:
 
@@ -254,7 +225,7 @@ private:
     mutable const char * m_sFileName;
 
     /// Line number in the source file, where the exception was raised.
-    mutable Size m_iFileLine;
+    mutable FileLine m_iFileLine;
 
 
 }; // class Exception
@@ -307,7 +278,7 @@ template< class ExceptionType >
 static MX_NORETURN ThrowException(
         const ExceptionType & pException,
         const char * const sFileName,
-        const Size iFileLine)
+        const FileLine iFileLine)
 {
     // Setup the exception using Exception typed reference, to allow setting
     // of its private members.

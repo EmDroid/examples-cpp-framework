@@ -25,7 +25,7 @@ $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
 # The target flags.
-CFLAGS_TARGET := -q64
+CXXFLAGS_TARGET := -q64
 
 # Include default xlC definitions.
 include ../../setup/xlc.ini

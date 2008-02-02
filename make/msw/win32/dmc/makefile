@@ -25,13 +25,13 @@ $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
 # The target flags.
-CFLAGS_TARGET := -mn
+CXXFLAGS_TARGET := -mn
 
 # Flags for different build configurations.
-CFLAGS_LIB := -WA
-CFLAGS_LIBMT := -WA
-CFLAGS_DLL_DLL := -WD
-CFLAGS_DLL_EXE := -WA
+CXXFLAGS_LIB := -WA
+CXXFLAGS_LIBMT := -WA
+CXXFLAGS_DLL_DLL := -WD
+CXXFLAGS_DLL_EXE := -WA
 
 
 # Include default DMC definitions.

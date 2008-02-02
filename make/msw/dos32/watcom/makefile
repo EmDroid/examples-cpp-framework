@@ -25,7 +25,7 @@ $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
 # The target flags.
-CFLAGS_TARGET := -ms -bt=dos32x
+CXXFLAGS_TARGET := -ms -bt=dos32x
 
 
 # Include default WATCOM definitions.
@@ -33,17 +33,10 @@ include ../../setup/watcom.ini
 
 
 # The compiler executable.
-CC := wcc
-
-# Using response file to avoid "line-too-long" problem.
-CC_USE_RESPONSE_FILE := 1
-
-
-# The compiler executable.
 CXX := wpp
 
 # Using response file to avoid "line-too-long" problem.
-CXX_USE_RESPONSE_FILE := $(CC_USE_RESPONSE_FILE)
+CXX_USE_RESPONSE_FILE := 1
 
 
 # The linker global flags.

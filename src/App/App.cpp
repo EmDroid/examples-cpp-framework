@@ -29,7 +29,7 @@
 
 
 /* Framework libraries. */
-#include "mx/log.h"
+#include "mx/Log.hpp"
 
 
 /* Application specific. */
@@ -44,7 +44,7 @@ mx::Application::Application()
     // Can create only one application instance.
     if (pApplicationInstance)
     {
-        mxLogWarning(
+        LogWarning(
                 _("The application instance already created using [%s]!"),
                 pApplicationInstance->getName());
     }
@@ -73,7 +73,7 @@ int mx::Application::Run(void)
         if (!Initialize())
         {
             // Initialication might throw exception, of course.
-            mxLogError(_("Application initialization failed."));
+            LogError(_("Application initialization failed."));
             return RC_INTERNAL_ERROR;
         }
         iReturnCode = OnRun();

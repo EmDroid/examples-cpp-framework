@@ -30,7 +30,7 @@
 
 /* Framework libraries. */
 #include "mx/StdStrm.hpp"
-#include "mx/log.h"
+#include "mx/Log.hpp"
 #include "mx/App/App.hpp"
 
 
@@ -178,12 +178,12 @@ mx::Exception::sm_pLastRaisedException = NULL;
     StandardError.Printf("\nUnexpected termination handler entered!\n");
     if (!pException)
     {
-        mxLogFatalError(_("Weird exception caught!"));
+        LogFatalError(_("Weird exception caught!"));
     }
 
     // Otherwise provide the user with the most detailed information about
     // the exception we can get.
-    mxLogError(_("Unhandled exception caught!"));
+    LogError(_("Unhandled exception caught!"));
     pException->Fail();
 }
 
@@ -219,7 +219,7 @@ mx::Size mx::Exception::WriteMessage(Stream & stream) const
     Size iBytesWritten = doWriteMessage(stream);
     if (m_sFileName)
     {
-        iBytesWritten += stream.Printf(", thrown in '%s(%u)'",
+        iBytesWritten += stream.Printf(", thrown in '%s(%lu)'",
                 m_sFileName, m_iFileLine);
     }
     iBytesWritten += stream.Printf(".\n");
@@ -337,7 +337,7 @@ static const char mxCppFrameworkSignature[]
 mx::UncaughtExceptionHandler::UncaughtExceptionHandler()
 {
     // Use the signature to be always contributed in the output.
-    mxUse(mxCppFrameworkSignature);
+    Use(mxCppFrameworkSignature);
 
 #ifndef MXCPP_FIX_EH_UNSUPPORTED
     set_terminate(&HandleTerminate);

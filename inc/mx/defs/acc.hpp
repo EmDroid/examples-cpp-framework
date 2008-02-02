@@ -17,38 +17,26 @@
 
 
 /**
+    @internal
+
     @file
 
-    Logging subsystem (implementation).
+    Common HP C++ (aCC) compiler specific definitions.
 
     @author Emil Maskovsky
 */
 
 
-/* Framework libraries. */
+#ifndef MX_PLATFORM_COMPILER_ACC
+
+#define MX_PLATFORM_COMPILER_ACC
 
 
-/* Application specific. */
-#include "mx/log.h"
+#if (__HP_aCC < 012100)
+    #error This project requires at least HP C++ (aCC) Compiler A.01.21 to compile.
+#endif // __HP_aCC < 012100
 
 
-extern "C" {
-
-
-MXCPP_DLL_EXPORT void mxLogMessage(
-        const char * const sFileName,
-        const mxSize iFileLine,
-        const mxLogType iType,
-        const char * const sMessage)
-{}
-
-
-} // extern "C"
-
-
-// Define inline methods here if inlining is disabled.
-#ifndef MX_INLINE_ENABLED
-#include "mx/log.inl"
-#endif
+#endif // MX_PLATFORM_COMPILER_ACC
 
 /* EOF */

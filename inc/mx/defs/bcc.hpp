@@ -35,24 +35,23 @@
 /* Borland C++ Compiler specific settings.
         __BCPLUSPLUS__  Borland C++ Compiler version.
 */
-#if !defined(__BORLANDC__) || (__BORLANDC__ < 0x0551)
+#if !defined(__BCPLUSPLUS__) || (__BCPLUSPLUS__ < 0x0551)
     #error This project requires at least Borland C++ 5.5 to compile.
-#else /* __BCPLUSPLUS__ < 0x0551 */
-#endif /* __BCPLUSPLUS__ < 0x0551 */
+#endif // __BCPLUSPLUS__ < 0x0551
 
 
-/* Uses standard __declspec(dllexport/dllimport) DLL exports. */
-#include "mx/defs/stddllexp.h"
+// Uses standard __declspec(dllexport/dllimport) DLL exports.
+#include "mx/defs/stddllexp.hpp"
 
 
 /** @cond disabled_helper_defs */
 
-/* Define how to declare functions/methods which never return. */
+// Define how to declare functions/methods which never return.
 #define MX_NORETURN_TYPE(Type)  __declspec(noreturn) Type
 
 /** @endcond */
 
 
-#endif /* MX_PLATFORM_COMPILER_BORLANDC */
+#endif // MX_PLATFORM_COMPILER_BORLANDC
 
 /* EOF */

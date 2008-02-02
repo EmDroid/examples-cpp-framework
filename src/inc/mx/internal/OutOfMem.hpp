@@ -29,14 +29,9 @@
 #define MXCPP_OUT_OF_MEMORY_EXCEPTION_HPP_INCLUDE_GUARD
 
 
-#ifndef __cplusplus
-#error This header file requires C++ to compile!
-#endif
+#include "mx/sysdefs.hpp"
 
-
-#include "mx/sysdefs.h"
-
-#include "mx/types.h"
+#include "mx/types.hpp"
 
 #include "mx/Memory.hpp"
 
@@ -54,7 +49,6 @@ namespace mx
 */
 class MXCPP_DLL_EXPORT OutOfMemory
     : public MemoryException
-    , public std::bad_alloc
 {
 
     MX_DECLARE_EXCEPTION_CLASS(OutOfMemory, MemoryException);

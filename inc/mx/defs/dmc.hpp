@@ -40,27 +40,26 @@
 */
 #if (__DMC__ < 0x700)
     #error This project requires at least Digital Mars Compiler 7.00 to compile.
-#else /* __DMC__ < 0x700 */
-#endif /* __DMC__ < 0x700 */
+#endif // __DMC__ < 0x700
 
 
 #ifdef MX_PLATFORM_OS_WIN32
 
-/* Uses standard __declspec(dllexport/dllimport) DLL exports. */
-#include "mx/defs/stddllexp.h"
+// Uses standard __declspec(dllexport/dllimport) DLL exports.
+#include "mx/defs/stddllexp.hpp"
 
-#else /* PLATFORM_OS_WIN32 */
+#else // PLATFORM_OS_WIN32
 
 /* C++-style DMC headers are incompatible with outside WIN32. */
-/** The compiler does not support new C++ style headers. */
+/// The compiler does not support new C++ style headers.
 #define MXCPP_FIX_USE_OLD_C_HEADERS
 
-/** The compiler does not have standard C++ exceptions defined. */
+/// The compiler does not have standard C++ exceptions defined.
 #define MXCPP_FIX_NO_STD_EXCEPTION
 
-#endif /* PLATFORM_OS_WIN32 */
+#endif // PLATFORM_OS_WIN32
 
 
-#endif /* MX_PLATFORM_COMPILER_DMC */
+#endif // MX_PLATFORM_COMPILER_DMC
 
 /* EOF */

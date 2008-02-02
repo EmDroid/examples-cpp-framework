@@ -25,8 +25,8 @@ $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
 # The target flags.
-CFLAGS_TARGET := -maix32
-CFLAGS_TARGET_MT := -pthread
+CXXFLAGS_TARGET := -maix32
+CXXFLAGS_TARGET_MT := -pthread
 
 # Include default GCC definitions.
 include ../../../setup/gcc.ini

@@ -24,15 +24,13 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
-CFLAGS_DEBUG_EXTRA := -ZI -GZ
+CXXFLAGS_DEBUG_EXTRA := -ZI -GZ
 
-# MT runtime always used.
-# (ML runtime deprecated)
-CFLAGS_LIB_RUNTIME := -ML
-CFLAGS_LIBMT_RUNTIME := -MT
+CXXFLAGS_LIB_RUNTIME := -ML
+CXXFLAGS_LIBMT_RUNTIME := -MT
 
 # MSVC database name.
-CFLAGS_VCDB_NAME := vc60
+CXXFLAGS_VCDB_NAME := vc60
 
 # Linker target flags.
 LDFLAGS_TARGET := /machine:I386

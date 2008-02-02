@@ -64,7 +64,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     try
     {
         const ExceptionType e = theException;
-        mxThrow(e);
+        Throw(e);
         return EXIT_FAILURE;
     }
     catch (const ExceptionType & e)
@@ -75,7 +75,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     try
     {
         const ExceptionType e = theException;
-        mxThrow(e);
+        Throw(e);
         return EXIT_FAILURE;
     }
     catch (const Exception & e)
@@ -158,7 +158,7 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
     {
         try
         {
-            mxThrow(EndOfFile());
+            Throw(EndOfFile());
         }
         catch (const Exception &)
         {

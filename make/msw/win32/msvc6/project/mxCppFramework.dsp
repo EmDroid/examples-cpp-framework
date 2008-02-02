@@ -432,11 +432,7 @@ SOURCE=..\..\..\..\..\src\Class.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\src\debug.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\..\src\entry.cpp
+SOURCE=..\..\..\..\..\src\Debug.cpp
 # End Source File
 # Begin Source File
 
@@ -448,15 +444,11 @@ SOURCE=..\..\..\..\..\src\FileStrm.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\src\libmain.cpp
+SOURCE=..\..\..\..\..\src\LibMain.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\src\log.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\..\src\malloc.cpp
+SOURCE=..\..\..\..\..\src\Log.cpp
 # End Source File
 # Begin Source File
 
@@ -487,55 +479,55 @@ SOURCE=..\..\..\..\..\src\Stream.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\acc.h
+SOURCE=..\..\..\..\..\inc\mx\defs\acc.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\bcc.h
+SOURCE=..\..\..\..\..\inc\mx\defs\bcc.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\dmc.h
+SOURCE=..\..\..\..\..\inc\mx\defs\dmc.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\dos.h
+SOURCE=..\..\..\..\..\inc\mx\defs\dos.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\gcc.h
+SOURCE=..\..\..\..\..\inc\mx\defs\gcc.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\gcc2.h
+SOURCE=..\..\..\..\..\inc\mx\defs\gcc2.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\gcc3.h
+SOURCE=..\..\..\..\..\inc\mx\defs\gcc3.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\gcc4.h
+SOURCE=..\..\..\..\..\inc\mx\defs\gcc4.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\helpers.h
+SOURCE=..\..\..\..\..\inc\mx\defs\helpers.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\msvc.h
+SOURCE=..\..\..\..\..\inc\mx\defs\msvc.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\msvc6.h
+SOURCE=..\..\..\..\..\inc\mx\defs\msvc6.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\msvc7.h
+SOURCE=..\..\..\..\..\inc\mx\defs\msvc7.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\msvc8.h
+SOURCE=..\..\..\..\..\inc\mx\defs\msvc8.hpp
 # End Source File
 # Begin Source File
 
@@ -547,23 +539,23 @@ SOURCE=..\..\..\..\..\inc\mx\defs\newundef.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\stddllexp.h
+SOURCE=..\..\..\..\..\inc\mx\defs\stddllexp.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\unix.h
+SOURCE=..\..\..\..\..\inc\mx\defs\unix.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\watcom.h
+SOURCE=..\..\..\..\..\inc\mx\defs\watcom.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\win.h
+SOURCE=..\..\..\..\..\inc\mx\defs\win.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\defs\xlc.h
+SOURCE=..\..\..\..\..\inc\mx\defs\xlc.hpp
 # End Source File
 # End Group
 # Begin Group "System"
@@ -612,15 +604,11 @@ SOURCE=..\..\..\..\..\inc\mx\Class.inl
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\debug.h
+SOURCE=..\..\..\..\..\inc\mx\Debug.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\debug.inl
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\..\inc\mx\entry.h
+SOURCE=..\..\..\..\..\inc\mx\Debug.inl
 # End Source File
 # Begin Source File
 
@@ -640,15 +628,11 @@ SOURCE=..\..\..\..\..\inc\mx\FileStrm.inl
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\log.h
+SOURCE=..\..\..\..\..\inc\mx\Log.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\log.inl
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\..\inc\mx\malloc.h
+SOURCE=..\..\..\..\..\inc\mx\Log.inl
 # End Source File
 # Begin Source File
 
@@ -676,15 +660,15 @@ SOURCE=..\..\..\..\..\inc\mx\Stream.inl
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx.h
+SOURCE=..\..\..\..\..\inc\mx.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\sysdefs.h
+SOURCE=..\..\..\..\..\inc\mx\sysdefs.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\inc\mx\types.h
+SOURCE=..\..\..\..\..\inc\mx\types.hpp
 # End Source File
 # End Group
 # Begin Group "Resource Files"

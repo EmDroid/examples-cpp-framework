@@ -38,47 +38,47 @@
 */
 #if (__GNUC__ < 2)
     #error This project requires at least GNU C++ Compiler 2.0 to compile.
-#else /* GNUC < 2.0 */
+#else // GNUC < 2.0
 #if (__GNUC__ < 3)
 /* GNUC 2.0 */
-#include "mx/defs/gcc2.h"
-#else /* GNUC < 3.0 */
+#include "mx/defs/gcc2.hpp"
+#else // GNUC 3.0
 #if (__GNUC__ < 4)
 /* GNUC 3.0 */
-#include "mx/defs/gcc3.h"
-#else
+#include "mx/defs/gcc3.hpp"
+#else // GNUC 4.0
 /* GNUC 4.0 */
-#include "mx/defs/gcc4.h"
-#endif
-#endif
-#endif /* GNUC < 2.0 */
+#include "mx/defs/gcc4.hpp"
+#endif // GNUC 4.0
+#endif // GNUC 3.0
+#endif // GNUC < 2.0
 
 
-/* Uses standard __declspec(dllexport/dllimport) DLL exports. */
-#include "mx/defs/stddllexp.h"
+// Uses standard __declspec(dllexport/dllimport) DLL exports.
+#include "mx/defs/stddllexp.hpp"
 
 
 /** @cond disabled_helper_defs */
 
-/* Define how to declare functions/methods with printf(3) like semantics. */
+// Define how to declare functions/methods with printf(3) like semantics.
 #define MX_PRINTFLIKE(format_index, arguments_index) \
     __attribute__((format(printf, (format_index), (arguments_index))))
 #define MX_PRINTFLIKE_METHOD(format_index, arguments_index) \
     MX_PRINTFLIKE((format_index) + 1, (arguments_index) + 1)
 
-/* Define how to declare functions/methods with scanf(3) like semantics. */
+// Define how to declare functions/methods with scanf(3) like semantics.
 #define MX_SCANFLIKE(format_index, arguments_index) \
     __attribute__((format(scanf, (format_index), (arguments_index))))
 #define MX_SCANFLIKE_METHOD(format_index, arguments_index) \
     MX_SCANFLIKE((format_index) + 1, (arguments_index) + 1)
 
 
-/* Define how to declare functions/methods which never return. */
+// Define how to declare functions/methods which never return.
 #define MX_NORETURN_TYPE(Type)  Type __attribute__((__noreturn__))
 
 /** @endcond */
 
 
-#endif /* MX_PLATFORM_COMPILER_GCC */
+#endif // MX_PLATFORM_COMPILER_GCC
 
 /* EOF */

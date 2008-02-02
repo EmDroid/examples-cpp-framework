@@ -21,16 +21,16 @@
 
     @file
 
-    Microsoft Visual C++ 7.0 compiler specific definitions.
+    GNU C++ 2.0 compiler specific definitions.
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MXCPP_SYSDEF_MSVC7_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_MSVC7_H_INCLUDE_GUARD
+#ifndef MXCPP_SYSDEF_GCC2_HPP_INCLUDE_GUARD
+#define MXCPP_SYSDEF_GCC2_HPP_INCLUDE_GUARD
 
 
-#endif /* MXCPP_SYSDEF_MSVC7_H_INCLUDE_GUARD */
+#endif // MXCPP_SYSDEF_GCC2_HPP_INCLUDE_GUARD
 
 /* EOF */

@@ -26,7 +26,7 @@
 
 
 /* Framework libraries. */
-#include "mx/debug.h"
+#include "mx/Debug.hpp"
 
 
 /* Application specific. */

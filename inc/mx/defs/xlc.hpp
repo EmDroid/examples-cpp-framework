@@ -21,29 +21,22 @@
 
     @file
 
-    Watcom C++ compiler specific definitions.
+    Common IBM VisualAge C++ (xlC) compiler specific definitions.
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MX_PLATFORM_COMPILER_WATCOM
+#ifndef MX_PLATFORM_COMPILER_XLC
 
-#define MX_PLATFORM_COMPILER_WATCOM
-
-
-/* Watcom C++ Compiler specific settings.
-        __WATCOMC__     Watcom C++ Compiler version.
-*/
-#if !defined(__WATCOMC__) || (__WATCOMC__ < 1100)
-    #error This project requires at least Watcom C++ 11.00 to compile.
-#endif /* __WATCOMC__ < 1100 */
+#define MX_PLATFORM_COMPILER_XLC
 
 
-/* Uses standard __declspec(dllexport/dllimport) DLL exports. */
-#include "mx/defs/stddllexp.h"
+#if (__xlC__ < 0x0405)
+    #error This project requires at least IBM VisualAge C++ (xlC) Compiler 4.50 to compile.
+#endif // xlC < 0x0405
 
 
-#endif /* MX_PLATFORM_COMPILER_WATCOM */
+#endif // MX_PLATFORM_COMPILER_XLC
 
 /* EOF */

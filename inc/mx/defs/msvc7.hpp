@@ -17,35 +17,20 @@
 
 
 /**
+    @internal
+
     @file
 
-    Debugging functions (interface).
+    Microsoft Visual C++ 7.0 compiler specific definitions.
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MXCPP_DEBUG_H_INCLUDE_GUARD
-#define MXCPP_DEBUG_H_INCLUDE_GUARD
+#ifndef MXCPP_SYSDEF_MSVC7_HPP_INCLUDE_GUARD
+#define MXCPP_SYSDEF_MSVC7_HPP_INCLUDE_GUARD
 
 
-#include "mx/sysdefs.h"
-
-#include "mx/types.h"
-
-
-#define mxAssert(condition)
-
-#define mxCheck(condition)
-
-#define mxTest  mxCheck
-
-
-// Define inline methods here if inlining is enabled.
-#ifdef MX_INLINE_ENABLED
-#include "mx/debug.inl"
-#endif
-
-#endif /* MXCPP_DEBUG_H_INCLUDE_GUARD */
+#endif // MXCPP_SYSDEF_MSVC7_HPP_INCLUDE_GUARD
 
 /* EOF */

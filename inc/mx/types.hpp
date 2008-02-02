@@ -25,8 +25,17 @@
 */
 
 
-#ifndef MXCPP_TYPES_H_INCLUDE_GUARD
-#define MXCPP_TYPES_H_INCLUDE_GUARD
+#ifndef MXCPP_TYPES_HPP_INCLUDE_GUARD
+#define MXCPP_TYPES_HPP_INCLUDE_GUARD
+
+
+/**
+    Main namespace of @project.
+
+    Namespaces are used by @project to prevent confusion of names.
+*/
+namespace mx
+{
 
 
 /**
@@ -40,37 +49,15 @@
     (Size)(-1) for maximal size can be used). This can faster and simplify
     some algorithms (avoid some checks).
 */
-typedef size_t mxSize;
+typedef size_t Size;
 
 
-#ifdef __cplusplus
-
-// C++ only declarations.
-
-
-/**
-    Main namespace of @project.
-
-    Namespaces are used by @project to prevent confusion of names.
-*/
-namespace mx
-{
-
-
-/**
-    Synonym for mxSize type for the C++ language.
-
-    It is encouraged to use this type under C++ instead of mxSize.
-*/
-typedef mxSize Size;
+typedef unsigned long FileLine;
 
 
 } // namespace mx
 
 
-#endif /* __cplusplus */
-
-
-#endif /* MXCPP_TYPES_H_INCLUDE_GUARD */
+#endif // MXCPP_TYPES_HPP_INCLUDE_GUARD
 
 /* EOF */

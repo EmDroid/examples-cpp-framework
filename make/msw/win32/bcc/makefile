@@ -33,63 +33,35 @@ $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 OBJ_SFX := obj
 
 
-# ANSI-C compiler settings.
-
-# The compiler executable.
-CC := bcc32
-
-# The compiler global flags.
-# (used standardized name CFLAFS, which can be
-# overridden on the make command line)
-CFLAGS := -q -d
-
-# Output name flag.
-CC_OUT := -o
-# Compile-only flag.
-CC_COMPILE_ONLY := -c
-# Macro definition flag.
-CC_DEFINE := -D
-# Include directory flag.
-CC_INCLUDE := -I
-
-# Flags for different build configurations.
-CFLAGS_UNICODE := -WU
-CFLAGS_DEBUG := -w -Od -v
-CFLAGS_RELEASE := -w- -O2
-# CFLAGS_LIB := -WC
-# For now, the multithreaded version is always build.
-# It is connected with linker configuration.
-CFLAGS_LIB := -WM
-CFLAGS_LIBMT := -WM
-CFLAGS_DLL := -WD -WM
-
-
 # C++ compiler settings.
 
 # The compiler executable.
-CXX := $(CC)
+CXX := bcc32
 
 # The compiler global flags.
 # (used standardized name CXXFLAGS, which can be
 # overridden on the make command line)
-CXXFLAGS := $(CFLAGS) -x -xd -RT
+CXXFLAGS := -q -d -x -xd -RT
 
 # Output name flag.
-CXX_OUT := $(CC_OUT)
+CXX_OUT := -o
 # Compile-only flag.
-CXX_COMPILE_ONLY := $(CC_COMPILE_ONLY)
+CXX_COMPILE_ONLY := -c
 # Macro definition flag.
-CXX_DEFINE := $(CC_DEFINE)
+CXX_DEFINE := -D
 # Include directory flag.
-CXX_INCLUDE := $(CC_INCLUDE)
+CXX_INCLUDE := -I
 
 # Flags for different build configurations.
-CXXFLAGS_UNICODE := $(CFLAGS_UNICODE)
-CXXFLAGS_DEBUG := $(CFLAGS_DEBUG)
-CXXFLAGS_RELEASE := $(CFLAGS_RELEASE)
-CXXFLAGS_LIB := $(CFLAGS_LIB)
-CXXFLAGS_LIBMT := $(CFLAGS_LIBMT)
-CXXFLAGS_DLL := $(CFLAGS_DLL)
+CXXFLAGS_UNICODE := -WU
+CXXFLAGS_DEBUG := -w -Od -v
+CXXFLAGS_RELEASE := -w- -O2
+# CXXFLAGS_LIB := -WC
+# For now, the multithreaded version is always build.
+# It is connected with linker configuration.
+CXXFLAGS_LIB := -WM
+CXXFLAGS_LIBMT := -WM
+CXXFLAGS_DLL := -WD -WM
 
 
 # Resource compiler settings.

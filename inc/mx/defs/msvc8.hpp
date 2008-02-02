@@ -21,23 +21,16 @@
 
     @file
 
-    Microsoft Visual C++ 6.0 compiler specific definitions.
+    Microsoft Visual C++ 8.0 compiler specific definitions.
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MXCPP_SYSDEF_MSVC6_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_MSVC6_H_INCLUDE_GUARD
+#ifndef MXCPP_SYSDEF_MSVC8_HPP_INCLUDE_GUARD
+#define MXCPP_SYSDEF_MSVC8_HPP_INCLUDE_GUARD
 
 
-/** The compiler does not have the "std::" namespace. */
-#define MXCPP_FIX_HAS_NOT_STD_NAMESPACE
-
-/* Disable warning: typedef-name used as synonym for class-name */
-    #pragma warning(disable : 4097)
-
-
-#endif /* MXCPP_SYSDEF_MSVC6_H_INCLUDE_GUARD */
+#endif // MXCPP_SYSDEF_MSVC8_HPP_INCLUDE_GUARD
 
 /* EOF */

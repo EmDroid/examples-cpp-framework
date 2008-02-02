@@ -41,6 +41,11 @@ const char * mx::TestApp::SetTestName()
 
 mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 {
+    /* Write out size of pointer. */
+    printf("Size of integer:\t%u\n", static_cast< unsigned int >(sizeof(int)));
+    printf("Size of pointer:\t%u\n",
+            static_cast< unsigned int >(sizeof(void *)));
+
     typedef int TestType;
     TestType * pIntegers;
 

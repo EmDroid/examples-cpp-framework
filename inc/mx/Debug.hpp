@@ -17,34 +17,35 @@
 
 
 /**
-    @internal
-
     @file
 
-    Common HP C++ (aCC) compiler specific definitions.
+    Debugging functions (interface).
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MX_PLATFORM_COMPILER_ACC
+#ifndef MXCPP_DEBUG_HPP_INCLUDE_GUARD
+#define MXCPP_DEBUG_HPP_INCLUDE_GUARD
 
-#define MX_PLATFORM_COMPILER_ACC
+
+#include "mx/sysdefs.hpp"
+
+#include "mx/types.hpp"
 
 
-#ifdef __HP_aCC
-#define __HP_aCC_VERSION__  __HP_aCC
-#else
-#ifdef __HP_cc
-#define __HP_aCC_VERSION__  __HP_cc
+#define mxAssert(condition)
+
+#define mxCheck(condition)
+
+#define mxTest  mxCheck
+
+
+// Define inline methods here if inlining is enabled.
+#ifdef MX_INLINE_ENABLED
+#include "mx/Debug.inl"
 #endif
-#endif
 
-#if (__HP_aCC_VERSION__ < 012100)
-    #error This project requires at least HP C++ (aCC) Compiler A.01.21 to compile.
-#endif /* __HP_aCC_VERSION__ < 012100 */
-
-
-#endif /* MX_PLATFORM_COMPILER_ACC */
+#endif /* MXCPP_DEBUG_HPP_INCLUDE_GUARD */
 
 /* EOF */

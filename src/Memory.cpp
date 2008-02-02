@@ -74,7 +74,7 @@
 /* static */ void * mx::Memory::Allocate(
         const Size iSizeRequested,
         const char * const sFileName,
-        const Size iFileLine)
+        const FileLine iFileLine)
 {
     if (0 == iSizeRequested)
     {
@@ -106,7 +106,7 @@
         void * const pMemoryBlock,
         const Size iSizeRequested,
         const char * const sFileName,
-        const Size iFileLine)
+        const FileLine iFileLine)
 {
     void * const block = realloc(pMemoryBlock, iSizeRequested);
     if (!block)

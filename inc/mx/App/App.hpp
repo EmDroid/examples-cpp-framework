@@ -29,16 +29,11 @@
 #define MXCPP_APPLICATION_HPP_INCLUDE_GUARD
 
 
-#ifndef __cplusplus
-#error This header file requires C++ to compile!
-#endif
+#include "mx/sysdefs.hpp"
 
+#include "mx/types.hpp"
 
-#include "mx/sysdefs.h"
-
-#include "mx/types.h"
-
-#include "mx/debug.h"
+#include "mx/Debug.hpp"
 
 #include "mx/Except.hpp"
 

@@ -25,8 +25,14 @@
 */
 
 
-#ifndef MXCPP_SYSDEFS_H_INCLUDE_GUARD
-#define MXCPP_SYSDEFS_H_INCLUDE_GUARD
+#ifndef MXCPP_SYSDEFS_HPP_INCLUDE_GUARD
+#define MXCPP_SYSDEFS_HPP_INCLUDE_GUARD
+
+
+#ifndef __cplusplus
+    #error This C++ Framework cannot be used within ANSI-C programs \
+    - use C++ compiler instead!
+#endif
 
 
 #define MX_MAKESTRING(value)   #value
@@ -77,7 +83,7 @@
 #define MX_PLATFORM_OS_WINDOWS
 #define MX_PLATFORM_OS_WIN64
 
-#else /* MX_PLATFORM_OS_WINDOWS */
+#else // MX_PLATFORM_OS_WINDOWS
 /* We have MX_PLATFORM_OS_WINDOWS already defined - this means that flag
     of newer system was already found.
 */
@@ -86,13 +92,13 @@
 #undef WIN64
 #endif
 
-#endif /* MX_PLATFORM_OS_WINDOWS */
+#endif // MX_PLATFORM_OS_WINDOWS
 
 #ifdef MXCPP_WIN64_UNDEF
 #undef MXCPP_WIN64_UNDEF
 #endif
 
-#endif /* WIN64 */
+#endif // WIN64
 
 
 /* Check the Windows-32 system flags. */
@@ -109,7 +115,7 @@
 #define MX_PLATFORM_OS_WINDOWS
 #define MX_PLATFORM_OS_WIN32
 
-#else /* MX_PLATFORM_OS_WINDOWS */
+#else // MX_PLATFORM_OS_WINDOWS
 /* We have MX_PLATFORM_OS_WINDOWS already defined - this means that flag
     of newer system was already found.
 */
@@ -118,13 +124,13 @@
 #undef WIN32
 #endif
 
-#endif /* MX_PLATFORM_OS_WINDOWS */
+#endif // MX_PLATFORM_OS_WINDOWS
 
 #ifdef MXCPP_WIN32_UNDEF
 #undef MXCPP_WIN32_UNDEF
 #endif
 
-#endif /* WIN32 */
+#endif // WIN32
 
 
 /* Check the Windows-16 system flags. */
@@ -141,7 +147,7 @@
 #define MX_PLATFORM_OS_WINDOWS
 #define MX_PLATFORM_OS_WIN16
 
-#else /* MX_PLATFORM_OS_WINDOWS */
+#else // MX_PLATFORM_OS_WINDOWS
 /* We have MX_PLATFORM_OS_WINDOWS already defined - this means that flag
     of newer system was already found.
 */
@@ -150,13 +156,13 @@
 #undef WIN16
 #endif
 
-#endif /* MX_PLATFORM_OS_WINDOWS */
+#endif // MX_PLATFORM_OS_WINDOWS
 
 #ifdef MXCPP_WIN16_UNDEF
 #undef MXCPP_WIN16_UNDEF
 #endif
 
-#endif /* WIN16 */
+#endif // WIN16
 
 
 /* Check the DOS system flags. */
@@ -173,7 +179,7 @@
 
 #define MX_PLATFORM_OS_DOS
 
-#endif /* DOS */
+#endif // DOS
 
 
 /* Check the Linux system flags. */
@@ -196,7 +202,7 @@
 #define MX_PLATFORM_OS_UNIX
 #define MX_PLATFORM_OS_LINUX
 
-#else /* MX_PLATFORM_OS_UNIX */
+#else // MX_PLATFORM_OS_UNIX
 /* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
     of other system was already found.
 */
@@ -206,13 +212,13 @@
 #undef LINUX
 #endif
 
-#endif /* MX_PLATFORM_OS_UNIX */
+#endif // MX_PLATFORM_OS_UNIX
 
 #ifdef MXCPP_LINUX_UNDEF
 #undef MXCPP_LINUX_UNDEF
 #endif
 
-#endif /* LINUX */
+#endif // LINUX
 
 
 /* Check the Sparc system flags. */
@@ -235,7 +241,7 @@
 #define MX_PLATFORM_OS_UNIX
 #define MX_PLATFORM_OS_SPARC
 
-#else /* MX_PLATFORM_OS_UNIX */
+#else // MX_PLATFORM_OS_UNIX
 /* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
     of other system was already found.
 */
@@ -245,13 +251,13 @@
 #undef SPARC
 #endif
 
-#endif /* MX_PLATFORM_OS_UNIX */
+#endif // MX_PLATFORM_OS_UNIX
 
 #ifdef MXCPP_SPARC_UNDEF
 #undef MXCPP_SPARC_UNDEF
 #endif
 
-#endif /* SPARC */
+#endif // SPARC
 
 
 /* Check the HP-Unix system flags. */
@@ -274,7 +280,7 @@
 #define MX_PLATFORM_OS_UNIX
 #define MX_PLATFORM_OS_HPUX
 
-#else /* MX_PLATFORM_OS_UNIX */
+#else // MX_PLATFORM_OS_UNIX
 /* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
     of other system was already found.
 */
@@ -284,13 +290,13 @@
 #undef HPUX
 #endif
 
-#endif /* MX_PLATFORM_OS_UNIX */
+#endif // MX_PLATFORM_OS_UNIX
 
 #ifdef MXCPP_HPUX_UNDEF
 #undef MXCPP_HPUX_UNDEF
 #endif
 
-#endif /* HPUX */
+#endif // HPUX
 
 
 /* Check the AIX system flags. */
@@ -313,7 +319,7 @@
 #define MX_PLATFORM_OS_UNIX
 #define MX_PLATFORM_OS_AIX
 
-#else /* MX_PLATFORM_OS_UNIX */
+#else // MX_PLATFORM_OS_UNIX
 /* We have MX_PLATFORM_OS_UNIX already defined - this means that flag
     of other system was already found.
 */
@@ -323,13 +329,13 @@
 #undef AIX
 #endif
 
-#endif /* MX_PLATFORM_OS_UNIX */
+#endif // MX_PLATFORM_OS_UNIX
 
 #ifdef MXCPP_AIX_UNDEF
 #undef MXCPP_AIX_UNDEF
 #endif
 
-#endif /* AIX */
+#endif // AIX
 
 
 /* Check the MVS/ZOS system flags. */
@@ -349,7 +355,7 @@
 
 #define MX_PLATFORM_OS_MVS
 
-#endif /* MVS */
+#endif // MVS
 
 
 /* Check the DEBUG flags. */
@@ -398,59 +404,59 @@
 #ifdef MT
 /** We run in multi-threaded mode. */
 #define MXCPP_MULTITHREAD
-#endif /* _MT */
+#endif
 
 
 #ifdef MX_PLATFORM_OS_WINDOWS
 
 /* Windows-32 system definitions. */
-#include "mx/defs/win.h"
+#include "mx/defs/win.hpp"
 
-#else /* MX_PLATFORM_OS_WINDOWS */
+#else // MX_PLATFORM_OS_WINDOWS
 
 #ifdef MX_PLATFORM_OS_DOS
 
 /* DOS system definitions. */
-#include "mx/defs/dos.h"
+#include "mx/defs/dos.hpp"
 
 #else /* MX_PLATFORM_OS_DOS */
 
 #ifdef MX_PLATFORM_OS_UNIX
 
 /* Unix/Linux system definitions. */
-#include "mx/defs/unix.h"
+#include "mx/defs/unix.hpp"
 
-#else /* MX_PLATFORM_OS_UNIX */
+#else // MX_PLATFORM_OS_UNIX
 
 /* IBM mainframe (OS/390 etc.) */
 #ifdef MX_PLATFORM_OS_MVS
 
 /* Unix/Linux system definitions. */
-#include "mx/defs/mvs.h"
+#include "mx/defs/mvs.hpp"
 
-#else /* MX_PLATFORM_OS_MVS */
+#else // MX_PLATFORM_OS_MVS
 
 #ifdef MXCPP_GEN_DEPEND
 
-#else /* MXCPP_GEN_DEPEND */
+#else // MXCPP_GEN_DEPEND
 
     #error Unsupported platform - see sysdefs.h for a list of supported platforms.
 
-#endif /* MXCPP_GEN_DEPEND */
+#endif // MXCPP_GEN_DEPEND
 
-#endif /* MX_PLATFORM_OS_MVS */
+#endif // MX_PLATFORM_OS_MVS
 
-#endif /* MX_PLATFORM_OS_UNIX */
+#endif // MX_PLATFORM_OS_UNIX
 
-#endif /* MX_PLATFORM_OS_DOS */
+#endif // MX_PLATFORM_OS_DOS
 
-#endif /* MX_PLATFORM_OS_WINDOWS */
+#endif // MX_PLATFORM_OS_WINDOWS
 
 
 /* System helper macros. */
-#include "mx/defs/helpers.h"
+#include "mx/defs/helpers.hpp"
 
 
-#endif /* MXCPP_SYSDEFS_H_INCLUDE_GUARD */
+#endif // MXCPP_SYSDEFS_HPP_INCLUDE_GUARD
 
 /* EOF */

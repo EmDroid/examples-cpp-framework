@@ -17,43 +17,20 @@
 
 
 /**
+    @internal
+
     @file
 
-    @project.
+    GNU C++ 3.0 compiler specific definitions.
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MXCPP_H_INCLUDE_GUARD
-#define MXCPP_H_INCLUDE_GUARD
+#ifndef MXCPP_SYSDEF_GCC3_HPP_INCLUDE_GUARD
+#define MXCPP_SYSDEF_GCC3_HPP_INCLUDE_GUARD
 
 
-/* C and C++ headers. */
-
-#include "mx/sysdefs.h"
-#include "mx/types.h"
-
-#include "mx/debug.h"
-
-
-#ifdef __cplusplus
-// C++ only headers.
-
-// Core library headers.
-#include "mx/Except.hpp"
-#include "mx/Memory.hpp"
-#include "mx/Stream.hpp"
-#include "mx/FileStrm.hpp"
-#include "mx/StdStrm.hpp"
-
-// System library headers.
-#include "mx/System/Error.hpp"
-
-
-#endif /* __cplusplus */
-
-
-#endif /* MXCPP_H_INCLUDE_GUARD*/
+#endif // MXCPP_SYSDEF_GCC3_HPP_INCLUDE_GUARD
 
 /* EOF */

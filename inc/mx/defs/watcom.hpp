@@ -21,16 +21,29 @@
 
     @file
 
-    GNU C++ 4.0 compiler specific definitions.
+    Watcom C++ compiler specific definitions.
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MXCPP_SYSDEF_GCC4_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_GCC4_H_INCLUDE_GUARD
+#ifndef MX_PLATFORM_COMPILER_WATCOM
+
+#define MX_PLATFORM_COMPILER_WATCOM
 
 
-#endif /* MXCPP_SYSDEF_GCC4_H_INCLUDE_GUARD */
+/* Watcom C++ Compiler specific settings.
+        __WATCOM_CPLUSPLUS__    Watcom C++ Compiler version.
+*/
+#if !defined(__WATCOM_CPLUSPLUS__) || (__WATCOM_CPLUSPLUS__ < 1100)
+    #error This project requires at least Watcom C++ 11.00 to compile.
+#endif // __WATCOM_CPLUSPLUS__ < 1100
+
+
+// Uses standard __declspec(dllexport/dllimport) DLL exports.
+#include "mx/defs/stddllexp.hpp"
+
+
+#endif // MX_PLATFORM_COMPILER_WATCOM
 
 /* EOF */

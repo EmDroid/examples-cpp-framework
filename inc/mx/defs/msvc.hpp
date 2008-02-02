@@ -44,47 +44,47 @@
 */
 #if (_MSC_VER < 1200)
     #error This project requires at least MSVC version 6.0 to compile.
-#else /* MSVC < 6.0 */
+#else // MSVC < 6.0
 #if (_MSC_VER < 1300)
 /* MSVC 6.0 */
-#include "mx/defs/msvc6.h"
-#else
+#include "mx/defs/msvc6.hpp"
+#else // MSVC 7.0
 #if (_MSC_VER < 1310)
 /* MSVC 7.0 */
-#include "mx/defs/msvc7.h"
-#else
+#include "mx/defs/msvc7.hpp"
+#else // MSVC 7.1
 #if (_MSC_VER < 1400)
 /* MSVC 7.1 */
-#include "mx/defs/msvc7.h"
-#else
+#include "mx/defs/msvc7.hpp"
+#else // MSVC 8.0
 /* MSVC 8.0 */
-#include "mx/defs/msvc8.h"
-#endif /* MSVC 8.0 */
-#endif /* MSVC 7.1 */
-#endif /* MSVC 7.0 */
-#endif /* MSVC < 6.0 */
+#include "mx/defs/msvc8.hpp"
+#endif // MSVC 8.0
+#endif // MSVC 7.1
+#endif // MSVC 7.0
+#endif // MSVC < 6.0
 
 
-/* Uses standard __declspec(dllexport/dllimport) DLL exports. */
-#include "mx/defs/stddllexp.h"
+// Uses standard __declspec(dllexport/dllimport) DLL exports.
+#include "mx/defs/stddllexp.hpp"
 
 
-/** Operator @c delete has the same parameters as the operator @c new. */
+/// Operator @c delete has the same parameters as the operator @c new.
 #define MXCPP_FIX_DELETE_PARAMS_LIKE_NEW
 
 
 /** @cond disabled_helper_defs */
 
-/* Define how to declare functions/methods which never return. */
+// Define how to declare functions/methods which never return.
 #define MX_NORETURN_TYPE(Type)  __declspec(noreturn) Type
 
 /** @endcond */
 
 
-/* Disable warning: C++ Exception Specification ignored */
+// Disable warning: C++ Exception Specification ignored
     #pragma warning(disable : 4290)
 
 
-#endif /* MX_PLATFORM_COMPILER_MSVC */
+#endif // MX_PLATFORM_COMPILER_MSVC
 
 /* EOF */

@@ -36,7 +36,7 @@
 MXCPP_DLL_EXPORT void * mx::OperatorNewImplementation(
         const Size iMemoryBlockSize,
         const char * const sFileName,
-        const Size iFileLine,
+        const FileLine iFileLine,
         const bool MX_UNUSED(bVectorAlloc))
 {
     return Memory::Allocate(iMemoryBlockSize, sFileName, iFileLine);

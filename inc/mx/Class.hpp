@@ -29,14 +29,9 @@
 #define MXCPP_CLASSBASE_HPP_INCLUDE_GUARD
 
 
-#ifndef __cplusplus
-#error This header file requires C++ to compile!
-#endif
+#include "mx/sysdefs.hpp"
 
-
-#include "mx/sysdefs.h"
-
-#include "mx/types.h"
+#include "mx/types.hpp"
 
 
 namespace mx
@@ -53,7 +48,7 @@ class MXCPP_DLL_EXPORT Class
 
 public:
 
-    virtual ~Class();
+    virtual MX_INLINE ~Class();
 
 // Class instance methods.
 

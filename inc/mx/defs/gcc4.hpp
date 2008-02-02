@@ -17,12 +17,20 @@
 
 
 /**
+    @internal
+
     @file
 
-    Logging subsystem (inline methods).
+    GNU C++ 4.0 compiler specific definitions.
 
     @author Emil Maskovsky
 */
 
+
+#ifndef MXCPP_SYSDEF_GCC4_HPP_INCLUDE_GUARD
+#define MXCPP_SYSDEF_GCC4_HPP_INCLUDE_GUARD
+
+
+#endif // MXCPP_SYSDEF_GCC4_HPP_INCLUDE_GUARD
 
 /* EOF */

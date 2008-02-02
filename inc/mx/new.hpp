@@ -29,14 +29,9 @@
 #define MXCPP_NEW_HPP_INCLUDE_GUARD
 
 
-#ifndef __cplusplus
-#error This header file requires C++ to compile!
-#endif
+#include "mx/sysdefs.hpp"
 
-
-#include "mx/sysdefs.h"
-
-#include "mx/types.h"
+#include "mx/types.hpp"
 
 #include "mx/Except.hpp"
 
@@ -48,7 +43,7 @@ namespace mx
 MXCPP_DLL_EXPORT void * OperatorNewImplementation(
         const Size iMemoryBlockSize,
         const char * const sFileName,
-        const Size iFileLine,
+        const FileLine iFileLine,
         const bool bVectorAlloc = false);
 
 MXCPP_DLL_EXPORT void OperatorDeleteImplementation(
@@ -68,7 +63,7 @@ inline void * operator new (
         // const doesn't work under some compilers (DMC).
         /* const */ mx::Size iMemoryBlockSize,
         const char * const sFileName,
-        const mx::Size iFileLine)
+        const mx::FileLine iFileLine)
 {
     return mx::OperatorNewImplementation(
             iMemoryBlockSize, sFileName, iFileLine);
@@ -78,7 +73,7 @@ inline void * operator new (
 inline void * operator new[] (
         /* const */ mx::Size iMemoryBlockSize,
         const char * const sFileName,
-        const mx::Size iFileLine)
+        const mx::FileLine iFileLine)
 {
     return mx::OperatorNewImplementation(
             iMemoryBlockSize, sFileName, iFileLine, true);
@@ -108,7 +103,7 @@ inline void operator delete[] (
 inline void operator delete (
         void * pMemoryBlock,
         const char * const MX_UNUSED(sFileName),
-        const mx::Size MX_UNUSED(iFileLine))
+        const mx::FileLine MX_UNUSED(iFileLine))
 {
     mx::OperatorDeleteImplementation(pMemoryBlock);
 }
@@ -117,7 +112,7 @@ inline void operator delete (
 inline void operator delete[] (
         void * pMemoryBlock,
         const char * const MX_UNUSED(sFileName),
-        const mx::Size MX_UNUSED(iFileLine))
+        const mx::FileLine MX_UNUSED(iFileLine))
 {
     mx::OperatorDeleteImplementation(pMemoryBlock, true);
 }

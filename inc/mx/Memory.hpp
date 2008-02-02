@@ -29,14 +29,9 @@
 #define MXCPP_MEMORY_HPP_INCLUDE_GUARD
 
 
-#ifndef __cplusplus
-#error This header file requires C++ to compile!
-#endif
+#include "mx/sysdefs.hpp"
 
-
-#include "mx/sysdefs.h"
-
-#include "mx/types.h"
+#include "mx/types.hpp"
 
 #include "mx/Except.hpp"
 
@@ -61,13 +56,13 @@ public:
     static void * Allocate(
             const Size iSizeRequested,
             const char * const sFileName,
-            const Size iFileLine);
+            const FileLine iFileLine);
 
     static void * Reallocate(
             void * const pMemoryBlock,
             const Size iSizeRequested,
             const char * const sFileName,
-            const Size iFileLine);
+            const FileLine iFileLine);
 
     static void Free(
             void * const pMemoryBlock);
@@ -100,6 +95,29 @@ public:
 #ifdef Free
 #undef Free
 #endif
+
+
+// Replade standard ANSI-C memory allocation functions.
+
+#ifdef malloc
+#undef malloc
+#endif
+
+#define malloc(size)  mx::Memory::Alloc(size)
+
+
+#ifdef realloc
+#undef realloc
+#endif
+
+#define realloc(block, size)  mx::Memory::Realloc(block, size)
+
+
+#ifdef free
+#undef free
+#endif
+
+#define free(block)  mx::Memory::Free(block)
 
 
 // Define inline methods here if inlining is enabled.

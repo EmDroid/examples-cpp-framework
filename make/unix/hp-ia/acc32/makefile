@@ -25,7 +25,7 @@ $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
 # The target flags.
-CFLAGS_TARGET := +DD32
+CXXFLAGS_TARGET := +DD32
 
 # Include default GCC definitions.
 include ../../setup/acc.ini

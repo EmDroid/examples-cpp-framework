@@ -25,8 +25,8 @@ $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
 # The target flags.
-CFLAGS_TARGET := -bt=nt
-CFLAGS_MT := -bm
+CXXFLAGS_TARGET := -bt=nt
+CXXFLAGS_MT := -bm
 RCFLAGS_TARGET := -bt=nt
 
 # Include default WATCOM definitions.

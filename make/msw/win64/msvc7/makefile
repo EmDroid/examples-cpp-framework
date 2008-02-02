@@ -26,18 +26,18 @@ endef
 $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
-CFLAGS_DEBUG_EXTRA := -Zi
+CXXFLAGS_DEBUG_EXTRA := -Zi
 # -RTCsu
 # /RTC not working for now - some problems with libraries
 # (unresolved RTC_Shutdown etc.)
 
 # DLL runtime always used.
 # (ML and MT runtimes deprecated)
-CFLAGS_LIB_RUNTIME := -MD
-CFLAGS_LIBMT_RUNTIME := -MD
+CXXFLAGS_LIB_RUNTIME := -MD
+CXXFLAGS_LIBMT_RUNTIME := -MD
 
 # MSVC database name.
-CFLAGS_VCDB_NAME := vc70
+CXXFLAGS_VCDB_NAME := vc70
 
 # Linker target flags.
 LDFLAGS_TARGET := /machine:AMD64

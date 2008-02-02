@@ -19,7 +19,7 @@
 /**
     @file
 
-    Entry point handling (implementation).
+    Debugging functions (interface).
 
     @author Emil Maskovsky
 */
@@ -29,22 +29,12 @@
 
 
 /* Application specific. */
-#include "mx/entry.h"
+#include "mx/Debug.hpp"
 
 
-extern "C" {
-
-
-MXCPP_DLL_EXPORT int mxEntryMainA(
-        const mxFuncMainA pMainFunc,
-        int argc,
-        char * argv[])
-{
-    return pMainFunc(argc, argv);
-}
-
-
-} // extern "C"
-
+// Define inline methods here if inlining is disabled.
+#ifndef MX_INLINE_ENABLED
+#include "mx/Debug.inl"
+#endif
 
 /* EOF */

@@ -25,31 +25,26 @@
 */
 
 
-#ifndef MXCPP_SYSDEF_HELPERS_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_HELPERS_H_INCLUDE_GUARD
+#ifndef MXCPP_SYSDEF_HELPERS_HPP_INCLUDE_GUARD
+#define MXCPP_SYSDEF_HELPERS_HPP_INCLUDE_GUARD
 
 
-#if (!defined(MXCPP_FIX_USE_OLD_C_HEADERS) && defined(__cplusplus))
+/* Standard headers. */
+#ifndef MXCPP_FIX_USE_OLD_C_HEADERS
 
 #include <cstdlib>
 #include <cstdio>
 #include <cstdarg>
 #include <cerrno>
 
-#else /* MXCPP_FIX_USE_OLD_C_HEADERS */
+#else // MXCPP_FIX_USE_OLD_C_HEADERS
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <errno.h>
 
-#endif /* MXCPP_FIX_USE_OLD_C_HEADERS */
-
-
-#ifdef __cplusplus
-
-// C++ only standard headers.
-#include <new>
+#endif // MXCPP_FIX_USE_OLD_C_HEADERS
 
 
 #if (!defined(MXCPP_FIX_USE_OLD_C_HEADERS) \
@@ -58,9 +53,6 @@
 using namespace std;
 
 #endif // MXCPP_FIX_HAS_NOT_STD_NAMESPACE
-
-
-#endif /* __cplusplus */
 
 
 /**
@@ -255,13 +247,13 @@ using namespace std;
 #endif
 #define MX_INLINE
 
-#else /* MX_INLINE_ENABLED */
+#else // MX_INLINE_ENABLED
 
 #ifndef MX_INLINE
 #define MX_INLINE  inline
 #endif
 
-#endif /* MX_INLINE_ENABLED */
+#endif // MX_INLINE_ENABLED
 
 
 /**
@@ -418,20 +410,6 @@ using namespace std;
 #ifndef MX_SCANFLIKE
 #define MX_SCANFLIKE(format_index, arguments_index)
 #endif
-
-
-#ifdef __cplusplus
-
-// C++ only declarations.
-
-
-/**
-    Use variable or function
-    (to be always instantiated or prevent unused warning).
-*/
-template< class Type >
-void mxUse(Type)
-{}
 
 
 /**
@@ -599,24 +577,102 @@ private:                             \
     type & operator = (const type &)
 
 
-#endif /* __cplusplus */
+namespace mx
+{
+
+
+/**
+    Use variable or function
+    (to be always instantiated or prevent unused warning).
+*/
+template< class Type >
+void Use(Type)
+{}
+
+
+/**
+    Initializer for static arrays.
+
+    It is designed for arrays initializer lists, to ensure that all array items
+    are initialized in the statically allocated array.
+
+    If you have an array of items with default constructor available (classes
+    with default constructor or primitive types), the compiler only complain if
+    there are too many initializer values, but will not give any notice in the
+    case of too few initializers (which means that some values in the array will
+    be initialized by default constructor, or possibly not at all in the case of
+    primitive types, e.g. char *).
+    This can then lead to bugs in the program, when developer extends the size of
+    an array and forgets to add appropriate initializers into the array.
+
+    The initializer class is supposed to be used following way:
+    @code
+    // Using the array initializer for the C-string type (char *).
+    typedef ::ArrayItemInitializer< const char * > CharInitializer;
+    const int STRINGS_SIZE = 3;
+    const CharInitializer sMyStrings[ STRINGS_SIZE ] = {
+        "String 1", // can be initialized direct through the item type
+        "String 2",
+        "String 3"
+    };
+
+    // Can direct use the items as contained type.
+    strcpy(sMyStrings[ 2 ], sStrCopied);
+    @endcode
+    This avoids the posibility to have any uninitialized value in the array,
+    while the ArrayItemInitializer does not have the default constructor and
+    therefore all items in the array are forced by the compiler to be initialized.
+
+    The array items can be used direct as when declared directly, because the
+    initializer class has the cast-to-item-type operator.
+*/
+template< class ItemType >
+class ArrayItemInitializer
+{
+
+    MX_CLASS_NO_ASSIGNMENT(ArrayItemInitializer);
+
+public:
+
+    inline ArrayItemInitializer(const ItemType & xInitializer)
+        : m_xInitializer(xInitializer)
+    {}
+
+    inline ArrayItemInitializer(const ArrayItemInitializer & other)
+        : m_xInitializer(other.m_xInitializer)
+    {}
+
+    /*
+    inline ArrayItemInitializer & operator = (const ArrayItemInitializer & other)
+    {
+        if (&other != this) {
+            m_xInitializer = other.m_xInitializer;
+        }
+        return *this;
+    }
+   */
+
+    inline operator const ItemType & () const
+    {
+        return m_xInitializer;
+    }
+
+private:
+
+    const ItemType m_xInitializer;
+
+}; // class ArrayItemInitializer< ... >
+
+
+} // namespace mx
 
 
 /* Headers that are always included - redefining some standard definitions etc. */
-
-/* C and C++ headers. */
-#include "mx/entry.h"
-#include "mx/malloc.h"
-
-
-#ifdef __cplusplus
-// C++ only headers.
-
+#include "mx/Except.hpp"
+#include "mx/Memory.hpp"
 #include "mx/new.hpp"
 
-#endif /* __cplusplus */
 
-
-#endif /* MXCPP_SYSDEF_HELPERS_H_INCLUDE_GUARD */
+#endif // MXCPP_SYSDEF_HELPERS_HPP_INCLUDE_GUARD
 
 /* EOF */

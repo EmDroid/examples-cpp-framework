@@ -35,8 +35,9 @@
 #include "mx/internal/version.h"
 
 
-#define MKSTRING(param)  _MKSTRING(param)
-#define _MKSTRING(param) #param
+#define _MKSTRING(param)  #param
+#define MKSTRING(param)   _MKSTRING(param)
+
 
 VS_VERSION_INFO VERSIONINFO
 FILEVERSION     MX_NUM_VERSION

@@ -29,41 +29,41 @@
 #define MXCPP_SYSDEF_UNIX_H_INCLUDE_GUARD
 
 
-/* Enable inlining for the Unix platforms by default. */
+// Enable inlining for the Unix platforms by default.
 #define MX_INLINE_ENABLED
 
 
 #ifdef __GNUC__
 
 /* GNU C++ Compiler definitions. */
-#include "mx/defs/gcc.h"
+#include "mx/defs/gcc.hpp"
 
-#else /* __GNUC__ */
+#else // __GNUC__
 
 #ifdef __xlC__
 
 /* IBM VisualAge C++ Compiler definitions. */
-#include "mx/defs/xlc.h"
+#include "mx/defs/xlc.hpp"
 
-#else /* __xlC__ */
+#else // __xlC__
 
-#if (defined(__HP_aCC) || defined(__HP_cc))
+#ifdef __HP_aCC
 
 /* HP C++ Compiler (aCC) definitions. */
-#include "mx/defs/acc.h"
+#include "mx/defs/acc.hpp"
 
-#else /* __HP_aCC */
+#else // __HP_aCC
 
     #error Unsupported compiler for Unix platform. \
-    See mx/defs/unix.h for the list of supported compilers.
+    See mx/defs/unix.hpp for the list of supported compilers.
 
-#endif /* __HP_aCC */
+#endif // __HP_aCC
 
-#endif /* __xlC__ */
+#endif // __xlC__
 
-#endif /* __GNUC__ */
+#endif // __GNUC__
 
 
-#endif /* MXCPP_SYSDEF_UNIX_H_INCLUDE_GUARD */
+#endif // MXCPP_SYSDEF_UNIX_H_INCLUDE_GUARD
 
 /* EOF */

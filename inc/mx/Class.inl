@@ -25,4 +25,8 @@
 */
 
 
+/* virtual */ MX_INLINE mx::Class::~Class()
+{}
+
+
 /* EOF */

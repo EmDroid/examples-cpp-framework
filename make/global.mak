@@ -92,16 +92,12 @@ MXCPP_TEST_LOG := tests.log
 $(if $(strip $(MXCPP_TEST_LOG)),$(shell $(RM) $(MXCPP_TEST_LOG) $(NOOUT) $(NOERROUT)))
 MXCPP_TEST_LOG_FULL := $(if $(strip $(MXCPP_TEST_LOG)),>>$(MXCPP_TEST_LOG))
 
-#MXCPP_WARNING_LOG := warnings.log
+MXCPP_WARNING_LOG := warnings.log
 $(if $(strip $(MXCPP_WARNING_LOG)),$(shell $(RM) $(MXCPP_WARNING_LOG) $(NOOUT) $(NOERROUT)))
 
 
 # Following definitions are defined here, to allow using of variables defined in
 # global.ini inside platform.mak or platform.ini 
-
-# ANSI-C includes.
-MXCPP_C_INCLUDE := \
-$(CC_INCLUDE)$(subst /,$$(PATH_SEP),$(MXCPP_INCLUDE_ROOT))
 
 # C++ includes.
 MXCPP_CXX_INCLUDE := \
@@ -120,7 +116,6 @@ $(foreach compiler,$(MXCPP_COMPILERS_LIST),\
 
 
 # Configuration flags.
-MXCPP_CFLAGS := $(CC_COMPILE_ONLY)$(if $(strip $(CFLAGS)), $(strip $(CFLAGS)))$(if $(strip $(MXCPP_C_INCLUDE)), $(strip $(MXCPP_C_INCLUDE)))
 MXCPP_CXXFLAGS := $(CXX_COMPILE_ONLY)$(if $(strip $(CXXFLAGS)), $(strip $(CXXFLAGS)))$(if $(strip $(MXCPP_CXX_INCLUDE)), $(strip $(MXCPP_CXX_INCLUDE)))
 MXCPP_RCFLAGS := $(strip $(RCFLAGS))$(if $(strip $(MXCPP_RC_INCLUDE)), $(strip $(MXCPP_RC_INCLUDE)))
 
@@ -224,11 +219,10 @@ define MXCPP_BUILD_RULES_OBJECT
 
 $(eval MXCPP_SOURCE_SUFFIX := $(suffix $(2)))
 
-$(if $(strip $(findstring $(MXCPP_SOURCE_SUFFIX),.c)),$(eval MXCPP_COMPILER_TYPE := CC),\
 $(if $(strip $(findstring $(MXCPP_SOURCE_SUFFIX),.cpp .cxx .c++)),$(eval MXCPP_COMPILER_TYPE := CXX),\
 $(if $(strip $(findstring $(MXCPP_SOURCE_SUFFIX),.rc)),$(eval MXCPP_COMPILER_TYPE := RC),\
 $(error ERROR: Unsupported source file type 'MXCPP_SOURCE_SUFFIX' (source file: $(2)))\
-)))
+))
 
 $(eval MXCPP_OBJECT := $(subst /,$(PATH_SEP),$(4)$(PATH_SEP)$(basename $(notdir $(2)))).$($(3)_SFX))
 
@@ -308,7 +302,7 @@ $(eval MXCPP_OBJECT_DIR += $(MXCPP_MOD_$(1)))
 $(eval MXCPP_OBJECT_DIR := $(subst $(MXCPP_EMPTY_SPACE),,$(MXCPP_OBJECT_DIR)))
 
 $(if $(strip $(MXCPP_DLLCONFIG_$(1))),\
-$(eval MXCPP_BUILD_EXTRA_FLAGS := $(if $(strip $(CFLAGS_DLL_DLL)),$(CFLAGS_DLL_DLL) )$(CC_DEFINE)MXCPP_MAKEDLL),\
+$(eval MXCPP_BUILD_EXTRA_FLAGS := $(if $(strip $(CFLAGS_DLL_DLL)),$(CFLAGS_DLL_DLL) )$(CXX_DEFINE)MXCPP_MAKEDLL),\
 $(eval MXCPP_BUILD_EXTRA_FLAGS :=))
 
 $(eval MXCPP_BUILD_OBJ_LIST :=)
@@ -372,7 +366,7 @@ $(if $(strip $(MXCPP_TARGET_LIBRARY_SIMPLE_NAME)),\
 $(eval MXCPP_OBJECT_DIR_TEST := $(MXCPP_OBJECT_DIR)$(PATH_SEP)test)
 
 $(if $(strip $(MXCPP_DLLCONFIG_$(1))),\
-$(eval MXCPP_BUILD_EXTRA_FLAGS := $(if $(strip $(CFLAGS_DLL_EXE)),$(CFLAGS_DLL_EXE) )$(CC_DEFINE)MXCPP_USEDLL),\
+$(eval MXCPP_BUILD_EXTRA_FLAGS := $(if $(strip $(CFLAGS_DLL_EXE)),$(CFLAGS_DLL_EXE) )$(CXX_DEFINE)MXCPP_USEDLL),\
 $(eval MXCPP_BUILD_EXTRA_FLAGS :=))
 
 $(eval MXCPP_BUILD_OBJ_LIST :=)

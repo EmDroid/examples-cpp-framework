@@ -29,7 +29,7 @@
 
 
 /* Framework libraries. */
-#include "mx/debug.h"
+#include "mx/Debug.hpp"
 
 
 /* Application specific. */
@@ -53,10 +53,6 @@
     We support using of typeinfo. The application must be build with @ref RTTI
     enabled.
 */
-
-
-/* virtual */ mx::Class::~Class()
-{}
 
 
 const char * mx::Class::getName() const
