@@ -2,7 +2,7 @@
 # @file
 #
 # Makefile for the Demo C++ Framework project
-#     - HP C++ (aCC) compiler (HP-Unix Itanium 64-bit).
+#     - HP C++ (aCC) compiler (HP-Unix Itanium 32-bit).
 #
 # @author Emil Maskovsky
 #
@@ -25,7 +25,7 @@ $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
 # The target flags.
-CFLAGS_TARGET := +DD64
+CFLAGS_TARGET := +DD32
 
 # Include default GCC definitions.
 include ../../setup/acc.ini
