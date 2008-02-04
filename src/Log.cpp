@@ -26,27 +26,141 @@
 
 
 /* Framework libraries. */
-#include "mx/Debug.hpp"
+#include "mx/LogStdE.hpp"
+#include "mx/App/App.hpp"
 
 
 /* Application specific. */
 #include "mx/Log.hpp"
 
 
-MX_PRINTFLIKE_METHOD(1, 2) void mx::Log::Starter::LogMessage(
-        const char * sFormat, ...)
+MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogMessage(
+        const char * sFormat, ...) const
 {
-    Log * const pTarget = Log::GetActiveTarget();
+    va_list pArgs;
+    va_start(pArgs, sFormat);
+    const Size iResult = LogMessageV(sFormat, pArgs);
+    va_end(pArgs);
+    return iResult;
+}
+
+
+MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN mx::Log::LogFatal(
+        const char * sFormat, ...) const
+{
+    va_list pArgs;
+    va_start(pArgs, sFormat);
+    LogMessageV(sFormat, pArgs);
+    va_end(pArgs);
+    abort();
+    // On some platforms abort() can return.
+    exit(mx::Application::RC_ABORT);
+}
+
+
+MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogAssert(
+        const char * sFormat, ...) const
+{
+    va_list pArgs;
+    va_start(pArgs, sFormat);
+    const Size iResult = LogMessageV(sFormat, pArgs);
+    va_end(pArgs);
+    return iResult;
+}
+
+
+mx::Size mx::Log::LogMessageV(
+        const char * sFormat, va_list pArguments) const
+{
+    LogHandler * const pTarget = Log::GetActiveTarget();
     if (!pTarget)
     {
         // None active target selected - logging entirely disabled.
-        return;
+        return 0;
     }
     // Log the message to the log target.
+    return pTarget->DoLogV(m_xFileInfo, m_iType, sFormat, pArguments);
+}
+
+
+MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogTrace(
+        const char * sFormat, ...) const
+{
+    if (!Log::TracingEnabled())
+    {
+        return 0;
+    }
     va_list pArgs;
     va_start(pArgs, sFormat);
-    pTarget->DoLogV(m_sFileName, m_iFileLine, m_iType, sFormat, pArgs);
+    const Size iResult = LogTraceV(TRACE_User, LEVEL_Normal, sFormat, pArgs);
     va_end(pArgs);
+    return iResult;
+}
+
+
+MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::Log::LogTrace(
+        const TraceClass iClass,
+        const char * sFormat, ...) const
+{
+    if (!Log::TracingEnabled(iClass))
+    {
+        return 0;
+    }
+    va_list pArgs;
+    va_start(pArgs, sFormat);
+    const Size iResult = LogTraceV(iClass, LEVEL_Normal, sFormat, pArgs);
+    va_end(pArgs);
+    return iResult;
+}
+
+
+MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::Log::LogTrace(
+        const TraceClass iClass,
+        const TraceLevel iLevel,
+        const char * sFormat, ...) const
+{
+    if (!Log::TracingEnabled(iClass, iLevel))
+    {
+        return 0;
+    }
+    va_list pArgs;
+    va_start(pArgs, sFormat);
+    const Size iResult = LogTraceV(iClass, iLevel, sFormat, pArgs);
+    va_end(pArgs);
+    return iResult;
+}
+
+
+MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::Log::LogTrace(
+        const char * const sClass,
+        const char * sFormat, ...) const
+{
+    if (!Log::TracingEnabled(sClass))
+    {
+        return 0;
+    }
+    va_list pArgs;
+    va_start(pArgs, sFormat);
+    const Size iResult = LogTraceV(sClass, LEVEL_Normal, sFormat, pArgs);
+    va_end(pArgs);
+    return iResult;
+}
+
+
+MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::Log::LogTrace(
+        const char * const sClass,
+        const TraceLevel iLevel,
+        const char * sFormat, ...) const
+{
+    if (!Log::TracingEnabled(sClass, iLevel))
+    {
+        return 0;
+    }
+    va_list pArgs;
+    va_start(pArgs, sFormat);
+    const Size iResult = LogTraceV(sClass, iLevel, sFormat, pArgs);
+    va_end(pArgs);
+    return iResult;
 }
 
 
@@ -57,10 +171,8 @@ MX_PRINTFLIKE_METHOD(1, 2) void mx::Log::Starter::LogMessage(
     The order must match the definition of Log::LogType.
 */
 static const mx::ArrayItemInitializer< const char * >
-sm_sLogTypeStrings[mx::Log::LogType_COUNT] =
+sm_sLogTypeStrings[mx::Log::LOG_COUNT] =
 {
-    // InvalidType
-    "Log",
     // Inform
     "Info",
     // Notify
@@ -68,9 +180,9 @@ sm_sLogTypeStrings[mx::Log::LogType_COUNT] =
     // Warning
     "Warning",
     // Check
-    "Check",
+    "Check failed",
     // Assert
-    "Assert",
+    "Assertion failed",
     // Error
     "Error",
     // FatalError
@@ -83,67 +195,58 @@ sm_sLogTypeStrings[mx::Log::LogType_COUNT] =
 
 
 /// Currently active log target.
-/* static */ mx::Log * mx::Log::sm_pTarget = NULL;
+/* static */ mx::LogHandler * mx::Log::sm_pTarget = new mx::LogStdErr();
+
+/// File information engine status.
+/* static */ bool mx::Log::sm_bFileInfoEnabled = true;
 
 
-MX_PRINTFLIKE_METHOD(4, 5) void mx::Log::DoLog(
-        const char * const sFileName,
-        const Size iFileLine,
-// The log message type is after file and name in the parameters list, to
-// prevent confusion with the second version, which does not use file name and
-// line.
-//
-// If the type is the first parameter, then there will be ambiquity while the
-// second parameter might be file name or format string.
-        const LogType iType,
+MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::LogHandler::DoLog(
+        const Debug::Checkpoint & xFileInfo,
+        const Log::LogType iType,
         const char * sFormat, ...)
 {
     va_list pArgs;
     va_start(pArgs, sFormat);
-    DoLogV(sFileName, iFileLine, iType, sFormat, pArgs);
+    const Size iResult = DoLogV(xFileInfo, iType, sFormat, pArgs);
     va_end(pArgs);
+    return iResult;
 }
 
 
-MX_PRINTFLIKE_METHOD(2, 3) void mx::Log::DoLog(
-        const LogType iType,
+MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::LogHandler::DoLog(
+        const Log::LogType iType,
         const char * sFormat, ...)
 {
     va_list pArgs;
     va_start(pArgs, sFormat);
-    DoLogV(iType, sFormat, pArgs);
+    const Size iResult = DoLogV(iType, sFormat, pArgs);
     va_end(pArgs);
+    return iResult;
 }
 
 
-void mx::Log::DoLogV(
-        const char * const sFileName,
-        const Size iFileLine,
-// The log message type is after file and name in the parameters list, to
-// prevent confusion with the second version, which does not use file name and
-// line.
-//
-// If the type is the first parameter, then there will be ambiquity while the
-// second parameter might be file name or format string.
-        const LogType iType,
+mx::Size mx::LogHandler::DoLogV(
+        const Debug::Checkpoint & xFileInfo,
+        const Log::LogType iType,
         const char * sFormat, va_list pArgs)
 {
     // Check the log type.
-    LogType iLogType = iType;
-    if ((iLogType <= InvalidType) || (iLogType >= LogType_COUNT))
+    Log::LogType iLogType = iType;
+    if ((iLogType <= 0) || (iLogType >= Log::LOG_COUNT))
     {
-        DoLog(sFileName, iFileLine, Warning,
+        DoLog(xFileInfo, Log::LOG_Warning,
                 _("Invalid log message type!"));
         // Treat all as "Log: ..."
-        iLogType = InvalidType;
+        iLogType = static_cast< Log::LogType >(0);
     }
     // Check the format.
     if (!sFormat)
     {
-        DoLog(sFileName, iFileLine, Error,
+        DoLog(xFileInfo, Log::LOG_Error,
                 _("Invalid log message format string!"));
         // Invalid format string.
-        return;
+        return 0;
     }
 
     /* Prepare the message. */
@@ -202,9 +305,8 @@ void mx::Log::DoLogV(
    */
 
     // Convert the message type to type name.
-    mxAssert(iLogType
-            < mxArrayLength(sLogTypeStrings));
-    mxAssert(sm_sLogTypeStrings[iLogType]);
+    mxAssert(iLogType < mxArrayLength(sm_sLogTypeStrings));
+    mxAssert(sm_sLogTypeStrings[iLogType] != NULL);
     const char * const sTypeString = sm_sLogTypeStrings[iLogType];
 
     // Always pass the message to the interactive debugger,
@@ -254,7 +356,7 @@ void mx::Log::DoLogV(
     }
 #endif // MX_DEBUGGER_OUTPUT
 
-    OnLog(sFileName, iFileLine, iType, sTypeString,
+    return OnLog(xFileInfo, iType, sTypeString,
             // If not formatted yet, will be formatted now by the log target.
             sMessage, pArgs);
 }

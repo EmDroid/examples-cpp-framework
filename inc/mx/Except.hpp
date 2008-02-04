@@ -25,13 +25,20 @@
 */
 
 
+#ifndef MXCPP_SYSDEFS
+#include "mx/sysdefs.hpp"
+#endif
+
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
+
+
 #ifndef MXCPP_EXCEPTION_HPP_INCLUDE_GUARD
 #define MXCPP_EXCEPTION_HPP_INCLUDE_GUARD
 
 
-#include "mx/sysdefs.hpp"
-
-#include "mx/types.hpp"
+#include "mx/Debug.hpp"
 
 #include "mx/Class.hpp"
 
@@ -40,8 +47,8 @@ namespace mx
 {
 
 
-#define Throw(exception) \
-    ThrowException(exception, __FILE__, static_cast< FileLine >(__LINE__))
+#define mxThrow(exception) \
+    mx::ThrowException(exception, mxDebugCheckpoint())
 
 
 // Forward declaration.
@@ -204,8 +211,7 @@ public:
     MX_NORETURN Fail() const;
 
     MX_INLINE void SetDebugInfo(
-            const char * const sFileName,
-            const FileLine iFileLine) const;
+            const Debug::Checkpoint & xFileInfo) const;
 
 protected:
 
@@ -221,11 +227,8 @@ private:
     /// The message associated with the exception.
     const char * const m_sMessage;
 
-    /// Name of the source file, where the exception was raised.
-    mutable const char * m_sFileName;
-
-    /// Line number in the source file, where the exception was raised.
-    mutable FileLine m_iFileLine;
+    /// The checkpoint of source file, where the exception was raised.
+    mutable Debug::Checkpoint m_xFileInfo;
 
 
 }; // class Exception
@@ -277,15 +280,14 @@ private:
 template< class ExceptionType >
 static MX_NORETURN ThrowException(
         const ExceptionType & pException,
-        const char * const sFileName,
-        const FileLine iFileLine)
+        const Debug::Checkpoint & xFileInfo)
 {
     // Setup the exception using Exception typed reference, to allow setting
     // of its private members.
     // (In the case of catching by reference, the cast-to-pointer operator is
     // used.)
     const Exception * const pExceptionBase = &pException;
-    pExceptionBase->SetDebugInfo(sFileName, iFileLine);
+    pExceptionBase->SetDebugInfo(xFileInfo);
 
     Exception::setLastRaisedException(pException);
 

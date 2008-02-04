@@ -25,20 +25,24 @@
 */
 
 
+#ifndef MXCPP_SYSDEFS
+#include "mx/sysdefs.hpp"
+#endif
+
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
+
+
 #ifndef MXCPP_MEMORY_HPP_INCLUDE_GUARD
 #define MXCPP_MEMORY_HPP_INCLUDE_GUARD
 
-
-#include "mx/sysdefs.hpp"
-
-#include "mx/types.hpp"
 
 #include "mx/Except.hpp"
 
 
 namespace mx
 {
-
 
 /**
     Class for basic memory manipulations.
@@ -55,14 +59,12 @@ public:
 
     static void * Allocate(
             const Size iSizeRequested,
-            const char * const sFileName,
-            const FileLine iFileLine);
+            const Debug::Checkpoint & xFileInfo);
 
     static void * Reallocate(
             void * const pMemoryBlock,
             const Size iSizeRequested,
-            const char * const sFileName,
-            const FileLine iFileLine);
+            const Debug::Checkpoint & xFileInfo);
 
     static void Free(
             void * const pMemoryBlock);
@@ -81,7 +83,7 @@ public:
 #endif
 
 #define Alloc(size) \
-    Allocate(size, __FILE__, __LINE__)
+    Allocate(size, mxDebugCheckpoint())
 
 
 #ifdef Realloc
@@ -89,7 +91,7 @@ public:
 #endif
 
 #define Realloc(block, size) \
-    Reallocate(block, size, __FILE__, __LINE__)
+    Reallocate(block, size, mxDebugCheckpoint())
 
 
 #ifdef Free

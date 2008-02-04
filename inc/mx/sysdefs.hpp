@@ -25,8 +25,8 @@
 */
 
 
-#ifndef MXCPP_SYSDEFS_HPP_INCLUDE_GUARD
-#define MXCPP_SYSDEFS_HPP_INCLUDE_GUARD
+#ifndef MXCPP_SYSDEFS
+#define MXCPP_SYSDEFS
 
 
 #ifndef __cplusplus
@@ -457,6 +457,6 @@
 #include "mx/defs/helpers.hpp"
 
 
-#endif // MXCPP_SYSDEFS_HPP_INCLUDE_GUARD
+#endif // MXCPP_SYSDEFS
 
 /* EOF */

@@ -452,6 +452,10 @@ SOURCE=..\..\..\..\..\src\Log.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\src\LogStdE.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\src\Memory.cpp
 # End Source File
 # Begin Source File
@@ -636,6 +640,14 @@ SOURCE=..\..\..\..\..\inc\mx\Log.inl
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\inc\mx\LogStdE.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\LogStdE.inl
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\inc\mx\Memory.hpp
 # End Source File
 # Begin Source File
@@ -681,6 +693,31 @@ SOURCE=..\..\..\..\..\src\res\mxCppFw.rc
 # Begin Source File
 
 SOURCE=..\..\..\..\..\src\inc\mx\internal\version.h
+# End Source File
+# End Group
+# Begin Group "Template Files"
+
+# PROP Default_Filter "cpp;c;cxx;h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\..\..\..\template\template.cpp
+# PROP Exclude_From_Scan -1
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\template\template.hpp
+# PROP Exclude_From_Scan -1
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\template\template.inl
+# PROP Exclude_From_Scan -1
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
 # End Source File
 # End Group
 # End Target

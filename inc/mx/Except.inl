@@ -50,17 +50,13 @@ mx::Exception::getLastRaisedException()
 MX_INLINE mx::Exception::Exception(
         const char * const sMessage)
     : m_sMessage(sMessage)
-    , m_sFileName(NULL)
-    , m_iFileLine(0)
 {}
 
 
 MX_INLINE void mx::Exception::SetDebugInfo(
-        const char * const sFileName,
-        const FileLine iFileLine) const
+        const Debug::Checkpoint & xFileInfo) const
 {
-    m_sFileName = sFileName;
-    m_iFileLine = iFileLine;
+    m_xFileInfo = xFileInfo;
 }
 
 

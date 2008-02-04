@@ -26,7 +26,6 @@
 
 
 /* Framework libraries. */
-#include "mx/Debug.hpp"
 
 
 /* Application specific. */
@@ -67,7 +66,7 @@ mx::Stream::Stream()
 MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Stream::Printf(
         const char * const sFormat, ...)
 {
-    mxAssert(sFormat);
+    mxAssert(sFormat != NULL);
 
     va_list pArguments;
     va_start(pArguments, sFormat);

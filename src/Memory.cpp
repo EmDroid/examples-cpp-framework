@@ -30,6 +30,7 @@
 
 /* Application specific. */
 #include "mx/Memory.hpp"
+
 #include "mx/internal/OutOfMem.hpp"
 
 
@@ -73,8 +74,7 @@
 */
 /* static */ void * mx::Memory::Allocate(
         const Size iSizeRequested,
-        const char * const sFileName,
-        const FileLine iFileLine)
+        const Debug::Checkpoint & xFileInfo)
 {
     if (0 == iSizeRequested)
     {
@@ -83,7 +83,7 @@
     void * const block = malloc(iSizeRequested);
     if (!block)
     {
-        ThrowException(OutOfMemory(iSizeRequested), sFileName, iFileLine);
+        ThrowException(OutOfMemory(iSizeRequested), xFileInfo);
     }
     return block;
 }
@@ -105,13 +105,12 @@
 /* static */ void * mx::Memory::Reallocate(
         void * const pMemoryBlock,
         const Size iSizeRequested,
-        const char * const sFileName,
-        const FileLine iFileLine)
+        const Debug::Checkpoint & xFileInfo)
 {
     void * const block = realloc(pMemoryBlock, iSizeRequested);
     if (!block)
     {
-        ThrowException(OutOfMemory(iSizeRequested), sFileName, iFileLine);
+        ThrowException(OutOfMemory(iSizeRequested), xFileInfo);
     }
     return block;
 }

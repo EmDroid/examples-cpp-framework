@@ -25,13 +25,18 @@
 */
 
 
+#ifndef MXCPP_SYSDEFS
+#include "mx/sysdefs.hpp"
+#endif
+
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
+
+
 #ifndef MXCPP_OUT_OF_MEMORY_EXCEPTION_HPP_INCLUDE_GUARD
 #define MXCPP_OUT_OF_MEMORY_EXCEPTION_HPP_INCLUDE_GUARD
 
-
-#include "mx/sysdefs.hpp"
-
-#include "mx/types.hpp"
 
 #include "mx/Memory.hpp"
 

@@ -667,8 +667,7 @@ private:
 } // namespace mx
 
 
-/* Headers that are always included - redefining some standard definitions etc. */
-#include "mx/Except.hpp"
+/* Headers that are always included - redefining some standard definitions. */
 #include "mx/Memory.hpp"
 #include "mx/new.hpp"
 

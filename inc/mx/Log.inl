@@ -25,37 +25,99 @@
 */
 
 
-/* explicit */ MX_INLINE mx::Log::Starter::Starter(
+MX_INLINE mx::Log::Log(
         const LogType iType,
-        const char * const sFileName,
-        const Size iFileLine)
+        const Debug::Checkpoint & xFileInfo)
     : m_iType(iType)
-    , m_sFileName(sFileName)
-    , m_iFileLine(iFileLine)
+    , m_xFileInfo(xFileInfo)
 {}
 
 
-/* static */ MX_INLINE mx::Log * mx::Log::GetActiveTarget()
+MX_INLINE mx::Size mx::Log::LogTraceV(
+        const TraceClass iClass,
+        const TraceLevel iLevel,
+        const char * sFormat, va_list pArguments) const
+{
+    return Log::TracingEnabled(iClass, iLevel)
+           ? LogMessageV(sFormat, pArguments)
+           : 0;
+}
+
+
+MX_INLINE mx::Size mx::Log::LogTraceV(
+        const char * const sClass,
+        const TraceLevel iLevel,
+        const char * sFormat, va_list pArguments) const
+{
+    return Log::TracingEnabled(sClass, iLevel)
+           ? LogMessageV(sFormat, pArguments)
+           : 0;
+}
+
+
+/* static */ MX_INLINE mx::LogHandler * mx::Log::GetActiveTarget()
 {
     return sm_pTarget;
 }
 
 
-/* static */ MX_INLINE mx::Log * mx::Log::SetActiveTarget(
-        Log * const pTarget)
+/* static */ MX_INLINE mx::LogHandler * mx::Log::SetActiveTarget(
+        LogHandler * const pTarget)
 {
-    Log * const pPrevTarget = sm_pTarget;
+    LogHandler * const pPrevTarget = sm_pTarget;
     sm_pTarget = pTarget;
     return pPrevTarget;
 }
 
 
-MX_INLINE void mx::Log::DoLogV(
-        const LogType iType,
+/* static */ MX_INLINE bool mx::Log::TracingEnabled(
+        const TraceClass MX_UNUSED(iClass),
+        const TraceLevel MX_UNUSED(iLevel))
+{
+    return true;
+}
+
+
+/* static */ MX_INLINE bool mx::Log::TracingEnabled(
+        const char * const MX_UNUSED(sClass),
+        const TraceLevel MX_UNUSED(iLevel))
+{
+    return true;
+}
+
+
+/* static */ MX_INLINE void mx::Log::EnableFileInfo()
+{
+    sm_bFileInfoEnabled = true;
+}
+
+
+/* static */ MX_INLINE void mx::Log::DisableFileInfo()
+{
+    sm_bFileInfoEnabled = false;
+}
+
+
+/* static */ MX_INLINE bool mx::Log::FileInfoEnabled()
+{
+    return sm_bFileInfoEnabled;
+}
+
+
+MX_INLINE mx::LogHandler::LogHandler()
+{}
+
+
+/* virtual */ MX_INLINE mx::LogHandler::~LogHandler()
+{}
+
+
+MX_INLINE mx::Size mx::LogHandler::DoLogV(
+        const Log::LogType iType,
         const char * sFormat, va_list pArgs)
 {
     // The file-line logging not used.
-    DoLogV(static_cast< const char * >(NULL), 0, iType, sFormat, pArgs);
+    return DoLogV(Debug::Checkpoint(), iType, sFormat, pArgs);
 }
 
 

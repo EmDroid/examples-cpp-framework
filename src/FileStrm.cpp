@@ -26,7 +26,6 @@
 
 
 /* Framework libraries. */
-#include "mx/Debug.hpp"
 
 
 /* Application specific. */
@@ -88,7 +87,7 @@ mx::FileStream::~FileStream()
         // We cannot reach eof during write (check it).
         mxAssert(!feof(m_hFileDescriptor));
         // File I/O error other than EOF.
-        Throw(GenericIOException(ferror(m_hFileDescriptor)));
+        mxThrow(GenericIOException(ferror(m_hFileDescriptor)));
     }
 }
 
@@ -105,7 +104,7 @@ mx::FileStream::~FileStream()
         // We cannot reach eof during write (check it).
         mxAssert(!feof(m_hFileDescriptor));
         // File I/O error other than EOF.
-        Throw(GenericIOException(ferror(m_hFileDescriptor)));
+        mxThrow(GenericIOException(ferror(m_hFileDescriptor)));
     }
     m_hFileDescriptor = INVALID_DESCRIPTOR;
 }
@@ -120,7 +119,7 @@ mx::FileStream::~FileStream()
 /* MX_OVERRIDDEN */ mx::Size mx::FileStream::PrintfV(
         const char * const sFormat, va_list pArguments)
 {
-//    mxAssert(IsOpen());
+    mxAssert(IsOpen());
     mxAssert(sFormat != NULL);
 
     int iCharsWritten;
@@ -128,9 +127,9 @@ mx::FileStream::~FileStream()
         < 0)
     {
         // We cannot reach eof during write (check it).
-        mxAssert(!feof(m_pFileDescriptor));
+        mxAssert(!feof(m_hFileDescriptor));
         // File I/O error other than EOF.
-        Throw(GenericIOException(ferror(m_hFileDescriptor)));
+        mxThrow(GenericIOException(ferror(m_hFileDescriptor)));
     }
 
     return iCharsWritten;

@@ -25,13 +25,18 @@
 */
 
 
+#ifndef MXCPP_SYSDEFS
+#include "mx/sysdefs.hpp"
+#endif
+
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
+
+
 #ifndef MXCPP_NEW_HPP_INCLUDE_GUARD
 #define MXCPP_NEW_HPP_INCLUDE_GUARD
 
-
-#include "mx/sysdefs.hpp"
-
-#include "mx/types.hpp"
 
 #include "mx/Except.hpp"
 
@@ -42,8 +47,7 @@ namespace mx
 
 MXCPP_DLL_EXPORT void * OperatorNewImplementation(
         const Size iMemoryBlockSize,
-        const char * const sFileName,
-        const FileLine iFileLine,
+        const Debug::Checkpoint & xFileInfo,
         const bool bVectorAlloc = false);
 
 MXCPP_DLL_EXPORT void OperatorDeleteImplementation(
@@ -62,21 +66,21 @@ MXCPP_DLL_EXPORT void OperatorDeleteImplementation(
 inline void * operator new (
         // const doesn't work under some compilers (DMC).
         /* const */ mx::Size iMemoryBlockSize,
-        const char * const sFileName,
-        const mx::FileLine iFileLine)
+        const mx::Debug::Checkpoint::FileName sFileName,
+        const mx::Debug::Checkpoint::FileLine iFileLine)
 {
-    return mx::OperatorNewImplementation(
-            iMemoryBlockSize, sFileName, iFileLine);
+    return mx::OperatorNewImplementation(iMemoryBlockSize,
+            mx::Debug::Checkpoint(sFileName, iFileLine));
 }
 
 
 inline void * operator new[] (
         /* const */ mx::Size iMemoryBlockSize,
-        const char * const sFileName,
-        const mx::FileLine iFileLine)
+        const mx::Debug::Checkpoint::FileName sFileName,
+        const mx::Debug::Checkpoint::FileLine iFileLine)
 {
-    return mx::OperatorNewImplementation(
-            iMemoryBlockSize, sFileName, iFileLine, true);
+    return mx::OperatorNewImplementation(iMemoryBlockSize,
+            mx::Debug::Checkpoint(sFileName, iFileLine), true);
 }
 
 
@@ -102,8 +106,8 @@ inline void operator delete[] (
 
 inline void operator delete (
         void * pMemoryBlock,
-        const char * const MX_UNUSED(sFileName),
-        const mx::FileLine MX_UNUSED(iFileLine))
+        const mx::Debug::Checkpoint::FileName MX_UNUSED(sFileName),
+        const mx::Debug::Checkpoint::FileLine MX_UNUSED(iFileLine))
 {
     mx::OperatorDeleteImplementation(pMemoryBlock);
 }
@@ -111,8 +115,8 @@ inline void operator delete (
 
 inline void operator delete[] (
         void * pMemoryBlock,
-        const char * const MX_UNUSED(sFileName),
-        const mx::FileLine MX_UNUSED(iFileLine))
+        const mx::Debug::Checkpoint::FileName MX_UNUSED(sFileName),
+        const mx::Debug::Checkpoint::FileLine MX_UNUSED(iFileLine))
 {
     mx::OperatorDeleteImplementation(pMemoryBlock, true);
 }

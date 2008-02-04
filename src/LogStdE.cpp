@@ -19,35 +19,40 @@
 /**
     @file
 
-    Global new and delete operators (implementation).
+    Log message handler printing to standard error (implementation).
 
     @author Emil Maskovsky
 */
 
 
 /* Framework libraries. */
-#include "mx/Memory.hpp"
+#include "mx/StdStrm.hpp"
 
 
 /* Application specific. */
-#include "mx/new.hpp"
+#include "mx/LogStdE.hpp"
 
 
-MXCPP_DLL_EXPORT void * mx::OperatorNewImplementation(
-        const Size iMemoryBlockSize,
+/* MX_OVERRIDDEN */ mx::Size mx::LogStdErr::OnLog(
         const Debug::Checkpoint & xFileInfo,
-        const bool MX_UNUSED(bVectorAlloc))
+        const Log::LogType iType,
+        const char * const sTypeString,
+        const char * sFormat, va_list pArgs)
 {
-    return Memory::Allocate(iMemoryBlockSize, xFileInfo);
+    Size iCharsWritten = StandardError.Printf("%s: ", sTypeString)
+                         + StandardError.PrintfV(sFormat, pArgs);
+    if (!xFileInfo.Empty())
+    {
+        iCharsWritten += StandardError.Printf(" [%s(%u)])",
+                xFileInfo.getFile(), xFileInfo.getLine());
+    }
+    return iCharsWritten;
 }
 
 
-MXCPP_DLL_EXPORT void mx::OperatorDeleteImplementation(
-        void * const pMemoryBlock,
-        const bool MX_UNUSED(bVectorFree))
-{
-    Memory::Free(pMemoryBlock);
-}
-
+// Define inline methods here if inlining is disabled.
+#ifndef MX_INLINE_ENABLED
+#include "mx/LogStdE.inl"
+#endif
 
 /* EOF */

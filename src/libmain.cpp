@@ -27,7 +27,6 @@
 
 /* Framework libraries. */
 #include "mx/sysdefs.hpp"
-
 #include "mx/types.hpp"
 
 

@@ -19,7 +19,7 @@
 /**
     @file
 
-    Class base (interface).
+    Log message handler printing to standard error (interface).
 
     @author Emil Maskovsky
 */
@@ -34,34 +34,48 @@
 #endif
 
 
-#ifndef MXCPP_CLASSBASE_HPP_INCLUDE_GUARD
-#define MXCPP_CLASSBASE_HPP_INCLUDE_GUARD
+#ifndef MXCPP_LOG_STANDARD_ERROR_HPP_INCLUDE_GUARD
+#define MXCPP_LOG_STANDARD_ERROR_HPP_INCLUDE_GUARD
+
+
+#include "mx/Log.hpp"
 
 
 namespace mx
 {
 
+
 /**
-    Base class for all our dynamic classes.
+    Log message handler printing to standard error.
 */
-class MXCPP_DLL_EXPORT Class
+class MXCPP_DLL_EXPORT LogStdErr
+    : public LogHandler
 {
 
+    MX_CLASS_NO_COPY(LogStdErr);
+    MX_CLASS_NO_ASSIGNMENT(LogStdErr);
 
 // Construction, destruction.
 
 public:
 
-    virtual MX_INLINE ~Class();
+    MX_INLINE LogStdErr();
+
+    virtual MX_INLINE ~LogStdErr();
+
 
 // Class instance methods.
 
-public:
+protected:
 
-    const char * getName() const;
+    MX_OVERRIDDEN Size OnLog(
+            const Debug::Checkpoint & xFileInfo,
+            const Log::LogType iType,
+            const char * const sTypeString,
+            const char * sFormat, va_list pArgs);
 
 
-}; // class Class
+}; // class LogStdErr
 
 
 } // namespace mx
@@ -69,9 +83,9 @@ public:
 
 // Define inline methods here if inlining is enabled.
 #ifdef MX_INLINE_ENABLED
-#include "mx/Class.inl"
+#include "mx/LogStdE.inl"
 #endif
 
-#endif // MXCPP_CLASSBASE_HPP_INCLUDE_GUARD
+#endif // MXCPP_LOG_STANDARD_ERROR_HPP_INCLUDE_GUARD
 
 /* EOF */

@@ -25,27 +25,46 @@
 */
 
 
+#ifndef MXCPP_SYSDEFS
+#include "mx/sysdefs.hpp"
+#endif
+
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
+
+
 #ifndef MXCPP_LOG_HPP_INCLUDE_GUARD
 #define MXCPP_LOG_HPP_INCLUDE_GUARD
 
 
-#include "mx/sysdefs.hpp"
-
-#include "mx/types.hpp"
+#include "mx/Debug.hpp"
 
 
-#define LogWarning \
-    Log::Starter(Log::Warning, __FILE__, __LINE__).LogMessage
+#define mxLogCheckpoint()       \
+    (mx::Log::FileInfoEnabled() \
+     ? mxDebugCheckpoint()      \
+     : mx::Debug::Checkpoint())
 
-#define LogError \
-    Log::Starter(Log::Error, __FILE__, __LINE__).LogMessage
+#define mxLogWarning \
+    mx::Log(mx::Log::LOG_Warning, mxLogCheckpoint()).LogMessage
 
-#define LogFatalError \
-    Log::Starter(Log::FatalError, __FILE__, __LINE__).LogMessage
+#define mxLogError \
+    mx::Log(mx::Log::LOG_Error, mxLogCheckpoint()).LogMessage
+
+#define mxLogFatalError \
+    mx::Log(mx::Log::LOG_FatalError, mxLogCheckpoint()).LogFatal
+
+#define mxLogTrace \
+    mx::Log(mx::Log::LOG_Trace, mxLogCheckpoint()).LogTrace
 
 
 namespace mx
 {
+
+
+// Forward declaration.
+class MXCPP_DLL_EXPORT LogHandler;
 
 
 class MXCPP_DLL_EXPORT Log
@@ -60,127 +79,194 @@ public:
 
     typedef enum
     {
-        InvalidType = 0,
-        Inform,
-        Notify,
-        Warning,
-        Check,
+        LOG_Inform,
+        LOG_Notify,
+        LOG_Warning,
+        LOG_Check,
         // Next log types cannot be disabled.
-        Assert,
-        Error,
-        FatalError,
-        Debug,
-        Trace,
-        LogType_COUNT
+        LOG_Assert,
+        LOG_Error,
+        LOG_FatalError,
+        LOG_Debug,
+        LOG_Trace,
+        LOG_COUNT
     } LogType;
 
-
-    /**
-        Log starter object.
-
-        Used to setup and start logging event.
-    */
-    class MXCPP_DLL_EXPORT Starter
+    typedef enum
     {
+        TRACE_User = 0,     ///< User tracing.
+        TRACE_Debug,        ///< Debugging subsystem itself.
+        TRACE_Memory,       ///< Memory management.
+        TRACE_Exception,    ///< Exception handling subsystem.
+        TRACE_GUI,          ///< Graphical User Interface.
+        TRACE_COUNT
+    } TraceClass;
 
-        MX_CLASS_NO_COPY(Starter);
-        MX_CLASS_NO_ASSIGNMENT(Starter);
-
-        // Construction, destruction.
-
-    public:
-
-        explicit MX_INLINE Starter(
-                const LogType iType,
-                const char * const sFileName = NULL,
-                const Size iFileLine = 0);
-
-
-        // Class instance methods.
-
-    public:
-
-        MX_PRINTFLIKE_METHOD(1, 2) void LogMessage(
-                const char * sFormat, ...);
-
-
-        // Class instance attributes.
-
-    private:
-
-        /// The log message type.
-        const LogType m_iType;
-
-        /// The log message file name.
-        const char * const m_sFileName;
-
-        /// The log message file line.
-        const Size m_iFileLine;
-
-
-    }; // class Log::Starter
+    typedef enum
+    {
+        LEVEL_Normal,       ///< Normal trace level.
+        LEVEL_COUNT
+    } TraceLevel;
 
 
 // Class methods (static).
 
 public:
 
-    static MX_INLINE Log * GetActiveTarget();
+    static MX_INLINE LogHandler * GetActiveTarget();
 
-    static MX_INLINE Log * SetActiveTarget(
-            Log * const pTarget);
+    static MX_INLINE LogHandler * SetActiveTarget(
+            LogHandler * const pTarget);
+
+
+    // Predefined constant class tracing.
+
+    static MX_INLINE bool TracingEnabled(
+            const TraceClass iClass = TRACE_User,
+            const TraceLevel = LEVEL_Normal);
+
+
+    // User-based class tracing.
+
+    static MX_INLINE bool TracingEnabled(
+            const char * const sClass,
+            const TraceLevel = LEVEL_Normal);
+
+
+    // File information engine.
+
+    static MX_INLINE void EnableFileInfo();
+    static MX_INLINE void DisableFileInfo();
+
+    static MX_INLINE bool FileInfoEnabled();
 
 
 // Class attributes (static).
 
 private:
 
-    static Log * sm_pTarget;
+    static LogHandler * sm_pTarget;
+
+    static bool sm_bFileInfoEnabled;
 
 
 // Construction, destruction.
 
-protected:
+public:
 
-    Log();
-
-    virtual ~Log();
+    MX_INLINE Log(
+            const LogType iType,
+            const Debug::Checkpoint & xFileInfo);
 
 
 // Class instance methods.
 
 public:
 
-    MX_PRINTFLIKE_METHOD(4, 5) void DoLog(
-            const char * const sFileName,
-            const Size iFileLine,
-            const LogType iType,
+    MX_PRINTFLIKE_METHOD(1, 2) Size LogMessage(
+            const char * sFormat, ...) const;
+
+    MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN LogFatal(
+            const char * sFormat, ...) const;
+
+    MX_PRINTFLIKE_METHOD(1, 2) Size LogAssert(
+            const char * sFormat, ...) const;
+
+    Size LogMessageV(
+            const char * sFormat, va_list pArguments) const;
+
+    MX_PRINTFLIKE_METHOD(1, 2) Size LogTrace(
+            const char * sFormat, ...) const;
+
+    MX_PRINTFLIKE_METHOD(2, 3) Size LogTrace(
+            const TraceClass iClass,
+            const char * sFormat, ...) const;
+
+    MX_PRINTFLIKE_METHOD(3, 4) Size LogTrace(
+            const TraceClass iClass,
+            const TraceLevel iLevel,
+            const char * sFormat, ...) const;
+
+    MX_PRINTFLIKE_METHOD(2, 3) Size LogTrace(
+            const char * const sClass,
+            const char * sFormat, ...) const;
+
+    MX_PRINTFLIKE_METHOD(3, 4) Size LogTrace(
+            const char * const sClass,
+            const TraceLevel iLevel,
+            const char * sFormat, ...) const;
+
+    MX_INLINE Size LogTraceV(
+            const TraceClass iClass,
+            const TraceLevel iLevel,
+            const char * sFormat, va_list pArguments) const;
+
+    MX_INLINE Size LogTraceV(
+            const char * const sClass,
+            const TraceLevel iLevel,
+            const char * sFormat, va_list pArguments) const;
+
+
+// Class instance attributes.
+
+private:
+
+    /// The log message type.
+    const LogType m_iType;
+
+    /// The log file information.
+    const Debug::Checkpoint m_xFileInfo;
+
+
+}; // class Log
+
+
+class MXCPP_DLL_EXPORT LogHandler
+{
+
+    MX_CLASS_NO_COPY(LogHandler);
+    MX_CLASS_NO_ASSIGNMENT(LogHandler);
+
+// Construction, destruction.
+
+protected:
+
+    MX_INLINE LogHandler();
+
+    virtual MX_INLINE ~LogHandler();
+
+
+// Class instance methods.
+
+public:
+
+    MX_PRINTFLIKE_METHOD(3, 4) Size DoLog(
+            const Debug::Checkpoint & xFileInfo,
+            const Log::LogType iType,
             const char * sFormat, ...);
 
-    MX_PRINTFLIKE_METHOD(2, 3) void DoLog(
-            const LogType iType,
+    MX_PRINTFLIKE_METHOD(2, 3) Size DoLog(
+            const Log::LogType iType,
             const char * sFormat, ...);
 
-    void DoLogV(
-            const char * const sFileName,
-            const Size iFileLine,
-            const LogType iType,
+    Size DoLogV(
+            const Debug::Checkpoint & xFileInfo,
+            const Log::LogType iType,
             const char * sFormat, va_list pArgs);
 
-    MX_INLINE void DoLogV(
-            const LogType iType,
+    MX_INLINE Size DoLogV(
+            const Log::LogType iType,
             const char * sFormat, va_list pArgs);
 
 protected:
 
-    virtual void OnLog(
-            const char * const sFileName,
-            const Size iFileLine,
-            const LogType iType,
+    virtual Size OnLog(
+            const Debug::Checkpoint & xFileInfo,
+            const Log::LogType iType,
             const char * const sTypeString,
             const char * sFormat, va_list pArgs) MX_PURE;
 
-}; // class Log
+}; // class LogHandler
 
 
 } // namespace mx

@@ -19,42 +19,18 @@
 /**
     @file
 
-    Standardized basic data types.
+    Log message handler printing to standard error (inline methods).
 
     @author Emil Maskovsky
 */
 
 
-#ifndef MXCPP_TYPES
-#define MXCPP_TYPES
+MX_INLINE mx::LogStdErr::LogStdErr()
+{}
 
 
-/**
-    Main namespace of @project.
+/* virtual */ MX_INLINE mx::LogStdErr::~LogStdErr()
+{}
 
-    Namespaces are used by @project to prevent confusion of names.
-*/
-namespace mx
-{
-
-
-/**
-    Standard size type.
-
-    Will become 4 B (long) on 32-bit systems, 2 B (short) on 16-bit systems
-    (the total range the system can address).
-
-    @note
-    This type is always unsigned, some algorithms rely on it (e.g.
-    (Size)(-1) for maximal size can be used). This can faster and simplify
-    some algorithms (avoid some checks).
-*/
-typedef size_t Size;
-
-
-} // namespace mx
-
-
-#endif // MXCPP_TYPES
 
 /* EOF */

@@ -25,4 +25,57 @@
 */
 
 
+/* explicit */ MX_INLINE mx::Debug::Checkpoint::Checkpoint(
+        const FileName sFile,
+        const FileLine iLine)
+    : m_sFile(sFile)
+    , m_iLine(iLine)
+{}
+
+
+MX_INLINE mx::Debug::Checkpoint::FileName
+mx::Debug::Checkpoint::getFile() const
+{
+    return m_sFile;
+}
+
+
+MX_INLINE mx::Debug::Checkpoint::FileLine
+mx::Debug::Checkpoint::getLine() const
+{
+    return m_iLine;
+}
+
+
+MX_INLINE bool mx::Debug::Checkpoint::Empty() const
+{
+    return !getFile();
+}
+
+
+/* static */ MX_INLINE void mx::Debug::Check(
+        /*  Note using "int" and not "bool" for cond to avoid VC++ warnings about
+             implicit conversions when doing "mxAssert(pointer)" and also use of
+             "!!cond" below to ensure that everything is converted to int
+        */
+        const int bCondition,
+        const Checkpoint & xFileInfo,
+        const char * const sCondition,
+        const char * const sMessage)
+{
+    if (!sCondition)
+    {
+        Log(Log::LOG_Assert, mxDebugCheckpoint()).LogAssert(
+                "sCondition != NULL");
+        return;
+    }
+    if (!bCondition)
+    {
+        Log(Log::LOG_Assert, xFileInfo).LogAssert(
+                sMessage ? "%s (%s)" : "%s",
+                sCondition, sMessage);
+    }
+}
+
+
 /* EOF */

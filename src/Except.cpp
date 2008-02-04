@@ -30,7 +30,6 @@
 
 /* Framework libraries. */
 #include "mx/StdStrm.hpp"
-#include "mx/Log.hpp"
 #include "mx/App/App.hpp"
 
 
@@ -178,12 +177,12 @@ mx::Exception::sm_pLastRaisedException = NULL;
     StandardError.Printf("\nUnexpected termination handler entered!\n");
     if (!pException)
     {
-        LogFatalError(_("Weird exception caught!"));
+        mxLogFatalError(_("Weird exception caught!"));
     }
 
     // Otherwise provide the user with the most detailed information about
     // the exception we can get.
-    LogError(_("Unhandled exception caught!"));
+    mxLogError(_("Unhandled exception caught!"));
     pException->Fail();
 }
 
@@ -217,10 +216,10 @@ mx::Exception::sm_pLastRaisedException = NULL;
 mx::Size mx::Exception::WriteMessage(Stream & stream) const
 {
     Size iBytesWritten = doWriteMessage(stream);
-    if (m_sFileName)
+    if (!m_xFileInfo.Empty())
     {
         iBytesWritten += stream.Printf(", thrown in '%s(%lu)'",
-                m_sFileName, m_iFileLine);
+                m_xFileInfo.getFile(), m_xFileInfo.getLine());
     }
     iBytesWritten += stream.Printf(".\n");
     return iBytesWritten;

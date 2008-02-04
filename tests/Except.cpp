@@ -33,6 +33,17 @@
 #include "mx/internal/OutOfMem.hpp"
 
 
+void LogTest()
+{
+    mxLogWarning("Some warning.");
+    const char * const pString = "Some string.";
+    mxAssert(pString != NULL);
+    mxLogTrace(mx::Log::TRACE_User, mx::Log::LEVEL_Normal,
+            "Tracing - file: %s(%u)",
+            __FILE__, __LINE__);
+}
+
+
 namespace mx
 {
 
@@ -64,7 +75,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     try
     {
         const ExceptionType e = theException;
-        Throw(e);
+        mxThrow(e);
         return EXIT_FAILURE;
     }
     catch (const ExceptionType & e)
@@ -75,7 +86,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     try
     {
         const ExceptionType e = theException;
-        Throw(e);
+        mxThrow(e);
         return EXIT_FAILURE;
     }
     catch (const Exception & e)
@@ -158,7 +169,7 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
     {
         try
         {
-            Throw(EndOfFile());
+            mxThrow(EndOfFile());
         }
         catch (const Exception &)
         {
