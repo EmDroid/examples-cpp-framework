@@ -40,7 +40,7 @@ CXX_USE_RESPONSE_FILE := 1
 
 
 # The linker global flags.
-LNKC_FLAGS += system dos
+LNKC_FLAGS += system dos option stack=4k
 
 
 # Include parent definitions.

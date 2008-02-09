@@ -160,21 +160,11 @@ using namespace std;
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::Exception);
 
 
-/**
-    Pointer to last raised exception, set until it is destroyed.
-
-    This pointer is kept for purposes of our ExceptionHandler, which uses it
-    to find the last raised exception when either terminate() or unexpected()
-    functions are triggered.
-*/
-/* static */ const mx::Exception *
-mx::Exception::sm_pLastRaisedException = NULL;
-
-
 /* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
         const Exception * const pException)
 {
-    StandardError.Printf("\nUnexpected termination handler entered!\n");
+    mxLogTrace(Log::TRACE_Exception, Log::LEVEL_Highest,
+            _("Unexpected termination handler entered!"));
     if (!pException)
     {
         mxLogFatalError(_("Weird exception caught!"));
@@ -187,66 +177,35 @@ mx::Exception::sm_pLastRaisedException = NULL;
 }
 
 
-/**
-    Destructor.
-*/
-/* virtual */ mx::Exception::~Exception()
-{
-    if (this == sm_pLastRaisedException)
-    {
-        sm_pLastRaisedException = NULL;
-    }
-}
-
-
 /* MX_OVERRIDDEN */ const char * mx::Exception::what() const
 {
-    const char * const sMessage = message();
+    /*
+    const Char * const sMessage = message();
     if (sMessage)
     {
         // Use the associated message, if any set.
         return sMessage;
     }
+    */
 
     // Otherwise, show the name of the exception.
     return getName();
 }
 
 
-mx::Size mx::Exception::WriteMessage(Stream & stream) const
+mx::Size mx::Exception::LogMessage(const Log::LogType iLogType) const
 {
-    Size iBytesWritten = doWriteMessage(stream);
-    if (!m_xFileInfo.Empty())
-    {
-        iBytesWritten += stream.Printf(", thrown in '%s(%lu)'",
-                m_xFileInfo.getFile(), m_xFileInfo.getLine());
-    }
-    iBytesWritten += stream.Printf(".\n");
-    return iBytesWritten;
+    const Char * const sMessage = message();
+    return Log(iLogType, m_xFileInfo).LogMessage(_("Exception '%s' caught%s%s"),
+            getName(), sMessage ? _(" with message: ") : _T(""),
+            sMessage ? sMessage : _T(""));
 }
 
 
 MX_NORETURN mx::Exception::Fail() const
 {
-    WriteMessage(StandardError);
+    LogMessage();
     exit(mx::Application::RC_FAILURE);
-}
-
-
-/* virtual */ mx::Size mx::Exception::doWriteMessage(Stream & stream) const
-{
-    int iBytesWritten
-        = stream.Printf("Exception [%s] caught", getName());
-
-    // Append the message, if some set.
-    const char * const sMessage = message();
-    if (sMessage)
-    {
-        iBytesWritten
-            += stream.Printf(" with message: '%s'", sMessage);
-    }
-
-    return iBytesWritten;
 }
 
 

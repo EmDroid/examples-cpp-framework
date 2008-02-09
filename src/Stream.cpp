@@ -64,7 +64,7 @@ mx::Stream::Stream()
     @see PrintfV().
 */
 MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Stream::Printf(
-        const char * const sFormat, ...)
+        const Char * const sFormat, ...)
 {
     mxAssert(sFormat != NULL);
 

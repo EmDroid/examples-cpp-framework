@@ -35,6 +35,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cstdarg>
+#include <cstring>
 #include <cerrno>
 
 #else // MXCPP_FIX_USE_OLD_C_HEADERS
@@ -42,10 +43,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <string.h>
 #include <errno.h>
 
 #endif // MXCPP_FIX_USE_OLD_C_HEADERS
-
 
 #if (!defined(MXCPP_FIX_USE_OLD_C_HEADERS) \
     && !defined(MXCPP_FIX_HAS_NOT_STD_NAMESPACE))
@@ -163,11 +164,17 @@ using namespace std;
 #undef _T
 #endif
 
-#ifndef MXCPP_UNICODE
-#define _T(string)  string
-#else
-#define _T(string)  L ## string
+#ifdef __T
+#undef __T
 #endif
+
+#ifndef MXCPP_UNICODE
+#define __T(string)  string
+#else
+#define __T(string)  L ## string
+#endif
+
+#define _T(string)  __T(string)
 
 
 #ifdef _TEXT
@@ -177,7 +184,7 @@ using namespace std;
 /**
     Synonym for mxT().
 */
-#define _TEXT(string)  _T(string)
+#define _TEXT(string)  __T(string)
 
 
 /* Although global macros with such names are normally bad, we want to have
@@ -208,13 +215,22 @@ using namespace std;
 
     @see @ref unicode
 */
-#define mxT(string)  _T(string)
+#define mx1T(string)  __T(string)
 
 
 /**
     Translate string.
 */
-#define _(string)  string
+#define _(string)  _T(string)
+
+
+#define MXCPP_FILE  _T(__FILE__)
+
+
+/**
+    Does not perform actual translation, but marks strings to be translated.
+*/
+#define mxTranslate(string)  _T(string)
 
 
 /**

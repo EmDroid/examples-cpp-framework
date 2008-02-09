@@ -43,12 +43,7 @@
 #endif // __DMC__ < 0x700
 
 
-#ifdef MX_PLATFORM_OS_WIN32
-
-// Uses standard __declspec(dllexport/dllimport) DLL exports.
-#include "mx/defs/stddllexp.hpp"
-
-#else // PLATFORM_OS_WIN32
+#ifndef MX_PLATFORM_OS_WIN32
 
 /* C++-style DMC headers are incompatible with outside WIN32. */
 /// The compiler does not support new C++ style headers.
@@ -56,6 +51,14 @@
 
 /// The compiler does not have standard C++ exceptions defined.
 #define MXCPP_FIX_NO_STD_EXCEPTION
+
+#else // PLATFORM_OS_WIN32
+
+// Uses standard __declspec(dllexport/dllimport) DLL exports.
+#include "mx/defs/stddllexp.hpp"
+
+/// Pass string to the debugger.
+#define MX_DEBUGGER_OUTPUT  OutputDebugString
 
 #endif // PLATFORM_OS_WIN32
 

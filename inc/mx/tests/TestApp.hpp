@@ -29,18 +29,18 @@
 #include "mx/sysdefs.hpp"
 #endif
 
-#ifndef MXCPP_TYPES
-#include "mx/types.hpp"
-#endif
-
 
 #ifndef MXCPP_TEST_APPLICATION_HPP_INCLUDE_GUARD
 #define MXCPP_TEST_APPLICATION_HPP_INCLUDE_GUARD
 
 
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
+
 #include "mx/App/App.hpp"
 
-#include "mx/StdStrm.hpp"
+#include "mx/LogStd.hpp"
 
 
 namespace mx
@@ -72,32 +72,35 @@ public:
     // This is to check, if the override block works.
     int Run()
     {
-        fprintf(stderr, "\nError - bad RUN called.\n");
+        mxLogError(_("Invalid Run() called!"));
         return RC_FAILURE;
     }
 
 private:
 
-    const char * SetTestName();
+    const Char * SetTestName();
 
-    MX_INLINE const char * GetTestName()
+    MX_INLINE const Char * GetTestName()
     {
-        static const char * const sTestName = SetTestName();
+        static const Char * const sTestName = SetTestName();
         mxAssert(sTestName != NULL);
         return sTestName;
     }
 
     MX_OVERRIDDEN ReturnCode OnRun()
     {
-        StandardOutput.Printf(
-                "--- Running the [%s] tests ... ---\n",
+        Log::SetActiveTarget(LogStandard::Instance());
+        Log(Log::LOG_Message, Debug::Checkpoint()).LogMessage(
+                _("--- Running the [%s] tests ... ---"),
                 GetTestName());
-        StandardOutput.Flush();
-        const ReturnCode iRetCode = OnRunTests();
-        StandardOutput.Printf(
-                "--- ... the [%s] tests passed successfully. ---\n",
+        // Make sure the startup message is always displayed, even in the case
+        // of a nasty failure in the testing environment.
+        Log::Flush();
+        const ReturnCode iReturnCode = OnRunTests();
+        Log(Log::LOG_Message, Debug::Checkpoint()).LogMessage(
+                _("--- ... the [%s] tests passed successfully. ---"),
                 GetTestName());
-        return iRetCode;
+        return iReturnCode;
     }
 
 protected:

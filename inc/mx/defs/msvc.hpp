@@ -73,6 +73,10 @@
 #define MXCPP_FIX_DELETE_PARAMS_LIKE_NEW
 
 
+/// Pass string to the debugger.
+#define MX_DEBUGGER_OUTPUT  OutputDebugString
+
+
 /** @cond disabled_helper_defs */
 
 // Define how to declare functions/methods which never return.

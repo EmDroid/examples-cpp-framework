@@ -26,7 +26,7 @@
 
 
 MX_INLINE mx::SystemApiException::SystemApiException(
-        const char * const sApiFuncName)
+        const Char * const sApiFuncName)
     : Super(sApiFuncName)
 {}
 

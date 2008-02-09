@@ -53,29 +53,4 @@ MX_INLINE bool mx::Debug::Checkpoint::Empty() const
 }
 
 
-/* static */ MX_INLINE void mx::Debug::Check(
-        /*  Note using "int" and not "bool" for cond to avoid VC++ warnings about
-             implicit conversions when doing "mxAssert(pointer)" and also use of
-             "!!cond" below to ensure that everything is converted to int
-        */
-        const int bCondition,
-        const Checkpoint & xFileInfo,
-        const char * const sCondition,
-        const char * const sMessage)
-{
-    if (!sCondition)
-    {
-        Log(Log::LOG_Assert, mxDebugCheckpoint()).LogAssert(
-                "sCondition != NULL");
-        return;
-    }
-    if (!bCondition)
-    {
-        Log(Log::LOG_Assert, xFileInfo).LogAssert(
-                sMessage ? "%s (%s)" : "%s",
-                sCondition, sMessage);
-    }
-}
-
-
 /* EOF */

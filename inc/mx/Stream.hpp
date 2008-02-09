@@ -29,13 +29,14 @@
 #include "mx/sysdefs.hpp"
 #endif
 
-#ifndef MXCPP_TYPES
-#include "mx/types.hpp"
-#endif
-
 
 #ifndef MXCPP_STREAM_HPP_INCLUDE_GUARD
 #define MXCPP_STREAM_HPP_INCLUDE_GUARD
+
+
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
 
 
 namespace mx
@@ -47,9 +48,6 @@ namespace mx
 */
 class MXCPP_DLL_EXPORT Stream
 {
-
-    MX_CLASS_NO_COPY(Stream);
-    MX_CLASS_NO_ASSIGNMENT(Stream);
 
 // Construction, destruction.
 
@@ -94,7 +92,7 @@ public:
     */
     virtual void Close() MX_PURE;
 
-    MX_PRINTFLIKE_METHOD(1, 2) Size Printf(const char * const sFormat, ...);
+    MX_PRINTFLIKE_METHOD(1, 2) Size Printf(const Char * const sFormat, ...);
 
     /**
         Formatted printing into the stream (vararg version).
@@ -111,7 +109,7 @@ public:
         @note
         This method must be overridden by derived classes.
     */
-    virtual Size PrintfV(const char * const sFormat,
+    virtual Size PrintfV(const Char * const sFormat,
             va_list pArguments) MX_PURE;
 
 

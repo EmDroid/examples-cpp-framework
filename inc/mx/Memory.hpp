@@ -29,14 +29,14 @@
 #include "mx/sysdefs.hpp"
 #endif
 
-#ifndef MXCPP_TYPES
-#include "mx/types.hpp"
-#endif
-
 
 #ifndef MXCPP_MEMORY_HPP_INCLUDE_GUARD
 #define MXCPP_MEMORY_HPP_INCLUDE_GUARD
 
+
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
 
 #include "mx/Except.hpp"
 

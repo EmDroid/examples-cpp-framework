@@ -452,7 +452,19 @@ SOURCE=..\..\..\..\..\src\Log.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\src\LogHndlr.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\src\LogStd.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\src\LogStdE.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\src\LogStrm.cpp
 # End Source File
 # Begin Source File
 
@@ -640,11 +652,35 @@ SOURCE=..\..\..\..\..\inc\mx\Log.inl
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\inc\mx\LogHndlr.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\LogHndlr.inl
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\LogStd.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\LogStd.inl
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\inc\mx\LogStdE.hpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\..\..\inc\mx\LogStdE.inl
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\LogStrm.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\LogStrm.inl
 # End Source File
 # Begin Source File
 

@@ -29,13 +29,14 @@
 #include "mx/sysdefs.hpp"
 #endif
 
-#ifndef MXCPP_TYPES
-#include "mx/types.hpp"
-#endif
-
 
 #ifndef MXCPP_APPLICATION_HPP_INCLUDE_GUARD
 #define MXCPP_APPLICATION_HPP_INCLUDE_GUARD
+
+
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
 
 
 /**
@@ -100,7 +101,7 @@ class MXCPP_DLL_EXPORT ApplicationException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE ApplicationException(const char * const sMessage = NULL);
+    MX_INLINE ApplicationException(const Char * const sMessage = NULL);
 
 
 }; // class ApplicationException

@@ -35,11 +35,11 @@
 
 void LogTest()
 {
-    mxLogWarning("Some warning.");
+    mxLogWarning(_T("Some warning."));
     const char * const pString = "Some string.";
     mxAssert(pString != NULL);
     mxLogTrace(mx::Log::TRACE_User, mx::Log::LEVEL_Normal,
-            "Tracing - file: %s(%u)",
+            _T("Tracing - file: %s(%u)"),
             __FILE__, __LINE__);
 }
 
@@ -61,7 +61,7 @@ class TestException
 
 public:
 
-    MX_INLINE TestException(const char * const sMessage)
+    MX_INLINE TestException(const Char * const sMessage)
         : Super(sMessage)
     {}
 
@@ -80,7 +80,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (const ExceptionType & e)
     {
-        e.WriteMessage(StandardOutput);
+        e.LogMessage(Log::LOG_Message);
     }
     // Check catching as arbitrary exception.
     try
@@ -91,12 +91,11 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (const Exception & e)
     {
-        e.WriteMessage(StandardOutput);
+        e.LogMessage(Log::LOG_Message);
     }
     catch (...)
     {
-        StandardError.Printf("Weird exception caught in '%s(%u)'\n",
-                __FILE__, __LINE__);
+        mxLogError(_("Weird exception caught!"));
         return EXIT_FAILURE;
     }
 
@@ -108,7 +107,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (const ExceptionType & e)
     {
-        e.WriteMessage(StandardOutput);
+        e.LogMessage(Log::LOG_Message);
     }
     // Check catching as arbitrary exception.
     try
@@ -118,12 +117,11 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (const Exception & e)
     {
-        e.WriteMessage(StandardOutput);
+        e.LogMessage(Log::LOG_Message);
     }
     catch (...)
     {
-        StandardError.Printf("Weird exception caught in '%s(%u)'\n",
-                __FILE__, __LINE__);
+        mxLogError(_("Weird exception caught!"));
         return EXIT_FAILURE;
     }
 
@@ -137,14 +135,15 @@ int SingleExceptionTest(const ExceptionType & theException)
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::TestException);
 
 
-const char * mx::TestApp::SetTestName()
+const mx::Char * mx::TestApp::SetTestName()
 {
-    return "Exception";
+    return _T("Exception");
 }
 
 
 mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 {
+    LogTest();
 
     /* Testing some standard exception. */
 
@@ -177,19 +176,17 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
         }
         catch (...)
         {
-            StandardError.Printf("Weird exception caught in '%s(%u)'\n",
-                    __FILE__, __LINE__);
+            mxLogError(_("Weird exception caught!"));
             return RC_FAILURE;
         }
     }
     catch (const Exception & e)
     {
-        e.WriteMessage(StandardOutput);
+        e.LogMessage(Log::LOG_Message);
     }
     catch (...)
     {
-        StandardError.Printf("Weird exception caught in '%s(%u)'\n",
-                __FILE__, __LINE__);
+        mxLogError(_("Weird exception caught!"));
         return RC_FAILURE;
     }
 
@@ -206,19 +203,17 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
         }
         catch (...)
         {
-            StandardError.Printf("Weird exception caught in '%s(%u)'\n",
-                    __FILE__, __LINE__);
+            mxLogError(_("Weird exception caught!"));
             return RC_FAILURE;
         }
     }
     catch (const Exception & e)
     {
-        e.WriteMessage(StandardOutput);
+        e.LogMessage(Log::LOG_Message);
     }
     catch (...)
     {
-        StandardError.Printf("Weird exception caught in '%s(%u)'\n",
-                __FILE__, __LINE__);
+        mxLogError(_("Weird exception caught!"));
         return RC_FAILURE;
     }
 
@@ -226,7 +221,7 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
     /* Check application-defined exception. */
 
     if (EXIT_SUCCESS != SingleExceptionTest(
-                TestException("Test message")))
+                TestException(_T("Test message"))))
     {
         return RC_FAILURE;
     }

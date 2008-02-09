@@ -51,7 +51,7 @@
     Some compilers have problems when using mxDebugCheckpoint()
     (MSVC 6.0 so far), therefore we use normal file-line logging.
 */
-#define new  new (__FILE__, __LINE__)
+#define new  new (MXCPP_FILE, __LINE__)
 
 
 /* EOF */

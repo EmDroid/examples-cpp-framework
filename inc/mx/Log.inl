@@ -36,7 +36,7 @@ MX_INLINE mx::Log::Log(
 MX_INLINE mx::Size mx::Log::LogTraceV(
         const TraceClass iClass,
         const TraceLevel iLevel,
-        const char * sFormat, va_list pArguments) const
+        const Char * sFormat, va_list pArguments) const
 {
     return Log::TracingEnabled(iClass, iLevel)
            ? LogMessageV(sFormat, pArguments)
@@ -45,9 +45,9 @@ MX_INLINE mx::Size mx::Log::LogTraceV(
 
 
 MX_INLINE mx::Size mx::Log::LogTraceV(
-        const char * const sClass,
+        const Char * const sClass,
         const TraceLevel iLevel,
-        const char * sFormat, va_list pArguments) const
+        const Char * sFormat, va_list pArguments) const
 {
     return Log::TracingEnabled(sClass, iLevel)
            ? LogMessageV(sFormat, pArguments)
@@ -79,7 +79,7 @@ MX_INLINE mx::Size mx::Log::LogTraceV(
 
 
 /* static */ MX_INLINE bool mx::Log::TracingEnabled(
-        const char * const MX_UNUSED(sClass),
+        const Char * const MX_UNUSED(sClass),
         const TraceLevel MX_UNUSED(iLevel))
 {
     return true;
@@ -101,23 +101,6 @@ MX_INLINE mx::Size mx::Log::LogTraceV(
 /* static */ MX_INLINE bool mx::Log::FileInfoEnabled()
 {
     return sm_bFileInfoEnabled;
-}
-
-
-MX_INLINE mx::LogHandler::LogHandler()
-{}
-
-
-/* virtual */ MX_INLINE mx::LogHandler::~LogHandler()
-{}
-
-
-MX_INLINE mx::Size mx::LogHandler::DoLogV(
-        const Log::LogType iType,
-        const char * sFormat, va_list pArgs)
-{
-    // The file-line logging not used.
-    return DoLogV(Debug::Checkpoint(), iType, sFormat, pArgs);
 }
 
 

@@ -29,14 +29,14 @@
 #include "mx/sysdefs.hpp"
 #endif
 
-#ifndef MXCPP_TYPES
-#include "mx/types.hpp"
-#endif
-
 
 #ifndef MXCPP_SYSTEM_EXCEPTION_HPP_INCLUDE_GUARD
 #define MXCPP_SYSTEM_EXCEPTION_HPP_INCLUDE_GUARD
 
+
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
 
 #include "mx/Except.hpp"
 
@@ -58,7 +58,7 @@ class MXCPP_DLL_EXPORT SystemApiException
 
 public:
 
-    MX_INLINE SystemApiException(const char * const sApiFuncName);
+    MX_INLINE SystemApiException(const Char * const sApiFuncName);
 
 
 }; // class SystemApiException

@@ -29,14 +29,14 @@
 #include "mx/sysdefs.hpp"
 #endif
 
-#ifndef MXCPP_TYPES
-#include "mx/types.hpp"
-#endif
-
 
 #ifndef MXCPP_FILE_STREAM_HPP_INCLUDE_GUARD
 #define MXCPP_FILE_STREAM_HPP_INCLUDE_GUARD
 
+
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
 
 #include "mx/Stream.hpp"
 
@@ -53,9 +53,6 @@ namespace mx
 class MXCPP_DLL_EXPORT FileStream
     : public Stream
 {
-
-    MX_CLASS_NO_COPY(FileStream);
-    MX_CLASS_NO_ASSIGNMENT(FileStream);
 
 
 // Types, constants etc.
@@ -102,7 +99,7 @@ public:
     MX_OVERRIDDEN void Close();
 
     MX_OVERRIDDEN Size PrintfV(
-            const char * const sFormat, va_list pArguments);
+            const Char * const sFormat, va_list pArguments);
 
 
 // Class instance attributes.

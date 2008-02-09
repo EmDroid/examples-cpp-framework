@@ -25,31 +25,21 @@
 */
 
 
-/* static */ MX_INLINE void mx::Exception::setLastRaisedException(
-        const Exception & theException)
-{
-    sm_pLastRaisedException = &theException;
-}
-
-
-/**
-    Get the pointer to the last exception raised, if any.
-*/
-/* static */ MX_INLINE const mx::Exception *
-mx::Exception::getLastRaisedException()
-{
-    return sm_pLastRaisedException;
-}
-
-
 /**
     Constructor.
 
     @param [in] sMessage The exception message.
 */
 MX_INLINE mx::Exception::Exception(
-        const char * const sMessage)
+        const Char * const sMessage)
     : m_sMessage(sMessage)
+{}
+
+
+/**
+    Destructor.
+*/
+/* virtual */ MX_INLINE mx::Exception::~Exception()
 {}
 
 
@@ -73,7 +63,7 @@ MX_INLINE void mx::Exception::SetDebugInfo(
 
     @see what()
 */
-MX_INLINE const char * mx::Exception::message() const
+MX_INLINE const mx::Char * mx::Exception::message() const
 {
     return m_sMessage;
 }
@@ -85,7 +75,7 @@ MX_INLINE const char * mx::Exception::message() const
     @param [in] sMessage The exception message.
 */
 MX_INLINE mx::SystemException::SystemException(
-        const char * const sMessage)
+        const Char * const sMessage)
     : Super(sMessage)
 {}
 
@@ -96,7 +86,7 @@ MX_INLINE mx::SystemException::SystemException(
     @param [in] sMessage The exception message.
 */
 MX_INLINE mx::KernelException::KernelException(
-        const char * const sMessage)
+        const Char * const sMessage)
     : Super(sMessage)
 {}
 
@@ -107,7 +97,7 @@ MX_INLINE mx::KernelException::KernelException(
     @param [in] sMessage The exception message.
 */
 MX_INLINE mx::MemoryException::MemoryException(
-        const char * const sMessage)
+        const Char * const sMessage)
     : Super(sMessage)
 {}
 
@@ -118,7 +108,7 @@ MX_INLINE mx::MemoryException::MemoryException(
     @param [in] sMessage The exception message.
 */
 MX_INLINE mx::IOException::IOException(
-        const char * const sMessage)
+        const Char * const sMessage)
     : Super(sMessage)
 {}
 

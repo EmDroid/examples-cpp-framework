@@ -33,21 +33,7 @@
 #include "mx/LogStdE.hpp"
 
 
-/* MX_OVERRIDDEN */ mx::Size mx::LogStdErr::OnLog(
-        const Debug::Checkpoint & xFileInfo,
-        const Log::LogType iType,
-        const char * const sTypeString,
-        const char * sFormat, va_list pArgs)
-{
-    Size iCharsWritten = StandardError.Printf("%s: ", sTypeString)
-                         + StandardError.PrintfV(sFormat, pArgs);
-    if (!xFileInfo.Empty())
-    {
-        iCharsWritten += StandardError.Printf(" [%s(%u)])",
-                xFileInfo.getFile(), xFileInfo.getLine());
-    }
-    return iCharsWritten;
-}
+/* static */ mx::LogStdErr mx::LogStdErr::sm_instance;
 
 
 // Define inline methods here if inlining is disabled.

@@ -29,17 +29,18 @@
 #include "mx/sysdefs.hpp"
 #endif
 
-#ifndef MXCPP_TYPES
-#include "mx/types.hpp"
-#endif
-
 
 #ifndef MXCPP_DEBUG_HPP_INCLUDE_GUARD
 #define MXCPP_DEBUG_HPP_INCLUDE_GUARD
 
 
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
+
+
 #define mxDebugCheckpoint() \
-    mx::Debug::Checkpoint(__FILE__, __LINE__)
+    mx::Debug::Checkpoint(MXCPP_FILE, __LINE__)
 
 
 #ifndef MXCPP_DEBUG_ENABLED
@@ -49,7 +50,8 @@
 #else // MXCPP_DEBUG_ENABLED
 
 #define mxAssert(cond) \
-    mx::Debug::Check(!!(cond), mxDebugCheckpoint(),#cond)
+    ((cond) ? (void)0  \
+     : mx::Debug::Assert(mxDebugCheckpoint(), _T(#cond)))
 
 #endif // MXCPP_DEBUG_ENABLED
 
@@ -69,8 +71,9 @@
     It should be used only in testing programs. Testing programs must use it
     instead of Assert().
 */
-#define mxTest(cond) \
-    mx::Debug::Check(!!(cond), mxDebugCheckpoint(),#cond)
+#define mxTest(cond)  \
+    ((cond) ? (void)0 \
+     : mx::Debug::Assert(mxDebugCheckpoint(), _T(#cond)))
 
 
 namespace mx
@@ -97,7 +100,7 @@ public:
 
     public:
 
-        typedef const char * FileName;
+        typedef const Char * FileName;
 
         typedef unsigned long FileLine;
 
@@ -140,24 +143,16 @@ public:
 
 public:
 
-    static MX_INLINE void Check(
-            /*  Note using "int" and not "bool" for cond to avoid VC++ warnings about
-                 implicit conversions when doing "mxAssert(pointer)" and also use of
-                 "!!cond" below to ensure that everything is converted to int
-            */
-            const int bCondition,
+    static MX_NORETURN Assert(
             const Checkpoint & xFileInfo,
-            const char * const sCondition,
-            const char * const sMessage = NULL);
+            const Char * const sCondition,
+            const Char * const sMessage = NULL);
 
 
 }; // class Debug
 
 
 } // namespace mx
-
-
-#include "mx/Log.hpp"
 
 
 // Define inline methods here if inlining is enabled.

@@ -52,6 +52,23 @@ namespace mx
 typedef size_t Size;
 
 
+#ifndef MXCPP_UNICODE
+
+typedef char Char;
+
+#else // MXCPP_UNICODE
+
+typedef wchar_t Char;
+
+#endif // MXCPP_UNICODE
+
+
+inline const Char * GetTranslation(const Char * const sMessage)
+{
+    return sMessage;
+}
+
+
 } // namespace mx
 
 

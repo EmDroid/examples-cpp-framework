@@ -44,6 +44,14 @@
 #include "mx/defs/stddllexp.hpp"
 
 
+#ifdef MX_PLATFORM_OS_WIN32
+
+/// Pass string to the debugger.
+#define MX_DEBUGGER_OUTPUT  OutputDebugString
+
+#endif // MX_PLATFORM_OS_WIN32
+
+
 #endif // MX_PLATFORM_COMPILER_WATCOM
 
 /* EOF */

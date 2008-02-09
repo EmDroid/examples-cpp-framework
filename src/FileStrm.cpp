@@ -117,13 +117,19 @@ mx::FileStream::~FileStream()
     @param [in] pArguments Argument list matching the @p sFormat string.
 */
 /* MX_OVERRIDDEN */ mx::Size mx::FileStream::PrintfV(
-        const char * const sFormat, va_list pArguments)
+        const Char * const sFormat, va_list pArguments)
 {
     mxAssert(IsOpen());
     mxAssert(sFormat != NULL);
 
     int iCharsWritten;
-    if ((iCharsWritten = vfprintf(m_hFileDescriptor, sFormat, pArguments))
+    if ((iCharsWritten =
+#ifndef MXCPP_UNICODE
+                     ::vfprintf
+#else
+                     ::vfwprintf
+#endif
+                 (m_hFileDescriptor, sFormat, pArguments))
         < 0)
     {
         // We cannot reach eof during write (check it).

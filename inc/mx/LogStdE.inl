@@ -25,11 +25,14 @@
 */
 
 
+/* static */ MX_INLINE mx::LogStdErr * mx::LogStdErr::Instance()
+{
+    return &sm_instance;
+}
+
+
 MX_INLINE mx::LogStdErr::LogStdErr()
-{}
-
-
-/* virtual */ MX_INLINE mx::LogStdErr::~LogStdErr()
+    : LogStream(&StandardError)
 {}
 
 

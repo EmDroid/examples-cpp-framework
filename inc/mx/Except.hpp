@@ -29,18 +29,20 @@
 #include "mx/sysdefs.hpp"
 #endif
 
-#ifndef MXCPP_TYPES
-#include "mx/types.hpp"
-#endif
-
 
 #ifndef MXCPP_EXCEPTION_HPP_INCLUDE_GUARD
 #define MXCPP_EXCEPTION_HPP_INCLUDE_GUARD
 
 
+#ifndef MXCPP_TYPES
+#include "mx/types.hpp"
+#endif
+
 #include "mx/Debug.hpp"
 
 #include "mx/Class.hpp"
+
+#include "mx/Log.hpp"
 
 
 namespace mx
@@ -165,39 +167,20 @@ public:
     static MX_NORETURN HandleUncaughtException(
             const Exception * const pException = NULL);
 
-public:
-
-    static MX_INLINE void setLastRaisedException(
-            const Exception & theException);
-
-private:
-
-    static MX_INLINE const Exception * getLastRaisedException();
-
-    /// Only our exception handler is supposed to use the last raised exception.
-    friend class UncaughtExceptionHandler;
-
-
-// Class attributes (static).
-
-private:
-
-    static const Exception * sm_pLastRaisedException;
-
 
 // Construction, destruction.
 
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE Exception(const char * const sMessage = NULL);
+    MX_INLINE Exception(const Char * const sMessage = NULL);
 
     // Automatic copy and assignment constructor is ok for us
     // (shallow copy of file name and line information).
 
 public:
 
-    MX_OVERRIDDEN ~Exception();
+    virtual MX_INLINE ~Exception();
 
 // Class instance methods.
 
@@ -206,7 +189,7 @@ public:
     // Overridden std::exception::what() method.
     virtual const char * what() const;
 
-    Size WriteMessage(Stream & stream) const;
+    Size LogMessage(const Log::LogType iLogType = Log::LOG_Error) const;
 
     MX_NORETURN Fail() const;
 
@@ -215,9 +198,7 @@ public:
 
 protected:
 
-    MX_INLINE const char * message() const;
-
-    virtual Size doWriteMessage(Stream & stream) const;
+    MX_INLINE const Char * message() const;
 
 
 // Class instance attributes.
@@ -225,7 +206,7 @@ protected:
 private:
 
     /// The message associated with the exception.
-    const char * const m_sMessage;
+    const Char * const m_sMessage;
 
     /// The checkpoint of source file, where the exception was raised.
     mutable Debug::Checkpoint m_xFileInfo;
@@ -282,14 +263,8 @@ static MX_NORETURN ThrowException(
         const ExceptionType & pException,
         const Debug::Checkpoint & xFileInfo)
 {
-    // Setup the exception using Exception typed reference, to allow setting
-    // of its private members.
-    // (In the case of catching by reference, the cast-to-pointer operator is
-    // used.)
-    const Exception * const pExceptionBase = &pException;
-    pExceptionBase->SetDebugInfo(xFileInfo);
-
-    Exception::setLastRaisedException(pException);
+    // Setup the exception.
+    pException.SetDebugInfo(xFileInfo);
 
     // Throw the exception now.
     throw pException;
@@ -323,7 +298,7 @@ class MXCPP_DLL_EXPORT SystemException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE SystemException(const char * const sMessage = NULL);
+    MX_INLINE SystemException(const Char * const sMessage = NULL);
 
 
 }; // class SystemException
@@ -353,7 +328,7 @@ class MXCPP_DLL_EXPORT KernelException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE KernelException(const char * const sMessage = NULL);
+    MX_INLINE KernelException(const Char * const sMessage = NULL);
 
 
 }; // class KernelException
@@ -382,7 +357,7 @@ class MXCPP_DLL_EXPORT MemoryException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE MemoryException(const char * const sMessage = NULL);
+    MX_INLINE MemoryException(const Char * const sMessage = NULL);
 
 
 }; // class MemoryException
@@ -402,7 +377,7 @@ class MXCPP_DLL_EXPORT IOException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE IOException(const char * const sMessage = NULL);
+    MX_INLINE IOException(const Char * const sMessage = NULL);
 
 
 }; // class IOException
