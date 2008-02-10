@@ -36,10 +36,6 @@
 // in both modes we throw the exception.
 
 
-#ifndef mxDebugCheckpoint
-    #error mxDebugCheckpoint() not defined!
-#endif
-
 /**
     @internal
 
@@ -48,7 +44,7 @@
     The new operator overridden to be called along with the file name and line
     information.
 
-    Some compilers have problems when using mxDebugCheckpoint()
+    Some compilers have problems when using __mxDebugCheckpoint__()
     (MSVC 6.0 so far), therefore we use normal file-line logging.
 */
 #define new  new (MXCPP_FILE, __LINE__)

@@ -47,6 +47,8 @@ namespace mx
 
 /**
     System API related exception.
+
+    This is the base class of all system API exceptions.
 */
 class MXCPP_DLL_EXPORT SystemApiException
     : public SystemException
@@ -58,7 +60,7 @@ class MXCPP_DLL_EXPORT SystemApiException
 
 public:
 
-    MX_INLINE SystemApiException(const Char * const sApiFuncName);
+    explicit MX_INLINE SystemApiException(const Char * const sApiFuncName);
 
 
 }; // class SystemApiException

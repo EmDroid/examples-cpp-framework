@@ -39,47 +39,118 @@
 #endif
 
 
-#define mxDebugCheckpoint() \
+/**
+    @internal
+
+    Shortcut wrapper around mx::Debug::Checkpoint().
+
+    Calls mx::Debug::Checkpoint() with current source file name and line number
+    as provided by the preprocessors macros @c __FILE__ and @c __LINE__.
+
+    @warning
+    This macro is to be used only by debugging macros defined in
+    Debug.hpp. Never ever use this directly.
+*/
+#define __mxDebugCheckpoint__() \
     mx::Debug::Checkpoint(MXCPP_FILE, __LINE__)
 
 
+/**
+    @def mxCheck
+
+    Print @a condition in case it does not evaluate to @c true.
+
+    @param [in] cond Expression to evaluate.
+
+    @note
+    This macro is defined as no-op if not #MXCPP_DEBUG_ENABLED is defined.
+
+    @warning
+    The condition must not use any sideffects due to the above reason.
+    In particular, avoid calling any functions and/or using @c ++ or @c --
+    operators inside the @a condition expression.
+
+    @return
+    Returns @c true, if the @a condition does not fail.
+    Returns @c false, if the @a condition evaluation failed (does evaluate to
+    @c true).
+    Can be used in @c if conditions etc., but normally it is not very common to be
+    used such way.
+
+    @see mxAssert() for more strict version of this macro.
+    @see mx::Debug::Check() for implementation details.
+*/
+
+/**
+    @def mxAssert
+
+    Print @a condition and dump core in case it does not evaluate to @c true.
+
+    @param [in] cond Expression to evaluate.
+
+    @note
+    This macro is defined as no-op if not #MXCPP_DEBUG_ENABLED is defined.
+
+    @warning
+    The condition must not use any sideffects due to the above reason.
+    In particular, avoid calling any functions and/or using @c ++ or @c --
+    operators inside the @a condition expression.
+
+    @return
+    Returns @c true, if the @a condition does not fail.
+    Returns @c false, if the @a condition evaluation failed (does evaluate to
+    @c true) - in the case it does not fail directly.
+    Can be used in @c if conditions etc., but normally it is not very common to be
+    used such way.
+
+    @see mxCheck() for less strict version of this macro.
+    @see mx::Debug::Assert() for implementation details.
+*/
 #ifndef MXCPP_DEBUG_ENABLED
 
-#define mxAssert(cond)
+#define mxCheck(cond)   (true)
+#define mxAssert(cond)  (true)
 
 #else // MXCPP_DEBUG_ENABLED
 
+#define mxCheck(cond) \
+    ((cond) ? true    \
+     : mx::Debug::Check(__mxDebugCheckpoint__(), _T(#cond)))
+
 #define mxAssert(cond) \
-    ((cond) ? (void)0  \
-     : mx::Debug::Assert(mxDebugCheckpoint(), _T(#cond)))
+    ((cond) ? true     \
+     : mx::Debug::Assert(__mxDebugCheckpoint__(), _T(#cond)))
 
 #endif // MXCPP_DEBUG_ENABLED
 
 
 /**
-    Variant of Assert() for testing programs.
+    Variant of mxAssert() for testing programs.
 
-    This macro is identical to Assert() except that it is always defined,
+    This macro is identical to mxAssert() except that it is always defined,
     regardless of #MXCPP_DEBUG_ENABLED setting.
 
-    @param [in] condition Expression to evaluate.
+    @param [in] cond Expression to evaluate.
 
-    Unlike Assert(), it may invoke any code, including code which causes side
+    Unlike mxAssert(), it may invoke any code, including code which causes side
     effects. It is actually pretty common to use it for testing return values
     of functions.
 
     It should be used only in testing programs. Testing programs must use it
-    instead of Assert().
+    instead of mxAssert().
 */
-#define mxTest(cond)  \
-    ((cond) ? (void)0 \
-     : mx::Debug::Assert(mxDebugCheckpoint(), _T(#cond)))
+#define mxTest(cond) \
+    ((cond) ? true   \
+     : mx::Debug::Assert(__mxDebugCheckpoint__(), _T(#cond)))
 
 
 namespace mx
 {
 
 
+/**
+    The debugging sysbystem.
+*/
 class MXCPP_DLL_EXPORT Debug
 {
 
@@ -91,7 +162,7 @@ class MXCPP_DLL_EXPORT Debug
 public:
 
     /**
-        Debug checkpoint.
+        Checkpoint for storing current source file name and line number.
     */
     class MXCPP_DLL_EXPORT Checkpoint
     {
@@ -100,8 +171,10 @@ public:
 
     public:
 
+        /// The type of checkpointed file name.
         typedef const Char * FileName;
 
+        /// The type of checkpointed line number.
         typedef unsigned long FileLine;
 
 
@@ -111,7 +184,7 @@ public:
 
         explicit MX_INLINE Checkpoint(
                 const FileName sFile = NULL,
-                const FileLine iLine = 0);
+                const FileLine nLine = 0);
 
 
         // Class instance methods.
@@ -132,8 +205,8 @@ public:
         /// The checkpointed file name.
         FileName m_sFile;
 
-        /// The checkpointed file line.
-        FileLine m_iLine;
+        /// The checkpointed line number.
+        FileLine m_nLine;
 
 
     }; // class Debug::Checkpoint
@@ -143,7 +216,12 @@ public:
 
 public:
 
-    static MX_NORETURN Assert(
+    static bool Check(
+            const Checkpoint & xFileInfo,
+            const Char * const sCondition,
+            const Char * const sMessage = NULL);
+
+    static MX_NORETURN_TYPE(bool) Assert(
             const Checkpoint & xFileInfo,
             const Char * const sCondition,
             const Char * const sMessage = NULL);
@@ -153,6 +231,22 @@ public:
 
 
 } // namespace mx
+
+
+// Redefine standard assert() macros.
+
+#ifdef assert
+#undef assert
+#endif
+
+
+/**
+    Synonym for mxAssert().
+
+    This is an override of standard assert() macro, to always use @project
+    debugging engine.
+*/
+#define assert(cond)  mxAssert(cond)
 
 
 // Define inline methods here if inlining is enabled.

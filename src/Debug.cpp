@@ -32,7 +32,34 @@
 #include "mx/Debug.hpp"
 
 
-/* static */ MX_NORETURN mx::Debug::Assert(
+/* static */ bool mx::Debug::Check(
+        const Checkpoint & xFileInfo,
+        const Char * const sCondition,
+        const Char * const sMessage)
+{
+    // This is the check of the condition string. It will be always set, if the
+    // method is used properly through mxCheck() etc., but when
+    // used improperly (direct call of the function) we must be sure that
+    // following code will not trigger segmentation fault.
+    //
+    // We do not use mxAssert() for the test, because the method is available
+    // even in release builds.
+    if (!sCondition)
+    {
+        Log(Log::LOG_Assert, __mxDebugCheckpoint__()).LogAssert(
+                _T("sCondition != NULL"));
+    }
+    else
+    {
+        Log(Log::LOG_Check, xFileInfo).LogMessage(
+                sMessage ? _T("%s (%s)") : _T("%s"),
+                sCondition, sMessage);
+    }
+    return false;
+}
+
+
+/* static */ MX_NORETURN_TYPE(bool) mx::Debug::Assert(
         const Checkpoint & xFileInfo,
         const Char * const sCondition,
         const Char * const sMessage)
@@ -43,10 +70,10 @@
     // following code will not trigger segmentation fault.
     //
     // We do not use mxAssert() for the test, because the method is available
-    // even in release builds for purposes of mxTest().
+    // even in release builds.
     if (!sCondition)
     {
-        Log(Log::LOG_Assert, mxDebugCheckpoint()).LogAssert(
+        Log(Log::LOG_Assert, __mxDebugCheckpoint__()).LogAssert(
                 _T("sCondition != NULL"));
     }
     else
@@ -55,6 +82,7 @@
                 sMessage ? _T("%s (%s)") : _T("%s"),
                 sCondition, sMessage);
     }
+    return false;
 }
 
 

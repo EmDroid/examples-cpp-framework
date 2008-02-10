@@ -48,6 +48,10 @@ namespace mx
 class MXCPP_DLL_EXPORT Class
 {
 
+public:
+
+    static const char * FilterTypeName(const char * const sTypeName);
+
 
 // Construction, destruction.
 

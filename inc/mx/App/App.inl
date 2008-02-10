@@ -38,6 +38,9 @@ MX_INLINE mx::ApplicationException::ApplicationException(
 
 /**
     Returns the application instance.
+
+    @return
+    The single instance of the application.
 */
 /* static */ MX_INLINE mx::Application * mx::Application::getApp()
 {

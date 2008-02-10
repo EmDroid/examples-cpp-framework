@@ -33,17 +33,6 @@
 #include "mx/internal/OutOfMem.hpp"
 
 
-void LogTest()
-{
-    mxLogWarning(_T("Some warning."));
-    const char * const pString = "Some string.";
-    mxAssert(pString != NULL);
-    mxLogTrace(mx::Log::TRACE_User, mx::Log::LEVEL_Normal,
-            _T("Tracing - file: %s(%u)"),
-            __FILE__, __LINE__);
-}
-
-
 namespace mx
 {
 
@@ -64,6 +53,20 @@ public:
     MX_INLINE TestException(const Char * const sMessage)
         : Super(sMessage)
     {}
+
+};
+
+
+class TestStdException
+    : public std::exception
+{
+
+public:
+
+    MX_OVERRIDDEN MX_INLINE const char * what() const
+    {
+        return "Testing exception message.";
+    }
 
 };
 
@@ -125,6 +128,32 @@ int SingleExceptionTest(const ExceptionType & theException)
         return EXIT_FAILURE;
     }
 
+    // Test throwing exceptions by pointer.
+    try
+    {
+        throw new ExceptionType(theException);
+    }
+    catch (ExceptionType * e)
+    {
+        e->LogMessage(Log::LOG_Message);
+        delete e;
+    }
+    // Check catching as arbitrary exception.
+    try
+    {
+        throw new ExceptionType(theException);
+    }
+    catch (Exception * e)
+    {
+        e->LogMessage(Log::LOG_Message);
+        delete e;
+    }
+    catch (...)
+    {
+        mxLogError(_("Weird exception caught!"));
+        return EXIT_FAILURE;
+    }
+
     return EXIT_SUCCESS;
 }
 
@@ -143,8 +172,6 @@ const mx::Char * mx::TestApp::SetTestName()
 
 mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 {
-    LogTest();
-
     /* Testing some standard exception. */
 
     if (EXIT_SUCCESS != SingleExceptionTest(EndOfFile()))
@@ -217,12 +244,92 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
         return RC_FAILURE;
     }
 
+    // Test throwing exceptions by pointer.
+    try
+    {
+        try
+        {
+            throw new EndOfFile();
+        }
+        catch (Exception *)
+        {
+            throw;
+        }
+        catch (...)
+        {
+            mxLogError(_("Weird exception caught!"));
+            return RC_FAILURE;
+        }
+    }
+    catch (Exception * e)
+    {
+        e->LogMessage(Log::LOG_Message);
+        delete e;
+    }
+    catch (...)
+    {
+        mxLogError(_("Weird exception caught!"));
+        return RC_FAILURE;
+    }
+
 
     /* Check application-defined exception. */
 
     if (EXIT_SUCCESS != SingleExceptionTest(
                 TestException(_T("Test message"))))
     {
+        return RC_FAILURE;
+    }
+
+
+    /* Check std::exception based exceptions. */
+    // Test throwing exceptions by value, catching by reference.
+    try
+    {
+        throw TestStdException();
+    }
+    catch (const TestStdException & e)
+    {
+        Exception::GlobalLogMessage(e, Log::LOG_Message);
+    }
+    // Check catching as arbitrary exception.
+    try
+    {
+        throw TestStdException();
+    }
+    catch (const std::exception & e)
+    {
+        Exception::GlobalLogMessage(e, Log::LOG_Message);
+    }
+    catch (...)
+    {
+        mxLogError(_("Weird exception caught!"));
+        return RC_FAILURE;
+    }
+
+    // Test throwing exceptions by pointer.
+    try
+    {
+        throw new TestStdException();
+    }
+    catch (TestStdException * e)
+    {
+        Exception::GlobalLogMessage(*e, Log::LOG_Message);
+        delete e;
+    }
+    // Check catching as arbitrary exception.
+    try
+    {
+        throw new TestStdException();
+    }
+    catch (std::exception * e)
+    {
+        Exception::GlobalLogMessage(*e, Log::LOG_Message);
+        delete e;
+    }
+    catch (...)
+    {
+        mxLogError(_("Weird exception caught!"));
         return RC_FAILURE;
     }
 

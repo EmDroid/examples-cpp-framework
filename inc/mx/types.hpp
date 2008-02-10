@@ -52,6 +52,18 @@ namespace mx
 typedef size_t Size;
 
 
+/**
+    @type Char
+
+    Independent character type.
+
+    This is character type compatible between ANSI and UNICODE builds - it is
+    defined as single-byte character in ANSI mode and multi-byte in UNICODE
+    builds.
+
+    @see @ref unicode
+*/
+
 #ifndef MXCPP_UNICODE
 
 typedef char Char;
@@ -63,9 +75,28 @@ typedef wchar_t Char;
 #endif // MXCPP_UNICODE
 
 
-inline const Char * GetTranslation(const Char * const sMessage)
+/**
+    Get translation of the string.
+
+    Returns the translation of string @p str in the current locale. If the string
+    is not found in any of the loaded message catalogs the original string is
+    returned.
+
+    @param [in] str The string to be translated.
+
+    As this function is used very often, an alternative (and also common in Unix
+    world) syntax is provided: the _() macro is defined to do the same thing as
+    GetTranslation().
+
+    @return
+    The translated string.
+
+    @see _()
+    @see mxTranslate()
+*/
+inline const Char * GetTranslation(const Char * const str)
 {
-    return sMessage;
+    return str;
 }
 
 

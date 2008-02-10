@@ -25,7 +25,7 @@ $(if $(strip $(MAKEFILE_LIST)),,$(eval $(call MXCPP_GMAKE_OLD)))
 
 
 # The target flags.
-CXXFLAGS_TARGET := -ms -bt=dos
+CXXFLAGS_TARGET := -mm -bt=dos
 
 
 # Include default WATCOM definitions.

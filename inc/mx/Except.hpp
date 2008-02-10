@@ -49,12 +49,41 @@ namespace mx
 {
 
 
+/**
+    @name Exception system constructs.
+*/
+///@{
+
+/**
+    Exception throwing @ref exceptions_throwing "construct".
+
+    @param [in] exception The exception to be thrown.
+
+    This construct is to be used to throw exceptions derived from the
+    mx::Exception class.
+    For example, to throw and catch mx::EndOfFile exception, use:
+    @code
+    try {
+        mxThrow(mx::EndOfFile() );
+    } catch (mx::EndOfFile & e) {
+        // Process the exception.
+        ...
+        throw;  // Possibly re-throw the exception.
+    }
+    @endcode
+
+    You can, however, throw any mx::Exception using standard @c throw statement,
+    as follows:
+    @include ExceptionPointerOrReference.cpp
+
+    But using of mxThrow(exception) is the framework recommended way of
+    throwing exceptions based on mx::Exception, and only then you can gain from
+    framework @ref exceptions_handling "extended exception processing".
+*/
 #define mxThrow(exception) \
-    mx::ThrowException(exception, mxDebugCheckpoint())
+    mx::ThrowException(exception, __mxDebugCheckpoint__())
 
-
-// Forward declaration.
-class Stream;
+///@}
 
 
 /**
@@ -68,10 +97,11 @@ class Stream;
 
     Example:
     @code
-    class MyDerivedException: public ApplicationException {
+    class MyDerivedException: public mx::ApplicationException {
 
-          MX_DECLARE_EXCEPTION_CLASS(MyDerivedException,
-              mx::ApplicationException);
+        MX_DECLARE_EXCEPTION_CLASS(MyDerivedException,
+            mx::ApplicationException);
+
     public:
         ...
     };
@@ -100,10 +130,10 @@ private:                                       \
 
     Example:
     @code
-    class MyDerivedException: public ApplicationException {
+    class MyDerivedException: public mx::ApplicationException {
 
-          MX_DECLARE_EXCEPTION_CLASS(MyDerivedException,
-              ApplicationException);
+        MX_DECLARE_EXCEPTION_CLASS(MyDerivedException,
+            mx::ApplicationException);
 
     public:
         ...
@@ -167,6 +197,17 @@ public:
     static MX_NORETURN HandleUncaughtException(
             const Exception * const pException = NULL);
 
+    static MX_NORETURN HandleUncaughtException(
+            const std::exception * const pException);
+
+    static Size GlobalLogMessage(
+            const Exception & pException,
+            const Log::LogType iLogType = Log::LOG_Error);
+
+    static Size GlobalLogMessage(
+            const std::exception & pException,
+            const Log::LogType iLogType = Log::LOG_Error);
+
 
 // Construction, destruction.
 
@@ -187,7 +228,7 @@ public:
 public:
 
     // Overridden std::exception::what() method.
-    virtual const char * what() const;
+    MX_OVERRIDDEN const char * what() const;
 
     Size LogMessage(const Log::LogType iLogType = Log::LOG_Error) const;
 

@@ -25,14 +25,23 @@
 */
 
 
-/* explicit */ MX_INLINE mx::Debug::Checkpoint::Checkpoint(
+/**
+    Constructor.
+
+    @param [in] sFile The checkpointed file name.
+    @param [in] nLine The checkpointed line number.
+*/
+MX_INLINE mx::Debug::Checkpoint::Checkpoint(
         const FileName sFile,
-        const FileLine iLine)
+        const FileLine nLine)
     : m_sFile(sFile)
-    , m_iLine(iLine)
+    , m_nLine(nLine)
 {}
 
 
+/**
+    Get the checkpointed file name.
+*/
 MX_INLINE mx::Debug::Checkpoint::FileName
 mx::Debug::Checkpoint::getFile() const
 {
@@ -40,13 +49,23 @@ mx::Debug::Checkpoint::getFile() const
 }
 
 
+/**
+    Get the checkpointed line number.
+*/
 MX_INLINE mx::Debug::Checkpoint::FileLine
 mx::Debug::Checkpoint::getLine() const
 {
-    return m_iLine;
+    return m_nLine;
 }
 
 
+/**
+    Check if the checkpointed information is empty.
+
+    @return
+    Returns @c true, if the checkpoint does not contain valid file-line
+    information, @c false if it contains valid non-empty information.
+*/
 MX_INLINE bool mx::Debug::Checkpoint::Empty() const
 {
     return !getFile();

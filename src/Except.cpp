@@ -39,10 +39,12 @@
 
 #ifdef MXCPP_FIX_USE_OLD_C_HEADERS
 
+#include <typeinfo.h>
 #include <eh.h>
 
 #else
 
+#include <typeinfo>
 #include <exception>
 #ifndef MXCPP_FIX_HAS_NOT_STD_NAMESPACE
 using namespace std;
@@ -119,49 +121,17 @@ using namespace std;
 */
 
 
-/**
-    @name Exception system constructs.
-*/
-///@{
-
-/**
-    @def mxThrow
-
-    Exception throw @ref exceptions_throwing "construct".
-
-    @param [in] exception The exception to be thrown.
-
-    This construct is to be used to throw exceptions derived from the
-    mx::Exception class.
-    For example, to throw and catch mx::EndOfFile exception, use:
-    @code
-    try {
-        mxThrow(mx::EndOfFile() );
-    } catch (mx::EndOfFile & e) {
-        // Process the exception.
-        ...
-        throw;  // Possibly re-throw the exception.
-    }
-    @endcode
-
-    You can, however, throw any mx::Exception using standard @c throw statement,
-    as follows:
-    @include ExceptionPointerOrReference.cpp
-
-    But using of mxThrow(exception) is the framework recommended way of
-    throwing exceptions based on mx::Exception, and only then you can gain from
-    framework @ref exceptions_handling "extended exception processing".
-*/
-
-///@}
-
-
 // Start the exception implementation.
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::Exception);
 
 
-/* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
-        const Exception * const pException)
+namespace mx
+{
+
+
+template< class ExceptionType >
+static MX_NORETURN doHandleUncaughtException(
+        const ExceptionType * const pException)
 {
     mxLogTrace(Log::TRACE_Exception, Log::LEVEL_Highest,
             _("Unexpected termination handler entered!"));
@@ -173,7 +143,69 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::Exception);
     // Otherwise provide the user with the most detailed information about
     // the exception we can get.
     mxLogError(_("Unhandled exception caught!"));
-    pException->Fail();
+    Exception::GlobalLogMessage(*pException);
+    abort();
+}
+
+
+static Size doLogMessage(
+        const char * const sExceptionName,
+        const Char * sMessage,
+        const Debug::Checkpoint & xFileInfo,
+        const Log::LogType iLogType)
+{
+#ifndef MXCPP_UNICODE
+    const char * const sClassName = sExceptionName;
+#else
+    Char sClassName[64];
+    mbstowcs(sClassName, sExceptionName, sizeof(sClassName) - 1);
+#endif
+    return Log(iLogType, xFileInfo).LogMessage(
+            _("Exception '%s' caught%s%s"), sClassName,
+            sMessage ? _(" with message: ") : _T(""),
+            sMessage ? sMessage : _T(""));
+}
+
+
+} // namespace mx
+
+/* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
+        const Exception * const pException)
+{
+    doHandleUncaughtException(pException);
+}
+
+
+/* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
+        const std::exception * const pException)
+{
+    doHandleUncaughtException(pException);
+}
+
+
+/* static */ mx::Size mx::Exception::GlobalLogMessage(
+        const Exception & pException,
+        const Log::LogType iLogType)
+{
+    return doLogMessage(pException.getName(), pException.message(),
+            pException.m_xFileInfo, iLogType);
+}
+
+
+/* static */ mx::Size mx::Exception::GlobalLogMessage(
+        const std::exception & pException,
+        const Log::LogType iLogType)
+{
+#ifndef MXCPP_UNICODE
+    const char * const sMessage = pException.what();
+#else
+    Char sMessage[128];
+    mbstowcs(sMessage, pException.what(), sizeof(sMessage) - 1);
+#endif
+    return doLogMessage(Class::FilterTypeName(typeid(pException).name()),
+            sMessage,
+            // The file information is empty.
+            Debug::Checkpoint(), iLogType);
 }
 
 
@@ -195,10 +227,7 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::Exception);
 
 mx::Size mx::Exception::LogMessage(const Log::LogType iLogType) const
 {
-    const Char * const sMessage = message();
-    return Log(iLogType, m_xFileInfo).LogMessage(_("Exception '%s' caught%s%s"),
-            getName(), sMessage ? _(" with message: ") : _T(""),
-            sMessage ? sMessage : _T(""));
+    return GlobalLogMessage(*this, iLogType);
 }
 
 

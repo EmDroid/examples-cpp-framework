@@ -43,7 +43,7 @@
 
 #define mxLogCheckpoint()       \
     (mx::Log::FileInfoEnabled() \
-     ? mxDebugCheckpoint()      \
+     ? __mxDebugCheckpoint__()  \
      : mx::Debug::Checkpoint())
 
 #define mxLogMessage \

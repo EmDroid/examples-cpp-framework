@@ -79,7 +79,7 @@
 #else // MXCPP_UNICODE
 
 #define MX_PRINTFLIKE(format_index, arguments_index) \
-    __attribute__((__format__(__printfw__, (format_index), (arguments_index))))
+    __attribute__((__format__(__wprintf__, (format_index), (arguments_index))))
 
 #endif // MXCPP_UNICODE
 
@@ -95,7 +95,7 @@
 #else // MXCPP_UNICODE
 
 #define MX_SCANFLIKE(format_index, arguments_index) \
-    __attribute__((__format__(__scanfw__, (format_index), (arguments_index))))
+    __attribute__((__format__(__wscanf__, (format_index), (arguments_index))))
 
 #endif // MXCPP_UNICODE
 

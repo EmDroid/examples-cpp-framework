@@ -37,6 +37,8 @@
 #include <cstdarg>
 #include <cstring>
 #include <cerrno>
+#include <exception>
+#include <cassert>  // for assert() macro override
 
 #else // MXCPP_FIX_USE_OLD_C_HEADERS
 
@@ -45,8 +47,30 @@
 #include <stdarg.h>
 #include <string.h>
 #include <errno.h>
+#include <assert.h>  // for assert() macro override
+
+
+namespace std
+{
+
+
+class exception
+{
+public:
+
+    virtual inline const char * what() const
+    {
+        return NULL;
+    }
+
+};
+
+
+}
+
 
 #endif // MXCPP_FIX_USE_OLD_C_HEADERS
+
 
 #if (!defined(MXCPP_FIX_USE_OLD_C_HEADERS) \
     && !defined(MXCPP_FIX_HAS_NOT_STD_NAMESPACE))
@@ -58,8 +82,6 @@ using namespace std;
 
 /**
     @internal
-
-    @def MXCPP_INLINE_GLOBAL
 
     Global inlining flag.
 
@@ -154,37 +176,31 @@ using namespace std;
 #endif
 
 
-/**
-    @def _T
-
-    Synonym for mxT().
-*/
-
 #ifdef _T
 #undef _T
 #endif
 
-#ifdef __T
-#undef __T
-#endif
+/**
+    @def _T
 
+    Synonym for mxT().
+
+    @param [in] The input literal.
+*/
 #ifndef MXCPP_UNICODE
-#define __T(string)  string
+#define _T(x)  x
 #else
-#define __T(string)  L ## string
+#define _T(x)  L ## x
 #endif
-
-#define _T(string)  __T(string)
-
 
 #ifdef _TEXT
 #undef _TEXT
 #endif
 
 /**
-    Synonym for mxT().
+    Another synonym for mxT().
 */
-#define _TEXT(string)  __T(string)
+#define _TEXT(x)  _T(x)
 
 
 /* Although global macros with such names are normally bad, we want to have
@@ -194,6 +210,8 @@ using namespace std;
 
 /**
     Generic text mapping macro.
+
+    @param [in] x The input literal.
 
     Can be used with character and string literals (in other words, 'x' or "foo")
     to automatically convert them to Unicode in Unicode build configuration.
@@ -215,22 +233,51 @@ using namespace std;
 
     @see @ref unicode
 */
-#define mx1T(string)  __T(string)
+#define mxT(x)  _T(x)
 
 
 /**
     Translate string.
+
+    The translation engine is not available in this demo, all it the function
+    does is rerutning the string unchanged.
+
+    @param [in] str The string to be translated.
+
+    @return
+    The translated string.
+
+    @see mxTranslate()
+    @see mx::GetTranslation()
 */
-#define _(string)  _T(string)
+#define _(str)  mxT(str)
 
 
-#define MXCPP_FILE  _T(__FILE__)
+/**
+    Unicode friendly __FILE__ analog.
+*/
+#define MXCPP_FILE  mxT(__FILE__)
 
 
 /**
     Does not perform actual translation, but marks strings to be translated.
+
+    This macro is supposed to be used in the case, if we want to define string to
+    be translated, but we do not want the actual translation to be done (e.g.
+    i18n subsystem not yet set up).
+
+    The actual translation shoud be then done using mx::GetTranslation()
+    function.
+
+    @param [in] str The string to be translated.
+
+    @return
+    The original string.
+
+    @see _()
+    @see mx::GetTranslation()
 */
-#define mxTranslate(string)  _T(string)
+#define mxTranslate(str)  mxT(str)
 
 
 /**
@@ -378,15 +425,15 @@ using namespace std;
 
     Declaration of @c printf(3) like functions.
 
-    @param format_index    Index of formatting string parameter.
-    @param arguments_index Index of the @c ... parameter.
+    @param [in] format_index    Index of formatting string parameter.
+    @param [in] arguments_index Index of the @c ... parameter.
 
     This macro is used in declarations of functions which accept arguments
     formatted the same way as the @c printf(3) functions.
 
-    If the compilator supports it, this macro will make sure that the
-    arguments are checked and warning is generated if they don't match the
-    provided formatting string.
+    If the compiler supports it, this macro will make sure that the arguments
+    are checked and warning is generated if they don't match the provided
+    formatting string.
 
     For example,
     @code
@@ -405,8 +452,8 @@ using namespace std;
 
     Declaration of @c scanf(3) like functions.
 
-    @param format_index    Index of formatting string parameter.
-    @param arguments_index Index of the @c ... parameter.
+    @param [in] format_index    Index of formatting string parameter.
+    @param [in] arguments_index Index of the @c ... parameter.
 
     This macro is used in declarations of functions which accept arguments
     formatted the same way as the @c scanf(3) functions.
@@ -518,31 +565,9 @@ using namespace std;
 
 
 /**
-    @def MX_FINAL
-
-    Final method declaration.
-
-    This macro is used in declarations of final methods.
-
-    These methods are not overridable.
-
-    For example,
-    @code
-    class MyClass {
-    public:
-         MX_FINAL void operate(void);
-    };
-    @endcode
-*/
-#ifndef MX_FINAL
-#define MX_FINAL
-#endif
-
-
-/**
     Disable implicit copy constructor.
 
-    @param type Type of the class being defined.
+    @param [in] type Type of the class being defined.
 
     Use this macro in class definition to prevent compiler from inserting
     implicit copy constructor when there should be none. Using this macro
@@ -569,7 +594,7 @@ private:                       \
 /**
     Disable implicit assignment operator.
 
-    @param type Type of the class being defined.
+    @param [in] type Type of the class being defined.
 
     Use this macro in class definition to prevent compiler from inserting
     implicit assignment operator when there should be none. Using this macro
@@ -602,7 +627,7 @@ namespace mx
     (to be always instantiated or prevent unused warning).
 */
 template< class Type >
-void Use(Type)
+void Use(const Type &)
 {}
 
 
@@ -648,33 +673,49 @@ class ArrayItemInitializer
 
     MX_CLASS_NO_ASSIGNMENT(ArrayItemInitializer);
 
+// Construction, destruction.
+
 public:
 
+    /**
+        Constructor taking the initializer value.
+
+        @param [in] xInitializer The value of the initializer.
+    */
     inline ArrayItemInitializer(const ItemType & xInitializer)
         : m_xInitializer(xInitializer)
     {}
 
+    /**
+        Copy constructor.
+
+        @param [in] other The other object.
+    */
     inline ArrayItemInitializer(const ArrayItemInitializer & other)
         : m_xInitializer(other.m_xInitializer)
     {}
 
-    /*
-    inline ArrayItemInitializer & operator = (const ArrayItemInitializer & other)
-    {
-        if (&other != this) {
-            m_xInitializer = other.m_xInitializer;
-        }
-        return *this;
-    }
-   */
 
+// Class instance operators.
+
+public:
+
+    /**
+        Cast-to-item-type operator.
+
+        @return
+        The initializer value.
+    */
     inline operator const ItemType & () const
     {
         return m_xInitializer;
     }
 
+// Class instance attributes.
+
 private:
 
+    /// The value of the initializer.
     const ItemType m_xInitializer;
 
 }; // class ArrayItemInitializer< ... >
@@ -683,7 +724,8 @@ private:
 } // namespace mx
 
 
-/* Headers that are always included - redefining some standard definitions. */
+/* Headers that are always included - redefining some standard definitions etc. */
+#include "mx/Debug.hpp"
 #include "mx/Memory.hpp"
 #include "mx/new.hpp"
 

@@ -55,28 +55,17 @@
 */
 
 
-const char * mx::Class::getName() const
+/* static */ const char * mx::Class::FilterTypeName(
+        const char * const sTypeName)
 {
-    // Instead of implementing virtual GetName() method in all derived
-    // classes, we have decided to use the name() provided by the run-time
-    // type identification system. However, that name is mangled and the
-    // mangling is compiler dependent (it actually does not have to be a
-    // name at all, just something unique). However, the heuristics used
-    // below seems to work reasonably well for now.
-    const char * const sTypeidName = typeid(*this).name();
-    mxAssert(sTypeidName != NULL);
-    /**
-        @todo
-        typeid() fails to work under some compilers (Watcom Win16 for now), maybe
-        we can implement some our own RTTI?
-    */
+    mxAssert(sTypeName != NULL);
 
     static const char * const sUnknown = "Unknown";
-    const char * sClassName = (sTypeidName ? sTypeidName : sUnknown);
+    const char * sClassName = (sTypeName ? sTypeName : sUnknown);
 
     // Strip the prefix up to the last digit. The rest should be the name of
     // the class itself.
-    for (const char * s = sTypeidName; *s; ++s)
+    for (const char * s = sClassName; *s; ++s)
     {
         const char c = *s;
         const bool bDigitFound = ((c >= '0') && (c <= '9'));
@@ -93,11 +82,28 @@ const char * mx::Class::getName() const
     const bool bNameIsEmpty = ('\0' == *sClassName);
     if (bNameIsEmpty)
     {
-        sClassName = sTypeidName;
+        sClassName = sTypeName;
     }
 
     // Return whatever we think the name is.
     return sClassName;
+}
+
+
+const char * mx::Class::getName() const
+{
+    // Instead of implementing virtual GetName() method in all derived
+    // classes, we have decided to use the name() provided by the run-time
+    // type identification system. However, that name is mangled and the
+    // mangling is compiler dependent (it actually does not have to be a
+    // name at all, just something unique). However, the heuristics used
+    // below seems to work reasonably well for now.
+    return FilterTypeName(typeid(*this).name());
+    /**
+        @todo
+        typeid() fails to work under some compilers (Watcom Win16 for now), maybe
+        we can implement some our own RTTI?
+    */
 }
 
 

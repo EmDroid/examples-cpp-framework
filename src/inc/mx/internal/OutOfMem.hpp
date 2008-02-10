@@ -64,6 +64,8 @@ public:
 
     OutOfMemory(const Size iSizeRequested);
 
+    MX_OVERRIDDEN MX_INLINE const char * what() const;
+
 
 // Class instance attributes.
 

@@ -19,17 +19,29 @@
 /**
     @file
 
-    Class base (inline methods).
+    Log handler base (inline methods).
 
     @author Emil Maskovsky
 */
 
 
-/**
-    Destructor.
-*/
-/* virtual */ MX_INLINE mx::Class::~Class()
+MX_INLINE mx::LogHandler::LogHandler()
 {}
+
+
+/* virtual */ MX_INLINE mx::LogHandler::~LogHandler()
+{
+    Log::UnregisterTarget(this);
+}
+
+
+MX_INLINE mx::Size mx::LogHandler::DoLogV(
+        const Log::LogType iType,
+        const Char * sFormat, va_list pArgs)
+{
+    // The file-line logging not used.
+    return DoLogV(Debug::Checkpoint(), iType, sFormat, pArgs);
+}
 
 
 /* EOF */

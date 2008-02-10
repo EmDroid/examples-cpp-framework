@@ -83,7 +83,7 @@ public:
 #endif
 
 #define Alloc(size) \
-    Allocate(size, mxDebugCheckpoint())
+    Allocate(size, __mxDebugCheckpoint__())
 
 
 #ifdef Realloc
@@ -91,7 +91,7 @@ public:
 #endif
 
 #define Realloc(block, size) \
-    Reallocate(block, size, mxDebugCheckpoint())
+    Reallocate(block, size, __mxDebugCheckpoint__())
 
 
 #ifdef Free

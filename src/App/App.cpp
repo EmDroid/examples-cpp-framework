@@ -77,10 +77,33 @@ int mx::Application::Run(void)
         }
         iReturnCode = OnRun();
     }
+    // Catch all framework - based exceptions thrown by reference.
     catch (const Exception & e)
     {
         Exception::HandleUncaughtException(&e);
     }
+    // Catch all framework - based exceptions thrown by pointer.
+    catch (Exception * e)
+    {
+        Exception::HandleUncaughtException(e);
+        // Does not need to delete the pointer, while the previous function
+        // actualy does abort the application execution.
+        // delete e;
+    }
+    // Catch all std::exception based exceptions thrown by reference.
+    catch (const std::exception & e)
+    {
+        Exception::HandleUncaughtException(&e);
+    }
+    // Catch all std::exception based exceptions thrown by pointer.
+    catch (std::exception * e)
+    {
+        Exception::HandleUncaughtException(e);
+        // Does not need to delete the pointer, while the previous function
+        // actualy does abort the application execution.
+        // delete e;
+    }
+    // Catch all other exceptions.
     catch (...)
     {
         Exception::HandleUncaughtException();

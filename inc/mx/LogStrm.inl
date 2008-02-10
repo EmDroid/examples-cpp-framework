@@ -19,17 +19,35 @@
 /**
     @file
 
-    Class base (inline methods).
+    Log message handler printing to stream (inline methods).
 
     @author Emil Maskovsky
 */
 
 
-/**
-    Destructor.
-*/
-/* virtual */ MX_INLINE mx::Class::~Class()
+MX_INLINE mx::LogStream::LogStream(Stream * const pStream)
+    : m_pStream(pStream)
 {}
+
+
+/* virtual */ MX_INLINE mx::LogStream::~LogStream()
+{}
+
+
+/* MX_OVERRIDDEN */ MX_INLINE mx::Size mx::LogStream::OnLog(
+        const Debug::Checkpoint & xFileInfo,
+        const Log::LogType MX_UNUSED(iType),
+        const Char * const sTypeString,
+        const Char * sFormat, va_list pArgs)
+{
+    return OnLog(xFileInfo, m_pStream, sTypeString, sFormat, pArgs);
+}
+
+
+/* MX_OVERRIDDEN */ MX_INLINE void mx::LogStream::OnFlush()
+{
+    OnFlush(m_pStream);
+}
 
 
 /* EOF */

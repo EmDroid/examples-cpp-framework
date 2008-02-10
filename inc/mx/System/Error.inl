@@ -25,6 +25,11 @@
 */
 
 
+/**
+    Constructor.
+
+    @param [in] sApiFuncName Name of the API function, which has failed.
+*/
 MX_INLINE mx::SystemApiException::SystemApiException(
         const Char * const sApiFuncName)
     : Super(sApiFuncName)

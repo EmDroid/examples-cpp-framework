@@ -42,9 +42,9 @@ const mx::Char * mx::TestApp::SetTestName()
 mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 {
     /* Write out size of pointer. */
-    mxLogMessage(_T("Size of integer:\t%u"),
+    mxLogMessage(_T("Size of integer: %u"),
             static_cast< unsigned int >(sizeof(int)));
-    mxLogMessage(_T("Size of pointer:\t%u"),
+    mxLogMessage(_T("Size of pointer: %u"),
             static_cast< unsigned int >(sizeof(void *)));
 
     typedef int TestType;

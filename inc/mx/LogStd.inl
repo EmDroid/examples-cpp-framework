@@ -19,16 +19,20 @@
 /**
     @file
 
-    Class base (inline methods).
+    Log message handler printing to standard outputs (inline methods).
 
     @author Emil Maskovsky
 */
 
 
-/**
-    Destructor.
-*/
-/* virtual */ MX_INLINE mx::Class::~Class()
+/* static */ MX_INLINE mx::LogStandard * mx::LogStandard::Instance()
+{
+    return &sm_instance;
+}
+
+
+MX_INLINE mx::LogStandard::LogStandard()
+    : LogStream(&StandardError)
 {}
 
 

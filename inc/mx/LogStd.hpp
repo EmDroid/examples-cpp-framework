@@ -19,7 +19,7 @@
 /**
     @file
 
-    description (interface).
+    Log message handler printing to standard outputs (interface).
 
     @author Emil Maskovsky
 */
@@ -30,13 +30,17 @@
 #endif
 
 
-#ifndef MXCPP_TEMPLATE_HPP_INCLUDE_GUARD
-#define MXCPP_TEMPLATE_HPP_INCLUDE_GUARD
+#ifndef MXCPP_LOG_STANDARD_HPP_INCLUDE_GUARD
+#define MXCPP_LOG_STANDARD_HPP_INCLUDE_GUARD
 
 
 #ifndef MXCPP_TYPES
 #include "mx/types.hpp"
 #endif
+
+#include "mx/LogStrm.hpp"
+
+#include "mx/StdStrm.hpp"
 
 
 namespace mx
@@ -44,81 +48,53 @@ namespace mx
 
 
 /**
-    description.
+    Log message handler printing to standard outputs.
+
+    All informational messages are written to standard output,
+    all warnings and errors to standard error.
 */
-class MXCPP_DLL_EXPORT Template
+class MXCPP_DLL_EXPORT LogStandard
+    : public LogStream
 {
 
-    MX_CLASS_NO_COPY(Template);
-    MX_CLASS_NO_ASSIGNMENT(Template);
-
-// Types, constants etc.
-
-public:
+    MX_CLASS_NO_COPY(LogStandard);
+    MX_CLASS_NO_ASSIGNMENT(LogStandard);
 
 // Class methods (static).
 
 public:
 
-    static MX_INLINE int getStaticAttribute();
+    static MX_INLINE LogStandard * Instance();
 
-    static MX_INLINE int setStaticAttribute(const int iValue = 0);
-
-protected:
-
-private:
 
 // Class attributes (static).
 
-protected:
+public:
 
-private:
-
-    static int sm_iStaticAttribute;
+    static LogStandard sm_instance;
 
 
 // Construction, destruction.
 
-public:
+private:
 
-    explicit MX_INLINE Template(const int iValue = 0);
-
-    virtual MX_INLINE ~Template();
-
-    MX_INLINE Template(const Template & other);
-
-
-// Class instance operators.
-
-public:
-
-    const Template &
-    operator = (const Template & other);
+    MX_INLINE LogStandard();
 
 
 // Class instance methods.
 
-public:
-
-    MX_INLINE int getAttribute() const;
-
-    MX_INLINE int setAttribute(const int iValue = 0);
-
 protected:
 
-private:
+    MX_OVERRIDDEN Size OnLog(
+            const Debug::Checkpoint & xFileInfo,
+            const Log::LogType iType,
+            const Char * const sTypeString,
+            const Char * sFormat, va_list pArgs);
 
-// Class instance attributes.
-
-protected:
-
-private:
-
-    /// Description.
-    const int m_iAttributeName;
+    MX_OVERRIDDEN void OnFlush();
 
 
-}; // class Template
+}; // class LogStandard
 
 
 } // namespace mx
@@ -126,9 +102,9 @@ private:
 
 // Define inline methods here if inlining is enabled.
 #ifdef MX_INLINE_ENABLED
-#include "mx/template.inl"
+#include "mx/LogStd.inl"
 #endif
 
-#endif // MXCPP_TEMPLATE_HPP_INCLUDE_GUARD
+#endif // MXCPP_LOG_STANDARD_HPP_INCLUDE_GUARD
 
 /* EOF */
