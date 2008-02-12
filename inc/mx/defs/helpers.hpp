@@ -38,6 +38,7 @@
 #include <cstring>
 #include <cerrno>
 #include <exception>
+#include <new>
 #include <cassert>  // for assert() macro override
 
 #else // MXCPP_FIX_USE_OLD_C_HEADERS

@@ -173,10 +173,10 @@ public:
     MX_PRINTFLIKE_METHOD(1, 2) Size LogMessage(
             const Char * sFormat, ...) const;
 
-    MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN LogFatal(
+    MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(Size) LogFatal(
             const Char * sFormat, ...) const;
 
-    MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN LogAssert(
+    MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(Size) LogAssert(
             const Char * sFormat, ...) const;
 
     Size LogMessageV(

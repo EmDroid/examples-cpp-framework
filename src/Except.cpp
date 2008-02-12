@@ -130,22 +130,71 @@ namespace mx
 
 
 template< class ExceptionType >
+class FailureHandler
+{
+
+    MX_CLASS_NO_COPY(FailureHandler);
+    MX_CLASS_NO_ASSIGNMENT(FailureHandler);
+
+public:
+
+    inline FailureHandler(const ExceptionType * const pException)
+        : m_pException(pException)
+    {}
+
+public:
+
+    MX_NORETURN HandleFailure(const bool bDestroy)
+    {
+        ProcessErrors(bDestroy);
+        exit(Application::RC_FAILURE);
+    }
+
+    MX_NORETURN HandleUncaughtException(const bool bDestroy)
+    {
+        mxLogTrace(Log::TRACE_Exception, Log::LEVEL_Highest,
+                _("Unexpected termination handler entered!"));
+        ProcessErrors(bDestroy, true);
+        abort();
+    }
+
+private:
+
+    Size ProcessErrors(const bool bDestroy, const bool bUnhandled = false)
+    {
+        if (!m_pException)
+        {
+            return mxLogFatalError(_("Weird exception caught!"));
+        }
+
+        // Otherwise provide the user with the most detailed information about
+        // the exception we can get.
+        if (bUnhandled)
+        {
+            mxLogError(_("Unhandled exception caught!"));
+        }
+        const Size iReturnCode = Exception::GlobalLogMessage(*m_pException);
+        if (bDestroy)
+        {
+            delete const_cast< ExceptionType * >(m_pException);
+        }
+        return iReturnCode;
+    }
+
+private:
+
+    const ExceptionType * const m_pException;
+
+}; // class FailureHandler< ... >
+
+
+/*
 static MX_NORETURN doHandleUncaughtException(
         const ExceptionType * const pException)
 {
-    mxLogTrace(Log::TRACE_Exception, Log::LEVEL_Highest,
-            _("Unexpected termination handler entered!"));
-    if (!pException)
-    {
-        mxLogFatalError(_("Weird exception caught!"));
-    }
-
-    // Otherwise provide the user with the most detailed information about
-    // the exception we can get.
-    mxLogError(_("Unhandled exception caught!"));
-    Exception::GlobalLogMessage(*pException);
     abort();
 }
+*/
 
 
 static Size doLogMessage(
@@ -172,14 +221,23 @@ static Size doLogMessage(
 /* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
         const Exception * const pException)
 {
-    doHandleUncaughtException(pException);
+    FailureHandler< Exception >(pException).HandleUncaughtException(false);
 }
 
 
-/* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
-        const std::exception * const pException)
+/* static */ MX_NORETURN mx::Exception::HandleFailure(
+        const Exception * const pException,
+        bool bDestroy)
 {
-    doHandleUncaughtException(pException);
+    FailureHandler< Exception >(pException).HandleFailure(bDestroy);
+}
+
+
+/* static */ MX_NORETURN mx::Exception::HandleFailure(
+        const std::exception * const pException,
+        bool bDestroy)
+{
+    FailureHandler< std::exception >(pException).HandleFailure(bDestroy);
 }
 
 

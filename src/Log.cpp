@@ -75,12 +75,12 @@ MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogMessage(
 }
 
 
-MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN mx::Log::LogFatal(
+MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogFatal(
         const Char * sFormat, ...) const
 {
     va_list pArgs;
     va_start(pArgs, sFormat);
-    LogMessageV(sFormat, pArgs);
+    const Size iResult = LogMessageV(sFormat, pArgs);
     va_end(pArgs);
     abort();
     /*
@@ -88,17 +88,19 @@ MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN mx::Log::LogFatal(
     // (e.g. MSVC in debug mode)
     exit(mx::Application::RC_ABORT);
    */
+    return iResult;
 }
 
 
-MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN mx::Log::LogAssert(
+MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogAssert(
         const Char * sFormat, ...) const
 {
     va_list pArgs;
     va_start(pArgs, sFormat);
-    LogMessageV(sFormat, pArgs);
+    const Size iResult = LogMessageV(sFormat, pArgs);
     va_end(pArgs);
     abort();
+    return iResult;
 }
 
 

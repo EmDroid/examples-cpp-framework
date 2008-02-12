@@ -197,8 +197,13 @@ public:
     static MX_NORETURN HandleUncaughtException(
             const Exception * const pException = NULL);
 
-    static MX_NORETURN HandleUncaughtException(
-            const std::exception * const pException);
+    static MX_NORETURN HandleFailure(
+            const Exception * const pException = NULL,
+            const bool bDestroy = false);
+
+    static MX_NORETURN HandleFailure(
+            const std::exception * const pException,
+            const bool bDestroy = false);
 
     static Size GlobalLogMessage(
             const Exception & pException,
