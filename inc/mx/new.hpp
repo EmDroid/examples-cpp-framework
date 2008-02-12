@@ -58,32 +58,6 @@ MXCPP_DLL_EXPORT void OperatorDeleteImplementation(
 } // namespace mx
 
 
-// Declaration of memory operator overrides.
-
-inline void * operator new (
-        // const doesn't work under some compilers (DMC).
-        /* const */ mx::Size iMemoryBlockSize,
-        const mx::Debug::Checkpoint::FileName sFileName,
-        const mx::Debug::Checkpoint::FileLine iFileLine);
-
-inline void * operator new[] (
-        /* const */ mx::Size iMemoryBlockSize,
-        const mx::Debug::Checkpoint::FileName sFileName,
-        const mx::Debug::Checkpoint::FileLine iFileLine);
-
-inline void operator delete (
-        void * pMemoryBlock);
-
-inline void operator delete[] (
-        void * pMemoryBlock);
-
-#ifndef MXCPP_FIX_USE_OLD_C_HEADERS
-
-#include <new> // std::bad_alloc
-
-#endif // MXCPP_FIX_USE_OLD_C_HEADERS
-
-
 // The operators new and delete are always inlined, to allow usage even if the
 // framework used as dll. These operators cannot be defined using the DLL
 // linkage (under many compilers), so the indirect usage through

@@ -227,7 +227,7 @@ static Size doLogMessage(
     #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::HandleUncaughtException)
 #endif
 
-/* static */ MX_NORETURN mx::Exception::HndlUncaughtException(
+/* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
         const Exception * const pException)
 {
     FailureHandler< Exception >(pException).HandleUncaughtException(false);
@@ -238,11 +238,10 @@ static Size doLogMessage(
     #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::HandleFailure)
 #endif
 
-/* static */ MX_NORETURN mx::Exception::HndlFailure(
-        const Exception * const pException,
-        bool bDestroy)
+/* static */ MX_NORETURN mx::Exception::HandleFailure(
+        const Exception * const pException)
 {
-    FailureHandler< Exception >(pException).HandleFailure(bDestroy);
+    FailureHandler< Exception >(pException).HandleFailure(false);
 }
 
 
@@ -250,11 +249,32 @@ static Size doLogMessage(
     #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::HandleFailure)
 #endif
 
-/* static */ MX_NORETURN mx::Exception::HndlFailure(
-        const std::exception * const pException,
-        bool bDestroy)
+/* static */ MX_NORETURN mx::Exception::HandleFailure(
+        const std::exception * const pException)
 {
-    FailureHandler< std::exception >(pException).HandleFailure(bDestroy);
+    FailureHandler< std::exception >(pException).HandleFailure(false);
+}
+
+
+#ifdef MXCPP_PRAGMA_NORETURN
+    #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::FailAndDestroy)
+#endif
+
+/* static */ MX_NORETURN mx::Exception::FailAndDestroy(
+        const Exception * const pException)
+{
+    FailureHandler< Exception >(pException).HandleFailure(true);
+}
+
+
+#ifdef MXCPP_PRAGMA_NORETURN
+    #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::FailAndDestroy)
+#endif
+
+/* static */ MX_NORETURN mx::Exception::FailAndDestroy(
+        const std::exception * const pException)
+{
+    FailureHandler< std::exception >(pException).HandleFailure(true);
 }
 
 
@@ -422,7 +442,7 @@ mx::UncaughtExceptionHandler::UncaughtExceptionHandler()
 */
 /* static */ MX_NORETURN mx::UncaughtExceptionHandler::HandleUnexpected()
 {
-    Exception::HndlUncaughtException(
+    Exception::HandleUncaughtException(
             /* Exception::getLastRaisedException() */);
     // Disabled to detect last raised exception for now - can have problems
     // if RTTI does not work.

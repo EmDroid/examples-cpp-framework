@@ -64,7 +64,7 @@ public:
     inline exception()
     {}
 
-    inline ~exception()
+    virtual inline ~exception()
     {}
 
     virtual inline const char * what() const

@@ -194,16 +194,20 @@ class MXCPP_DLL_EXPORT Exception
 
 public:
 
-    static MX_NORETURN HndlUncaughtException(
+    static MX_NORETURN HandleUncaughtException(
             const Exception * const pException = NULL);
 
-    static MX_NORETURN HndlFailure(
-            const Exception * const pException = NULL,
-            const bool bDestroy = false);
+    static MX_NORETURN HandleFailure(
+            const Exception * const pException = NULL);
 
-    static MX_NORETURN HndlFailure(
-            const std::exception * const pException,
-            const bool bDestroy = false);
+    static MX_NORETURN HandleFailure(
+            const std::exception * const pException);
+
+    static MX_NORETURN FailAndDestroy(
+            const Exception * const pException);
+
+    static MX_NORETURN FailAndDestroy(
+            const std::exception * const pException);
 
     static Size GlobalLogMessage(
             const Exception & pException,
