@@ -210,7 +210,12 @@ static Size doLogMessage(
     mbstowcs(sClassName, sExceptionName, sizeof(sClassName) - 1);
 #endif
     return Log(iLogType, xFileInfo).LogMessage(
-            _("Exception '%s' caught%s%s"), sClassName,
+#ifndef MXCPP_UNICODE
+            _("Exception '%s' caught%s%s")
+#else
+            _("Exception '%ls' caught%ls%ls")
+#endif
+            , sClassName,
             sMessage ? _(" with message: ") : _T(""),
             sMessage ? sMessage : _T(""));
 }
@@ -218,14 +223,22 @@ static Size doLogMessage(
 
 } // namespace mx
 
-/* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
+#ifdef MXCPP_PRAGMA_NORETURN
+    #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::HandleUncaughtException)
+#endif
+
+/* static */ MX_NORETURN mx::Exception::HndlUncaughtException(
         const Exception * const pException)
 {
     FailureHandler< Exception >(pException).HandleUncaughtException(false);
 }
 
 
-/* static */ MX_NORETURN mx::Exception::HandleFailure(
+#ifdef MXCPP_PRAGMA_NORETURN
+    #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::HandleFailure)
+#endif
+
+/* static */ MX_NORETURN mx::Exception::HndlFailure(
         const Exception * const pException,
         bool bDestroy)
 {
@@ -233,7 +246,11 @@ static Size doLogMessage(
 }
 
 
-/* static */ MX_NORETURN mx::Exception::HandleFailure(
+#ifdef MXCPP_PRAGMA_NORETURN
+    #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::HandleFailure)
+#endif
+
+/* static */ MX_NORETURN mx::Exception::HndlFailure(
         const std::exception * const pException,
         bool bDestroy)
 {
@@ -405,7 +422,8 @@ mx::UncaughtExceptionHandler::UncaughtExceptionHandler()
 */
 /* static */ MX_NORETURN mx::UncaughtExceptionHandler::HandleUnexpected()
 {
-    Exception::HandleUncaughtException( /*Exception::getLastRaisedException()*/);
+    Exception::HndlUncaughtException(
+            /* Exception::getLastRaisedException() */);
     // Disabled to detect last raised exception for now - can have problems
     // if RTTI does not work.
 }

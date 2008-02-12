@@ -58,8 +58,7 @@
 #include "mx/defs/stddllexp.hpp"
 
 
-#if (defined(MX_PLATFORM_OS_WINDOWS) \
-    || defined(MX_PLATFORM_OS_UNIX))
+#ifdef MX_PLATFORM_OS_WINDOWS
 
 /// Pass string to the debugger.
 #define MX_DEBUGGER_OUTPUT  OutputDebugString

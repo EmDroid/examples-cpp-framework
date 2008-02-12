@@ -40,11 +40,18 @@ mx::Size mx::LogStream::OnLog(
         const Char * sFormat, va_list pArgs)
 {
     mxAssert(pStream != NULL);
-    Size iCharsWritten = pStream->Printf(_T("%s: "), sTypeString);
+#ifndef MXCPP_UNICODE
+    const Char * const sTypeFormat = _T("%s: ");
+    const Char * const sFileFormat = _T(" [%s(%lu)]");
+#else
+    const Char * const sTypeFormat = _T("%ls: ");
+    const Char * const sFileFormat = _T(" [%ls(%lu)]");
+#endif
+    Size iCharsWritten = pStream->Printf(sTypeFormat, sTypeString);
     iCharsWritten += pStream->PrintfV(sFormat, pArgs);
     if (!xFileInfo.Empty())
     {
-        iCharsWritten += pStream->Printf(_T(" [%s(%lu)]"),
+        iCharsWritten += pStream->Printf(sFileFormat,
                 xFileInfo.getFile(), xFileInfo.getLine());
     }
     iCharsWritten += pStream->Printf(_T("\n"));

@@ -37,6 +37,10 @@
 #endif // __HP_aCC < 012100
 
 
+/// Operator @c delete has the same parameters as the operator @c new.
+#define MXCPP_FIX_DELETE_PARAMS_LIKE_NEW
+
+
 #endif // MX_PLATFORM_COMPILER_ACC
 
 /* EOF */

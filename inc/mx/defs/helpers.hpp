@@ -37,6 +37,7 @@
 #include <cstdarg>
 #include <cstring>
 #include <cerrno>
+#include <cwchar>
 #include <exception>
 #include <new>
 #include <cassert>  // for assert() macro override
@@ -48,6 +49,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <errno.h>
+#include <wchar.h>
 #include <assert.h>  // for assert() macro override
 
 
@@ -58,6 +60,12 @@ namespace std
 class exception
 {
 public:
+
+    inline exception()
+    {}
+
+    inline ~exception()
+    {}
 
     virtual inline const char * what() const
     {

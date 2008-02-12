@@ -52,6 +52,10 @@
 #endif // MX_PLATFORM_OS_WIN32
 
 
+/// Declare function which never returns.
+#define MXCPP_PRAGMA_NORETURN(symbol)  aux symbol aborts
+
+
 #endif // MX_PLATFORM_COMPILER_WATCOM
 
 /* EOF */

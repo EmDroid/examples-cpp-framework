@@ -80,7 +80,7 @@ int mx::Application::Run(void)
     // Catch all framework - based exceptions thrown by reference.
     catch (const Exception & e)
     {
-        Exception::HandleFailure(&e);
+        Exception::HndlFailure(&e);
     }
     // Catch all framework - based exceptions thrown by pointer.
     catch (const Exception * e)
@@ -88,14 +88,14 @@ int mx::Application::Run(void)
         // The pointer is not '* const', because under some compilers this
         // causes loss of original exception type (see
         // 'examples/ExceptionPointerOrReference.cpp' for details).
-        Exception::HandleFailure(e,
+        Exception::HndlFailure(e,
                 // Exception will be destroyed by the failure handler.
                 true);
     }
     // Catch all std::exception based exceptions thrown by reference.
     catch (const std::exception & e)
     {
-        Exception::HandleFailure(&e);
+        Exception::HndlFailure(&e);
     }
     // Catch all std::exception based exceptions thrown by pointer.
     catch (const std::exception * e)
@@ -103,14 +103,14 @@ int mx::Application::Run(void)
         // The pointer is not '* const', because under some compilers this
         // causes loss of original exception type (see
         // 'examples/ExceptionPointerOrReference.cpp' for details).
-        Exception::HandleFailure(e,
+        Exception::HndlFailure(e,
                 // Exception will be destroyed by the failure handler.
                 true);
     }
     // Catch all other exceptions.
     catch (...)
     {
-        Exception::HandleUncaughtException();
+        Exception::HndlUncaughtException();
     }
     return iReturnCode;
 }
