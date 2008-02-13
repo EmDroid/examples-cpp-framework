@@ -108,18 +108,18 @@
 */
 #ifndef MXCPP_DEBUG_ENABLED
 
-#define mxCheck(cond)   (true)
-#define mxAssert(cond)  (true)
+#define mxCheck(cond)   ((void)0)
+#define mxAssert(cond)  ((void)0)
 
 #else // MXCPP_DEBUG_ENABLED
 
 #define mxCheck(cond) \
-    ((cond) ? true    \
-     : mx::Debug::Check(__mxDebugCheckpoint__(), _T(#cond)))
+    ((cond) ? (void)0 \
+     : (mx::Debug::Check(__mxDebugCheckpoint__(), _T(#cond))))
 
 #define mxAssert(cond) \
-    ((cond) ? true     \
-     : mx::Debug::Assert(__mxDebugCheckpoint__(), _T(#cond)))
+    ((cond) ? (void)0  \
+     : (mx::Debug::Assert(__mxDebugCheckpoint__(), _T(#cond))))
 
 #endif // MXCPP_DEBUG_ENABLED
 
@@ -139,9 +139,9 @@
     It should be used only in testing programs. Testing programs must use it
     instead of mxAssert().
 */
-#define mxTest(cond) \
-    ((cond) ? true   \
-     : mx::Debug::Assert(__mxDebugCheckpoint__(), _T(#cond)))
+#define mxTest(cond)  \
+    ((cond) ? (void)0 \
+     : (mx::Debug::Assert(__mxDebugCheckpoint__(), _T(#cond))))
 
 
 namespace mx
@@ -216,12 +216,12 @@ public:
 
 public:
 
-    static bool Check(
+    static void Check(
             const Checkpoint & xFileInfo,
             const Char * const sCondition,
             const Char * const sMessage = NULL);
 
-    static MX_NORETURN_TYPE(bool) Assert(
+    static MX_NORETURN Assert(
             const Checkpoint & xFileInfo,
             const Char * const sCondition,
             const Char * const sMessage = NULL);

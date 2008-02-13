@@ -52,8 +52,24 @@
 #endif // MX_PLATFORM_OS_WIN32
 
 
-/// Declare function which never returns.
-#define MXCPP_PRAGMA_NORETURN(symbol)  aux symbol aborts
+/** @cond disabled_helper_defs */
+
+#ifndef MX_PLATFORM_OS_WIN16
+// There are problems under Win-16 with "noreturn" specification.
+//
+// The code with "noreturn" specification is more efficient, because it uses jmp
+// instruction instead of functional call, but this is not very big performance
+// problem because the "noreturn" function gets called only once (terminates the
+// program).
+
+    #pragma aux no_return aborts
+
+// Define how to declare functions/methods which never return.
+#define MX_NORETURN_TYPE(Type)  Type __pragma("no_return")
+
+#endif
+
+/** @endcond */
 
 
 #endif // MX_PLATFORM_COMPILER_WATCOM

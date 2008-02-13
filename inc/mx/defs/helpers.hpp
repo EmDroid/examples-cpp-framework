@@ -42,6 +42,11 @@
 #include <new>
 #include <cassert>  // for assert() macro override
 
+#ifndef MXCPP_FIX_HAS_NOT_STD_NAMESPACE
+using namespace std;
+#endif // MXCPP_FIX_HAS_NOT_STD_NAMESPACE
+
+
 #else // MXCPP_FIX_USE_OLD_C_HEADERS
 
 #include <stdlib.h>
@@ -79,14 +84,6 @@ public:
 
 
 #endif // MXCPP_FIX_USE_OLD_C_HEADERS
-
-
-#if (!defined(MXCPP_FIX_USE_OLD_C_HEADERS) \
-    && !defined(MXCPP_FIX_HAS_NOT_STD_NAMESPACE))
-
-using namespace std;
-
-#endif // MXCPP_FIX_HAS_NOT_STD_NAMESPACE
 
 
 /**

@@ -69,34 +69,32 @@
 /** @cond disabled_helper_defs */
 
 // Define how to declare functions/methods with printf(3) like semantics.
+// Define how to declare functions/methods with scanf(3) like semantics.
 
 #ifndef MXCPP_UNICODE
 
 #define MX_PRINTFLIKE(format_index, arguments_index) \
     __attribute__((__format__(__printf__, (format_index), (arguments_index))))
 
-#else // MXCPP_UNICODE
-
-#define MX_PRINTFLIKE(format_index, arguments_index) \
-    __attribute__((__format__(__wprintf__, (format_index), (arguments_index))))
-
-#endif // MXCPP_UNICODE
-
-#define MX_PRINTFLIKE_METHOD(format_index, arguments_index) \
-    MX_PRINTFLIKE((format_index) + 1, (arguments_index) + 1)
-
-// Define how to declare functions/methods with scanf(3) like semantics.
-#ifndef MXCPP_UNICODE
-
 #define MX_SCANFLIKE(format_index, arguments_index) \
     __attribute__((__format__(__scanf__, (format_index), (arguments_index))))
 
 #else // MXCPP_UNICODE
 
+/* Does not yet have wide-char format check analogs.
+
+#define MX_PRINTFLIKE(format_index, arguments_index) \
+    __attribute__((__format__(__wprintf__, (format_index), (arguments_index))))
+
 #define MX_SCANFLIKE(format_index, arguments_index) \
-    __attribute__((__format__(__wscanf__, (format_index), (arguments_index))))
+    __attribute__(( __format__(__wscanf__, (format_index), (arguments_index) )))
+
+*/
 
 #endif // MXCPP_UNICODE
+
+#define MX_PRINTFLIKE_METHOD(format_index, arguments_index) \
+    MX_PRINTFLIKE((format_index) + 1, (arguments_index) + 1)
 
 #define MX_SCANFLIKE_METHOD(format_index, arguments_index) \
     MX_SCANFLIKE((format_index) + 1, (arguments_index) + 1)

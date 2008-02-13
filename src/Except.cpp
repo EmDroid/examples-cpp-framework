@@ -223,20 +223,12 @@ static Size doLogMessage(
 
 } // namespace mx
 
-#ifdef MXCPP_PRAGMA_NORETURN
-    #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::HandleUncaughtException)
-#endif
-
 /* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
         const Exception * const pException)
 {
     FailureHandler< Exception >(pException).HandleUncaughtException(false);
 }
 
-
-#ifdef MXCPP_PRAGMA_NORETURN
-    #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::HandleFailure)
-#endif
 
 /* static */ MX_NORETURN mx::Exception::HandleFailure(
         const Exception * const pException)
@@ -245,10 +237,6 @@ static Size doLogMessage(
 }
 
 
-#ifdef MXCPP_PRAGMA_NORETURN
-    #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::HandleFailure)
-#endif
-
 /* static */ MX_NORETURN mx::Exception::HandleFailure(
         const std::exception * const pException)
 {
@@ -256,20 +244,12 @@ static Size doLogMessage(
 }
 
 
-#ifdef MXCPP_PRAGMA_NORETURN
-    #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::FailAndDestroy)
-#endif
-
 /* static */ MX_NORETURN mx::Exception::FailAndDestroy(
         const Exception * const pException)
 {
     FailureHandler< Exception >(pException).HandleFailure(true);
 }
 
-
-#ifdef MXCPP_PRAGMA_NORETURN
-    #pragma MXCPP_PRAGMA_NORETURN(mx::Exception::FailAndDestroy)
-#endif
 
 /* static */ MX_NORETURN mx::Exception::FailAndDestroy(
         const std::exception * const pException)
@@ -422,8 +402,10 @@ mx::UncaughtExceptionHandler::UncaughtExceptionHandler()
     Use(mxCppFrameworkSignature);
 
 #ifndef MXCPP_FIX_EH_UNSUPPORTED
-    set_terminate(&HandleTerminate);
-    set_unexpected(&HandleUnexpected);
+    // Cast to the target type needed for using with some compilers
+    // (e.g. Watcom has problems with "noreturn" specification).
+    set_terminate(reinterpret_cast< void (*)() >(&HandleTerminate));
+    set_unexpected(reinterpret_cast< void (*)() >(&HandleUnexpected));
 #endif // MXCPP_FIX_EH_UNSUPPORTED
 }
 

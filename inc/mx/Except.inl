@@ -81,6 +81,13 @@ MX_INLINE mx::SystemException::SystemException(
 
 
 /**
+    Destructor.
+*/
+/* virtual */ MX_INLINE mx::SystemException::~SystemException()
+{}
+
+
+/**
     Constructor.
 
     @param [in] sMessage The exception message.
@@ -88,6 +95,13 @@ MX_INLINE mx::SystemException::SystemException(
 MX_INLINE mx::KernelException::KernelException(
         const Char * const sMessage)
     : Super(sMessage)
+{}
+
+
+/**
+    Destructor.
+*/
+/* virtual */ MX_INLINE mx::KernelException::~KernelException()
 {}
 
 
@@ -103,6 +117,13 @@ MX_INLINE mx::MemoryException::MemoryException(
 
 
 /**
+    Destructor.
+*/
+/* virtual */ MX_INLINE mx::MemoryException::~MemoryException()
+{}
+
+
+/**
     Constructor.
 
     @param [in] sMessage The exception message.
@@ -110,6 +131,13 @@ MX_INLINE mx::MemoryException::MemoryException(
 MX_INLINE mx::IOException::IOException(
         const Char * const sMessage)
     : Super(sMessage)
+{}
+
+
+/**
+    Destructor.
+*/
+/* virtual */ MX_INLINE mx::IOException::~IOException()
 {}
 
 

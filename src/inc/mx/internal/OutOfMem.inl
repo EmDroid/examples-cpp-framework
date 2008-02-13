@@ -25,6 +25,13 @@
 */
 
 
+/**
+    Destructor.
+*/
+/* virtual */ MX_INLINE mx::OutOfMemory::~OutOfMemory()
+{}
+
+
 /* MX_OVERRIDDEN */ MX_INLINE const char * mx::OutOfMemory::what() const
 {
     return Super::what();

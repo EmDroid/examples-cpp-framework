@@ -350,6 +350,10 @@ protected:
     // Protected constructor to prevent direct throwing of the exception.
     MX_INLINE SystemException(const Char * const sMessage = NULL);
 
+public:
+
+    MX_OVERRIDDEN MX_INLINE ~SystemException();
+
 
 }; // class SystemException
 
@@ -380,6 +384,10 @@ protected:
     // Protected constructor to prevent direct throwing of the exception.
     MX_INLINE KernelException(const Char * const sMessage = NULL);
 
+public:
+
+    MX_OVERRIDDEN MX_INLINE ~KernelException();
+
 
 }; // class KernelException
 
@@ -409,6 +417,10 @@ protected:
     // Protected constructor to prevent direct throwing of the exception.
     MX_INLINE MemoryException(const Char * const sMessage = NULL);
 
+public:
+
+    MX_OVERRIDDEN MX_INLINE ~MemoryException();
+
 
 }; // class MemoryException
 
@@ -428,6 +440,10 @@ protected:
 
     // Protected constructor to prevent direct throwing of the exception.
     MX_INLINE IOException(const Char * const sMessage = NULL);
+
+public:
+
+    MX_OVERRIDDEN MX_INLINE ~IOException();
 
 
 }; // class IOException

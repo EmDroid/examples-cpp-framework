@@ -32,7 +32,7 @@
 #include "mx/Debug.hpp"
 
 
-/* static */ bool mx::Debug::Check(
+/* static */ void mx::Debug::Check(
         const Checkpoint & xFileInfo,
         const Char * const sCondition,
         const Char * const sMessage)
@@ -55,11 +55,10 @@
                 sMessage ? _T("%s (%s)") : _T("%s"),
                 sCondition, sMessage);
     }
-    return false;
 }
 
 
-/* static */ MX_NORETURN_TYPE(bool) mx::Debug::Assert(
+/* static */ MX_NORETURN mx::Debug::Assert(
         const Checkpoint & xFileInfo,
         const Char * const sCondition,
         const Char * const sMessage)
@@ -82,7 +81,6 @@
                 sMessage ? _T("%s (%s)") : _T("%s"),
                 sCondition, sMessage);
     }
-    return false;
 }
 
 

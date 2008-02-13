@@ -33,12 +33,26 @@ MX_INLINE mx::EndOfFile::EndOfFile()
 
 
 /**
+    Destructor.
+*/
+/* virtual */ MX_INLINE mx::EndOfFile::~EndOfFile()
+{}
+
+
+/**
     Constructor.
 
     @param iErrno [in] Error value as obtained from system @c errno variable.
 */
 MX_INLINE mx::GenericIOException::GenericIOException(const int iErrno)
     : m_iErrno((iErrno) ? iErrno : errno)
+{}
+
+
+/**
+    Destructor.
+*/
+/* virtual */ MX_INLINE mx::GenericIOException::~GenericIOException()
 {}
 
 
