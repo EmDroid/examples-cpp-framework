@@ -44,9 +44,9 @@ MX_INLINE mx::Exception::Exception(
 
 
 MX_INLINE void mx::Exception::SetDebugInfo(
-        const Debug::Checkpoint & xFileInfo) const
+        const Debug::Checkpoint & xFileLocation) const
 {
-    m_xFileInfo = xFileInfo;
+    m_xFileLocation = xFileLocation;
 }
 
 

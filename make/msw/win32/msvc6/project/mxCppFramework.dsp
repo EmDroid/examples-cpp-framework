@@ -696,6 +696,10 @@ SOURCE=..\..\..\..\..\inc\mx\new.hpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\inc\mx\new.inl
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\inc\mx\StdStrm.hpp
 # End Source File
 # Begin Source File

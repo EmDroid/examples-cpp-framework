@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     Out of memory exception (inline methods).

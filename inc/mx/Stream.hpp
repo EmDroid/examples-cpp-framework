@@ -70,7 +70,7 @@ public:
         or @c false if the file is not open.
 
         @note
-        This method must be overridden by derived classes.
+        This method has to be overridden by derived classes.
     */
     virtual bool IsOpen() const MX_PURE;
 
@@ -79,16 +79,28 @@ public:
 
         Flushes any unwritten data.
 
+        @exception MemoryException
+        Memory allocation problem occured.
+
+        @exception IOException
+        Input/Output problem occured.
+
         @note
-        This method must be overridden by derived classes.
+        This method has to be overridden by derived classes.
     */
     virtual void Flush() MX_PURE;
 
     /**
         Close the stream.
 
+        @exception MemoryException
+        Memory allocation problem occured.
+
+        @exception IOException
+        Input/Output problem occured.
+
         @note
-        This method must be overridden by derived classes.
+        This method has to be overridden by derived classes.
     */
     virtual void Close() MX_PURE;
 
@@ -107,7 +119,7 @@ public:
         Input/Output problem occured.
 
         @note
-        This method must be overridden by derived classes.
+        This method has to be overridden by derived classes.
     */
     virtual Size PrintfV(const Char * const sFormat,
             va_list pArguments) MX_PURE;

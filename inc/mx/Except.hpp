@@ -244,7 +244,7 @@ public:
     MX_NORETURN Fail() const;
 
     MX_INLINE void SetDebugInfo(
-            const Debug::Checkpoint & xFileInfo) const;
+            const Debug::Checkpoint & xFileLocation) const;
 
 protected:
 
@@ -258,8 +258,8 @@ private:
     /// The message associated with the exception.
     const Char * const m_sMessage;
 
-    /// The checkpoint of source file, where the exception was raised.
-    mutable Debug::Checkpoint m_xFileInfo;
+    /// Source file location information (for debugging purposes).
+    mutable Debug::Checkpoint m_xFileLocation;
 
 
 }; // class Exception
@@ -289,11 +289,10 @@ private:
 
     @tparam ExceptionType The type of exception being raised.
 
-    The template is required to throw proper exception type.
+    @param [in] pException    The exception being raised.
+    @param [in] xFileLocation Source file location information (for debugging
+                              purposes).
 
-    @param [in] pException The exception being raised.
-    @param [in] sFileName  Name of the source file to be remembered.
-    @param [in] iFileLine  Line number within the source file.
 
     This thrower is not supposed to be called directly, you may want to use the
     mxThrow() macro to throw exceptions based on mx::Exception.
@@ -311,10 +310,10 @@ private:
 template< class ExceptionType >
 static MX_NORETURN ThrowException(
         const ExceptionType & pException,
-        const Debug::Checkpoint & xFileInfo)
+        const Debug::Checkpoint & xFileLocation)
 {
     // Setup the exception.
-    pException.SetDebugInfo(xFileInfo);
+    pException.SetDebugInfo(xFileLocation);
 
     // Throw the exception now.
     throw pException;

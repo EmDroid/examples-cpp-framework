@@ -106,8 +106,25 @@ public:
 
     typedef enum
     {
-        LEVEL_Normal,       ///< Normal trace level.
-        LEVEL_Highest,      ///< Highest trace level.
+
+        // Internal (library) trace levels:
+        LEVEL_InternalLowest,   ///< Lowest internal trace priority.
+        LEVEL_InternalLow,      ///< Low internal trace priority.
+        LEVEL_InternalLower,    ///< Lower internal trace priority.
+        LEVEL_Internal,         ///< Normal internal trace priority.
+        LEVEL_InternalHigher,   ///< Higher internal trace priority.
+        LEVEL_InternalHigh,     ///< High internal trace priority.
+        LEVEL_InternalHighest,  ///< Highest internal trace priority.
+
+        // User trace levels:
+        LEVEL_Lowest,   ///< Lowest trace priority.
+        LEVEL_Low,      ///< Low trace priority.
+        LEVEL_Lower,    ///< Lower trace priority.
+        LEVEL_Normal,   ///< Normal trace priority.
+        LEVEL_Higher,   ///< Higher trace priority.
+        LEVEL_High,     ///< High trace priority.
+        LEVEL_Highest,  ///< Highest trace priority.
+
         LEVEL_COUNT
     } TraceLevel;
 

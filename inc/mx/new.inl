@@ -21,24 +21,27 @@
 
     @file
 
-    new/delete operator override definitions (undefine).
+    Global new and delete operators (inline methods).
 
     @author Emil Maskovsky
-
-    @see mx/defs/newdef.hpp
 */
 
 
-// Undefine new/delete overrides.
+/* static */ MX_INLINE void * mx::AllocOperatorsImplementation::New(
+        const Size iMemoryBlockSize,
+        const Debug::Checkpoint & xFileInfo,
+        const bool MX_UNUSED(bVectorAlloc))
+{
+    return Memory::AllocateImpl(iMemoryBlockSize, xFileInfo);
+}
 
-#ifdef new
-#undef new
-#endif
 
-
-#ifdef delete
-#undef delete
-#endif
+/* static */ MX_INLINE void mx::AllocOperatorsImplementation::Delete(
+        void * const pMemoryBlock,
+        const bool MX_UNUSED(bVectorFree))
+{
+    Memory::Free(pMemoryBlock);
+}
 
 
 /* EOF */

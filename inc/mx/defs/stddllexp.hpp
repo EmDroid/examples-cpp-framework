@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     Standard DLL exports.

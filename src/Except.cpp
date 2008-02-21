@@ -263,7 +263,7 @@ static Size doLogMessage(
         const Log::LogType iLogType)
 {
     return doLogMessage(pException.getName(), pException.message(),
-            pException.m_xFileInfo, iLogType);
+            pException.m_xFileLocation, iLogType);
 }
 
 

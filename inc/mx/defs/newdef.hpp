@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     new/delete operator override definitions (define).

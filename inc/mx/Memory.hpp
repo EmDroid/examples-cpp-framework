@@ -57,17 +57,18 @@ class MXCPP_DLL_EXPORT Memory
 
 public:
 
-    static void * Allocate(
+    static void * AllocateImpl(
             const Size iSizeRequested,
-            const Debug::Checkpoint & xFileInfo);
+            const Debug::Checkpoint & xFileLocation);
 
-    static void * Reallocate(
+    static void * ReallocateImpl(
             void * const pMemoryBlock,
             const Size iSizeRequested,
-            const Debug::Checkpoint & xFileInfo);
+            const Debug::Checkpoint & xFileLocation);
 
-    static void Free(
-            void * const pMemoryBlock);
+    static void FreeImpl(
+            void * const pMemoryBlock,
+            const Debug::Checkpoint & xFileLocation);
 
 
 }; // class Memory
@@ -78,25 +79,28 @@ public:
 
 // Convenience macros.
 
-#ifdef Alloc
-#undef Alloc
+#ifdef Allocate
+#undef Allocate
 #endif
 
-#define Alloc(size) \
-    Allocate(size, __mxDebugCheckpoint__())
+#define Allocate(size) \
+    AllocateImpl(size, __mxDebugCheckpoint__())
 
 
-#ifdef Realloc
-#undef Realloc
+#ifdef Reallocate
+#undef Reallocate
 #endif
 
-#define Realloc(block, size) \
-    Reallocate(block, size, __mxDebugCheckpoint__())
+#define Reallocate(block, size) \
+    ReallocateImpl(block, size, __mxDebugCheckpoint__())
 
 
 #ifdef Free
 #undef Free
 #endif
+
+#define Free(block) \
+    FreeImpl(block, __mxDebugCheckpoint__())
 
 
 // Replade standard ANSI-C memory allocation functions.
@@ -105,14 +109,14 @@ public:
 #undef malloc
 #endif
 
-#define malloc(size)  mx::Memory::Alloc(size)
+#define malloc(size)  mx::Memory::Allocate(size)
 
 
 #ifdef realloc
 #undef realloc
 #endif
 
-#define realloc(block, size)  mx::Memory::Realloc(block, size)
+#define realloc(block, size)  mx::Memory::Reallocate(block, size)
 
 
 #ifdef free

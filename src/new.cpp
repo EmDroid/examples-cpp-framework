@@ -17,6 +17,8 @@
 
 
 /**
+    @internal
+
     @file
 
     Global new and delete operators (implementation).
@@ -33,21 +35,9 @@
 #include "mx/new.hpp"
 
 
-MXCPP_DLL_EXPORT void * mx::OperatorNewImplementation(
-        const Size iMemoryBlockSize,
-        const Debug::Checkpoint & xFileInfo,
-        const bool MX_UNUSED(bVectorAlloc))
-{
-    return Memory::Allocate(iMemoryBlockSize, xFileInfo);
-}
-
-
-MXCPP_DLL_EXPORT void mx::OperatorDeleteImplementation(
-        void * const pMemoryBlock,
-        const bool MX_UNUSED(bVectorFree))
-{
-    Memory::Free(pMemoryBlock);
-}
-
+// Define inline methods here if inlining is disabled.
+#ifndef MX_INLINE_ENABLED
+#include "mx/new.inl"
+#endif
 
 /* EOF */
