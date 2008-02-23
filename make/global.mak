@@ -102,7 +102,7 @@ $(if $(strip $(MXCPP_WARNING_LOG)),$(shell $(RM) $(MXCPP_WARNING_LOG) $(NOOUT) $
 # C++ includes.
 MXCPP_CXX_INCLUDE := \
 $(CXX_INCLUDE)$(MXCPP_INCLUDE_ROOT) \
-$(CXX_INCLUDE)$(MXCPP_SRC_ROOT)inc
+$(CXX_INCLUDE)$(MXCPP_INTERNAL_INCLUDE)
 
 # Resource includes.
 MXCPP_RC_INCLUDE := \
@@ -127,14 +127,6 @@ MXCPP_LNKC_FLAGS := $(LNKC_FLAGS)
 $(foreach compiler,$(MXCPP_COMPILERS_LIST),\
 	$(if $(strip $(MXCPP_$(compiler)FLAGS_PLATFORM)),\
 		$(eval MXCPP_$(compiler)FLAGS += $(MXCPP_$(compiler)FLAGS_PLATFORM))))
-
-
-# Makefile dependencies.
-#
-# Any change in the makefile initialization files *.ini, will cause full rebuild
-# of all objects.
-MXCPP_MAKEFILE_DEPS := makefile $(filter %.ini,$(MAKEFILE_LIST))
-$(if $(strip $(MXCPP_MAKE_DEBUG)),$(warning MAKEFILE dependencies: $(MXCPP_MAKEFILE_DEPS)))
 
 
 # Define single build rule.

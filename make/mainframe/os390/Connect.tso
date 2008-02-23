@@ -1,0 +1,39 @@
+* Script for connecting to the mainframe.
+
+
+* Connect to session.
+CONNECT:
+Connect $HOSTSESSION
+* Go to LOGIN when connected successfuly.
+WaitFor USERID,LOGIN:
+
+* The session name is invalid.
+* (if the host cannot be connected, the script is canceled automatically)
+AskFor "ENTER CORRECT SESSION NAME (store in the 'Login.txt' file to avoid this request on each run)",$HOSTSESSION
+goto CONNECT:
+
+
+* Try to login.
+LOGIN:
+Type $HOSTLOGIN
+Key Enter
+WaitFor Password
+Type $HOSTPASSWORD
+Key Enter
+
+* Check if login successful.
+WaitFor IKJ56455I,LOGDONE:,IKJ56425I,RELOGIN:
+
+* Login not successful - ask user for credentials correction.
+* (user can cancel the script from the dialog)
+RELOGIN:
+AskFor "ENTER YOUR LOGIN NAME (store in the 'Login.txt' file to avoid this request on each run)",$HOSTLOGIN
+AskFor "ENTER YOUR PASSWORD (store in the 'Login.txt' file to avoid this request on each run)",password,$HOSTPASSWORD
+* Try to login with new credentials.
+goto LOGIN:
+
+LOGDONE:
+Key Enter
+WaitFor  ===>
+
+* EOF

@@ -25,8 +25,8 @@
 */
 
 
-#ifndef MXCPP_SYSDEF_UNIX_H_INCLUDE_GUARD
-#define MXCPP_SYSDEF_UNIX_H_INCLUDE_GUARD
+#ifndef MXCPP_SYSDEF_UNIX_HPP_INCLUDE_GUARD
+#define MXCPP_SYSDEF_UNIX_HPP_INCLUDE_GUARD
 
 
 // Enable inlining for the Unix platforms by default.
@@ -64,6 +64,6 @@
 #endif // __GNUC__
 
 
-#endif // MXCPP_SYSDEF_UNIX_H_INCLUDE_GUARD
+#endif // MXCPP_SYSDEF_UNIX_HPP_INCLUDE_GUARD
 
 /* EOF */

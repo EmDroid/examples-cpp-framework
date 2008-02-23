@@ -22,6 +22,16 @@ public:
 include makefile.ini
 
 
+# Suppose Linux if not set up for Windows.
+$(if $(strip $(RM)),,$(eval RM := rm))
+$(if $(strip $(NULL)),,$(eval NULL := /dev/null))
+
+
+# Macros for hiding command output.
+NOOUT := >$(NULL)
+NOERROUT := 2>$(NULL)
+
+
 all:	public internal
 
 
@@ -54,28 +64,28 @@ clean:	clean_public clean_internal
 # Clean the public documentation files.
 clean_public:
 	-@echo Cleaning the [public] documentation ...
-	-@cd html && $(RM) *.html
-	-@cd html && $(RM) *.css
-	-@cd html && $(RM) *.gif
-	-@cd html && $(RM) *.png
-	-@cd html && $(RM) index.*
-	-@rmdir $(MXCPP_HTMLDOC_ROOT)
-	-@$(RM) $(MXCPP_CHM_NAME)
-	-@$(RM) warnings.log
+	-@cd html $(NOERROUT) && $(RM) *.html $(NOERROUT)
+	-@cd html $(NOERROUT) && $(RM) *.css $(NOERROUT)
+	-@cd html $(NOERROUT) && $(RM) *.gif $(NOERROUT)
+	-@cd html $(NOERROUT) && $(RM) *.png $(NOERROUT)
+	-@cd html $(NOERROUT) && $(RM) index.* $(NOERROUT)
+	-@rmdir $(MXCPP_HTMLDOC_ROOT) $(NOERROUT)
+	-@$(RM) $(MXCPP_CHM_NAME) $(NOERROUT)
+	-@$(RM) warnings.log $(NOERROUT)
 	-@echo ... the cleaning of the [public] documentation is done.
 
 # Clean the internal documentation files.
 clean_internal:
 	-@echo Cleaning the [internal] documentation ...
-	-@cd internal && cd html && $(RM) *.html
-	-@cd internal && cd html && $(RM) *.css
-	-@cd internal && cd html && $(RM) *.gif
-	-@cd internal && cd html && $(RM) *.png
-	-@cd internal && cd html && $(RM) index.*
-	-@cd internal && rmdir $(MXCPP_HTMLDOC_ROOT)
-	-@cd internal && $(RM) $(MXCPP_CHM_NAME)
-	-@$(RM) warnings.internal.log
-	-@rmdir internal
+	-@cd internal $(NOERROUT) && cd html $(NOERROUT) && $(RM) *.html $(NOERROUT)
+	-@cd internal $(NOERROUT) && cd html $(NOERROUT) && $(RM) *.css $(NOERROUT)
+	-@cd internal $(NOERROUT) && cd html $(NOERROUT) && $(RM) *.gif $(NOERROUT)
+	-@cd internal $(NOERROUT) && cd html $(NOERROUT) && $(RM) *.png $(NOERROUT)
+	-@cd internal $(NOERROUT) && cd html $(NOERROUT) && $(RM) index.* $(NOERROUT)
+	-@cd internal $(NOERROUT) && rmdir $(MXCPP_HTMLDOC_ROOT) $(NOERROUT)
+	-@cd internal $(NOERROUT) && $(RM) $(MXCPP_CHM_NAME) $(NOERROUT)
+	-@$(RM) warnings.internal.log $(NOERROUT)
+	-@rmdir internal $(NOERROUT)
 	-@echo ... the cleaning of the [internal] documentation is done.
 
 

@@ -531,6 +531,10 @@ SOURCE=..\..\..\..\..\inc\mx\defs\helpers.hpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\..\inc\mx\defs\ibmcpp.hpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\..\inc\mx\defs\msvc.hpp
 # End Source File
 # Begin Source File
@@ -544,6 +548,10 @@ SOURCE=..\..\..\..\..\inc\mx\defs\msvc7.hpp
 # Begin Source File
 
 SOURCE=..\..\..\..\..\inc\mx\defs\msvc8.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\..\inc\mx\defs\mvs.hpp
 # End Source File
 # Begin Source File
 
