@@ -1,0 +1,30 @@
+**
+* @file
+*
+* Run job on the mainframe.
+*
+* TN3270 terminal script.
+*
+* @author Emil Maskovsky
+*
+* @param [in] $JOBNAME The full job name.
+*
+
+
+* Go to the DataSet list (to command line be available).
+Key Home
+Type "=3.4"
+Key Enter
+
+* Type in the directory name.
+SetVar $COMMAND,"TSO SUB ",$JOBNAME
+START:
+Type $COMMAND
+
+* Wait some time.
+Wait 2000
+Key Enter
+
+* Check for errors.
+
+* EOF

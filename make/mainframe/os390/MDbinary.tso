@@ -1,0 +1,30 @@
+**
+* @file
+*
+* Make binary DataSet on the mainframe for storing output files.
+*
+* TN3270 terminal script.
+*
+* @author Emil Maskovsky
+*
+* @param [in] $DIRNAME The directory name.
+*
+
+
+START:
+* Go to the DataSet create dialog.
+Key Home
+Type "=3.2"
+Key Enter
+
+* Type in the directory name.
+Type $DIRNAME
+
+* Setup the directory
+
+* Try to create the directory
+Key Enter
+
+* Check for errors.
+
+* EOF

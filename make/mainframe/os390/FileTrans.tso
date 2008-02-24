@@ -1,0 +1,27 @@
+**
+* @file
+*
+* Transfer single file to the mainframe.
+*
+* TN3270 terminal script.
+*
+* @author Emil Maskovsky
+*
+* @param [in] $PCNAME   The source file name on PC.
+* @param [in] $HOSTNAME The target file name on mainframe.
+*
+
+
+START:
+* Wait for mainframe to be ready to transfer file
+WaitFor UpdateHere
+* Transfer the file to the mainframe
+FileTransfer operation=send,
+        pcfile=$PCNAME,
+        hostfile=$HOSTNAME,
+        opsys=mvs/tso, Recfm=default,
+        options="ascii crlf"
+
+* Check for errors.
+
+* EOF

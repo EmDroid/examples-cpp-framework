@@ -1,0 +1,22 @@
+**
+* @file
+*
+* Setup the mainframe for file transfer.
+*
+* TN3270 terminal script.
+*
+* @author Emil Maskovsky
+*
+
+
+* Go to the DataSet list (to menu be available).
+Key Home
+Type "=3.4"
+Key Enter
+* Select the ISPF Command Shell from the menu.
+CursorTo 1,4
+Key Enter
+Type "4"
+Key Enter
+
+* EOF

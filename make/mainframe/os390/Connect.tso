@@ -1,4 +1,20 @@
-* Script for connecting to the mainframe.
+**
+* @file
+*
+* Connect to the mainframe.
+*
+* TN3270 terminal script.
+*
+* @author Emil Maskovsky
+*
+* @param [in,out] $HOSTSESSION  The session name of the connection.
+* @param [in,out] $HOSTLOGIN    The user login name for the session.
+* @param [in,out] $HOSTPASSWORD The user pasword for the session.
+*
+* The script can change the parameters if they are invalid (in the fact, if the
+* script completes, then there will be always correct values set in the script
+* parameters - otherwise the script will cancel).
+*
 
 
 * Connect to session.
@@ -9,7 +25,8 @@ WaitFor USERID,LOGIN:
 
 * The session name is invalid.
 * (if the host cannot be connected, the script is canceled automatically)
-AskFor "ENTER CORRECT SESSION NAME (store in the 'Login.txt' file to avoid this request on each run)",$HOSTSESSION
+AskFor "ENTER CORRECT SESSION NAME (store in the 'Login.tso' file to avoid this request on each run)",$HOSTSESSION
+* Try to reconnect with new session name.
 goto CONNECT:
 
 
@@ -27,8 +44,8 @@ WaitFor IKJ56455I,LOGDONE:,IKJ56425I,RELOGIN:
 * Login not successful - ask user for credentials correction.
 * (user can cancel the script from the dialog)
 RELOGIN:
-AskFor "ENTER YOUR LOGIN NAME (store in the 'Login.txt' file to avoid this request on each run)",$HOSTLOGIN
-AskFor "ENTER YOUR PASSWORD (store in the 'Login.txt' file to avoid this request on each run)",password,$HOSTPASSWORD
+AskFor "ENTER YOUR LOGIN NAME (store in the 'Login.tso' file to avoid this request on each run)",$HOSTLOGIN
+AskFor "ENTER YOUR PASSWORD (store in the 'Login.tso' file to avoid this request on each run)",password,$HOSTPASSWORD
 * Try to login with new credentials.
 goto LOGIN:
 
