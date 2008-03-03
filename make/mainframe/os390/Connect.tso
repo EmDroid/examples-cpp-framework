@@ -20,9 +20,11 @@
 * Connect to session.
 CONNECT:
 Connect $HOSTSESSION
-* Go to LOGIN when connected successfuly.
-WaitFor USERID,LOGIN:
 
+* Go to LOGIN when connected successfuly.
+WaitFor USERID,LOGIN:,FAILED,FAILURE:
+
+FAILURE:
 * The session name is invalid.
 * (if the host cannot be connected, the script is canceled automatically)
 AskFor "ENTER CORRECT SESSION NAME (store in the 'Login.tso' file to avoid this request on each run)",$HOSTSESSION
@@ -32,6 +34,7 @@ goto CONNECT:
 
 * Try to login.
 LOGIN:
+include $CONNECT_SETUP
 Type $HOSTLOGIN
 Key Enter
 WaitFor Password
@@ -39,7 +42,7 @@ Type $HOSTPASSWORD
 Key Enter
 
 * Check if login successful.
-WaitFor IKJ56455I,LOGDONE:,IKJ56425I,RELOGIN:
+WaitFor IKJ56455I,LOGDONE:,IKJ56425I,RELOGIN:,IKJ56421I,RELOGIN:,IKJ56420I,RELOGIN:
 
 * Login not successful - ask user for credentials correction.
 * (user can cancel the script from the dialog)

@@ -12,19 +12,55 @@
 
 
 START:
+WaitFor  ===>
 * Go to the DataSet create dialog.
 Key Home
 Type "=3.2"
 Key Enter
 
-* Type in the directory name.
-Type $DIRNAME
+* Allocate new data set.
+type "A"
+CursorTo 17,25
 
+* Type in the directory name.
+SetVar $DIRNAME_FULL,$DIRNAME," "
+Type $DIRNAME_FULL
+Key Enter
+
+* Check for errors.
+WaitFor "Duplicate data set name",EXIST:,"Invalid DSN - qualifier",INVALID:,"Allocate New Data Set",SETUP:
+
+EXIST:
+AskFor "The data set already exists!",$DIRNAME
+Key PF3
+goto DIRDONE:
+
+INVALID:
+AskFor "The data set has invalid name! - repair the name and press OK...",$DIRNAME
+Key PF3
+* Try to go again with new name supplied.
+goto START:
+
+SETUP:
 * Setup the directory
+CursorTo 18,25
+type "10 "
+Key Tab
+type "FB "
+Key Tab
+type "80 "
+Key Tab
+type "6400 "
+Key Tab
+type "LIBRARY"
 
 * Try to create the directory
 Key Enter
 
-* Check for errors.
+DIRDONE:
+WaitFor  ===>
+Key Home
+Type "=3.4"
+Key Enter
 
 * EOF

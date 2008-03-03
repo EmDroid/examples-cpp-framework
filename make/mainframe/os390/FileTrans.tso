@@ -14,7 +14,7 @@
 
 START:
 * Wait for mainframe to be ready to transfer file
-WaitFor UpdateHere
+WaitFor  ===>
 * Transfer the file to the mainframe
 FileTransfer operation=send,
         pcfile=$PCNAME,
@@ -23,5 +23,18 @@ FileTransfer operation=send,
         options="ascii crlf"
 
 * Check for errors.
+WaitFor ===>,SUCCESS:,***,FAILURE:
+
+* Transfer failed.
+FAILURE:
+Key Enter
+Key Enter
+Key Enter
+SetVar $DUMMY,$HOSTNAME
+AskFor "Transfer failed! Try again?",$DUMMY
+goto START:
+
+* Transfer completed successfully.
+SUCCESS:
 
 * EOF

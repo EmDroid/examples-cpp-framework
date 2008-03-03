@@ -24,7 +24,7 @@ MXCPP_AUTOGEN_COMMENT := This file is auto-generated, do not change it!
 
 
 # Main build dependencies.
-_buildall_deps:	$(MXCPP_LOGIN_SCRIPT) $(MXCPP_JOBS_LIST) $(MXCPP_TRANSFER_LIST) $(MXCPP_BUILD_SCRIPT) $(MXCPP_BUILD_RUN_SCRIPT)
+_buildall_deps:	$(MXCPP_LOGIN_SCRIPT) $(MXCPP_CONNECT_SCRIPT) $(MXCPP_JOBS_LIST) $(MXCPP_TRANSFER_LIST) $(MXCPP_BUILD_SCRIPT) $(MXCPP_BUILD_RUN_SCRIPT)
 
 # Full build of the library.
 all:	_buildall_deps setup
@@ -35,7 +35,7 @@ test:	_buildall_deps $(MXCPP_TEST_JOBS_LIST) $(MXCPP_TEST_TRANSFER_LIST) $(MXCPP
 	cd setup && $(TERMINAL) $(CURDIR)/$(MXCPP_TEST_BUILD_RUN_SCRIPT)
 
 # Run directory initializer script.
-init:	$(MXCPP_LOGIN_SCRIPT) $(MXCPP_DIRINIT_LIST) $(MXCPP_DIRINIT_SCRIPT) setup
+init:	$(MXCPP_LOGIN_SCRIPT) $(MXCPP_CONNECT_SCRIPT) $(MXCPP_DIRINIT_LIST) $(MXCPP_DIRINIT_SCRIPT) setup
 	cd setup && $(TERMINAL) $(CURDIR)/$(MXCPP_DIRINIT_SCRIPT)
 
 
@@ -195,14 +195,21 @@ $(MXCPP_TEST_BUILD_SCRIPT):	../platform.ini
 	@$(ECHO)   ... the library tests build script done.
 
 
+define MXCPP_RULE_CONNECT
+	$(ECHO) * Connect to mainframe>>$@
+	$(ECHO) include $(CURDIR)/$(MXCPP_LOGIN_SCRIPT)>>$@
+	$(ECHO) global $$CONNECT_SETUP>>$@
+	$(ECHO) SetVar $$CONNECT_SETUP,$(CURDIR)/$(MXCPP_CONNECT_SCRIPT)>>$@
+	$(ECHO) include $(CURDIR)/Connect.$(MXCPP_FINALSCR_SUFF)>>$@
+	$(ECHO).>>$@
+
+endef	# MXCPP_RULE_CONNECT
+
 # The library build script with connecting.
 $(MXCPP_BUILD_RUN_SCRIPT):	../platform.ini
 	@$(ECHO) - assembling the library full build script ...
 	@$(call MXCPP_AUTOGEN_HEADER,Build the library on mainframe - full run with logging on)
-	@$(ECHO) * Connect to mainframe>>$@
-	@$(ECHO) include $(CURDIR)/$(MXCPP_LOGIN_SCRIPT)>>$@
-	@$(ECHO) include $(CURDIR)/Connect.$(MXCPP_FINALSCR_SUFF)>>$@
-	@$(ECHO).>>$@
+	@$(call MXCPP_RULE_CONNECT)
 	@$(ECHO) * Run the library build script>>$@
 	@$(ECHO) include $(CURDIR)/$(MXCPP_BUILD_SCRIPT)>>$@
 	@$(call MXCPP_AUTOGEN_FOOTER)
@@ -212,10 +219,7 @@ $(MXCPP_BUILD_RUN_SCRIPT):	../platform.ini
 $(MXCPP_TEST_BUILD_RUN_SCRIPT):	../platform.ini
 	@$(ECHO) - assembling the library tests full build script ...
 	@$(call MXCPP_AUTOGEN_HEADER,Build and run the library tests on mainframe - full run with logging on)
-	@$(ECHO) * Connect to mainframe>>$@
-	@$(ECHO) include $(CURDIR)/$(MXCPP_LOGIN_SCRIPT)>>$@
-	@$(ECHO) include $(CURDIR)/Connect.$(MXCPP_FINALSCR_SUFF)>>$@
-	@$(ECHO).>>$@
+	@$(call MXCPP_RULE_CONNECT)
 	@$(ECHO) * Run the library tests build script>>$@
 	@$(ECHO) include $(CURDIR)/$(MXCPP_TEST_BUILD_SCRIPT)>>$@
 	@$(call MXCPP_AUTOGEN_FOOTER)
@@ -226,7 +230,7 @@ $(MXCPP_DSSETUP_SCRIPT):	../../global.ini ../platform.ini ../platform.mak
 	@$(ECHO) - assembling the DataSet setup script ...
 	@$(call MXCPP_AUTOGEN_HEADER,Setup the datasets)
 	@$(ECHO) global $$$(MXCPP_NAME_ROOT_DIR),$$$(MXCPP_NAME_INCLUDE_DIR),$$$(MXCPP_NAME_SOURCE_DIR),$$$(MXCPP_NAME_INTERNAL_INCLUDE_DIR),$$$(MXCPP_NAME_TEST_DIR),$$$(MXCPP_NAME_JOBS_DIR),$$$(MXCPP_NAME_TARGET_DIR),$$$(MXCPP_NAME_HOST_HPP),$$$(MXCPP_NAME_HOST_INL),$$$(MXCPP_NAME_HOST_CPP),$$$(MXCPP_NAME_HOST_TEST),$$$(MXCPP_NAME_HOST_JOBS)>>$@
-	@$(ECHO) SetVar $$$(MXCPP_NAME_ROOT_DIR),"$(MXCPP_PROJECT_ROOT)">>$@
+	@$(ECHO) SetVar $$$(MXCPP_NAME_ROOT_DIR),"$(CURDIR)/$(MXCPP_PROJECT_ROOT)">>$@
 	@$(ECHO) SetVar $$$(MXCPP_NAME_INCLUDE_DIR),$$$(MXCPP_NAME_ROOT_DIR),"$(MXCPP_INCLUDE_NAME)/">>$@
 	@$(ECHO) SetVar $$$(MXCPP_NAME_SOURCE_DIR),$$$(MXCPP_NAME_ROOT_DIR),"$(MXCPP_SRC_NAME)">>$@
 	@$(ECHO) SetVar $$$(MXCPP_NAME_INTERNAL_INCLUDE_DIR),$$$(MXCPP_NAME_SOURCE_DIR),"$(MXCPP_INCLUDE_NAME)/">>$@
@@ -242,29 +246,34 @@ $(MXCPP_DSSETUP_SCRIPT):	../../global.ini ../platform.ini ../platform.mak
 	@$(ECHO)   ... the DataSet setup script done.
 
 
-MXCPP_DIRS_LIST :=
-
 define MXCPP_BUILD_DIRLIST
-$(eval MXCPP_DIR := .$(subst /,.,$(subst ./,,$(dir $(1)))))
-$(if $(strip $(findstring $(MXCPP_DIR),$(MXCPP_DIRS_LIST))),,$(eval MXCPP_DIRS_LIST += $(MXCPP_DIR)))
+$(eval $(1) := .$(subst /,.,$(subst ./,,$(dir $(2)))))
+$(if $(strip $(findstring $($(1)),$(MXCPP_DIRS_LIST))),,$(eval MXCPP_DIRS_LIST += $($(1))))
 endef	# MXCPP_BUILD_DIRLIST
 
-$(foreach source,$(MXCPP_SRC_LIST),$(eval $(call MXCPP_BUILD_DIRLIST,$(source))))
+MXCPP_DIRS_LIST :=
+$(foreach source,$(MXCPP_SRC_LIST),$(eval $(call MXCPP_BUILD_DIRLIST,MXCPP_DIR,$(source))))
 
 MXCPP_DIR := $(MXCPP_DIRS_LIST)
 
 MXCPP_DIRS_LIST :=
+$(foreach source,$(MXCPP_EXTRA_INCLUDE),$(eval $(call MXCPP_BUILD_DIRLIST,MXCPP_DIR_EXTRA,$(source))))
+
+MXCPP_DIR_EXTRA := $(filter-out $(MXCPP_DIR),$(MXCPP_DIRS_LIST))
+
+MXCPP_DIRS_LIST :=
+$(foreach dir,$(MXCPP_DIR_EXTRA),$(eval MXCPP_DIRS_LIST += $$$$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_CONFIG_SUFFIX)$(dir)",$$$$$(MXCPP_NAME_HOST_HPP)))
 $(foreach dir,$(MXCPP_DIR),$(eval MXCPP_DIRS_LIST += $$$$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_CONFIG_SUFFIX)$(dir)",$$$$$(MXCPP_NAME_HOST_HPP) $$$$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_CONFIG_SUFFIX)$(dir)",$$$$$(MXCPP_NAME_HOST_INL) $$$$$(MXCPP_NAME_TARGET_DIR),"$(dir)",$$$$$(MXCPP_NAME_HOST_CPP)))
 MXCPP_DIRS_LIST += \
 $$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_CONFIG_SUFFIX).internal.",$$$(MXCPP_NAME_HOST_HPP)	\
 $$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_CONFIG_SUFFIX).internal.",$$$(MXCPP_NAME_HOST_INL)	\
 $$$(MXCPP_NAME_TARGET_DIR),".",$$$(MXCPP_NAME_HOST_TEST)	\
+$$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_NAME_HOST_OBJLIB_VALUE)"	\
+$$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_NAME_HOST_OBJLIB_VALUE).$(MXCPP_NAME_HOST_TEST_VALUE)"	\
 $$$(MXCPP_NAME_TARGET_DIR),".",$$$(MXCPP_NAME_HOST_JOBS)
 
 MXCPP_BINDIRS_LIST += \
-$$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_NAME_HOST_OBJLIB_VALUE)"	\
 $$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_NAME_HOST_LNKLIB_VALUE)"	\
-$$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_NAME_HOST_OBJLIB_VALUE).$(MXCPP_NAME_HOST_TEST_VALUE)"	\
 $$$(MXCPP_NAME_TARGET_DIR),".$(MXCPP_NAME_HOST_LNKLIB_VALUE).$(MXCPP_NAME_HOST_TEST_VALUE)"
 
 define MXCPP_RULE_DIRLIST
@@ -293,9 +302,7 @@ $(MXCPP_DIRINIT_SCRIPT):	../platform.ini
 	@$(ECHO) - assembling the directory init script ...
 	@$(call MXCPP_AUTOGEN_HEADER,Initialize directories on mainframe - full run with logging on)
 	@$(ECHO) * Connect to mainframe>>$@
-	@$(ECHO) include $(CURDIR)/$(MXCPP_LOGIN_SCRIPT)>>$@
-	@$(ECHO) include $(CURDIR)/Connect.$(MXCPP_FINALSCR_SUFF)>>$@
-	@$(ECHO).>>$@
+	@$(call MXCPP_RULE_CONNECT)
 	@$(ECHO) * Run the directory list script>>$@
 	@$(ECHO) include $(CURDIR)/$(MXCPP_DIRINIT_LIST)>>$@
 	@$(call MXCPP_AUTOGEN_FOOTER)
@@ -329,6 +336,24 @@ ifneq ($(strip $(EDITOR)),)
 	-@$(EDITOR) $(MXCPP_LOGIN_SCRIPT)
 endif
 	@$(ECHO)   ... the login script done.
+
+
+# The login script.
+# (created only once if it does not exist - user can adapt it and it should not
+# be re-generated then)
+$(MXCPP_CONNECT_SCRIPT):
+	@$(ECHO) - assembling the connect script ...
+	@$(ECHO) * The connect script>$@
+	@$(ECHO) * $(MXCPP_SCRIPT_COMMENT)>>$@
+	@$(ECHO).>>$@
+	@$(ECHO) * Adapt this connect script to your environment.>>$@
+	@$(ECHO) * (additional connection tasks, e.g. dialing some other machine etc.)>>$@
+	@$(ECHO).>>$@
+	@$(call MXCPP_AUTOGEN_FOOTER)
+ifneq ($(strip $(EDITOR)),)
+	-@$(EDITOR) $(MXCPP_CONNECT_SCRIPT)
+endif
+	@$(ECHO)   ... the connect script done.
 
 
 # EOF #

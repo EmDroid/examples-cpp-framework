@@ -53,7 +53,7 @@ typedef size_t Size;
 
 
 /**
-    @type Char
+    @typedef Char
 
     Independent character type.
 

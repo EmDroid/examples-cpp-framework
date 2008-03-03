@@ -191,7 +191,7 @@ public:
 
     Synonym for mxT().
 
-    @param [in] The input literal.
+    @param [in] x The input literal.
 */
 #ifndef MXCPP_UNICODE
 #define _T(x)  x
@@ -403,9 +403,7 @@ public:
     }
     @endcode
 */
-#ifdef __DOXYGEN__
-#define MX_UNUSED(parameter)  parameter
-#else
+#ifndef MX_UNUSED
 #define MX_UNUSED(parameter)
 #endif
 
