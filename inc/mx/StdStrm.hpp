@@ -55,6 +55,11 @@ extern MXCPP_DLL_EXPORT_DATA(FileStream &) StandardError;
 } // namespace mx
 
 
+// Define inline methods here if inlining is enabled.
+#ifdef MX_INLINE_ENABLED
+#include "mx/StdStrm.inl"
+#endif
+
 #endif // MXCPP_STANDARD_STREAM_HPP_INCLUDE_GUARD
 
 /* EOF */

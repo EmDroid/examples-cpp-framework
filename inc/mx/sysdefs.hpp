@@ -440,7 +440,7 @@
 
 #else // MXCPP_GEN_DEPEND
 
-    #error Unsupported platform - see sysdefs.h for a list of supported platforms.
+    #error Unsupported platform - see sysdefs.hpp for a list of supported platforms.
 
 #endif // MXCPP_GEN_DEPEND
 

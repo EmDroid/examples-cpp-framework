@@ -35,6 +35,25 @@
 #if (__IBMCPP__ < 41020)
 // There is an old compiler version on the mainframe.
 
+/// The compiler does not support new C++ style headers.
+#define MXCPP_FIX_USE_OLD_C_HEADERS
+
+// Compiler does't have boolean type.
+#define MXCPP_FIX_DOES_NOT_HAVE_BOOL
+
+// The compiler doesn't know "inline" keyword.
+#define MXCPP_FIX_DOES_NOT_HAVE_INLINE
+
+// The compiler doesn't know "explicit" keyword.
+#define MXCPP_FIX_DOES_NOT_HAVE_EXPLICIT
+
+// The compiler doesn't know "mutable" keyword.
+#define MXCPP_FIX_DOES_NOT_HAVE_MUTABLE
+
+// The compiler doesn't know "typename" keyword.
+#define MXCPP_FIX_DOES_NOT_HAVE_TYPENAME
+
+
 #endif // xlC < 0x0405
 
 

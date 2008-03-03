@@ -135,4 +135,9 @@ MXCPP_DLL_EXPORT_DATA(mx::FileStream &) mx::StandardError
     = mx::_StandardError();
 
 
+// Define inline methods here if inlining is disabled.
+#ifndef MX_INLINE_ENABLED
+#include "mx/StdStrm.inl"
+#endif
+
 /* EOF */

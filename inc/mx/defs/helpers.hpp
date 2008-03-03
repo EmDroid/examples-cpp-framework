@@ -86,6 +86,38 @@ public:
 #endif // MXCPP_FIX_USE_OLD_C_HEADERS
 
 
+#ifdef MXCPP_FIX_DOES_NOT_HAVE_BOOL
+// Define the bool type.
+typedef int bool;
+const int false = 0;
+const int true = 1;
+#endif
+
+
+#ifdef MXCPP_FIX_DOES_NOT_HAVE_INLINE
+// Define the "inline" keyword as empty for compilers that do not have it.
+#ifndef inline
+#define inline
+#endif
+#endif
+
+
+#ifdef MXCPP_FIX_DOES_NOT_HAVE_EXPLICIT
+// Define the "explicit" keyword as empty for compilers that do not have it.
+#ifndef explicit
+#define explicit
+#endif
+#endif
+
+
+#ifdef MXCPP_FIX_DOES_NOT_HAVE_MUTABLE
+// Define the "mutable" keyword as empty for compilers that do not have it.
+#ifndef mutable
+#define mutable
+#endif
+#endif
+
+
 /**
     @internal
 

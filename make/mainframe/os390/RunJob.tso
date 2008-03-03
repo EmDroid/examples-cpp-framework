@@ -12,6 +12,7 @@
 
 
 * Go to the DataSet list (to command line be available).
+WaitFor  ===>
 Key Home
 Type "=3.4"
 Key Enter
@@ -20,10 +21,10 @@ Key Enter
 SetVar $COMMAND,"TSO SUB ",$JOBNAME
 START:
 Type $COMMAND
-
-* Wait some time.
-Wait 2000
 Key Enter
+
+* WaitFor SUBMITTED
+* Key Enter
 
 * Check for errors.
 
