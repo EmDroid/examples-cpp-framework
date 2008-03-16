@@ -49,6 +49,7 @@ using namespace std;
 #else // MXCPP_FIX_USE_OLD_C_HEADERS
 
 #include <typeinfo.h>
+
 #ifndef MXCPP_FIX_EH_UNSUPPORTED
 #include <eh.h>
 #endif
@@ -179,7 +180,7 @@ private:
         const Size iReturnCode = Exception::GlobalLogMessage(*m_pException);
         if (bDestroy)
         {
-            delete mxConstCast(m_pException, ExceptionType *);
+            delete const_cast< ExceptionType * >(m_pException);
         }
         return iReturnCode;
     }

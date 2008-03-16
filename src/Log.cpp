@@ -83,11 +83,6 @@ MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogFatal(
     const Size iResult = LogMessageV(sFormat, pArgs);
     va_end(pArgs);
     abort();
-    /*
-    // On some platforms abort() can return.
-    // (e.g. MSVC in debug mode)
-    exit(mx::Application::RC_ABORT);
-   */
     return iResult;
 }
 

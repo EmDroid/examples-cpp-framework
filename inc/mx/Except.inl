@@ -46,7 +46,7 @@ MX_INLINE mx::Exception::Exception(
 MX_INLINE void mx::Exception::SetDebugInfo(
         const Debug::Checkpoint & xFileLocation) const
 {
-    mxMutableCast(this, Exception *)->m_xFileLocation = xFileLocation;
+    m_xFileLocation = xFileLocation;
 }
 
 

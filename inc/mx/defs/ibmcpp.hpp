@@ -33,37 +33,8 @@
 
 
 #if (__IBMCPP__ < 41020)
-// There is an old compiler version on the mainframe.
-
-/// The compiler does not support new C++ style headers.
-#define MXCPP_FIX_USE_OLD_C_HEADERS
-
-/// The compiler does not have standard C++ exceptions defined.
-#define MXCPP_FIX_NO_STD_EXCEPTION
-
-/// The compiler does not have standard C++ cast operators defined.
-#define MXCPP_FIX_DOES_NOT_HAVE_STANDARD_CAST_OPERATORS
-
-/// Exception handlers are not supported by the compiler.
-#define MXCPP_FIX_EH_UNSUPPORTED
-
-// Compiler does't have boolean type.
-#define MXCPP_FIX_DOES_NOT_HAVE_BOOL
-
-// The compiler doesn't know "inline" keyword.
-#define MXCPP_FIX_DOES_NOT_HAVE_INLINE
-
-// The compiler doesn't know "explicit" keyword.
-#define MXCPP_FIX_DOES_NOT_HAVE_EXPLICIT
-
-// The compiler doesn't know "mutable" keyword.
-#define MXCPP_FIX_DOES_NOT_HAVE_MUTABLE
-
-// The compiler doesn't know "typename" keyword.
-#define MXCPP_FIX_DOES_NOT_HAVE_TYPENAME
-
-
-#endif // xlC < 0x0405
+    #error This project requires at least IBM C++ Compiler 2.0 to compile.
+#endif // __IBMCPP__ < 41020
 
 
 #endif // MX_PLATFORM_COMPILER_IBM

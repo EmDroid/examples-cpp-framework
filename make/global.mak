@@ -92,7 +92,7 @@ MXCPP_TEST_LOG := tests.log
 $(if $(strip $(MXCPP_TEST_LOG)),$(shell $(RM) $(MXCPP_TEST_LOG) $(NOOUT) $(NOERROUT)))
 MXCPP_TEST_LOG_FULL := $(if $(strip $(MXCPP_TEST_LOG)),>>$(MXCPP_TEST_LOG))
 
-# MXCPP_WARNING_LOG := warnings.log
+MXCPP_WARNING_LOG := warnings.log
 $(if $(strip $(MXCPP_WARNING_LOG)),$(shell $(RM) $(MXCPP_WARNING_LOG) $(NOOUT) $(NOERROUT)))
 
 
