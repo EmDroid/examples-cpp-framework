@@ -40,11 +40,11 @@
 
 #include <typeinfo>
 
-#else /* MXCPP_FIX_USE_OLD_C_HEADERS */
+#else // MXCPP_FIX_USE_OLD_C_HEADERS
 
 #include <typeinfo.h>
 
-#endif /* MXCPP_FIX_USE_OLD_C_HEADERS */
+#endif // MXCPP_FIX_USE_OLD_C_HEADERS
 
 
 /**

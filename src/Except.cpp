@@ -37,20 +37,23 @@
 #include "mx/Except.hpp"
 
 
-#ifdef MXCPP_FIX_USE_OLD_C_HEADERS
-
-#include <typeinfo.h>
-#include <eh.h>
-
-#else
+#ifndef MXCPP_FIX_USE_OLD_C_HEADERS
 
 #include <typeinfo>
 #include <exception>
+
 #ifndef MXCPP_FIX_HAS_NOT_STD_NAMESPACE
 using namespace std;
 #endif
 
+#else // MXCPP_FIX_USE_OLD_C_HEADERS
+
+#include <typeinfo.h>
+#ifndef MXCPP_FIX_EH_UNSUPPORTED
+#include <eh.h>
 #endif
+
+#endif // MXCPP_FIX_USE_OLD_C_HEADERS
 
 
 /**
@@ -176,7 +179,7 @@ private:
         const Size iReturnCode = Exception::GlobalLogMessage(*m_pException);
         if (bDestroy)
         {
-            delete const_cast< ExceptionType * >(m_pException);
+            delete mxConstCast(m_pException, ExceptionType *);
         }
         return iReturnCode;
     }

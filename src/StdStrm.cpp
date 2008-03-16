@@ -32,10 +32,6 @@
 #include "mx/StdStrm.hpp"
 
 
-namespace mx
-{
-
-
 // Undefine possibly overridden names.
 
 #ifdef StandardInput
@@ -79,9 +75,9 @@ namespace mx
 
     This means, the stream can be used during program init and exit stages.
 */
-static FileStream & _StandardInput()
+static mx::FileStream & _StandardInput()
 {
-    static FileStream * const stdStream = new FileStream(stdin);
+    static mx::FileStream * const stdStream = new mx::FileStream(stdin);
     return *stdStream;
 }
 
@@ -95,9 +91,9 @@ static FileStream & _StandardInput()
 
     This means, the stream can be used during program init and exit stages.
 */
-static FileStream & _StandardOutput()
+static mx::FileStream & _StandardOutput()
 {
-    static FileStream * const stdStream = new FileStream(stdout);
+    static mx::FileStream * const stdStream = new mx::FileStream(stdout);
     return *stdStream;
 }
 
@@ -117,22 +113,19 @@ static FileStream & _StandardOutput()
 
     This means, the stream can be used during program init and exit stages.
 */
-static FileStream & _StandardError()
+static mx::FileStream & _StandardError()
 {
-    static FileStream * const stdStream = new FileStream(stderr);
+    static mx::FileStream * const stdStream = new mx::FileStream(stderr);
     return *stdStream;
 }
 
 
-} // namespace mx
-
-
 MXCPP_DLL_EXPORT_DATA(mx::FileStream &) mx::StandardInput
-    = mx::_StandardInput();
+    = _StandardInput();
 MXCPP_DLL_EXPORT_DATA(mx::FileStream &) mx::StandardOutput
-    = mx::_StandardOutput();
+    = _StandardOutput();
 MXCPP_DLL_EXPORT_DATA(mx::FileStream &) mx::StandardError
-    = mx::_StandardError();
+    = _StandardError();
 
 
 // Define inline methods here if inlining is disabled.

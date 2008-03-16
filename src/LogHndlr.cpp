@@ -98,7 +98,7 @@ mx::Size mx::LogHandler::DoLogV(
         DoLog(xFileInfo, Log::LOG_Warning,
                 _("Invalid log message type!"));
         // Treat all as "Log: ..."
-        iLogType = static_cast< Log::LogType >(0);
+        iLogType = mxStaticCast(0, Log::LogType);
     }
     // Check the format.
     if (!sFormat)

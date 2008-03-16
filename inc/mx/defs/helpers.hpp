@@ -110,12 +110,65 @@ const int true = 1;
 #endif
 
 
+#ifndef MXCPP_FIX_DOES_NOT_HAVE_STANDARD_CAST_OPERATORS
+
+#define mxConstCast(object, object_type) \
+    const_cast< object_type >(object)
+
+#define mxStaticCast(object, object_type) \
+    static_cast< object_type >(object)
+
+#define mxDynamicCast(object, object_type) \
+    dynamic_cast< object_type >(object)
+
+#define mxReinterpretCast(object, object_type) \
+    reinterpret_cast< object_type >(object)
+
+#else // MXCPP_FIX_DOES_NOT_HAVE_STANDARD_CAST_OPERATORS
+
+#define mxConstCast(object, object_type)        ((object_type)object)
+#define mxStaticCast(object, object_type)       ((object_type)object)
+#define mxDynamicCast(object, object_type)      ((object_type)object)
+#define mxReinterpretCast(object, object_type)  ((object_type)object)
+
+#endif // MXCPP_FIX_DOES_NOT_HAVE_STANDARD_CAST_OPERATORS
+
+
+/**
+    @def mxMutableCast
+
+    Mutable conversion made to object.
+
+    @param [in] object      The object instance.
+    @param [in] object_type Type of the object.
+
+    Sometimes we need to use object attribute, which can be assigned in const
+    method (= method which does not change object status). Standard C++ offers
+    @c mutable keyword for that case, using it the attribute can be declared, and
+    then it is legal to change a value of this attribute in const method (or in
+    const class instance).
+
+    However, this keyword is not supported by all compilers, and therefore we
+    must have the way to work around this, if we want to use this C++ feature
+    (luckily there is a way to work around, it is however unsafe, but is used
+    only on compilers which does not support the feature, and therefore the code
+    will be tested with compilers which support it).
+*/
+
 #ifdef MXCPP_FIX_DOES_NOT_HAVE_MUTABLE
 // Define the "mutable" keyword as empty for compilers that do not have it.
 #ifndef mutable
 #define mutable
 #endif
-#endif
+
+#define mxMutableCast(object, object_type) \
+    mxConstCast(object, object_type)
+
+#else // FIX_DOES_NOT_HAVE_MUTABLE
+
+#define mxMutableCast(object, object_type)  (object)
+
+#endif // FIX_DOES_NOT_HAVE_MUTABLE
 
 
 /**

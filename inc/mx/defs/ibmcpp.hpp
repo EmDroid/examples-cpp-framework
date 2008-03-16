@@ -38,6 +38,15 @@
 /// The compiler does not support new C++ style headers.
 #define MXCPP_FIX_USE_OLD_C_HEADERS
 
+/// The compiler does not have standard C++ exceptions defined.
+#define MXCPP_FIX_NO_STD_EXCEPTION
+
+/// The compiler does not have standard C++ cast operators defined.
+#define MXCPP_FIX_DOES_NOT_HAVE_STANDARD_CAST_OPERATORS
+
+/// Exception handlers are not supported by the compiler.
+#define MXCPP_FIX_EH_UNSUPPORTED
+
 // Compiler does't have boolean type.
 #define MXCPP_FIX_DOES_NOT_HAVE_BOOL
 
