@@ -30,7 +30,7 @@
 
     @param [in] sMessage The exception message.
 */
-MX_INLINE mx::ApplicationException::ApplicationException(
+/* explicit */ MX_INLINE mx::ApplicationException::ApplicationException(
         const Char * const sMessage)
     : Super(sMessage)
 {}

@@ -223,14 +223,15 @@ public:
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE Exception(const Char * const sMessage = NULL);
+    explicit MX_INLINE Exception(const Char * const sMessage = NULL);
 
     // Automatic copy and assignment constructor is ok for us
     // (shallow copy of file name and line information).
 
 public:
 
-    virtual MX_INLINE ~Exception();
+    virtual ~Exception();
+
 
 // Class instance methods.
 
@@ -347,11 +348,7 @@ class MXCPP_DLL_EXPORT SystemException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE SystemException(const Char * const sMessage = NULL);
-
-public:
-
-    MX_OVERRIDDEN MX_INLINE ~SystemException();
+    explicit MX_INLINE SystemException(const Char * const sMessage = NULL);
 
 
 }; // class SystemException
@@ -381,11 +378,7 @@ class MXCPP_DLL_EXPORT KernelException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE KernelException(const Char * const sMessage = NULL);
-
-public:
-
-    MX_OVERRIDDEN MX_INLINE ~KernelException();
+    explicit MX_INLINE KernelException(const Char * const sMessage = NULL);
 
 
 }; // class KernelException
@@ -414,11 +407,7 @@ class MXCPP_DLL_EXPORT MemoryException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE MemoryException(const Char * const sMessage = NULL);
-
-public:
-
-    MX_OVERRIDDEN MX_INLINE ~MemoryException();
+    explicit MX_INLINE MemoryException(const Char * const sMessage = NULL);
 
 
 }; // class MemoryException
@@ -438,11 +427,7 @@ class MXCPP_DLL_EXPORT IOException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE IOException(const Char * const sMessage = NULL);
-
-public:
-
-    MX_OVERRIDDEN MX_INLINE ~IOException();
+    explicit MX_INLINE IOException(const Char * const sMessage = NULL);
 
 
 }; // class IOException

@@ -64,9 +64,13 @@ class MXCPP_DLL_EXPORT OutOfMemory
 
 public:
 
-    OutOfMemory(const Size iSizeRequested);
+    explicit MX_INLINE OutOfMemory(
+            const Size iSizeRequested);
 
-    MX_OVERRIDDEN MX_INLINE ~OutOfMemory();
+
+// Class instance methods.
+
+public:
 
     MX_OVERRIDDEN MX_INLINE const char * what() const;
 

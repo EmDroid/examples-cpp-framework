@@ -33,7 +33,7 @@
 
 
 #if (__IBMCPP__ < 41020)
-    #error This project requires at least IBM C++ Compiler 2.0 to compile.
+    #error This project requires at least IBM C++ Compiler 1.2 to compile.
 #endif // __IBMCPP__ < 41020
 
 

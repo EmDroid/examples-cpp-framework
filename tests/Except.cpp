@@ -64,6 +64,7 @@ class TestStdException
 public:
 
     MX_OVERRIDDEN MX_INLINE const char * what() const
+    throw()
     {
         return "Testing exception message.";
     }

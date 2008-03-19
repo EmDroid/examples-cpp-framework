@@ -137,15 +137,15 @@ inline void * operator new[] (
 }
 
 
-inline void operator delete (
-        void * pMemoryBlock)
+inline void operator delete (void * pMemoryBlock)
+throw()
 {
     mx::AllocOperatorsImplementation::Delete(pMemoryBlock);
 }
 
 
-inline void operator delete[] (
-        void * pMemoryBlock)
+inline void operator delete[] (void * pMemoryBlock)
+throw()
 {
     mx::AllocOperatorsImplementation::Delete(pMemoryBlock, true);
 }

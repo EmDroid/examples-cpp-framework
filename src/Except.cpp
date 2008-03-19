@@ -129,6 +129,13 @@ using namespace std;
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::Exception);
 
 
+/**
+    Destructor.
+*/
+/* virtual */ mx::Exception::~Exception()
+{}
+
+
 namespace mx
 {
 
@@ -315,10 +322,6 @@ MX_NORETURN mx::Exception::Fail() const
     LogMessage();
     exit(mx::Application::RC_FAILURE);
 }
-
-
-// Start the exception implementation.
-MX_IMPLEMENT_EXCEPTION_CLASS(mx::ApplicationException);
 
 
 // Start the exception implementation.

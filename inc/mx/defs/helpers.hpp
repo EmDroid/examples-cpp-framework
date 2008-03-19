@@ -29,9 +29,16 @@
 #define MXCPP_SYSDEF_HELPERS_HPP_INCLUDE_GUARD
 
 
+// Forward declarations of delete operators, which should be inlined.
+inline void operator delete (void * pMemoryBlock) throw();
+
+inline void operator delete[] (void * pMemoryBlock) throw();
+
+
 /* Standard headers. */
 #ifndef MXCPP_FIX_USE_OLD_C_HEADERS
 
+#include <new>
 #include <cstdlib>
 #include <cstdio>
 #include <cstdarg>
@@ -39,7 +46,6 @@
 #include <cerrno>
 #include <cwchar>
 #include <exception>
-#include <new>
 #include <cassert>  // for assert() macro override
 
 #ifndef MXCPP_FIX_HAS_NOT_STD_NAMESPACE

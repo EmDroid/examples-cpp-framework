@@ -135,8 +135,6 @@ public:
 
     MX_INLINE EndOfFile();
 
-    MX_OVERRIDDEN MX_INLINE ~EndOfFile();
-
 
 }; // class EndOfFile
 
@@ -158,9 +156,7 @@ class MXCPP_DLL_EXPORT GenericIOException
 
 public:
 
-    MX_INLINE GenericIOException(const int iErrno = 0);
-
-    MX_OVERRIDDEN MX_INLINE ~GenericIOException();
+    explicit MX_INLINE GenericIOException(const int iErrno = 0);
 
 
 // Class instance attributes.

@@ -35,6 +35,10 @@
 #include "mx/App/App.hpp"
 
 
+// Start the exception implementation.
+MX_IMPLEMENT_EXCEPTION_CLASS(mx::ApplicationException);
+
+
 /// The application instance.
 mx::Application * mx::Application::pApplicationInstance = NULL;
 

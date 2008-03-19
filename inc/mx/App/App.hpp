@@ -101,7 +101,7 @@ class MXCPP_DLL_EXPORT ApplicationException
 protected:
 
     // Protected constructor to prevent direct throwing of the exception.
-    MX_INLINE ApplicationException(const Char * const sMessage = NULL);
+    explicit MX_INLINE ApplicationException(const Char * const sMessage = NULL);
 
 
 }; // class ApplicationException

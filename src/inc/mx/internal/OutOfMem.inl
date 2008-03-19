@@ -28,9 +28,13 @@
 
 
 /**
-    Destructor.
+    Constructor.
+
+    @param [in] iSizeRequested @copydoc m_iSizeRequested
 */
-/* virtual */ MX_INLINE mx::OutOfMemory::~OutOfMemory()
+/* explicit */ MX_INLINE mx::OutOfMemory::OutOfMemory(
+        const Size iSizeRequested)
+    : m_iSizeRequested(iSizeRequested)
 {}
 
 

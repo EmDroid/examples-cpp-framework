@@ -36,17 +36,6 @@
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::OutOfMemory);
 
 
-/**
-    Constructor.
-
-    @param [in] iSizeRequested @copydoc m_iSizeRequested
-*/
-mx::OutOfMemory::OutOfMemory(
-        const Size iSizeRequested)
-    : m_iSizeRequested(iSizeRequested)
-{}
-
-
 // Define inline methods here if inlining is disabled.
 #ifndef MX_INLINE_ENABLED
 #include "mx/internal/OutOfMem.inl"
