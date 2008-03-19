@@ -50,7 +50,7 @@ class TestException
 
 public:
 
-    MX_INLINE TestException(const Char * const sMessage)
+    explicit MX_INLINE TestException(const Char * const sMessage)
         : Super(sMessage)
     {}
 

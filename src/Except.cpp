@@ -199,15 +199,6 @@ private:
 }; // class FailureHandler< ... >
 
 
-/*
-static MX_NORETURN doHandleUncaughtException(
-        const ExceptionType * const pException)
-{
-    abort();
-}
-*/
-
-
 static Size doLogMessage(
         const char * const sExceptionName,
         const Char * sMessage,
@@ -372,9 +363,9 @@ private:
 
 private:
 
-    static MX_NORETURN HandleTerminate();
+    static inline MX_NORETURN HandleTerminate();
 
-    static MX_NORETURN HandleUnexpected();
+    static inline MX_NORETURN HandleUnexpected();
 
 
 // Construction, destruction.
@@ -420,7 +411,7 @@ mx::UncaughtExceptionHandler::UncaughtExceptionHandler()
 /**
     Our handler for uncaught exceptions.
 */
-/* static */ MX_NORETURN mx::UncaughtExceptionHandler::HandleTerminate()
+/* static */ inline MX_NORETURN mx::UncaughtExceptionHandler::HandleTerminate()
 {
     HandleUnexpected();
 }
@@ -429,7 +420,7 @@ mx::UncaughtExceptionHandler::UncaughtExceptionHandler()
 /**
     Our handler for unexpected exceptions.
 */
-/* static */ MX_NORETURN mx::UncaughtExceptionHandler::HandleUnexpected()
+/* static */ inline MX_NORETURN mx::UncaughtExceptionHandler::HandleUnexpected()
 {
     Exception::HandleUncaughtException(
             /* Exception::getLastRaisedException() */);

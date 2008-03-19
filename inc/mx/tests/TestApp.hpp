@@ -91,15 +91,23 @@ private:
     {
         Log::SetActiveTarget(LogStandard::Instance());
         Log(Log::LOG_Message, Debug::Checkpoint()).LogMessage(
-                _("--- Running the [%s] tests ... ---"),
-                GetTestName());
+#ifndef MXCPP_UNICODE
+                _("--- Running the [%s] tests ... ---")
+#else
+                _("--- Running the [%ls] tests ... ---")
+#endif
+                , GetTestName());
         // Make sure the startup message is always displayed, even in the case
         // of a nasty failure in the testing environment.
         Log::Flush();
         const ReturnCode iReturnCode = OnRunTests();
         Log(Log::LOG_Message, Debug::Checkpoint()).LogMessage(
-                _("--- ... the [%s] tests passed successfully. ---"),
-                GetTestName());
+#ifndef MXCPP_UNICODE
+                _("--- ... the [%s] tests passed successfully. ---")
+#else
+                _("--- ... the [%ls] tests passed successfully. ---")
+#endif
+                , GetTestName());
         return iReturnCode;
     }
 
