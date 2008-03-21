@@ -77,21 +77,23 @@ release:
 # May also be set on the make command line.
 # MXCPP_TARGETS_LOG := targets.log
 $(if $(strip $(MXCPP_MAKE_DEBUG)),$(eval MXCPP_TARGETS_LOG := targets.log))
-
 $(if $(strip $(MXCPP_TARGETS_LOG)),$(shell $(RM) $(MXCPP_TARGETS_LOG) $(NOOUT) $(NOERROUT)))
 
 # Logging of commands (for debug purposes).
 # May also be set on the make command line.
 MXCPP_COMMANDS_LOG := build.log
 $(if $(strip $(MXCPP_MAKE_DEBUG)),$(eval MXCPP_COMMANDS_LOG := build.log))
-
 $(if $(strip $(MXCPP_COMMANDS_LOG)),$(shell $(RM) $(MXCPP_COMMANDS_LOG) $(NOOUT) $(NOERROUT)))
 
 
+# Logging of test output (for debug purposes).
+# May also be set on the make command line.
 MXCPP_TEST_LOG := tests.log
 $(if $(strip $(MXCPP_TEST_LOG)),$(shell $(RM) $(MXCPP_TEST_LOG) $(NOOUT) $(NOERROUT)))
 MXCPP_TEST_LOG_FULL := $(if $(strip $(MXCPP_TEST_LOG)),>>$(MXCPP_TEST_LOG))
 
+# Logging of copiler warnings and errors (for debug purposes).
+# May also be set on the make command line.
 MXCPP_WARNING_LOG := warnings.log
 $(if $(strip $(MXCPP_WARNING_LOG)),$(shell $(RM) $(MXCPP_WARNING_LOG) $(NOOUT) $(NOERROUT)))
 
@@ -129,6 +131,7 @@ $(foreach compiler,$(MXCPP_COMPILERS_LIST),\
 		$(eval MXCPP_$(compiler)FLAGS += $(MXCPP_$(compiler)FLAGS_PLATFORM))))
 
 
+##
 # Define single build rule.
 #
 # @param $(1) The rule targets.
@@ -145,6 +148,7 @@ $(foreach compiler,$(MXCPP_COMPILERS_LIST),\
 # @note
 # If the variable $$(MXCPP_TARGETS_LOG) is set to some file name, all created
 # rules are logged into that file (for debugging purposes).
+#
 define MXCPP_BUILD_RULES_SINGLE_RULE
 
 $(if $(strip $(MXCPP_TARGETS_LOG)),$(shell $(ECHO) ($(3)) $(1): $(2) >> $(MXCPP_TARGETS_LOG)))
@@ -154,10 +158,22 @@ $(1): $(2)
 endef	# MXCPP_BUILD_RULES_SINGLE_RULE
 
 
+## The empty space to be used in substitutions.
 MXCPP_EMPTY_SPACE :=
 MXCPP_EMPTY_SPACE := $(MXCPP_EMPTY_SPACE) $(MXCPP_EMPTY_SPACE)
+
+## The comma to be used in substitutions.
 MXCPP_COMMA := ,
 
+
+##
+# Define group of build rules.
+#
+# @param $(1) The source configuration.
+# @param $(2) The target configuration.
+# @param $(3) The configuration separator.
+# @param $(4) The rule identifier.
+#
 define MXCPP_BUILD_RULES_GROUP
 
 $(eval MXCPP_BUILD_RULES_SRC := $(subst $(MXCPP_EMPTY_SPACE),$(3),$(strip $(1))))
@@ -173,10 +189,7 @@ $(foreach cleantype,clean cleanall,$(call MXCPP_BUILD_RULES_SINGLE_RULE,$(if $(s
 endef	# MXCPP_BUILD_RULES_GROUP
 
 
-
-MXCPP_MAKE_DIR := $(CURDIR)
-
-
+##
 # Run single build command.
 #
 # This is convenience macro for running build commands, to allow simple
@@ -197,6 +210,7 @@ endef	# MXCPP_RUN_COMMAND
 #          the if-endif block will not work inside $(foreach ...) loops!
 
 
+##
 # Construct build rules for building single object from single source file.
 #
 # @param $(1) The source files root.
@@ -237,6 +251,7 @@ $(call MXCPP_RUN_COMMAND,$($(MXCPP_COMPILER_TYPE)) $(if $(strip $($(MXCPP_COMPIL
 endef	# MXCPP_BUILD_RULES_OBJECT
 
 
+##
 # Construct build rules for building single test executable from single source file.
 #
 # @param $(1) The source file name, relative to the $(MXCPP_TEST_ROOT).
@@ -274,6 +289,7 @@ $(call MXCPP_RUN_COMMAND,$(LNKC) $(if $(strip $(LNKC_USE_RESPONSE_FILE)),@$(MXCP
 endef	# MXCPP_BUILD_RULES_TEST
 
 
+##
 # Build final rules for single library and build configuration.
 #
 # @param $(1) The library configuration.
@@ -424,6 +440,13 @@ $(call MXCPP_RUN_COMMAND,$(MKDIR) $$@)
 endef	# MXCPP_BUILD_RULES_FINAL
 
 
+##
+# Define build rules for single SHARE-CHARTYPE-DEBUGINFO configuration.
+#
+# @param $(1) The library configuration.
+# @param $(2) The character type configuration.
+# @param $(2) The debug info configuration.
+#
 define MXCPP_BUILD_RULES_SHARE_CHARTYPE_DBGINFO
 
 $(foreach subtype,$(3) $(2),$(call MXCPP_BUILD_RULES_GROUP,$(1) $(subtype),$(1) $(2) $(3),_,2))
@@ -435,6 +458,12 @@ $(call MXCPP_BUILD_RULES_FINAL,$(1),$(2) $(3))
 endef	# MXCPP_BUILD_RULES_SHARE_CHARTYPE_DBGINFO
 
 
+##
+# Define build rules for single SHARE-CHARTYPE configuration.
+#
+# @param $(1) The library configuration.
+# @param $(2) The character type configuration.
+#
 define MXCPP_BUILD_RULES_SHARE_CHARTYPE
 
 $(foreach subtype,$(1) $(2),$(call MXCPP_BUILD_RULES_GROUP,$(subtype),$(1) $(2),_,1))
@@ -444,6 +473,12 @@ $(foreach dbgtype,$(MXCPP_TARGET_SUBTYPE_DBGINFO),$(call MXCPP_BUILD_RULES_SHARE
 endef	# MXCPP_BUILD_RULES_SHARE_CHARTYPE
 
 
+##
+# Define build rules for single SHARE-DEBUGINFO configuration.
+#
+# @param $(1) The library configuration.
+# @param $(2) The debug info configuration.
+#
 define MXCPP_BUILD_RULES_SHARE_DBGINFO
 
 $(call MXCPP_BUILD_RULES_GROUP,$(2),$(1) $(2),_,1)
@@ -451,6 +486,11 @@ $(call MXCPP_BUILD_RULES_GROUP,$(2),$(1) $(2),_,1)
 endef	# MXCPP_BUILD_RULES_SHARE_DBGINFO
 
 
+##
+# Define build rules for single SHARE configuration.
+#
+# @param $(1) The library configuration.
+#
 define MXCPP_BUILD_RULES_SHARE
 
 $(call MXCPP_BUILD_RULES_GROUP,,$(1),_,0)
@@ -461,6 +501,7 @@ $(foreach dbgtype,$(MXCPP_TARGET_SUBTYPE_DBGINFO),$(call MXCPP_BUILD_RULES_SHARE
 endef	# MXCPP_BUILD_RULES_SHARE
 
 
+# Startup the build rules definition.
 $(foreach sharetype,$(MXCPP_TARGET_TYPE_SHARE),$(eval $(call MXCPP_BUILD_RULES_SHARE,$(sharetype))))
 
 

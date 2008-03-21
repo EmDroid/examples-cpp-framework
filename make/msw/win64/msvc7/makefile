@@ -40,7 +40,7 @@ CXXFLAGS_LIBMT_RUNTIME := -MD
 CXXFLAGS_VCDB_NAME := vc70
 
 # Linker target flags.
-LDFLAGS_TARGET := /machine:AMD64
+LDFLAGS_TARGET := /machine:AMD64 bufferoverflowU.lib
 
 
 # Include default MSVC definitions.

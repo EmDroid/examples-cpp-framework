@@ -31,6 +31,13 @@
 #define MXCPP_SYSDEF_GCC2_HPP_INCLUDE_GUARD
 
 
+#ifdef MXCPP_UNICODE
+
+    #error UNICODE not supported by this GCC compiler version. Use at least version 3.0
+
+#endif
+
+
 #endif // MXCPP_SYSDEF_GCC2_HPP_INCLUDE_GUARD
 
 /* EOF */

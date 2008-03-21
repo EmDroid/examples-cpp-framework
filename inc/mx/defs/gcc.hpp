@@ -81,6 +81,13 @@
 
 #else // MXCPP_UNICODE
 
+// Always use the wide-character functions.
+#define _GLIBCXX_HAVE_WCHAR_H   1
+#define _GLIBCXX_USE_WCHAR_T    1
+#define _GLIBCXX_HAVE_MBSTATE_T 1
+// For HP-UX.
+#define _INCLUDE__STDC_A1_SOURCE
+
 /* Does not yet have wide-char format check analogs.
 
 #define MX_PRINTFLIKE(format_index, arguments_index) \
