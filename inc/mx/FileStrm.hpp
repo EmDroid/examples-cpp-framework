@@ -163,6 +163,7 @@ public:
 
 private:
 
+    /// The error code associated with the exception.
     const int m_iErrno;
 
 

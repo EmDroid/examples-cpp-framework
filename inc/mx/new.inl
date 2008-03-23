@@ -27,18 +27,34 @@
 */
 
 
+/**
+    The real implementation of the global @c new operators.
+
+
+    @param [in] iSize     Number of bytes to allocate.
+    @param [in] xFileInfo Source file location information (for debugging
+                          purposes).
+    @param [in] bVector   Allocated as vector (using the @c new[] operator).
+*/
 /* static */ MX_INLINE void * mx::AllocOperatorsImplementation::New(
-        const Size iMemoryBlockSize,
+        const Size iSize,
         const Debug::Checkpoint & xFileInfo,
-        const bool MX_UNUSED(bVectorAlloc))
+        const bool MX_UNUSED(bVector))
 {
-    return Memory::AllocateImpl(iMemoryBlockSize, xFileInfo);
+    return Memory::AllocateImpl(iSize, xFileInfo);
 }
 
 
+/**
+    The real implementation of the global @c delete operators.
+
+
+    @param [in] pMemoryBlock The address of allocated memory block to be deleted.
+    @param [in] bVector      Deleted as vector (using the @c delete[] operator).
+*/
 /* static */ MX_INLINE void mx::AllocOperatorsImplementation::Delete(
         void * const pMemoryBlock,
-        const bool MX_UNUSED(bVectorFree))
+        const bool MX_UNUSED(bVector))
 {
     Memory::Free(pMemoryBlock);
 }

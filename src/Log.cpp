@@ -83,6 +83,7 @@
     @param [in] ...     Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
 */
 MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogMessage(
         const Char * sFormat, ...) const
@@ -102,6 +103,7 @@ MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogMessage(
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
 */
 mx::Size mx::Log::LogMessage(
         const Char * sFormat, va_list pArguments) const
@@ -118,12 +120,14 @@ mx::Size mx::Log::LogMessage(
 
 
 /**
-    Special method for logging of assertion fatal errors.
+    Special method for logging of fatal errors.
 
     @param [in] sFormat @c printf(3) like formatting string.
     @param [in] ...     Argument list matching the @a sFormat string.
 
     @return
+    This method does never return, always causes the application shutdown via the
+    standard function abort().
 */
 MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogFatal(
         const Char * sFormat, ...) const
@@ -138,12 +142,14 @@ MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogFatal(
 
 
 /**
-    Special method for logging of assertion fatal errors (vararg version).
+    Special method for logging of fatal errors (vararg version).
 
     @param [in] sFormat    @c printf(3) like formatting string.
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    This method does never return, always causes the application shutdown via the
+    standard function abort().
 */
 // Does not need to be inline, it cannot be called more than once.
 MX_NORETURN_TYPE(mx::Size) mx::Log::LogFatal(
@@ -162,6 +168,8 @@ MX_NORETURN_TYPE(mx::Size) mx::Log::LogFatal(
     @param [in] ...     Argument list matching the @a sFormat string.
 
     @return
+    This method does never return, always causes the application shutdown via the
+    standard function abort().
 */
 MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogAssert(
         const Char * sFormat, ...) const
@@ -182,6 +190,8 @@ MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogAssert(
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    This method does never return, always causes the application shutdown via the
+    standard function abort().
 */
 // Does not need to be inline, it cannot be called more than once.
 MX_NORETURN_TYPE(mx::Size) mx::Log::LogAssert(
@@ -191,18 +201,17 @@ MX_NORETURN_TYPE(mx::Size) mx::Log::LogAssert(
 }
 
 
-/**
-    @func Log::LogDebug
+#ifdef MXCPP_DEBUG_ENABLED
 
+/**
     Special method for logging of debug messages.
 
     @param [in] sFormat @c printf(3) like formatting string.
     @param [in] ...     Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
 */
-#ifdef MXCPP_DEBUG_ENABLED
-
 MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogDebug(
         const Char * sFormat, ...) const
 {
@@ -224,6 +233,12 @@ MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogDebug(
     @param [in] ...     Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogTrace(
         const Char * sFormat, ...) const
@@ -248,6 +263,12 @@ MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogTrace(
     @param [in] ...     Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::Log::LogTrace(
         const TraceClass iClass,
@@ -274,6 +295,12 @@ MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::Log::LogTrace(
     @param [in] ...     Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::Log::LogTrace(
         const TraceClass iClass,
@@ -295,11 +322,17 @@ MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::Log::LogTrace(
 /**
     Special method for logging of trace messages (string trace mask variant).
 
-    @param [in] iClass  Trace class.
+    @param [in] sClass  Trace class.
     @param [in] sFormat @c printf(3) like formatting string.
     @param [in] ...     Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::Log::LogTrace(
         const Char * const sClass,
@@ -320,12 +353,18 @@ MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::Log::LogTrace(
 /**
     Special method for logging of trace messages (string trace mask variant).
 
-    @param [in] iClass  Trace class.
+    @param [in] sClass  Trace class.
     @param [in] iLevel  Trace priority level.
     @param [in] sFormat @c printf(3) like formatting string.
     @param [in] ...     Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::Log::LogTrace(
         const Char * const sClass,

@@ -33,30 +33,43 @@
 #include "mx/internal/OutOfMem.hpp"
 
 
-namespace mx
+// Tests declared in anonymous namespace.
+namespace
 {
 
 
 /**
-    Testing exception.
+    Testing mx::Exception inheritance.
 
-    This exception is used to check if user-defined exceptions are working.
+    This exception is used to check if user-defined mx::Exception based
+    exceptions are working.
 */
 class TestException
-    : public ApplicationException
+    : public mx::ApplicationException
 {
 
-    MX_DECLARE_EXCEPTION_CLASS(TestException, ApplicationException);
+    MX_DECLARE_EXCEPTION_CLASS(TestException, mx::ApplicationException);
 
 public:
 
-    explicit MX_INLINE TestException(const Char * const sMessage)
+    /**
+        Constructor.
+
+        @param [in] sMessage The exception message.
+    */
+    explicit MX_INLINE TestException(const mx::Char * const sMessage)
         : Super(sMessage)
     {}
 
 };
 
 
+/**
+    Testing std::exception inheritance.
+
+    This exception is used to check if user-defined std::exception based
+    exceptions are working.
+*/
 class TestStdException
     : public std::exception
 {
@@ -84,7 +97,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (const ExceptionType & e)
     {
-        e.LogMessage(Log::LOG_Message);
+        e.LogMessage(mx::Log::LOG_Message);
     }
     // Check catching as arbitrary exception.
     try
@@ -93,9 +106,9 @@ int SingleExceptionTest(const ExceptionType & theException)
         mxThrow(e);
         return EXIT_FAILURE;
     }
-    catch (const Exception & e)
+    catch (const mx::Exception & e)
     {
-        e.LogMessage(Log::LOG_Message);
+        e.LogMessage(mx::Log::LOG_Message);
     }
     catch (...)
     {
@@ -111,7 +124,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (const ExceptionType & e)
     {
-        e.LogMessage(Log::LOG_Message);
+        e.LogMessage(mx::Log::LOG_Message);
     }
     // Check catching as arbitrary exception.
     try
@@ -119,9 +132,9 @@ int SingleExceptionTest(const ExceptionType & theException)
         const ExceptionType e = theException;
         throw e;
     }
-    catch (const Exception & e)
+    catch (const mx::Exception & e)
     {
-        e.LogMessage(Log::LOG_Message);
+        e.LogMessage(mx::Log::LOG_Message);
     }
     catch (...)
     {
@@ -136,7 +149,7 @@ int SingleExceptionTest(const ExceptionType & theException)
     }
     catch (ExceptionType * e)
     {
-        e->LogMessage(Log::LOG_Message);
+        e->LogMessage(mx::Log::LOG_Message);
         delete e;
     }
     // Check catching as arbitrary exception.
@@ -144,9 +157,9 @@ int SingleExceptionTest(const ExceptionType & theException)
     {
         throw new ExceptionType(theException);
     }
-    catch (Exception * e)
+    catch (mx::Exception * e)
     {
-        e->LogMessage(Log::LOG_Message);
+        e->LogMessage(mx::Log::LOG_Message);
         delete e;
     }
     catch (...)
@@ -159,7 +172,7 @@ int SingleExceptionTest(const ExceptionType & theException)
 }
 
 
-} // namespace mx
+} // anonymous namespace
 
 
 MX_IMPLEMENT_EXCEPTION_CLASS(mx::TestException);

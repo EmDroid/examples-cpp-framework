@@ -49,6 +49,7 @@ MX_INLINE mx::LogHandler::LogHandler()
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    See DoLog() for description of return values.
 */
 MX_INLINE mx::Size mx::LogHandler::DoLog(
         const Log::LogType iType,

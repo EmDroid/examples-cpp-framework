@@ -64,14 +64,7 @@ class MXCPP_DLL_EXPORT LogStandard
 
 public:
 
-    static MX_INLINE LogStandard * Instance();
-
-
-// Class attributes (static).
-
-public:
-
-    static LogStandard sm_instance;
+    static LogStandard * Instance();
 
 
 // Construction, destruction.

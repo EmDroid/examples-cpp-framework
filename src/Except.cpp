@@ -503,10 +503,6 @@ class UncaughtExceptionHandler
 
 private:
 
-    /**
-        Instance of UncaughtExceptionHandler to enforce invocation
-        of its constructor.
-    */
     static const UncaughtExceptionHandler sm_xInitializer;
 
 
@@ -532,12 +528,15 @@ public:
 } // namespace mx
 
 
-// Initialize the only instance and run the constructor.
+/**
+    Instance of UncaughtExceptionHandler to enforce invocation of its
+    constructor.
+*/
 const mx::UncaughtExceptionHandler
 mx::UncaughtExceptionHandler::sm_xInitializer;
 
 
-// Framework signature.
+/// Signature of the @project to appear in executables.
 static const char mxCppFrameworkSignature[]
     = "This application uses Demo C++ Framework,"
       " (C) 1996-2008 Emil Maskovsky";

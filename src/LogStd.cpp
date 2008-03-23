@@ -32,7 +32,20 @@
 #include "mx/LogStd.hpp"
 
 
-/* static */ mx::LogStandard mx::LogStandard::sm_instance;
+/**
+    Get the default instance.
+
+    Because this is the default log handler, we need some statically allocated
+    instance which lasts the entire application time.
+
+    @return
+    The default instance of the LogStandard log handler.
+*/
+/* static */ mx::LogStandard * mx::LogStandard::Instance()
+{
+    static LogStandard * const sm_instance = new LogStandard();
+    return sm_instance;
+}
 
 
 /* MX_OVERRIDDEN */ mx::Size mx::LogStandard::OnLog(

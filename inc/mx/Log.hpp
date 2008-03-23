@@ -77,6 +77,7 @@
     or a variable argument list pointer.
 
     @return
+    See LogHandler::DoLog() for description of return values.
 */
 #define mxLogMessage \
     mx::Log(mx::Log::LOG_Message, __mxLogCheckpoint__()).LogMessage
@@ -91,6 +92,7 @@
     or a variable argument list pointer.
 
     @return
+    See LogHandler::DoLog() for description of return values.
 */
 #define mxLogWarning \
     mx::Log(mx::Log::LOG_Warning, __mxLogCheckpoint__()).LogMessage
@@ -105,6 +107,7 @@
     or a variable argument list pointer.
 
     @return
+    See LogHandler::DoLog() for description of return values.
 */
 #define mxLogError \
     mx::Log(mx::Log::LOG_Error, __mxLogCheckpoint__()).LogMessage
@@ -120,7 +123,8 @@
     or a variable argument list pointer.
 
     @return
-    This function does not return.
+    This function does never return, always causes the application shutdown via
+    the standard function abort().
 */
 #define mxLogFatalError \
     mx::Log(mx::Log::LOG_FatalError, __mxLogCheckpoint__()).LogFatal
@@ -140,6 +144,7 @@
     or a variable argument list pointer.
 
     @return
+    See LogHandler::DoLog() for description of return values.
 */
 #ifndef MXCPP_DEBUG_ENABLED
 
@@ -172,6 +177,12 @@
     should be used directly instead of formatting.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 #define mxLogTrace \
     mx::Log(mx::Log::LOG_Trace, __mxLogCheckpoint__()).LogTrace
@@ -187,6 +198,9 @@ namespace mx
 class LogHandler;
 
 
+/**
+    The logging subsystem implementation.
+*/
 class MXCPP_DLL_EXPORT Log
 {
 
@@ -267,14 +281,14 @@ public:
 
     static MX_INLINE bool TracingEnabled(
             const TraceClass iClass = TRACE_User,
-            const TraceLevel = LEVEL_Normal);
+            const TraceLevel iLevel = LEVEL_Normal);
 
 
     // User-based class tracing.
 
     static MX_INLINE bool TracingEnabled(
             const Char * const sClass,
-            const TraceLevel = LEVEL_Normal);
+            const TraceLevel iLevel = LEVEL_Normal);
 
 
     // File information engine.

@@ -63,7 +63,6 @@ typedef size_t Size;
 
     @see @ref unicode
 */
-
 #ifndef MXCPP_UNICODE
 
 typedef char Char;

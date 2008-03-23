@@ -117,6 +117,7 @@ namespace mx
 #define MX_DECLARE_EXCEPTION_CLASS(name, base) \
     MX_CLASS_NO_ASSIGNMENT(name);              \
 private:                                       \
+    /** The superclass. */                     \
     typedef class base Super
 
 

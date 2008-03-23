@@ -33,7 +33,20 @@
 #include "mx/LogStdE.hpp"
 
 
-/* static */ mx::LogStdErr mx::LogStdErr::sm_instance;
+/**
+    Get the default instance.
+
+    Because this is the default log handler, we need some statically allocated
+    instance which lasts the entire application time.
+
+    @return
+    The default instance of the LogStdErr log handler.
+*/
+/* static */ mx::LogStdErr * mx::LogStdErr::Instance()
+{
+    static LogStdErr * const sm_instance = new LogStdErr();
+    return sm_instance;
+}
 
 
 // Define inline methods here if inlining is disabled.

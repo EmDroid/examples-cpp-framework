@@ -48,7 +48,7 @@ namespace mx
 
 
 /**
-    Allocation operators real implementation.
+    Allocation operators real implementations.
 */
 class MXCPP_DLL_EXPORT AllocOperatorsImplementation
 {
@@ -81,8 +81,11 @@ public:
 /**
     Global @c operator @c new.
 
-    We define this @c operator @c new to provide some extra information into
-    the memory allocation process. This is used in combination with the exception
+    The global @c new operator is re-defined by the library to use the
+    @project memory handling mechanism.
+
+    We define this @c new operator to provide some extra information into the
+    memory allocation process. This is used in combination with the exception
     system to allow tracing of memory related problems.
 
     @param [in] iSize     Number of bytes to allocate.
@@ -112,8 +115,11 @@ inline void * operator new (
 /**
     Global array @c operator @c new.
 
-    We define this @c operator @c new[] to provide some extra information into
-    the memory allocation process. This is used in combination with the exception
+    The global @c new[] operator is re-defined by the library to use the
+    @project memory handling mechanism.
+
+    We define this @c new[] operator to provide some extra information into the
+    memory allocation process. This is used in combination with the exception
     system to allow tracing of memory related problems.
 
     @param [in] iSize     Number of bytes to allocate.
@@ -137,6 +143,14 @@ inline void * operator new[] (
 }
 
 
+/**
+    Global @c operator @c delete.
+
+    The global @c delete operator is re-defined by the library to use the
+    @project memory handling mechanism.
+
+    @param [in] pMemoryBlock The address of allocated memory block to be deleted.
+*/
 inline void operator delete (void * pMemoryBlock)
 throw()
 {
@@ -144,6 +158,14 @@ throw()
 }
 
 
+/**
+    Global array @c operator @c delete.
+
+    The global @c delete[] operator is re-defined by the library to use the
+    @project memory handling mechanism.
+
+    @param [in] pMemoryBlock The address of allocated memory block to be deleted.
+*/
 inline void operator delete[] (void * pMemoryBlock)
 throw()
 {
@@ -153,7 +175,7 @@ throw()
 
 #ifdef MXCPP_FIX_DELETE_PARAMS_LIKE_NEW
 
-// We do not require this, bu some compilers (MSVC) must have defined
+// We do not require this, but some compilers (MSVC) must have defined
 // delete operator with same parameters like new.
 
 

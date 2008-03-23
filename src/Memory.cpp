@@ -75,6 +75,11 @@
     @param [in] xFileLocation Source file location information (for debugging
                               purposes).
 
+    @note
+    In regular cases, you should use the new C++ style operators
+    @c new or @c new[] for dynamic allocation (and @c delete or @c delete[]
+    operators for de-allocation).
+
     @return
     The address of allocated memory block.
 
@@ -193,7 +198,7 @@
     to the number of bytes requested when the block was allocated (or
     reallocated, in the case of Reallocate()).
 
-    @param [in] pMemoryBlock The address of allocated memory block to be freed.
+    @param [in] pMemoryBlock  The address of allocated memory block to be freed.
     @param [in] xFileLocation Source file location information (for debugging
                               purposes).
 

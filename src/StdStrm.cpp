@@ -120,10 +120,15 @@ static mx::FileStream & _StandardError()
 }
 
 
+/// Standard input FileStream.
 MXCPP_DLL_EXPORT_DATA(mx::FileStream &) mx::StandardInput
     = _StandardInput();
+
+/// Standard output FileStream.
 MXCPP_DLL_EXPORT_DATA(mx::FileStream &) mx::StandardOutput
     = _StandardOutput();
+
+/// Standard error FileStream.
 MXCPP_DLL_EXPORT_DATA(mx::FileStream &) mx::StandardError
     = _StandardError();
 

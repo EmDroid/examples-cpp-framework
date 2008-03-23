@@ -61,14 +61,7 @@ class MXCPP_DLL_EXPORT LogStdErr
 
 public:
 
-    static MX_INLINE LogStdErr * Instance();
-
-
-// Class attributes (static).
-
-public:
-
-    static LogStdErr sm_instance;
+    static LogStdErr * Instance();
 
 
 // Construction, destruction.

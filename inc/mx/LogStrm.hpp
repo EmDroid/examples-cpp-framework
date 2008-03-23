@@ -64,7 +64,7 @@ class MXCPP_DLL_EXPORT LogStream
 
 public:
 
-    MX_INLINE LogStream(Stream * const pStream);
+    explicit MX_INLINE LogStream(Stream * const pStream);
 
     virtual MX_INLINE ~LogStream();
 
@@ -77,7 +77,7 @@ protected:
             const Debug::Checkpoint & xFileInfo,
             const Log::LogType iType,
             const Char * const sTypeString,
-            const Char * sFormat, va_list pArgs);
+            const Char * sFormat, va_list pArguments);
 
     MX_OVERRIDDEN MX_INLINE void OnFlush();
 
@@ -85,7 +85,7 @@ protected:
             const Debug::Checkpoint & xFileInfo,
             Stream * const pStream,
             const Char * const sTypeString,
-            const Char * sFormat, va_list pArgs);
+            const Char * sFormat, va_list pArguments);
 
     void OnFlush(
             Stream * const pStream);
@@ -95,7 +95,8 @@ protected:
 
 private:
 
-    Stream * m_pStream;
+    /// The associated stream.
+    Stream * const m_pStream;
 
 
 }; // class LogStdErr

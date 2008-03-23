@@ -70,6 +70,10 @@ sm_sLogTypeStrings[mx::Log::LOG_COUNT] =
     @param [in] ...       Argument list matching the @a sFormat string.
 
     @return
+    Returns the result of logging. The return value will be @c -1 on failure (but
+    in most situations some exception will be thrown in that case), @c 0 if no
+    logging was done (the logging subsystem is disabled for the log type etc.),
+    and a value greater than zero if the logging was successfully done.
 */
 MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::LogHandler::DoLog(
         const Debug::Checkpoint & xFileInfo,
@@ -92,6 +96,7 @@ MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::LogHandler::DoLog(
     @param [in] ...     Argument list matching the @a sFormat string.
 
     @return
+    See DoLog() for description of return values.
 */
 MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::LogHandler::DoLog(
         const Log::LogType iType,
@@ -114,6 +119,7 @@ MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::LogHandler::DoLog(
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    See DoLog() for description of return values.
 */
 mx::Size mx::LogHandler::DoLog(
         const Debug::Checkpoint & xFileInfo,

@@ -123,6 +123,9 @@ public:
 } // namespace mx
 
 
+/// @todo Replace C++ stream implementations with these.
+
+
 // Define inline methods here if inlining is enabled.
 #ifdef MX_INLINE_ENABLED
 #include "mx/Stream.inl"

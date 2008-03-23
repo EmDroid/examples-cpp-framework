@@ -1049,8 +1049,11 @@ INCLUDE_FILE_PATTERNS  = *.h *.hpp
 # instead of the = operator.
 
 PREDEFINED             = __cplusplus __DOXYGEN__ MX_INLINE_ENABLED \
+                        MXCPP_DEBUG_ENABLED \
                         "MXCPP_DLL_EXPORT=export" \
-                        "MX_UNUSED(parameter)=parameter"
+                        "MX_UNUSED(parameter)=parameter" \
+                        "MX_CLASS_NO_COPY(name)=" \
+                        "MX_CLASS_NO_ASSIGNMENT(name)="                        
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then 
 # this tag can be used to specify a list of macro names that should be expanded. 
@@ -1062,7 +1065,6 @@ EXPAND_AS_DEFINED      = MX_UNUSED MX_PURE MX_INLINE MX_OVERRIDDEN MX_FINAL \
                          MX_PRINTFLIKE MX_PRINTFLIKE_METHOD \
                          MX_SCANFLIKE MX_SCANFLIKE_METHOD \
                          MXCPP_DLL_EXPORT_DATA \
-                         MX_CLASS_NO_COPY MX_CLASS_NO_ASSIGNMENT \
                          MX_DECLARE_EXCEPTION_CLASS MX_IMPLEMENT_EXCEPTION_CLASS
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES (the default) then 

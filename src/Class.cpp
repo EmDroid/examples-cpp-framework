@@ -66,7 +66,7 @@
     SomeClass theClassInstance;
     ...
     const char * const sClassName =
-        Class::FilterTypeName(typeid(instance).name() );
+        Class::FilterTypeName(typeid(instance).name());
     @endcode
 
     @return

@@ -25,12 +25,12 @@
 */
 
 
-/* static */ MX_INLINE mx::LogStandard * mx::LogStandard::Instance()
-{
-    return &sm_instance;
-}
+/**
+    Constructor.
 
-
+    Normally, you might want to use LogStandard::Instance() to get the default
+    instance instead of construct the log target by your own.
+*/
 MX_INLINE mx::LogStandard::LogStandard()
     : LogStream(&StandardError)
 {}

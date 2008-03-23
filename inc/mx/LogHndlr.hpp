@@ -100,6 +100,7 @@ protected:
         System problem occured.
 
         @return
+        See DoLog() for description of return values.
     */
     // This method has to be overridden by derived classes.
     virtual Size OnLog(

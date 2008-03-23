@@ -25,11 +25,20 @@
 */
 
 
+/**
+    Constructor.
+
+    @param [in] pStream The stream, which will be associated with the log
+                        handler.
+*/
 MX_INLINE mx::LogStream::LogStream(Stream * const pStream)
     : m_pStream(pStream)
 {}
 
 
+/**
+    Destructor.
+*/
 /* virtual */ MX_INLINE mx::LogStream::~LogStream()
 {}
 
@@ -38,9 +47,9 @@ MX_INLINE mx::LogStream::LogStream(Stream * const pStream)
         const Debug::Checkpoint & xFileInfo,
         const Log::LogType MX_UNUSED(iType),
         const Char * const sTypeString,
-        const Char * sFormat, va_list pArgs)
+        const Char * sFormat, va_list pArguments)
 {
-    return OnLog(xFileInfo, m_pStream, sTypeString, sFormat, pArgs);
+    return OnLog(xFileInfo, m_pStream, sTypeString, sFormat, pArguments);
 }
 
 

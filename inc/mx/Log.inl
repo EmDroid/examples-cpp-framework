@@ -45,18 +45,17 @@ MX_INLINE mx::Log::Log(
 {}
 
 
-/**
-    @func Log::LogDebug
+#ifdef MXCPP_DEBUG_ENABLED
 
+/**
     Special method for logging of debug messages (vararg version).
 
     @param [in] sFormat    @c printf(3) like formatting string.
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
 */
-#ifdef MXCPP_DEBUG_ENABLED
-
 MX_INLINE mx::Size mx::Log::LogDebug(
         const Char * sFormat, va_list pArguments) const
 {
@@ -74,6 +73,12 @@ MX_INLINE mx::Size mx::Log::LogDebug(
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 MX_INLINE mx::Size mx::Log::LogTrace(
         const Char * sFormat, va_list pArguments) const
@@ -92,6 +97,12 @@ MX_INLINE mx::Size mx::Log::LogTrace(
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 MX_INLINE mx::Size mx::Log::LogTrace(
         const TraceClass iClass,
@@ -112,6 +123,12 @@ MX_INLINE mx::Size mx::Log::LogTrace(
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 MX_INLINE mx::Size mx::Log::LogTrace(
         const TraceClass iClass,
@@ -128,11 +145,17 @@ MX_INLINE mx::Size mx::Log::LogTrace(
     Special method for logging of trace messages (string trace mask variant,
     vararg version).
 
-    @param [in] iClass     Trace class.
+    @param [in] sClass     Trace class.
     @param [in] sFormat    @c printf(3) like formatting string.
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 MX_INLINE mx::Size mx::Log::LogTrace(
         const Char * const sClass,
@@ -148,12 +171,18 @@ MX_INLINE mx::Size mx::Log::LogTrace(
     Special method for logging of trace messages (string trace mask variant,
     vararg version).
 
-    @param [in] iClass     Trace class.
+    @param [in] sClass     Trace class.
     @param [in] iLevel     Trace priority level.
     @param [in] sFormat    @c printf(3) like formatting string.
     @param [in] pArguments Argument list matching the @a sFormat string.
 
     @return
+    See LogHandler::DoLog() for description of return values.
+
+    @note
+    In addition to normal logging functions behavior, the logging will not be
+    done and the value of @c 0 will be returned in the case, that the tracing
+    is disabled for requested trace class and priority level.
 */
 MX_INLINE mx::Size mx::Log::LogTrace(
         const Char * const sClass,
@@ -217,7 +246,7 @@ MX_INLINE mx::Size mx::Log::LogTrace(
     Check if tracing level is enabled for particular trace class (string trace
     mask variant).
 
-    @param [in] iClass The trace class.
+    @param [in] sClass The trace class.
     @param [in] iLevel The trace priority level.
 
     @return
