@@ -43,6 +43,9 @@ namespace mx
 {
 
 
+/**
+    The log handler base.
+*/
 class MXCPP_DLL_EXPORT LogHandler
 {
 
@@ -73,23 +76,47 @@ public:
             const Log::LogType iType,
             const Char * sFormat, ...);
 
-    Size DoLogV(
+    Size DoLog(
             const Debug::Checkpoint & xFileInfo,
             const Log::LogType iType,
             const Char * sFormat, va_list pArgs);
 
-    MX_INLINE Size DoLogV(
+    MX_INLINE Size DoLog(
             const Log::LogType iType,
             const Char * sFormat, va_list pArgs);
 
 protected:
 
+    /**
+        Log the message event handler.
+
+        @param [in] xFileInfo   Source file location information.
+        @param [in] iType       Type of log message.
+        @param [in] sTypeString The string representation of the message type.
+        @param [in] sFormat     @c printf(3) like formatting string.
+        @param [in] pArguments  Argument list matching the @a sFormat string.
+
+        @exception SystemException
+        System problem occured.
+
+        @return
+    */
+    // This method has to be overridden by derived classes.
     virtual Size OnLog(
             const Debug::Checkpoint & xFileInfo,
             const Log::LogType iType,
             const Char * const sTypeString,
-            const Char * sFormat, va_list pArgs) MX_PURE;
+            const Char * sFormat, va_list pArguments) MX_PURE;
 
+    /**
+        Flush the log handler.
+
+        Flushes any unwritten data.
+
+        @exception SystemException
+        System problem occured.
+    */
+    // This method has to be overridden by derived classes.
     virtual void OnFlush() MX_PURE;
 
 

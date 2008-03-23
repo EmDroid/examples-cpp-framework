@@ -36,6 +36,12 @@
 {}
 
 
+/**
+    Set the debugging information.
+
+    @param [in] xFileLocation The source file location, where the exception was
+                              raised.
+*/
 MX_INLINE void mx::Exception::SetDebugInfo(
         const Debug::Checkpoint & xFileLocation) const
 {

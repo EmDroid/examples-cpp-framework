@@ -38,6 +38,9 @@
 {}
 
 
+/**
+    Get the message associated with the exception.
+*/
 /* MX_OVERRIDDEN */ MX_INLINE const char * mx::OutOfMemory::what() const
 {
     return Super::what();

@@ -22,6 +22,10 @@
     Test application class (interface).
 
     @author Emil Maskovsky
+
+    This header is to be included in test implementations only, and then proper
+    methods of the mx::TestApp should be implemented. Do not include in normal
+    applications.
 */
 
 
@@ -49,6 +53,9 @@ namespace mx
 
 /**
     Testing application.
+
+    The test implementation should directly implement SetTestName() and
+    OnRunTests() methods, to avoid needless code redundacy in tests.
 */
 class TestApp
     : public Application
@@ -62,6 +69,9 @@ class TestApp
 
 public:
 
+    /**
+        Default constructor.
+    */
     MX_INLINE TestApp()
     {}
 
@@ -78,15 +88,34 @@ public:
 
 private:
 
+    /**
+        Set up the name of the test.
+
+        The test application must implement this method to provide the test name.
+
+        @return
+        The implementation should return the C-string of the test name.
+        Must not return @c NULL (the return value is checked and in that case
+        the error message is triggered and the test application is aborted).
+    */
     const Char * SetTestName();
 
+    /**
+        Get the name of the test.
+    */
     MX_INLINE const Char * GetTestName()
     {
         static const Char * const sTestName = SetTestName();
-        mxAssert(sTestName != NULL);
+        mxReleaseAssert(sTestName != NULL);
         return sTestName;
     }
 
+    /**
+        Special App::OnRun() handler for test applications.
+
+        @return
+        The test return code, as implemented in the OnRunTests().
+    */
     MX_OVERRIDDEN ReturnCode OnRun()
     {
         Log::SetActiveTarget(LogStandard::Instance());
@@ -113,13 +142,30 @@ private:
 
 protected:
 
-    virtual ReturnCode OnRunTests();
+    /**
+        Run the tests.
+
+        The test application must implement this method to run the tests.
+
+        @return
+        The implementation should return #RC_SUCCESS (or zero, which is
+        equivalent) on success (when all the tests succeed). If any test failed,
+        the implementation should return #RC_FAILURE (or in exceptional cases any
+        other non-zero value).
+        But the preferred method of reporting the test failures is the usage of
+        mxTest() macro,
+    */
+    ReturnCode OnRunTests();
 
 
 }; // class TestApp
 
 
 } // namespace mx
+
+
+// The test application initialization.
+MX_IMPLEMENT_APP(mx::TestApp)
 
 
 #endif // MXCPP_TEST_APPLICATION_HPP_INCLUDE_GUARD

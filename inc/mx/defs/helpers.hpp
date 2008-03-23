@@ -29,12 +29,6 @@
 #define MXCPP_SYSDEF_HELPERS_HPP_INCLUDE_GUARD
 
 
-// Forward declarations of delete operators, which should be inlined.
-inline void operator delete (void * pMemoryBlock) throw();
-
-inline void operator delete[] (void * pMemoryBlock) throw();
-
-
 /* Standard headers. */
 #ifndef MXCPP_FIX_USE_OLD_C_HEADERS
 
@@ -64,10 +58,12 @@ using namespace std;
 #include <assert.h>  // for assert() macro override
 
 
+// Implementation of exception classes for compilers, which lack it.
 namespace std
 {
 
 
+// Implementation of std::exception class.
 class exception
 {
 public:
@@ -635,9 +631,11 @@ namespace mx
 /**
     Use variable or function
     (to be always instantiated or prevent unused warning).
+
+    @param [in] ident The identifier to be used.
 */
 template< class Type >
-void Use(const Type &)
+void Use(const Type & MX_UNUSED(ident))
 {}
 
 

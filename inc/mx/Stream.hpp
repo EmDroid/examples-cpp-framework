@@ -68,10 +68,8 @@ public:
         @return
         Returns @c true if the stream is open (= ready for I/O operations),
         or @c false if the file is not open.
-
-        @note
-        This method has to be overridden by derived classes.
     */
+    // This method has to be overridden by derived classes.
     virtual bool IsOpen() const MX_PURE;
 
     /**
@@ -84,10 +82,8 @@ public:
 
         @exception IOException
         Input/Output problem occured.
-
-        @note
-        This method has to be overridden by derived classes.
     */
+    // This method has to be overridden by derived classes.
     virtual void Flush() MX_PURE;
 
     /**
@@ -98,10 +94,8 @@ public:
 
         @exception IOException
         Input/Output problem occured.
-
-        @note
-        This method has to be overridden by derived classes.
     */
+    // This method has to be overridden by derived classes.
     virtual void Close() MX_PURE;
 
     MX_PRINTFLIKE_METHOD(1, 2) Size Printf(const Char * const sFormat, ...);
@@ -117,10 +111,8 @@ public:
 
         @exception IOException
         Input/Output problem occured.
-
-        @note
-        This method has to be overridden by derived classes.
     */
+    // This method has to be overridden by derived classes.
     virtual Size PrintfV(const Char * const sFormat,
             va_list pArguments) MX_PURE;
 

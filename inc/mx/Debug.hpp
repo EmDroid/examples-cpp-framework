@@ -56,6 +56,14 @@
 
 
 /**
+    @addtogroup debugging_macros Debugging macros and functions
+
+    Useful macros and functions for error checking and defensive programming.
+*/
+///@{
+
+
+/**
     @def mxCheck
 
     Print @a condition in case it does not evaluate to @c true.
@@ -63,7 +71,7 @@
     @param [in] cond Expression to evaluate.
 
     @note
-    This macro is defined as no-op if not #MXCPP_DEBUG_ENABLED is defined.
+    This macro is defined as no-op if #MXCPP_DEBUG_ENABLED is not defined.
 
     @warning
     The condition must not use any sideffects due to the above reason.
@@ -78,7 +86,7 @@
     used such way.
 
     @see mxAssert() for more strict version of this macro.
-    @see mx::Debug::Check() for implementation details.
+    @see mx::Debug::HandleCheck() for implementation details.
 */
 
 /**
@@ -89,7 +97,7 @@
     @param [in] cond Expression to evaluate.
 
     @note
-    This macro is defined as no-op if not #MXCPP_DEBUG_ENABLED is defined.
+    This macro is defined as no-op if #MXCPP_DEBUG_ENABLED is not defined.
 
     @warning
     The condition must not use any sideffects due to the above reason.
@@ -104,7 +112,7 @@
     used such way.
 
     @see mxCheck() for less strict version of this macro.
-    @see mx::Debug::Assert() for implementation details.
+    @see mx::Debug::HandleAssert() for implementation details.
 */
 #ifndef MXCPP_DEBUG_ENABLED
 
@@ -115,13 +123,38 @@
 
 #define mxCheck(cond) \
     ((cond) ? (void)0 \
-     : (mx::Debug::Check(__mxDebugCheckpoint__(), _T(#cond))))
+     : (mx::Debug::HandleCheck(__mxDebugCheckpoint__(), _T(#cond))))
 
 #define mxAssert(cond) \
     ((cond) ? (void)0  \
-     : (mx::Debug::Assert(__mxDebugCheckpoint__(), _T(#cond))))
+     : (mx::Debug::HandleAssert(__mxDebugCheckpoint__(), _T(#cond))))
 
 #endif // MXCPP_DEBUG_ENABLED
+
+
+/**
+    Variant of mxAssert() which is evaluated even in release builds.
+
+    This macro is identical to mxAssert() except that it is always defined,
+    regardless of #MXCPP_DEBUG_ENABLED setting.
+
+    @param [in] cond Expression to evaluate.
+
+    Unlike mxAssert(), it may invoke any code, including code which causes side
+    effects. It is actually pretty common to use it for testing return values
+    of functions.
+
+    @warning
+    It should be used only in few special cases. Extensive usage can
+    significantly slow-down release applications.
+    Use mxAssert() in regular cases.
+
+    @see mxAssert() for recommended wide-use variant.
+    @see mx::Debug::HandleAssert() for implementation details.
+*/
+#define mxReleaseAssert(cond) \
+    ((cond) ? (void)0         \
+     : (mx::Debug::HandleAssert(__mxDebugCheckpoint__(), _T(#cond))))
 
 
 /**
@@ -139,9 +172,11 @@
     It should be used only in testing programs. Testing programs must use it
     instead of mxAssert().
 */
-#define mxTest(cond)  \
-    ((cond) ? (void)0 \
-     : (mx::Debug::Assert(__mxDebugCheckpoint__(), _T(#cond))))
+#define mxTest(cond)  mxReleaseAssert(cond)
+// currently defined as synonym of mxReleaseAssert()
+
+
+///@}
 
 
 namespace mx
@@ -216,12 +251,15 @@ public:
 
 public:
 
-    static void Check(
+    // Do not use following handlers directly,
+    // use @ref debugging_macros instead.
+
+    static void HandleCheck(
             const Checkpoint & xFileInfo,
             const Char * const sCondition,
             const Char * const sMessage = NULL);
 
-    static MX_NORETURN Assert(
+    static MX_NORETURN HandleAssert(
             const Checkpoint & xFileInfo,
             const Char * const sCondition,
             const Char * const sMessage = NULL);

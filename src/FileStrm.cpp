@@ -75,9 +75,6 @@ mx::FileStream::~FileStream()
 }
 
 
-/**
-    Flush the file stream.
-*/
 /* MX_OVERRIDDEN */ void mx::FileStream::Flush(void)
 {
     mxAssert(IsOpen());
@@ -92,9 +89,6 @@ mx::FileStream::~FileStream()
 }
 
 
-/**
-    Close the file stream.
-*/
 /* MX_OVERRIDDEN */ void mx::FileStream::Close(void)
 {
     mxAssert(IsOpen());
@@ -110,12 +104,6 @@ mx::FileStream::~FileStream()
 }
 
 
-/**
-    Formatted printing into the file stream (vararg version).
-
-    @param [in] sFormat    @c printf(3) like formatting string.
-    @param [in] pArguments Argument list matching the @p sFormat string.
-*/
 /* MX_OVERRIDDEN */ mx::Size mx::FileStream::PrintfV(
         const Char * const sFormat, va_list pArguments)
 {

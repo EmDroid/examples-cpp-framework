@@ -33,6 +33,18 @@
 #include "mx/Log.hpp"
 
 
+/**
+    Unregister log target.
+
+    Unregisters the log target, if currently registered in the handler.
+
+    @param [in] pTarget The log target to be unregistered.
+
+    @return
+    Returns @c true, if the @p pTarget was unregistered (i.e. was registered
+    before). Returns @c false if current target registered within the handler is
+    other than the @p pTarget.
+*/
 /* static */ bool mx::Log::UnregisterTarget(const LogHandler * const pTarget)
 {
     /// @todo Thread safety.
@@ -64,42 +76,34 @@
 /* static */ bool mx::Log::sm_bFileInfoEnabled = true;
 
 
+/**
+    Log the message.
+
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @a sFormat string.
+
+    @return
+*/
 MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogMessage(
         const Char * sFormat, ...) const
 {
     va_list pArgs;
     va_start(pArgs, sFormat);
-    const Size iResult = LogMessageV(sFormat, pArgs);
+    const Size iResult = LogMessage(sFormat, pArgs);
     va_end(pArgs);
     return iResult;
 }
 
 
-MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogFatal(
-        const Char * sFormat, ...) const
-{
-    va_list pArgs;
-    va_start(pArgs, sFormat);
-    const Size iResult = LogMessageV(sFormat, pArgs);
-    va_end(pArgs);
-    abort();
-    return iResult;
-}
+/**
+    Log the message (vararg version).
 
+    @param [in] sFormat    @c printf(3) like formatting string.
+    @param [in] pArguments Argument list matching the @a sFormat string.
 
-MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogAssert(
-        const Char * sFormat, ...) const
-{
-    va_list pArgs;
-    va_start(pArgs, sFormat);
-    const Size iResult = LogMessageV(sFormat, pArgs);
-    va_end(pArgs);
-    abort();
-    return iResult;
-}
-
-
-mx::Size mx::Log::LogMessageV(
+    @return
+*/
+mx::Size mx::Log::LogMessage(
         const Char * sFormat, va_list pArguments) const
 {
     LogHandler * const pTarget = Log::GetActiveTarget();
@@ -109,10 +113,118 @@ mx::Size mx::Log::LogMessageV(
         return 0;
     }
     // Log the message to the log target.
-    return pTarget->DoLogV(m_xFileInfo, m_iType, sFormat, pArguments);
+    return pTarget->DoLog(m_xFileInfo, m_iType, sFormat, pArguments);
 }
 
 
+/**
+    Special method for logging of assertion fatal errors.
+
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @a sFormat string.
+
+    @return
+*/
+MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogFatal(
+        const Char * sFormat, ...) const
+{
+    va_list pArgs;
+    va_start(pArgs, sFormat);
+    // Does not return.
+    const Size iResult = LogFatal(sFormat, pArgs);
+    va_end(pArgs);
+    return iResult;
+}
+
+
+/**
+    Special method for logging of assertion fatal errors (vararg version).
+
+    @param [in] sFormat    @c printf(3) like formatting string.
+    @param [in] pArguments Argument list matching the @a sFormat string.
+
+    @return
+*/
+// Does not need to be inline, it cannot be called more than once.
+MX_NORETURN_TYPE(mx::Size) mx::Log::LogFatal(
+        const Char * sFormat, va_list pArguments) const
+{
+    const Size iResult = LogMessage(sFormat, pArguments);
+    abort();
+    return iResult;
+}
+
+
+/**
+    Special method for logging of assertion failure messages.
+
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @a sFormat string.
+
+    @return
+*/
+MX_PRINTFLIKE_METHOD(1, 2) MX_NORETURN_TYPE(mx::Size) mx::Log::LogAssert(
+        const Char * sFormat, ...) const
+{
+    va_list pArgs;
+    va_start(pArgs, sFormat);
+    // Does not return.
+    const Size iResult = LogAssert(sFormat, pArgs);
+    va_end(pArgs);
+    return iResult;
+}
+
+
+/**
+    Special method for logging of assertion failure messages (vararg version).
+
+    @param [in] sFormat    @c printf(3) like formatting string.
+    @param [in] pArguments Argument list matching the @a sFormat string.
+
+    @return
+*/
+// Does not need to be inline, it cannot be called more than once.
+MX_NORETURN_TYPE(mx::Size) mx::Log::LogAssert(
+        const Char * sFormat, va_list pArguments) const
+{
+    return LogFatal(sFormat, pArguments);
+}
+
+
+/**
+    @func Log::LogDebug
+
+    Special method for logging of debug messages.
+
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @a sFormat string.
+
+    @return
+*/
+#ifdef MXCPP_DEBUG_ENABLED
+
+MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogDebug(
+        const Char * sFormat, ...) const
+{
+    va_list pArgs;
+    va_start(pArgs, sFormat);
+    const Size iResult = LogDebug(sFormat, pArgs);
+    va_end(pArgs);
+    return iResult;
+}
+
+
+#endif // MXCPP_DEBUG_ENABLED
+
+
+/**
+    Special method for logging of trace messages.
+
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @a sFormat string.
+
+    @return
+*/
 MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogTrace(
         const Char * sFormat, ...) const
 {
@@ -122,12 +234,21 @@ MX_PRINTFLIKE_METHOD(1, 2) mx::Size mx::Log::LogTrace(
     }
     va_list pArgs;
     va_start(pArgs, sFormat);
-    const Size iResult = LogTraceV(TRACE_User, LEVEL_Normal, sFormat, pArgs);
+    const Size iResult = LogTrace(sFormat, pArgs);
     va_end(pArgs);
     return iResult;
 }
 
 
+/**
+    Special method for logging of trace messages.
+
+    @param [in] iClass  Trace class.
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @a sFormat string.
+
+    @return
+*/
 MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::Log::LogTrace(
         const TraceClass iClass,
         const Char * sFormat, ...) const
@@ -138,12 +259,22 @@ MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::Log::LogTrace(
     }
     va_list pArgs;
     va_start(pArgs, sFormat);
-    const Size iResult = LogTraceV(iClass, LEVEL_Normal, sFormat, pArgs);
+    const Size iResult = LogTrace(iClass, sFormat, pArgs);
     va_end(pArgs);
     return iResult;
 }
 
 
+/**
+    Special method for logging of trace messages.
+
+    @param [in] iClass  Trace class.
+    @param [in] iLevel  Trace priority level.
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @a sFormat string.
+
+    @return
+*/
 MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::Log::LogTrace(
         const TraceClass iClass,
         const TraceLevel iLevel,
@@ -155,12 +286,21 @@ MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::Log::LogTrace(
     }
     va_list pArgs;
     va_start(pArgs, sFormat);
-    const Size iResult = LogTraceV(iClass, iLevel, sFormat, pArgs);
+    const Size iResult = LogTrace(iClass, iLevel, sFormat, pArgs);
     va_end(pArgs);
     return iResult;
 }
 
 
+/**
+    Special method for logging of trace messages (string trace mask variant).
+
+    @param [in] iClass  Trace class.
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @a sFormat string.
+
+    @return
+*/
 MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::Log::LogTrace(
         const Char * const sClass,
         const Char * sFormat, ...) const
@@ -171,12 +311,22 @@ MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::Log::LogTrace(
     }
     va_list pArgs;
     va_start(pArgs, sFormat);
-    const Size iResult = LogTraceV(sClass, LEVEL_Normal, sFormat, pArgs);
+    const Size iResult = LogTrace(sClass, sFormat, pArgs);
     va_end(pArgs);
     return iResult;
 }
 
 
+/**
+    Special method for logging of trace messages (string trace mask variant).
+
+    @param [in] iClass  Trace class.
+    @param [in] iLevel  Trace priority level.
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @a sFormat string.
+
+    @return
+*/
 MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::Log::LogTrace(
         const Char * const sClass,
         const TraceLevel iLevel,
@@ -188,7 +338,7 @@ MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::Log::LogTrace(
     }
     va_list pArgs;
     va_start(pArgs, sFormat);
-    const Size iResult = LogTraceV(sClass, iLevel, sFormat, pArgs);
+    const Size iResult = LogTrace(sClass, iLevel, sFormat, pArgs);
     va_end(pArgs);
     return iResult;
 }

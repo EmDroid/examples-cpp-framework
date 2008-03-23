@@ -238,7 +238,7 @@ public:
 public:
 
     // Overridden std::exception::what() method.
-    MX_OVERRIDDEN const char * what() const;
+    virtual const char * what() const;
 
     Size LogMessage(const Log::LogType iLogType = Log::LOG_Error) const;
 

@@ -51,6 +51,27 @@
 */
 
 
+/**
+    Filter the name provided by the compiler RTTI subsystem.
+
+    Tries to de-mangle the name provided by the C++ typeid() construct. The
+    typeid().name() returns compiler-dependent unique class identifier, which is
+    mangled class name in most cases. This filter de-mangles it, where possible.
+
+    @param [in] sTypeName The mangled type name, typically provided by the
+                          typeid().name() construct.
+
+    It is designed to be (e.g.) used following way:
+    @code
+    SomeClass theClassInstance;
+    ...
+    const char * const sClassName =
+        Class::FilterTypeName(typeid(instance).name() );
+    @endcode
+
+    @return
+    Filtered class name.
+*/
 /* static */ const char * mx::Class::FilterTypeName(
         const char * const sTypeName)
 {
@@ -86,6 +107,12 @@
 }
 
 
+/**
+    Get the class "name".
+
+    @return
+    The class identifier (aka "name").
+*/
 const char * mx::Class::getName() const
 {
     // Instead of implementing virtual GetName() method in all derived

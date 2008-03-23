@@ -77,7 +77,4 @@ mx::TestApp::ReturnCode mx::TestApp::OnRunTests()
 }
 
 
-MX_IMPLEMENT_APP(mx::TestApp)
-
-
 /* EOF */

@@ -140,6 +140,11 @@ namespace mx
 {
 
 
+/**
+    The exception failure handler.
+
+    @tparam ExceptionType The exception type.
+*/
 template< class ExceptionType >
 class FailureHandler
 {
@@ -147,20 +152,49 @@ class FailureHandler
     MX_CLASS_NO_COPY(FailureHandler);
     MX_CLASS_NO_ASSIGNMENT(FailureHandler);
 
+// Construction, destruction.
+
 public:
 
-    inline FailureHandler(const ExceptionType * const pException)
+    /**
+        Constructor taking the exception pointer.
+
+        @param [in] pException The exception pointer.
+    */
+    explicit inline FailureHandler(const ExceptionType * const pException)
         : m_pException(pException)
     {}
 
+
+// Class instance methods.
+
 public:
 
+    /**
+        Normal handling of the exception.
+
+        Designed for handling of expected exceptions.
+
+        @param [in] bDestroy Destroy the exception after handling.
+
+        This handler does not return, always causes the application shutdown.
+    */
     MX_NORETURN HandleFailure(const bool bDestroy)
     {
         ProcessErrors(bDestroy);
         exit(Application::RC_FAILURE);
     }
 
+    /**
+        Handling of unexpected exception.
+
+        Designed for handling of unexpected (uncaught) exceptions.
+
+        @param [in] bDestroy Destroy the exception after handling.
+
+        This handler does not return, always causes the application shutdown via
+        the standard @c abort() function.
+    */
     MX_NORETURN HandleUncaughtException(const bool bDestroy)
     {
         mxLogTrace(Log::TRACE_Exception, Log::LEVEL_Highest,
@@ -171,6 +205,16 @@ public:
 
 private:
 
+    /**
+        Process the exception handling.
+
+        @param [in] bDestroy   Destroy the exception after handling.
+        @param [in] bUnhandled Handling of unexpected exception (optional).
+
+        @return
+        Returns the @ref logging_macros "result of logging" the exception
+        message.
+    */
     Size ProcessErrors(const bool bDestroy, const bool bUnhandled = false)
     {
         if (!m_pException)
@@ -192,13 +236,29 @@ private:
         return iReturnCode;
     }
 
+// Class instance attributes.
+
 private:
 
+    /// The exception which is being handled.
     const ExceptionType * const m_pException;
+
 
 }; // class FailureHandler< ... >
 
 
+/**
+    Default logging of the exception message.
+
+    @param [in] sExceptionName The name of the exception.
+    @param [in] sMessage       The exception message (may be @c NULL).
+    @param [in] xFileInfo      Source file location information.
+    @param [in] iLogType       Type of log message.
+
+
+    @return
+    Returns the @ref logging_macros "result of logging" the exception message.
+*/
 static Size doLogMessage(
         const char * const sExceptionName,
         const Char * sMessage,
@@ -211,6 +271,7 @@ static Size doLogMessage(
     Char sClassName[64];
     mbstowcs(sClassName, sExceptionName, sizeof(sClassName) - 1);
 #endif
+    mxAssert(sExceptionName != NULL);
     return Log(iLogType, xFileInfo).LogMessage(
 #ifndef MXCPP_UNICODE
             _("Exception '%s' caught%s%s")
@@ -225,6 +286,14 @@ static Size doLogMessage(
 
 } // namespace mx
 
+/**
+    Uncaught exception handler.
+
+    Handles the exception and terminates the application using standard function
+    @c abort().
+
+    @param [in] pException The exception pointer.
+*/
 /* static */ MX_NORETURN mx::Exception::HandleUncaughtException(
         const Exception * const pException)
 {
@@ -232,6 +301,13 @@ static Size doLogMessage(
 }
 
 
+/**
+    Exception failure handler.
+
+    Handles the exception and terminates the application.
+
+    @param [in] pException The exception pointer.
+*/
 /* static */ MX_NORETURN mx::Exception::HandleFailure(
         const Exception * const pException)
 {
@@ -239,6 +315,13 @@ static Size doLogMessage(
 }
 
 
+/**
+    Exception failure handler (the std::exception variant).
+
+    Handles the exception and terminates the application.
+
+    @param [in] pException The exception pointer.
+*/
 /* static */ MX_NORETURN mx::Exception::HandleFailure(
         const std::exception * const pException)
 {
@@ -246,6 +329,21 @@ static Size doLogMessage(
 }
 
 
+/**
+    Handle the exception failure and destroy the exception.
+
+    This handler is to be used along with exceptions, which are thrown and caught
+    by pointer.
+
+    @param [in] pException The exception pointer.
+
+    @warning
+    Should not be used with exceptions which are not dynamically allocated using
+    the @c new operator! In the case of statically allocated exceptions, use
+    Exception::HandleFailure() instead!
+
+    @see Exception::HandleFailure()
+*/
 /* static */ MX_NORETURN mx::Exception::FailAndDestroy(
         const Exception * const pException)
 {
@@ -253,6 +351,22 @@ static Size doLogMessage(
 }
 
 
+/**
+    Handle the exception failure and destroy the exception
+    (the std::exception variant).
+
+    This handler is to be used along with exceptions, which are thrown and caught
+    by pointer.
+
+    @param [in] pException The exception pointer.
+
+    @warning
+    Should not be used with exceptions which are not dynamically allocated using
+    the @c new operator! In the case of statically allocated exceptions, use
+    Exception::HandleFailure() instead!
+
+    @see Exception::HandleFailure()
+*/
 /* static */ MX_NORETURN mx::Exception::FailAndDestroy(
         const std::exception * const pException)
 {
@@ -260,6 +374,16 @@ static Size doLogMessage(
 }
 
 
+/**
+    Log the message of an exception.
+
+    @param [in] pException The exception instance.
+    @param [in] iLogType   Type of log message.
+
+
+    @return
+    Returns the @ref logging_macros "result of logging" the exception message.
+*/
 /* static */ mx::Size mx::Exception::GlobalLogMessage(
         const Exception & pException,
         const Log::LogType iLogType)
@@ -269,6 +393,16 @@ static Size doLogMessage(
 }
 
 
+/**
+    Log the message of an exception (the std::exception variant).
+
+    @param [in] pException The exception instance.
+    @param [in] iLogType   Type of log message.
+
+
+    @return
+    Returns the @ref logging_macros "result of logging" the exception message.
+*/
 /* static */ mx::Size mx::Exception::GlobalLogMessage(
         const std::exception & pException,
         const Log::LogType iLogType)
@@ -286,6 +420,9 @@ static Size doLogMessage(
 }
 
 
+/**
+    Get the message associated with the exception.
+*/
 /* MX_OVERRIDDEN */ const char * mx::Exception::what() const
 {
     /*
@@ -302,12 +439,26 @@ static Size doLogMessage(
 }
 
 
+/**
+    Log the exception message.
+
+    @param [in] iLogType Type of log message.
+
+
+    @return
+    Returns the @ref logging_macros "result of logging" the exception message.
+*/
 mx::Size mx::Exception::LogMessage(const Log::LogType iLogType) const
 {
     return GlobalLogMessage(*this, iLogType);
 }
 
 
+/**
+    Handle the exception failure.
+
+    Logs the exception message via LogMessage() and terminates the application.
+*/
 MX_NORETURN mx::Exception::Fail() const
 {
     LogMessage();

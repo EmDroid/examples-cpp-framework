@@ -25,22 +25,37 @@
 */
 
 
+/**
+    Default constructor.
+*/
 MX_INLINE mx::LogHandler::LogHandler()
 {}
 
 
+/**
+    Destructor.
+*/
 /* virtual */ MX_INLINE mx::LogHandler::~LogHandler()
 {
     Log::UnregisterTarget(this);
 }
 
 
-MX_INLINE mx::Size mx::LogHandler::DoLogV(
+/**
+    Log the message (vararg version).
+
+    @param [in] iType      Type of log message.
+    @param [in] sFormat    @c printf(3) like formatting string.
+    @param [in] pArguments Argument list matching the @a sFormat string.
+
+    @return
+*/
+MX_INLINE mx::Size mx::LogHandler::DoLog(
         const Log::LogType iType,
-        const Char * sFormat, va_list pArgs)
+        const Char * sFormat, va_list pArguments)
 {
     // The file-line logging not used.
-    return DoLogV(Debug::Checkpoint(), iType, sFormat, pArgs);
+    return DoLog(Debug::Checkpoint(), iType, sFormat, pArguments);
 }
 
 

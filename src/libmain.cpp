@@ -221,9 +221,9 @@
 
 
 /**
-    The DLL entry point for the Demo C++ Framework library.
+    The DLL entry point of the @project for Windows 16-bit platform.
 
-    @param [in] hInstance Handle to DLL module.
+    @param [in] hInstance    Handle to DLL module.
 
     @retval TRUE  The initialization was done successfully.
     @retval FALSE The initialization has failed.
@@ -247,7 +247,7 @@ extern "C" BOOL WINAPI LibMain(
 
 
 /**
-    The DLL entry point for the Demo C++ Framework library.
+    The DLL entry point of the @project for Windows 32-bit and upper platforms.
 
     @param [in] hDllInstance Handle to DLL module.
     @param [in] dwReason     Reason for calling function.
@@ -317,7 +317,7 @@ extern "C" MXCPP_DLL_EXPORT BOOL WINAPI DllMain(
 #else // MX_PLATFORM_OS_UNIX
 
 
-#error The DLL entry point is not defined for current platform!
+    #error The DLL entry point is not defined for current platform!
 
 
 #endif // MX_PLATFORM_OS_UNIX

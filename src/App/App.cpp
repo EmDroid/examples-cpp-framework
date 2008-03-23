@@ -42,6 +42,9 @@ MX_IMPLEMENT_EXCEPTION_CLASS(mx::ApplicationException);
 /// The application instance.
 mx::Application * mx::Application::pApplicationInstance = NULL;
 
+/**
+    Default constructor.
+*/
 mx::Application::Application()
 {
     // Can create only one application instance.
@@ -183,6 +186,13 @@ bool mx::Application::Initialize(void)
     OnRun event handler.
 
     You should override this function to provide custom run functionality.
+
+    @return
+    Should return the application return code (to be passed to system).
+    On successfull application run, it should return #RC_SUCCESS (or @c 0, which
+    is equivalent of that constant), on failure it should return any other
+    non-zero value (e.g. #RC_FAILURE, or some application-defined error code
+    etc.).
 */
 /* virtual */ mx::Application::ReturnCode mx::Application::OnRun()
 {

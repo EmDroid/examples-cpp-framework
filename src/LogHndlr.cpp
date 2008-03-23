@@ -61,6 +61,16 @@ sm_sLogTypeStrings[mx::Log::LOG_COUNT] =
 };
 
 
+/**
+    Log the message.
+
+    @param [in] xFileInfo Source file location information.
+    @param [in] iType     Type of log message.
+    @param [in] sFormat   @c printf(3) like formatting string.
+    @param [in] ...       Argument list matching the @a sFormat string.
+
+    @return
+*/
 MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::LogHandler::DoLog(
         const Debug::Checkpoint & xFileInfo,
         const Log::LogType iType,
@@ -68,28 +78,47 @@ MX_PRINTFLIKE_METHOD(3, 4) mx::Size mx::LogHandler::DoLog(
 {
     va_list pArgs;
     va_start(pArgs, sFormat);
-    const Size iResult = DoLogV(xFileInfo, iType, sFormat, pArgs);
+    const Size iResult = DoLog(xFileInfo, iType, sFormat, pArgs);
     va_end(pArgs);
     return iResult;
 }
 
 
+/**
+    Log the message.
+
+    @param [in] iType   Type of log message.
+    @param [in] sFormat @c printf(3) like formatting string.
+    @param [in] ...     Argument list matching the @a sFormat string.
+
+    @return
+*/
 MX_PRINTFLIKE_METHOD(2, 3) mx::Size mx::LogHandler::DoLog(
         const Log::LogType iType,
         const Char * sFormat, ...)
 {
     va_list pArgs;
     va_start(pArgs, sFormat);
-    const Size iResult = DoLogV(iType, sFormat, pArgs);
+    const Size iResult = DoLog(iType, sFormat, pArgs);
     va_end(pArgs);
     return iResult;
 }
 
 
-mx::Size mx::LogHandler::DoLogV(
+/**
+    Log the message (vararg version).
+
+    @param [in] xFileInfo  Source file location information.
+    @param [in] iType      Type of log message.
+    @param [in] sFormat    @c printf(3) like formatting string.
+    @param [in] pArguments Argument list matching the @a sFormat string.
+
+    @return
+*/
+mx::Size mx::LogHandler::DoLog(
         const Debug::Checkpoint & xFileInfo,
         const Log::LogType iType,
-        const Char * sFormat, va_list pArgs)
+        const Char * sFormat, va_list pArguments)
 {
     // Check the log type.
     Log::LogType iLogType = iType;
@@ -232,7 +261,7 @@ mx::Size mx::LogHandler::DoLogV(
     {
         return OnLog(xFileInfo, iType, sTypeString,
                 // If not formatted yet, will be formatted now by the log target.
-                sMessage, pArgs);
+                sMessage, pArguments);
     }
     catch (...)
     {
@@ -248,6 +277,9 @@ mx::Size mx::LogHandler::DoLogV(
 }
 
 
+/**
+    Flush the log handler.
+*/
 void mx::LogHandler::Flush()
 {
     try
