@@ -30,7 +30,9 @@
 
 
 // Enable inlining for the Unix platforms by default.
+#ifndef MX_INLINE_ENABLED
 #define MX_INLINE_ENABLED
+#endif
 
 
 #ifdef __GNUC__

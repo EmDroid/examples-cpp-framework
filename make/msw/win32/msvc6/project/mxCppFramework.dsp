@@ -472,10 +472,6 @@ SOURCE=..\..\..\..\..\src\Memory.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\..\..\src\new.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\..\..\src\OutOfMem.cpp
 # End Source File
 # Begin Source File
@@ -697,14 +693,6 @@ SOURCE=..\..\..\..\..\inc\mx\Memory.hpp
 # Begin Source File
 
 SOURCE=..\..\..\..\..\inc\mx\Memory.inl
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\..\inc\mx\new.hpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\..\inc\mx\new.inl
 # End Source File
 # Begin Source File
 

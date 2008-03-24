@@ -100,18 +100,17 @@ public:
 */
 #define MXCPP_INLINE_GLOBAL  1
 
+/// @addtogroup build_config
+///@{
 /**
     @def MX_INLINE_ENABLED
 
     Defined if inlining is enabled.
 */
-
-#ifndef MX_INLINE_ENABLED
 #if (MXCPP_INLINE_GLOBAL == 1)
 #define MX_INLINE_ENABLED
 #endif
-#endif
-
+///@}
 
 #ifdef MX_INLINE_ENABLED
 #if (MXCPP_INLINE_GLOBAL == 0)
@@ -142,11 +141,11 @@ public:
     from libraries.
 */
 
-#ifndef MX_DLL_EXPORT
+#if !defined(MX_DLL_EXPORT)
 #define MX_DLL_EXPORT
 #endif
 
-#ifndef MX_DLL_EXPORT_DATA
+#if !defined(MX_DLL_EXPORT_DATA)
 #define MX_DLL_EXPORT_DATA(type)  type
 #endif
 
@@ -175,11 +174,11 @@ public:
     #MX_DLL_EXPORT_DATA convenience macro instead..
 */
 
-#ifndef MXCPP_DLL_EXPORT
+#if !defined(MXCPP_DLL_EXPORT)
 #define MXCPP_DLL_EXPORT
 #endif
 
-#ifndef MXCPP_DLL_EXPORT_DATA
+#if !defined(MXCPP_DLL_EXPORT_DATA)
 #define MXCPP_DLL_EXPORT_DATA(type)  type
 #endif
 
@@ -405,9 +404,7 @@ public:
     }
     @endcode
 */
-#ifndef MX_UNUSED
 #define MX_UNUSED(parameter)
-#endif
 
 
 // Handy macros.
@@ -732,10 +729,220 @@ private:
 } // namespace mx
 
 
+// First of all, define our own global delete operators to allow theyre proper
+// inlining.
+
+namespace mx
+{
+
+
+/**
+    Real implementation of delete operators.
+*/
+class MXCPP_DLL_EXPORT OperatorDeleteImplementation
+{
+
+    MX_CLASS_NO_COPY(OperatorDeleteImplementation);
+    MX_CLASS_NO_ASSIGNMENT(OperatorDeleteImplementation);
+
+public:
+
+    static void Delete(
+            void * const pMemoryBlock,
+            const bool bVectorFree = false);
+
+}; // class OperatorDeleteImplementation
+
+
+} // namespace mx
+
+
+/**
+    Global @c operator @c delete.
+
+    The global @c delete operator is re-defined by the library to use the
+    @project memory handling mechanism.
+
+    @param [in] pMemoryBlock The address of allocated memory block to be deleted.
+*/
+inline void operator delete (void * pMemoryBlock)
+throw()
+{
+    mx::OperatorDeleteImplementation::Delete(pMemoryBlock);
+}
+
+
+/**
+    Global array @c operator @c delete.
+
+    The global @c delete[] operator is re-defined by the library to use the
+    @project memory handling mechanism.
+
+    @param [in] pMemoryBlock The address of allocated memory block to be deleted.
+*/
+inline void operator delete[] (void * pMemoryBlock)
+throw()
+{
+    mx::OperatorDeleteImplementation::Delete(pMemoryBlock, true);
+}
+
+
+// Debugging definitions.
+#include "mx/Debug.hpp"
+
+// Declaration of MemoryException to allow declaring of global new operators.
+#include "mx/Except.hpp"
+
+
+// Define our own global new operators.
+
+namespace mx
+{
+
+
+/**
+    Allocation operators real implementations.
+*/
+class MXCPP_DLL_EXPORT AllocOperatorsImplementation
+{
+
+    MX_CLASS_NO_COPY(AllocOperatorsImplementation);
+    MX_CLASS_NO_ASSIGNMENT(AllocOperatorsImplementation);
+
+public:
+
+    static void * New(
+            const Size iMemoryBlockSize,
+            const Debug::Checkpoint & xFileInfo,
+            const bool bVectorAlloc = false);
+
+    static void Delete(
+            void * const pMemoryBlock,
+            const Debug::Checkpoint & xFileInfo,
+            const bool bVectorFree = false);
+
+}; // class AllocOperatorsImplementation
+
+
+} // namespace mx
+
+
+// The operators new and delete are always inlined, to allow usage even if the
+// framework used as dll. These operators cannot be defined using the DLL
+// linkage (under many compilers), therefore the indirect usage through
+// AllocOperatorsImplementation is used.
+
+/**
+    Global @c operator @c new.
+
+    The global @c new operator is re-defined by the library to use the
+    @project memory handling mechanism.
+
+    We define this @c new operator to provide some extra information into the
+    memory allocation process. This is used in combination with the exception
+    system to allow tracing of memory related problems.
+
+    @param [in] iSize     Number of bytes to allocate.
+    @param [in] sFileName The source file name.
+    @param [in] nFileLine The source line number.
+
+    @exception MemoryException
+    Memory allocation problem occured.
+
+    @return
+    Returns address of newly allocated memory block.
+
+    @internal
+
+    This override of @c operator @c new is used along with the #new macro.
+
+    @see macro #new
+*/
+inline void * operator new (
+        // const doesn't work under some compilers (DMC).
+        /* const */ mx::Size iSize,
+        // There is problem using Debug::Checkpoint directly under some
+        // compilers.
+        const mx::Debug::Checkpoint::FileName sFileName,
+        const mx::Debug::Checkpoint::FileLine nFileLine)
+{
+    return mx::AllocOperatorsImplementation::New(iSize,
+            mx::Debug::Checkpoint(sFileName, nFileLine));
+}
+
+
+/**
+    Global array @c operator @c new.
+
+    The global @c new[] operator is re-defined by the library to use the
+    @project memory handling mechanism.
+
+    We define this @c new[] operator to provide some extra information into the
+    memory allocation process. This is used in combination with the exception
+    system to allow tracing of memory related problems.
+
+    @param [in] iSize     Number of bytes to allocate.
+    @param [in] sFileName The source file name.
+    @param [in] nFileLine The source line number.
+
+    @exception MemoryException
+    Memory allocation problem occured.
+
+    @return
+    Returns address of newly allocated memory block.
+
+    @internal
+
+    This override of @c operator @c new is used along with the #new macro.
+
+    @see macro #new
+*/
+inline void * operator new[] (
+        /* const */ mx::Size iSize,
+        const mx::Debug::Checkpoint::FileName sFileName,
+        const mx::Debug::Checkpoint::FileLine nFileLine)
+{
+    return mx::AllocOperatorsImplementation::New(iSize,
+            mx::Debug::Checkpoint(sFileName, nFileLine), true);
+}
+
+
+#ifdef MXCPP_FIX_DELETE_PARAMS_LIKE_NEW
+
+// We do not require this, but some compilers (MSVC) must have defined
+// delete operator with same parameters like new.
+
+
+inline void operator delete (
+        void * pMemoryBlock,
+        const mx::Debug::Checkpoint::FileName sFileName,
+        const mx::Debug::Checkpoint::FileLine nFileLine)
+{
+    mx::AllocOperatorsImplementation::Delete(pMemoryBlock,
+            mx::Debug::Checkpoint(sFileName, nFileLine));
+}
+
+
+inline void operator delete[] (
+        void * pMemoryBlock,
+        const mx::Debug::Checkpoint::FileName sFileName,
+        const mx::Debug::Checkpoint::FileLine nFileLine)
+{
+    mx::AllocOperatorsImplementation::Delete(pMemoryBlock,
+            mx::Debug::Checkpoint(sFileName, nFileLine), true);
+}
+
+
+#endif // MXCPP_FIX_DELETE_PARAMS_LIKE_NEW
+
+
+// Redefine standard new and delete operators.
+#include "mx/defs/newdef.hpp"
+
+
 /* Headers that are always included - redefining some standard definitions etc. */
 #include "mx/Debug.hpp"
 #include "mx/Memory.hpp"
-#include "mx/new.hpp"
 
 
 #endif // MXCPP_SYSDEF_HELPERS_HPP_INCLUDE_GUARD

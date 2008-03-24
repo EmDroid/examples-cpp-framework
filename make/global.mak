@@ -81,7 +81,7 @@ $(if $(strip $(MXCPP_TARGETS_LOG)),$(shell $(RM) $(MXCPP_TARGETS_LOG) $(NOOUT) $
 
 # Logging of commands (for debug purposes).
 # May also be set on the make command line.
-MXCPP_COMMANDS_LOG := build.log
+# MXCPP_COMMANDS_LOG := build.log
 $(if $(strip $(MXCPP_MAKE_DEBUG)),$(eval MXCPP_COMMANDS_LOG := build.log))
 $(if $(strip $(MXCPP_COMMANDS_LOG)),$(shell $(RM) $(MXCPP_COMMANDS_LOG) $(NOOUT) $(NOERROUT)))
 

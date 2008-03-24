@@ -35,7 +35,34 @@
 #endif
 
 
-#define MX_MAKESTRING(value)   #value
+/**
+    @internal
+
+    Second step of the stringizing macro MX_MAKE_STRING().
+
+    @param [in] value The construct.
+
+    @return
+    The string representation of the @p value.
+    If the value contains macros, these are expanded first.
+*/
+#define MX_MAKESTRING(value)  #value
+
+/**
+    Make string from the value.
+
+    Converts the @p value parameter to string constant.
+
+    @param [in] value The construct.
+
+    @return
+    The string representation of the @p value.
+    If the value contains macros, these are expanded first.
+
+    @internal
+    The macro uses two-step expansion through the MX_MAKESTRING() to ensure
+    expasion of macros inside @p value.
+*/
 #define MX_MAKE_STRING(value)  MX_MAKESTRING(value)
 
 
@@ -358,6 +385,12 @@
 #endif // MVS
 
 
+/**
+    @defgroup build_config Build configuration macros
+
+    Following macros controls build configuration.
+*/
+
 /* Check the DEBUG flags. */
 
 /* Make sure both DEBUG and _DEBUG flags defined consistently.
@@ -370,13 +403,18 @@
 #define _DEBUG  DEBUG
 #endif
 
+/// @addtogroup build_config
+///@{
 #ifdef DEBUG
+/** If defined, the library is build with DEBUG support. */
 #define MXCPP_DEBUG
 #endif
 
 #ifdef MXCPP_DEBUG
+/** If defined, debugging is enabled. */
 #define MXCPP_DEBUG_ENABLED
 #endif
+///@}
 
 
 /* Check the UNICODE flags. */
@@ -385,15 +423,19 @@
     (both of them are checked inside Windows header files)
 */
 #if (defined(_UNICODE) && !defined(UNICODE))
-#define UNICODE
+#define UNICODE  _UNICODE
 #endif
 #if (defined(UNICODE) && !defined(_UNICODE))
-#define _UNICODE
+#define _UNICODE  UNICODE
 #endif
 
+/// @addtogroup build_config
+///@{
 #ifdef UNICODE
+/** If defined, the library is build with UNICODE support. */
 #define MXCPP_UNICODE
 #endif
+///@}
 
 
 /* Check the MULTITHREAD flags. */
@@ -401,10 +443,13 @@
 #define MT
 #endif
 
+/// @addtogroup build_config
+///@{
 #ifdef MT
-/** We run in multi-threaded mode. */
+/** If defined, the library is build with multi-thread support. */
 #define MXCPP_MULTITHREAD
 #endif
+///@}
 
 
 #ifdef MX_PLATFORM_OS_WINDOWS

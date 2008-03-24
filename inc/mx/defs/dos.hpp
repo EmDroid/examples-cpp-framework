@@ -30,7 +30,9 @@
 
 
 // Enable inlining for the DOS platform by default.
+#ifndef MX_INLINE_ENABLED
 #define MX_INLINE_ENABLED
+#endif
 
 #ifdef _MSC_VER
 

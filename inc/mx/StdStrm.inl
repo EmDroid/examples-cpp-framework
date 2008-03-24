@@ -25,4 +25,10 @@
 */
 
 
+#ifndef MXCPP_SYSDEFS
+// Required for proper documentation creation.
+#include "mx/sysdefs.hpp"
+#endif
+
+
 /* EOF */

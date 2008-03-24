@@ -432,7 +432,7 @@ WARNINGS               = YES
 # for undocumented members. If EXTRACT_ALL is set to YES then this flag will 
 # automatically be disabled.
 
-WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_UNDOCUMENTED   = NO
 
 # If WARN_IF_DOC_ERROR is set to YES, doxygen will generate warnings for 
 # potential errors in the documentation, such as not documenting some 
@@ -495,6 +495,7 @@ FILE_PATTERNS          = *.h \
                          *.inl \
                          *.cpp \
                          *.c \
+                         *.txt \
                          *.dox
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
@@ -1048,24 +1049,28 @@ INCLUDE_FILE_PATTERNS  = *.h *.hpp
 # undefined via #undef or recursively expanded use the := operator 
 # instead of the = operator.
 
-PREDEFINED             = __cplusplus __DOXYGEN__ MX_INLINE_ENABLED \
-                        MXCPP_DEBUG_ENABLED \
-                        "MXCPP_DLL_EXPORT=export" \
-                        "MX_UNUSED(parameter)=parameter" \
-                        "MX_CLASS_NO_COPY(name)=" \
-                        "MX_CLASS_NO_ASSIGNMENT(name)="                        
+PREDEFINED             = __cplusplus __DOXYGEN__ \
+                         _DEBUG _UNICODE _MT \
+                         MXCPP_DEBUG_ENABLED \
+                         "MXCPP_INLINE_GLOBAL=1" \
+                         "MX_CLASS_NO_ASSIGNMENT(name)=" \
+                         "MX_UNUSED(parameter)=parameter" \
+                         "MX_CLASS_NO_COPY(name)=" \
+                         "MX_CLASS_NO_ASSIGNMENT(name)=" \
+                         "MX_IMPLEMENT_EXCEPTION_CLASS(name)="
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then 
 # this tag can be used to specify a list of macro names that should be expanded. 
 # The macro definition that is found in the sources will be used. 
 # Use the PREDEFINED tag if you want to use a different macro definition.
 
-EXPAND_AS_DEFINED      = MX_UNUSED MX_PURE MX_INLINE MX_OVERRIDDEN MX_FINAL \
+EXPAND_AS_DEFINED      = MX_PURE MX_INLINE MX_OVERRIDDEN MX_FINAL \
                          MX_NORETURN MX_NORETURN_TYPE \
                          MX_PRINTFLIKE MX_PRINTFLIKE_METHOD \
                          MX_SCANFLIKE MX_SCANFLIKE_METHOD \
-                         MXCPP_DLL_EXPORT_DATA \
-                         MX_DECLARE_EXCEPTION_CLASS MX_IMPLEMENT_EXCEPTION_CLASS
+                         MX_DLL_EXPORT MX_DLL_EXPORT_DATA \
+                         MXCPP_DLL_EXPORT MXCPP_DLL_EXPORT_DATA \
+                         MX_DECLARE_EXCEPTION_CLASS
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES (the default) then 
 # doxygen's preprocessor will remove all function-like macros that are alone 

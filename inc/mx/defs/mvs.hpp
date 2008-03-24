@@ -30,7 +30,9 @@
 
 
 // Enable inlining for the MVS/TSO platforms by default.
+#ifndef MX_INLINE_ENABLED
 #define MX_INLINE_ENABLED
+#endif
 
 
 #ifdef __IBMCPP__

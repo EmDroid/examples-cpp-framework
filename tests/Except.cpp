@@ -85,12 +85,31 @@ public:
 };
 
 
+/**
+    Test single exception.
+
+    Tests different ways of throwing exceptions.
+
+    @tparam ExceptionType The type of exception being tested.
+
+    @param [in] theException The exception being tested.
+
+    @return
+    Returns @c EXIT_SUCCESS on success, @c EXIT_FAILURE on failure (exception was
+    not caught at all, invalid type of exception was caught etc.).
+*/
 template< class ExceptionType >
 int SingleExceptionTest(const ExceptionType & theException)
 {
     // Test framework recommended way of throwing exceptions.
     try
     {
+        /**
+            @note
+            The exception @p theException is always copied before raising, to
+            simulate real direct throwing (otherwise the exception can be set up
+            from previous throwing at later throwing).
+        */
         const ExceptionType e = theException;
         mxThrow(e);
         return EXIT_FAILURE;
